@@ -77,5 +77,5 @@ test('All published lessons carry authored teaching guidance without modifying q
    assert.equal(l.questions.length,4);count++;
   }
  }
- assert.equal(count,1998);
+ assert.equal(count,2592);
 });

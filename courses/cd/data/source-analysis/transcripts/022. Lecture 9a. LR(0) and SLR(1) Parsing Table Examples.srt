@@ -1,0 +1,416 @@
+1
+00:00:00,210 --> 00:00:28,070
+Hi everyone. So we will now see four types of parsers which is LR0, SLR1, LALR1 and LR1. So let's just first see these two types of parsers which is LR0 and SLR1. Let's just start with LR0 and SLR1 parser and then we will see the later these two parsers. Let's start with these two parsers. Now to understand these two parsers we first need to understand that what is an LR0 item. So let's just see that what is this LR0 item.
+
+2
+00:00:28,550 --> 00:00:57,410
+So, suppose we have any production x gives alpha beta, then we have following LR0 items, which means that these are the three items possible for this production. Now, you might notice that all of these three items, only dot is the difference, right? Either dot is here or dot is here or dot is here. So, what does this dot mean? Let me just tell you. So, for example, this is one item, right? This is one LR0 item. Now, what did this dot represent? It basically says
+
+3
+00:00:57,770 --> 00:01:27,050
+that, that this much I have seen, this alpha I have seen, alpha we have seen, we have seen and beta we are yet to see, we are yet to see. So, basically this dot means that whatever we have seen and what we are yet to see. So, for example, let us suppose I say alpha dot beta, then what does this says? It says the parser has already seen alpha, parser has already seen alpha and then
+
+4
+00:01:27,940 --> 00:01:55,920
+then parser is expect to see beta which means which means either it is expecting to see beta directly which means see alpha dot let's suppose this beta is a small a okay a small a small v then this is this is what it is expecting to see like I mean directly a v or maybe this beta could be the beta could be some capital symbol let's suppose capital A then it means that I am expecting to see something in the input which will finally reduce to this capital A so this beta means that I am expecting to see beta
+
+5
+00:01:56,330 --> 00:02:24,950
+So, either directly or indirectly which means that aspect to see beta directly or aspect to find a spin that is derived from beta in the next input. So, do not worry you will get to understand that what does this mean and then once parser find this alpha and beta, alpha followed by beta then it may reduce to x. So, this complete x gives alpha dot beta means that I have seen this, I have seen this, I have seen this.
+
+6
+00:02:26,000 --> 00:02:53,940
+I am I am willing to see this okay may be directly which means if it is a small small things then then I will see directly because input consists only the small letters right so if if it is a small letters then I will see directly if it is capital letter which means if it is a non-terminal then I will see it directly which means I might see something let's suppose I might see this is alpha dot CA I might see something which will finally let's suppose the CA is reducing to capital A which will finally reduce to capital A or beta.
+
+7
+00:02:54,250 --> 00:03:24,740
+don't worry you will get to understand this very clearly in this particular lecture that what does this LR0 item mean. So, beta means that we will see this, we will see this, see this directly or indirectly or indirectly. You will get to understand that what I am saying and once I have this alpha and beta both then we may reduce that alpha dot beta or alpha beta to x.
+
+8
+00:03:26,160 --> 00:03:55,880
+Now, there is one small topic also which is a closure of any item. So, closure means let us suppose I have some LR0 item which means let us suppose I have this item which is S gives capital A let us suppose this is the grammar that I have and then this is the grammar that I have. Now, suppose I want to find closure of some items let us suppose this is one item that I have and I want to find the closure of this. Let us suppose I want to find closure of this closure of
+
+9
+00:03:58,400 --> 00:04:28,240
+this item. Now, how can we find closure of this item? Can you guess? See, to find the closure of this item, what we need to do? We need to basically take this item itself. Maybe you have done similar kind of things in database also, when we find the closure. Anyway, so we take this item and then what we do? We say that if this item, if this dot, it is basically before some non terminal, then we add all the production of that non terminal also.
+
+10
+00:04:28,520 --> 00:04:55,570
+So, that is why we are adding the production of this capital A. Now, since in this new item that we have added, there is a production which is dot BA. So, dot is in front of some capital. So, we will add this also, the items or the productions of B also. So, this is the closure of this. This is the closure of this. I hope you understood. So, tell me why I have added this? Why I have added this? I have added this because of this production? No.
+
+11
+00:04:55,790 --> 00:05:24,130
+I have added this because of this right because because the dot is in front of capital B and now tell me why I have added this because because this dot is in front of capital A okay so that's why I have added this item that's why I have added this item so that's how you can find the closure maybe we can see one more example one example this is this is your grammar let's suppose I want to find the closure of this item okay let's suppose I want to find the closure of this item then can you find the closure of this item it will be it will be you will write you will write
+
+12
+00:05:24,380 --> 00:05:52,760
+every production which is starting from B because dot is in front of B. So that's why it will be this one. Now you will get every production that is starting from capital A. So that's why this will be this one. So that's how you find the closure of this particular item. This is the closure of this item. Now suppose if I ask you that can you find the closure of let's suppose this item B dot CD. Can you find the closure of this item? Yes, let's just try it out.
+
+13
+00:05:53,080 --> 00:06:21,500
+So to find the closure you notice that dot is in front of capital C this time dot is not in front of capital D so that is why you will add the items that is of capital C so you will add the production of capital C and now this is small c so basically this is just right okay so that's how you find the closure now again if I just if I just ask you can you find the closure of let's suppose this item then what is the closure of this item now this dot is in front of just capital D so you will write it right
+
+14
+00:06:21,740 --> 00:06:47,700
+you will write the productions of capability only. So, it will be the closure of this item. That is how you find the closure. That is very very easy concept. Now, let us just take this grammar and let us just build LR0 automaton. There is something called LR0 automaton. So, we are going to take few examples now where we will build LR0 automaton.
+
+15
+00:06:52,270 --> 00:07:21,640
+So, we will build the LRGERO automata. Now, let us just see that how we can build the LRGERO automata. See, in input, what we will be having? There will be some strings that we will be having and that will be followed by dollars. That will be followed by dollars. So, we will be having some strings that will be eventually followed by dollars. So, for example, we can have AA that will be dollar and or maybe in this particular grammar basically we just have two strings. So, we can have AV.
+
+16
+00:07:21,930 --> 00:07:51,010
+or that value. So this is how your input look like. This is how your input look like. Your input string will end with $ and this is how your input will look like. Now, let's suppose this is your input. Now, what is your final aim? See, in bottom of parsing, what we do, we take some input and then what we'll finally do, we reduce that input to a start symbol, agent it. So finally, given this input, what is your aim? Your aim is to get capital S or maybe the start symbol.
+
+17
+00:07:51,280 --> 00:08:20,700
+from this given input. So you want to get the capital S from this given input, which means this is capital S dollar. This is capital S dollar. That's your final aim. And how we are getting it, it's a different history. But yeah, that's your final aim. So you can say that you are looking for, finally you're looking for capital S dollar. And if you have capital S dollar, then you will accept this history. So which means, what we will do, we will add some, this is extra production that we will be adding.
+
+18
+00:08:20,990 --> 00:08:50,130
+which is dot as dollar what does this mean that this is basically after dot means that you are looking for this you are eventually looking for capital S dollar whatever string is given to you you are eventually looking for capital S dollar okay so basically we will add one more production and I have just told you that what does this production mean this production mean that you will eventually you are eventually looking for capital S dollar okay now what we will do we will take the keep on taking the closure so let's just take the closure of this
+
+19
+00:08:53,050 --> 00:09:16,100
+This is the closure of this particular, this particular item which is as this gives got as $ and how we are getting this particular item to start with, we will always basically add this particular item to start with. And I have told you the reason why we want to add, cool. Now, let us just see one thing, let us just see that how it is working.
+
+20
+00:09:16,600 --> 00:09:46,680
+So, now here if let us suppose this is this is your one item that we have let us suppose if from this item if capital S comes if capital S comes in this particular state we will call this is a state or item then you will go to a different state let us see that where we will go. So, you will say that this dot will get shifted and you will go here if capital S comes you will go here and now from this from this if let us suppose dollar comes then where you will go.
+
+21
+00:09:46,810 --> 00:10:17,060
+if dollar comes then you will go to the accepted state you will say that okay finally I accepted so if dollar comes so you you will go here you will shift this dot and then you will say this is a accepted state okay this is accepted state now from the here if a small a comes if a small a comes then you will go to you will go to this one and this dot will also also get shifted so you will go to this one also right now if a small a comes from here
+
+22
+00:10:17,640 --> 00:10:45,540
+Now, if a small a comes from here, you will go here and if a small b comes here, then you will go here. So, that is how you can build LR0 automaton. This is called LR0 automaton, where what we will do, we will add this production and then we will see the possible set of things that can come, possible set of things that can come. Now, suppose I have, let us suppose in the input I have a, in the input I have a.
+
+23
+00:10:45,790 --> 00:11:14,270
+then let me just tell you that how we are going to parse it okay let me just tell you if a is there in the input then how we are going to parse it we will see that okay to start with this we are here now if a comes we will go here okay now again a comes we will go here now now here in this in this state we see that okay as gives a which means a has come still now now we can reduce this a to capital s so we will go as dollar and now we will rerun this dfa see we are here
+
+24
+00:11:14,780 --> 00:11:43,260
+If A comes, we will go here. If A comes, we will go here. Now, whenever we are making any deduce, then we will rerun this DFA. If you rerun this DFA, you will go to this state. Now, if capital S comes, right? Now, if you rerun, if this is capital S, you will go here. Now, if dollar comes, if dollar comes, you will go into the accepted state. So, you will say this is accepted. Don't worry that how to parse using the DFA. I will show you many examples. But for now, my focus is to just tell you that how to build the DFA.
+
+25
+00:11:43,630 --> 00:12:15,600
+at least the building of the DFH find everyone right. Now, let us just see this grammar. Let us suppose I want to build LR0 automaton again. So, let us just build LR0 automaton. Let us just build LR0 automaton. So, what you will do? You will add some augmented production which is which is looking something like this and then you will take the closures of this. That is how you will do it.
+
+26
+00:12:16,040 --> 00:12:46,190
+Now, you will say that if capital A comes and then after that if dollar comes, we will say this is accepted, this is basically A dollar dot, we will say this is accepted state. Now, if small a comes, interestingly this dot will get shifted and now you again have to take the closure, I mean always you have to take the closure and because of this dot A, there will be productions like this.
+
+27
+00:12:48,440 --> 00:13:17,740
+there will be production like this I mean you need to write all the productions of A and because of this dot A and then let just let just see what is happening next now you will say that okay if capital A comes next then you will go to you will go to a a dot b I mean capital A gives this and then if a small v comes next then you will go to capital A gives a a b right now here here if a small a comes next let just see what is happening or maybe let me first show you if a small c comes next
+
+28
+00:13:18,030 --> 00:13:47,050
+If a small c comes next, then let us just see what is happening. So, if a small c comes, then what you will do? Then you will simply go to this c dot. Now, if a small a comes, let us just see what is happening. If a small a comes, you will say, this dot will get shifted. So, it will be a gives a dot a b. It will be like that. And because of this dot a, you will be again writing age productions, age productions, which is like this. If you notice that this state and this state is exactly same,
+
+29
+00:13:47,810 --> 00:14:16,870
+this state and this state are exactly same. So, that is why that is why instead of writing it like this let me let me let me write that if small a comes let me let me write like this which means they just sell flow if small a comes instead of you know making this semi state again there is no point in making the semi state again because it is redundant state. So, that is why I am just saying that this is this is a sell flow because if small a comes then it will go to a dot cap small a dot capital A B.
+
+30
+00:14:17,180 --> 00:14:44,900
+and then this is the production and then you will say that okay because of this dot you will again write it so exactly same exactly same state so this is the LR0 automaton that we have okay so very easily I hope you can construct the LR0 automaton now using this LR0 automaton we can construct LR0 parsing table and SLR1 parsing table let's just see both of the parsing tables okay see I have this LR0 automaton with me now okay
+
+31
+00:14:45,110 --> 00:15:15,370
+let us just let us just keep it on the side. Now, we want to build ok see LR0 automaton is one thing now we want to build build LR0 parsing table ok parsing table and we also want to build we also want to build SLR1 parsing table ok SLR1 parsing table and both of the parsing tables can be can be designed using this LR0 automaton let us just see.
+
+32
+00:15:15,870 --> 00:15:44,470
+How to how to build the parsing table? So to build the parsing table, what you need to do? You need to first number these states. Let me number this. Let's suppose this is i0, item 0 or the state 0. This is let's suppose i1, this is let's suppose i2, this is let's suppose maybe i3, this is suppose i4, this is suppose i5, this is suppose i6. You can just number them. Now what you need to do? You need to say that okay, all the all the small symbols which is I think here small a small b small c dollar right.
+
+33
+00:15:44,820 --> 00:16:13,900
+all the all the terminals a b c dollar you will write and then you also also need to write all the non terminals here we have just one non terminal which is capital okay so you will you will draw the parsing table like that now you will say that okay if you are if you are in let's suppose a state zero or i zero item zero if if capital a comes then you will go to i one so just need to write one or i one whatever you want to write you can write okay let's just write one and now
+
+34
+00:16:14,340 --> 00:16:41,300
+Now, if a small a comes, then what you are doing, you are basically going here and you are saying that, okay, see, if a small a comes, then you are going to three, right, you are going to three. So you can write three, but also you are basically shifting on this, right? I mean, there is something called shift move. So you are shifting on this. So on these, we also need to write shift and reduce, either we are shifting or reducing on this, on this, we just need to write that what is the state number we are going.
+
+35
+00:16:41,760 --> 00:17:08,220
+on the capital and on the small we need to write different things. So, see on the capital we are just writing the number that we are going to number 1, but on the small we also need to write along with the number we also need to write that we are shifting or reducing. So, obviously, if this is small a then we are shifting we are going to I 1 and then we are shifting. So, we will say S because we are shifting and then S 3 because we are shifting and we are going to 3 do not worry you will understand.
+
+36
+00:17:08,410 --> 00:17:37,230
+if a small b comes in i0 there is nothing c comes there is dollar nothing okay great now i0 is done now let's just see what is happening in i1 let's just see what is happening in i2 let's just see what is happening in i3 and then i4 and then i5 and then i6 right so these are the uh these are the items or these are the states we have let's just see on each of them what is happening so let's just see on i6 what is happening okay so we will we will we will fill this table
+
+37
+00:17:37,750 --> 00:18:06,900
+Now on I1, what is happening? Can you tell me? On I1, if dollar comes, you are going to I2, right? If I1, dollar comes, you are going to I2, which is also called actually accept, okay? Accept. You call it I2 state or you just call it accept, doesn't matter, okay? On I2, on I2, like, there is nothing like we need to fill because this is just accept state, okay? On I3, what do we need to do? Or maybe, maybe see, if you want, I mean, people generally don't write any number here, they just call it accept. If you want, you can just call it accept anyway.
+
+38
+00:18:07,420 --> 00:18:35,910
+Now on I3, what is happening? If capital A comes, you are going to 4, you are going to 4. If small a comes, you are going to I3 itself, which means if small a comes, you are shifting this small a and you are going to I3 itself. And now if small c comes, we are going to I6. So, we are going to I6. So, we are in I3. If small c comes, we are going to I6. So, we are shifting and we are going to 6. That is how we call it. We are shifting and we are going to 6.
+
+39
+00:18:37,040 --> 00:19:07,210
+So, on i3, I think we have a small a, we have capital A and we have a small c. So, all of this is fine. Let us go to i4. On i4, there is a small b. If a small b comes, then we are going to i5. So, that is fine. This is shift 5. On i4, I think there is only one move. On i5, there is nothing. On i6, there is nothing. So, we have built a partial LR0 table. I am calling it partial because we have only written the shift moves.
+
+40
+00:19:07,610 --> 00:19:36,850
+there is something called reduce move also that we also need to write. Let us just write reduce move also. So, for example, in this particular item which is I6, there is a reduce move also. So, the reduce move is A gives C dot. So, which means we want to reduce on this I6. So, let us just call it production number 1, this is a production number 2. So, which means we want to reduce and with the production number 2. So, in I6, there is a reduce with the production number.
+
+41
+00:19:37,310 --> 00:20:01,810
+to the production number 2. So, that is why we are writing R2, R2, R2 everywhere, R2, R2, R2 everywhere. Why? Because on I6, there is a reduce which is production number 2. Similarly, on I5, there is a reduce for production number 1. So, that is why we are writing R1, R1, R1, R1 everywhere. We are writing R1, R1, R1 everywhere. Is there any other reduce move that we have? I do not think so, right?
+
+42
+00:20:02,720 --> 00:20:31,340
+So, which means reduce means the dot is on the last, reduce means dot is on the last. So, we have dot on the last here, otherwise we have dot on the last here and apart from these two, we do not have dot on the last. There is a dot on the last here also, but we do not worry about it because this is a except. So, we treat it as a special, we say if you want you can, you can say this is a production number, let us suppose 3 or something, you can write R3, R3, R3, R3 here, but we treat it as a special item where we do not write anything in I2.
+
+43
+00:20:31,760 --> 00:21:01,430
+Anyway, you will get to understand more. So, this is what we call LR0 parsing table. This is what we call LR0 parsing table. This is what we call LR0 parsing table. Now, given that you know that how to build the LR0 parser table. Now, can you also build SLR1 parsing table? Let us just see. Let us just see. See, this is the LR0 parsing table that we have here. Let me just write it here. And we can also make
+
+44
+00:21:01,980 --> 00:21:32,500
+SLR1 parsing table. Let us just see how to make SLR1 parsing table. So, I am just deleting all of these entries because we need to write all of these entries again. So, let us just see. So, actually I do not need to remove this shift entries and all actually only the difference will be the reduce entries. So, that is why let me only reduce the only delete the reduce entries. So, the difference between LR0 parsing table and SLR1 parsing table will be in the
+
+45
+00:21:32,720 --> 00:22:01,370
+reduce entries only. So, I am just deleting them and I will I will see that how to fill these entries ok. This is going to be our this is going to be our SLR1 parsing table. So, we have LR0 parsing table and now let us just see how to build SLR1 parsing table. So, the only difference will be in the reduce entries see here the reduce entry is basically in I6 in I5. In LR0 parsing table we said that ok this is R1 R1 R1 everywhere. In SLR1 we will say we will say
+
+46
+00:22:01,620 --> 00:22:31,920
+that we will reduce this okay we will reduce this to capital A I mean we will reduce this to capital A that is fine but only when only when these are the next input symbols okay I mean next look ahead symbols basically so so we are saying that we will reduce this C to capital A only when the next input symbol is in the fall of capital A which means what which means what okay first can you can you tell me how to find the fall of capital A how to find the fall of capital A the fall of capital A will be fall of capital A will be dollar
+
+47
+00:22:32,250 --> 00:22:54,100
+and a small v, dollar and a small v that is all. Now, here we will say that I am going to fill see here in LRG or passing table I said like for i5 this is capital A we are reducing which means to R1 we are reducing so R1 everywhere R2 everywhere. But the only difference here will be we will not be writing R1 everywhere and R2 everywhere we will say this reduce entry.
+
+48
+00:22:54,330 --> 00:23:18,830
+will be only in the fall of capital A whatever is being reduced that that will I mean in the fall of that particular non-terminal so which means which means we here we wrote R1 everywhere see here we wrote R1 everywhere but here we will write R1 on the fall of capital A only which means dollar and B so here only we will write R1 similarly here only we will be writing R2 why because here the reduced move are in the fall of the capital A
+
+49
+00:23:19,460 --> 00:23:48,650
+That is the only difference. So, if someone asks you, what is the difference between LR0 parsing table and SR1 parsing table, you will say, you will say that difference is only in the reduced move. So, here you may be having multiple reduced move. I mean the complete row is full, but here only something is full. If someone asks you, the number of shift moves, if someone asks you, see if someone asks you, let us take it on the next page, the number of shift moves in LR0 parsing table and SLR1 parsing table, then what you will say?
+
+50
+00:23:48,910 --> 00:24:26,790
+which one is having higher or which one is having lower or both are the same. If someone asks you number of shift moves, shift moves, moves in LR0, parsing table is same as number of shift moves in SLR, parsing table right, number of shifts, shift moves in SLR1. Someone asks you whatever the reduce moves, then you will say that here the reduce moves are greater, because here you write reduce blindly.
+
+51
+00:24:27,350 --> 00:24:56,010
+okay and that is not a good thing actually okay that is not a good thing and here we write the reduce move carefully only in the follow what is the intuition behind it it says that okay this is the next input symbol right this is the next alphabet it says that okay I will reduce this small c to capital A only when only when the next input symbol that we are going to see is basically either B or dollar otherwise I will not do it okay otherwise I will not do it so it means that if I am reducing this to capital A then the capital A follow should be containing the next symbol
+
+52
+00:24:56,860 --> 00:25:29,240
+You will get to understand the intuition later on, but for now I just want to draw the tables. I hope you know that how to draw the tables now. Let us just do more examples and you will get to understand more. Cool. Now, let us just do more examples on this and then you will get to understand more. So, here the number of reduce moves, if I say number of reduce moves in L R 0 is greater than S L R 1. But number of shift moves are same. Now, let us just do this example.
+
+53
+00:25:30,140 --> 00:26:01,530
+here what we want to do, we want to build LRG automator and then both the parts and tables. Let us just quickly do this, let us just add some augmented production and then I will write the productions of E also because of the closure, because dot is in front of capital E. So, I will write the production of E also, this is ID. Now, what if capital E comes, then you will go to, you will shift this to like this dot like this.
+
+54
+00:26:01,820 --> 00:26:34,120
+So, you will say that if capital E comes, you will shift like this and since this is also capital E, so that is why you will be having something like this here also, dot plus E. Now, if dollar comes from here, if dollar comes then you will go to the accepted state, this is the accept or maybe if you want you can write the complete thing E dollar which is the accepted state. Now, here capital E can only come, idea also can come, if ID comes then what you will do?
+
+55
+00:26:34,270 --> 00:27:09,030
+you will go to this state id dot. Now, here if dollar comes then we know if capital sorry if plus comes then what we will do? If plus comes then we will go here. If plus comes then we will go here. Now, here if open parenthesis comes then we will go here. If open parenthesis comes then we will go here and now since the dot is in front of capital E that is why we will be writing all the productions of capital E again dot E.
+
+56
+00:27:09,280 --> 00:27:40,970
+plus this plus sorry this is power dot i d right. Now, if capital E comes then we will go to. So, let me write it here maybe let me write it here if capital E comes then we will go to something E plus E dot plus this and then this will also be E gives dot dot E gives E plus sorry this is E plus
+
+57
+00:27:45,710 --> 00:28:13,190
+Now, here if plus comes again, if plus comes then we will be going to, we will be going to something like this, something like this. If plus comes, then we will be going to something like this. If plus comes, if capital, if this closing parenthesis comes, then I think there is a different state that we can make. If closing parenthesis comes, then we will be going to E Gibbs, E Gibbs E plus
+
+58
+00:28:13,580 --> 00:28:40,810
+E plus this dot right. And yeah plus is ok. So, I think on this item everything is ok. Here I am saying that if E comes we will be going here. If I D comes we will be going here. On this item also everything is ok. Either capital E can come or I D can come. On this item either plus can come or closing parenthesis can come. I think these are the all states that we have made. So, that is how we can build the allergy
+
+59
+00:28:41,620 --> 00:29:07,630
+Now, can you can you also build other LR0 parts in table? Let us just see, let us just see. So, this is let us suppose I0, I0 item number 0, this is let us suppose I am calling 1, this is let us suppose I am calling 2, anything ok. Suppose this I am calling 3, this is I am calling maybe let me just call this as 3, let me just call this as 4, 5, 6, 7 ok. Now, this is a LR0 automaton, now from this automaton.
+
+60
+00:29:07,850 --> 00:29:37,760
+can you create LR0 parsing table and SLR0 parsing table? SLR1 parsing table. Let us just see. Let us just see. Can you create LR0 and SLR1 parsing tables using this automaton? So, let us just build LR0 parsing table first. So, how many non-terminals you have? Only one non-terminal. How many terminals you have? I think plus. So, you have plus. You have open parenthesis. You have closed parenthesis. You have ID. You have dollar. And how many non-terminals? Only one.
+
+61
+00:29:38,140 --> 00:30:09,240
+How many states you have? I think there are total 6, 7 states. That is going to be the little bit big automaton. So, maybe I can do one thing. I can just make this even more smaller so that I have more space. So, this is going to be little bit big. So, that is why let me write it here. Now, let us just have all the states that we have. So, how many states we have? We have 7 states. We have total 7 states.
+
+62
+00:30:09,560 --> 00:30:34,580
+So, let us just quickly draw all of these 7 states. So, let us suppose this is going to be your we have 8 states 0 to 7 i 0 this is going to be let us suppose your i 1. Similarly, let us suppose this is going to be i 2, then you have your i 3, then your i 4, then your i 5, then your i 6, then your i 7.
+
+63
+00:30:35,810 --> 00:31:04,610
+So, I think we have all of the states now. So, let me write all of the states. This is your i 0, this is 1, this is 2, this is 3, 4, 5, 6, 7. So, now, this is the, I mean the drawing we have. Now, let us just quickly fill it out. That is very easy to fill. So, on 0, if it is not visible, let me just tell you on 0, you have 2 moves. Capitally, you are going to 1. On id, you are going to 3. So, capitally, you are going to 1. On id, you are going to 3. So, here we write shift also. So, we are saying that we are shifting.
+
+64
+00:31:05,180 --> 00:31:34,180
+So, here we also like to write that whether it is a shift move or reduce move, here we just write the number whether it is 1 or 2. Now, let us just see what is happening at 1, let us just quickly see what is happening at 1. If you are in I 1, then there are dollar then accept, if plus then I 4, if this is dollar then accept, if this is plus then you will say this is you are going to 4, so S 4, if it is plus then you are going to S 4.
+
+65
+00:31:35,700 --> 00:32:03,300
+Now, what will happen? Now, if you are in 3, then that 1 is ok, 2 is anyway doesn't have any move. Now, if you are in 3, then you will say that there is no shift move. Let me first write the shift move, there is no shift move here. If you are in 4, then either open parenthesis can come or there is only one move. So, if you are in 4, then open parenthesis then you will go to 5. If you are in 4, open parenthesis then it is shift 5. If you are in 5, then
+
+66
+00:32:04,010 --> 00:32:31,940
+Then if capital E comes you are going here, if ID comes you are going here, if capital E comes you are going to 6, you are going to 6. If ID comes, if ID comes then you are going to, if you are in 5 and if ID comes then you are going to 3. So, shift 3 because you are going to shift it. We are going to, we are shifting the ID and we are going to 3. So, you will get to understand the meaning of this very clearly don't worry. For now I am just building the automaton. That how to build the automaton and I am just seeing that if you can build the automaton.
+
+67
+00:32:32,190 --> 00:33:01,520
+And we can see whether the grammar is LR0 or SLR1. So, so you will understand this very clearly. Don't worry. Now, if you are in 6, then what will happen? I think there are two shift moves, right? Either you will go to 4, on plus you go to 4, on closing parenthesis you go to 7, on plus you go to 4, on closing parenthesis you go to, you go to 7. And there are two shift moves. Now, if you are in 7, I think there is no shift move. So, I think that's it, right? Regarding the shift move, it is done. Now, till now,
+
+68
+00:33:01,790 --> 00:33:30,160
+for SLR 0 and for sorry for LR 0 and for SLR 1 both the parsing tables are equally went. Now, now the difference will come if you if you talk about SLR 0 sorry if you talk about SLR 1 or LR 0 not the difference will come. So, let me first build the LR 0. So, for LR 0 if it is I3 see this is having the reduced move this is having the reduced move and what else where else the dot is at the end I think only 2 is having the reduced move.
+
+69
+00:33:30,380 --> 00:34:00,590
+So, 3 and 7 is having the reducing, let me just number this, this is 1, this is 2. So, 3 will be having, you are reducing, on 3 you are also reducing, 3 will be having r2 everywhere. So, let me just write it r2, r2 means, r2 means that you are reducing everywhere, irrespective of what is the next symbol. So, that is called L R 0, irrespective of what is the next symbol. Now, on 7 you are reducing to r1, irrespective of what is the next symbol. So, you are reducing to r1, r1, r1.
+
+70
+00:34:00,740 --> 00:34:32,690
+R1 you are reducing to R1 irrespective of what is the next one. So, this is your LR0 parsing table, this is your LR0 parsing table. Now, do you also have SLR1 parsing table? Let us just see, you also have SLR1 parsing table, I mean can you create the SLR1 parsing table? So, let us just quickly create the SLR1 parsing table also so that you get to understand both of the things very clearly. So, in SLR1 parsing table one thing is sure that I need to remove some reduced moves. Now, can you tell me,
+
+71
+00:34:33,390 --> 00:35:02,470
+Can you tell me that what is the fall of capital E here? Fall of capital E let me write the fall of capital E here is definitely dollar and then and then plus and then closing bracket right and plus and then closing bracket. So, the reduced move is only at plus closing bracket and dollar. So, plus closing bracket and dollar right. So, reduced move will not be at. So, this is LR0 let me write SLR1 for the SLR1.
+
+72
+00:35:04,520 --> 00:35:34,370
+The reduced move will not be at this open parenthesis, it is only at plus closing bracket and down up, plus closing bracket and at down up only. So, there will be lesser reduced moves, there will be lesser reduced moves. So, you will not be having the reduced moves here. Now, what is the benefit of having lesser reduced moves? You will understand, you will understand that. Now, for now, I hope that is ok to everyone, that there will be the lesser reduced moves here. So, this is S L L 1 percent table, this is L R 0 percent table.
+
+73
+00:35:34,570 --> 00:36:03,720
+Now the only difference between two is that that in SLR1 we don't have these reduce moves okay this reduce move I think this reduce move these are the four reduce moves that we don't have in SLR1 okay these reduce moves are in LR0 okay great so now we know how to build LR0 parsing table and also we know how to build SLR1 parsing table so both the parsing table we can definitely build right now let's see more examples and let's see if we can build the parsing table here also so let's just try to build the parsing tables so let me add
+
+74
+00:36:04,210 --> 00:36:35,320
+augmented production which will which will look something like this and then this s will go so this s will go to this s will go to dot b b and then because we have dot in front of b so that is why you will write all the productions of b also. So, this is the item number or the state number to start with. So, this is what we are going to do first which means we are first going to build the automaton. Now, if capital S comes you will go here if dollar comes then you will go to
+
+75
+00:36:36,210 --> 00:37:06,900
+S prime S dollar dot right, if dollar comes you will go here. So, this is what we call we call the accept state right. If capital B comes here, if capital B comes here you will go to D dot B and as you notice that you again need to write the productions of B because there is a dot in front of capital B right. So, you again need to write the productions of B, if small a comes then you are going to go to this and then if you notice that you again need to write the productions of B here also.
+
+76
+00:37:10,330 --> 00:37:38,370
+Now, if a small a comes here, then you will notice that you are going to have the self loop. Why? Because that will be the same set of items that you will have. So, that is why we are going to have self loop here. Anyway, let me continue from here. So, if capital B comes, you will go to capital S, B, B dot. If a small a comes, then I think you will go here. If a small a comes, you will go here. If a small b comes, then you will go to.
+
+77
+00:37:39,710 --> 00:38:09,440
+this state if a small b comes similarly here if capital B comes then you will go to some state let me just write it b gives a b dot and if a small a comes you will go here and if a small b comes you will go here right okay so I think everything is done now let's just build l r 0 and s 11 parsing tables so that's also very very easy let's just quickly do it right okay so before that I need I think I need to number them
+
+78
+00:38:09,680 --> 00:38:37,020
+So, let us just let us just first number these states, let us just first number these states. So, let us suppose this is 0, this is 1, this is 2, this is let us suppose this is 3, this is suppose 4, this is suppose 5, this is suppose 6, this is suppose 7. Let us suppose these are the states that we have, I mean we have a number that something like that let us suppose. Now, now let us just try to build the L R 0 and S R 1 parts and tables. So, let us just
+
+79
+00:38:37,260 --> 00:39:05,250
+Let us just build the LR0 percent table. So, how many small symbols A, B and dollar capital is S and B. So, let me write here and you have 8 again. So, you have small a, you have small b, you have capital B, you have capital S. Let me write capital S before that and let me write dollar and then capital S, capital B. And then you have I0 to I7.
+
+80
+00:39:05,550 --> 00:39:33,850
+So, let us just write i 0 to i 7 also. So, suppose this is a rho 4 i 0, this is rho 4 i 1, this is rho 4 i 2, this is rho 4 i 3 and 4 i 4, then 4 i 5, then 4 i 6 and then 4 i 7. Let us suppose these are the rows we have now. Now, let me write it 0 1 2 3 4 5 6 7. Now,
+
+81
+00:39:34,500 --> 00:40:01,180
+Let us just put a boundary here also. So, let us just put a boundary here also. Now, let us just write. If you are in 0, there are 1, 2 and 3 moves. A capital S, you will go to 1. Capital B, you will go to 3. And small a, you will go to 4. So, we will call it shift 4. If you are at 1, no move, 2, no move, at 3, I mean at 1, there is a move, dollar you call it, you call it 2 or you call it just accept.
+
+82
+00:40:01,540 --> 00:40:31,530
+at 2 there is no womb at 3 you will say on a small a you are going to 4 shift 4 on capital B you are going to 5 on a small b you are going to shift 6 on yeah that is all right on 4 I think there are 1 2 and 3 moves on a small a on a small a you are going to 4 itself you are going to shift it and then you are going to 4 that is why we call it shift 4 on a small b you are going to 6 on a small a you are going to have 4
+
+83
+00:40:32,330 --> 00:40:53,800
+small b you are going to have shift 6 and capital B you are going to do saving. In 5 there is no move, no shift move, in 6 there is no shift move, in 7 there is no shift move. So, I think that is all right. So, till now this is common for L R 0 and also for S L R 1. Now, if you want to go for L R 0
+
+84
+00:40:53,980 --> 00:41:23,520
+then let us just see, see this is the reduced entry, this is the reduced entry, this is the reduced entry, I think only 3, 3 items of the reduced entry. Now, if you want to go for for LR0, then you write the reduced everywhere. So, you will say less about this is the production number 1, production number 2, production number 3. Now, you will say that in I5, in I5 there is a reduced entry, right. So, you will say this is the reduced entry of 1. So, this is R1, R1, R1, R1 everywhere basically, right. So, you will say this is R1, R1, R1. On 6,
+
+85
+00:41:23,830 --> 00:41:58,230
+this is r3, r3, r3 on same in this is this is going to be r2 right r2, r2 this is lr0 parsing table this is lr0 parsing table now can you also have can you also have slr1 parsing table yes it is very very easy right it is very very easy let us let us have the slr1 parsing table now so for the slr1 parsing table all you need to do is basically have the lesser reduced moves right that is all
+
+86
+00:41:58,420 --> 00:42:24,940
+So, let me put a heading S 11 percent given. So, what will the difference? You first need to find the follow, follow of all the symbols. Let us suppose that this is basically this is capital V right. So, follow of capital V and there is a reduce for capital also capital S also. So, follow of capital S. So, let us just find out these follows. So, follow of capital V will be first of capital V which is small a small v and also dollar right because of this.
+
+87
+00:42:25,260 --> 00:42:54,710
+here you will write the dollar only because there is only one follow. Now, if you want to have for this i5 if you want to reduce then this will only get reduced at dollar. So, that is why you need to remove these two and similarly for this capital B if you want to reduce then it will get reduced to AB dollar. So, 2 and 3 I think for this this is fine because anyway the follow is basically all the symbols. So, this is the SLR 1 percent table and earlier we had earlier we had LR 0 percent table.
+
+88
+00:42:55,690 --> 00:43:22,130
+Now, in both of this, in both of this, you can definitely spot the difference. So, what are the difference? Here, we have the lesser radius moves, that is all. I hope you understood. So, now, we can say that this grammar is also SLR or LR0. Why? Because there is no conflict. What is the conflict you will get to understand? In the next examples, we will be having the conflict examples, then you will get to understand.
+
+89
+00:43:22,370 --> 00:43:53,020
+So, for now, I hope you understood that how to build the LR0 percent table and SLR1 percent table. Now, let us just see this. Let us just see quickly. For this particular example, let me draw the percent tables. Dot S dollar, this will be ASA dot ASA dot BSB dot C. So, this is the closure of this. Now, on capital S and then it will be the dollar, it will be going to S after state rank.
+
+90
+00:43:55,820 --> 00:44:30,100
+we call it asymptotic. Now, on small a it will go to something like this, it will go to a dot s a and now we need to write all the productions of s also on a small a, on a small b it will go to the similar looking state which is basically this one and then we need to write the all the productions of s which is dot s a dot b s b and then dot c.
+
+91
+00:44:31,140 --> 00:45:04,020
+So, this is what is happening. Now, let me just circulate. Now, this is done. I mean, for a small a, for a small b, this is done. Now, for a small c also, let me write it. This will be something like this. Now, here if capital S comes, it will be E g, but if a small a comes, you can easily spot that it will be self-loop. Similarly, if capital, if a small b comes, I think it will be something like this. It will be something like this.
+
+92
+00:45:04,560 --> 00:45:35,940
+Similarly, here if a small v comes, it will be self-loop. If a small a comes, it will be something like this. That is interesting. Let us see here. A small a, I am done. For capital S, we need to write some state. And then from here, if a small a comes, we need to write one more state. A small a comes is done. A small v comes is done. A small c comes. Let me write a small c comes. If a small c comes, it will go here.
+
+93
+00:45:37,460 --> 00:46:09,860
+Now, here a small a is ok b is ok c is ok and capital if capital S comes I think we need to write one more state if capital S comes then we need to write one more state let me write it ok. So, on capital S it will be going to capital S B S dot B and then on small b it will be going to B S right ok. So, that is the set of steps that we have I think we are done with the set of steps.
+
+94
+00:46:10,280 --> 00:46:43,490
+Now, can you draw the automaton? Let us just let us just try to draw the automaton. It is also very very easy, if you want you can do this as an homework, but let me just draw it. So, let me number the states, let us suppose this is 0, this is 1, this is 2, 3, 4, 5, suppose 6, 7, this is 7, this is 8, suppose this is 9. Let us let us just do one thing, let us just draw the automaton directly now. So, here
+
+95
+00:46:43,770 --> 00:47:18,080
+we have how many terminals I think we have a, b and c. So, that is why we need to write a, b, c dollar. This will be a, b, c dollar and we have non terminals is only s. Now, we have 0 to 9 I think. So, let me let me write 0 to 9. So, all the let me write all the states. So, this is 0, this is 1, this is 2, this is 3, this is 4, this is 5.
+
+96
+00:47:18,500 --> 00:47:49,130
+this is 6, this is, this is 6, this is 7, this is 8 and then there is one more which is 9. Let me write 9 here itself. So, this is 9. Can you fill this? Let us just quickly fill this. This is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Let us just fill this.
+
+97
+00:47:51,560 --> 00:48:20,640
+Now, now you will say that see here this is this is 0 right. So, from 0 if capital S comes if capital S comes then 1 and then if small a comes then this is 3, if small a comes then shift 3, if small b comes if small b comes then shift 4, if small c comes then shift 5 and dollar there is no move on dollar. Let us see this how what is happening at 1, if dollar comes then this is accept.
+
+98
+00:48:23,070 --> 00:48:52,140
+there is no move on 2 if 3 on 3 either a small a comes then you are going to 3 itself a small b cannot come there is no move there is a move on a small b which is shift 4 if a small c comes then shift 5 if dollar dollar cannot come here let us go to let us go to let us see if capital S comes then you are going to 9 so you need to fill all of this like this so on 4 if a small a comes
+
+99
+00:48:52,620 --> 00:49:24,320
+then 3, a small b comes then itself a small c comes, a small c comes then 5, if capital S comes then 6. On 5 there is only one shift move that on 5 is this, there is no shift move, on 6 there is only one shift move that if a small b comes you are going to go 7, on 7 there is no shift, on 8 there is no shift, on 9 there is a shift.
+
+100
+00:49:24,540 --> 00:49:54,220
+if if a small a comes then you are going to go to 8 or 9 if a small a comes then you are going to go to 8. So, these are the shift moves that we have. Now, you can easily easily find out the reduced moves. For LR0 item what you will say for LR0 if this is the this is the reduced move is basically here in 7 in 5 in 5 in 7 and also where is a reduced move reduced move I think in 8 5 7 8. So, these are the reduced moves.
+
+101
+00:49:54,720 --> 00:50:33,230
+let me number them 1, 2, 3. So, you will write on 5 you will write R 3 everywhere R 3, R 3, R 3 on 6 or 5 and then on 7 you will write R 2 everywhere R 2, R 2, R 2 on 8 you will write ASA R 1 everywhere right R 1. So, this is L R 0 passing period. Now, what is the follow phase? Follow phase will be A B right A B and dollar A B and dollar.
+
+102
+00:50:33,390 --> 00:50:57,020
+So, can you tell me what is SLR 1 parsing table? It is extremely easy right. For SLR 1 parsing table you need to just do the reduction in the follow. So, which means A, B and all all. So, there is no reduction on C, there will be reduction on A, B and all all right. This is SLR 1 parsing table that is all. So, very easily you can draw a L R 0 parsing table and SLR 1 parsing table right.
+
+103
+00:50:58,160 --> 00:51:26,830
+till now I mean there is no conflict we have seen, but we will see the next lecture where we will see the conflicts also that I mean what to do with the conflicts. So, there might be the conflict also and we will see that what to do with the conflicts. So, that is all now we will see the next lecture and we will see that what will happen if there is a conflict. Conflict means if there is a shift and reduce entry in the same cell which means here also shift here also reduce I mean in the same cell there is a shift and reduce then what will happen we will see.
+
+104
+00:51:27,020 --> 00:51:51,980
+So, these are the examples just to just to make sure that you understand that how to build the parsing tables. So, in the next video we will continue, we will continue seeing more examples and then we will see that how to draw even more parsing tables and then how to recognize whether this grammar is LR0, LR0 grammar or this grammar is LR1 grammar, SLR1 grammar. Thank you. Thank you everyone. Take care. Bye bye.
+

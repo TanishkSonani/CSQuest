@@ -1,0 +1,252 @@
+1
+00:00:00,370 --> 00:00:27,250
+Now, let's answer a question that how to recognize the tokens, how to recognize the token. Recognization of tokens. This is important question, right? This is important question. Till now, I was just, I was just assuming that as a human, you can recognize the logical entities. As a human, you can recognize the logical entities. But now let's just answer that how to do it as a compiler, as a programmer. As a, like when you are writing a program, as when you are writing a compiler, how to write a compiler such that it recognize the tokens.
+
+2
+00:00:27,900 --> 00:00:56,230
+Now for that we need to add we need to specify rules. We need to specify these are called rules Rules are nothing but just regular expression, which means you will say that okay whenever this f or comes then this is corresponding to the token t underscore f or Okay, and whenever like this is a regular expression in the compact form like This says that either either a to z a to z comes that is followed by a small a to z
+
+3
+00:00:56,520 --> 00:01:25,800
+and that is followed by a to z, a to z, 0 to 9, anything like that and then star and any repetition of that. I mean, okay, let me write it in your TOC notation. So, let us suppose this is a plus b plus c plus d like that till z you will be having then plus a, not plus a, then you will be having, yeah, plus plus a. So, either this and then plus a plus b plus c plus d till small z and then you will say that, okay.
+
+4
+00:01:26,490 --> 00:01:55,870
+then you can have a plus b till z plus a plus b till z then plus 0 plus till 9 and then start of that which means you can repeat any number of times this so either you will be having a b c capital A capital B like capital letters or small letters to start with once you start with small or capital letters then you can have anything which is small letters capital letters or any number if that's the pattern so this is called pattern this is called pattern okay
+
+5
+00:01:56,100 --> 00:02:24,320
+this is called pattern or regular expression let me let me call it regular expression or pattern okay pattern so this is called pattern and I have just shown you that this is pattern correspond into this regular expression so I mean these are the both same page and this is just a compact way of writing this regular expression okay now now you are saying this is this is another rule which says that anything
+
+6
+00:02:24,680 --> 00:02:54,190
+anything which start with a small letter or capital letters and followed by a small letter capital letters or 0 to 9 is an identifier and this rule says that f or comes then this is this is a t underscore this is a token so suppose there are only two rules that you have and using these two rules you want to you want to specify whether something is token or not okay you got the idea there are two rules one rule says that if f or comes then this is the token corresponding to t underscore t underscore f or
+
+7
+00:02:54,490 --> 00:03:28,920
+And if something of this sort come, then this is the token corresponding to t underscore identifier. Now, suppose, suppose value, suppose this, this comes value, value, this is like only, only, only this, this thing comes in your, in your source program, then what you will say that this is not four, first of all, this is not four. Secondly, this is, this is matching with this pattern, which is, this is matching with this pattern. Then you will say that corresponding token is t underscore identifier.
+
+8
+00:03:32,220 --> 00:03:58,380
+corresponding token is t underscore identified. Suppose x comes x equal to y plus z suppose suppose only x comes and then using these two rules you will just say that x is having corresponding token which is t underscore identified right. Similarly you will say y is also having the same token which is t underscore identified, z is also having the same token which is t underscore identified. Now there will be different rules for equivalent plus which I have not listed out in now. Okay for simplicity I have just listed out two rules.
+
+9
+00:03:59,920 --> 00:04:27,450
+Now, I hope you got the idea that how to how to recognize the token so there will be a rules Okay, but here is a small problem. The problem is that Suppose suppose something of this sort comes which is let's suppose f or t Okay, now there are a couple of options to you First option is that you will say that okay this f or f or corresponds corresponds to one token which is t underscore f or
+
+10
+00:04:27,870 --> 00:04:57,670
+And this T corresponds to another token, which is T underscore identify. See, I know as a human, you know that Ford is one token. Okay, I know that Ford is one token as a human, you know, but I'm just saying that what if as a programmer, you need to, you need to specify that Ford is one token and you specify these two rules only, then what's going to happen? Okay, as a human, you know that Ford is one token, but what's going to happen as a, like if you write a program for a programmer, how it is going to recognize that it is one token.
+
+11
+00:04:58,030 --> 00:05:23,230
+because it may say that f or t is coming then t underscore 4 is one token and t is one token right so this is this is one one problem right so this is one problem and this problem is is resolved by some rule is called longest match longest match and it is also called maximal munch maximal munch of longest match so basically you got the problem the problem is that
+
+12
+00:05:23,420 --> 00:05:51,220
+how to identify whether this four is one token and t is another token or maybe this four completely is one token or maybe you can say that f or t if you have maybe this f is one token because f is matching this pattern f is t underscore identifier o is one token t underscore identifier right this r t is one token which is t underscore identifier so there are a couple of options that you can make so how to resolve this how to resolve this
+
+13
+00:05:51,480 --> 00:06:21,650
+So the rule that resolves this is called longest match. Longest match. Okay. The rule that resolves it is called longest match. So let's see what it does. It says that if there are two rules, if there are two rules, which are like this, which are like this, one rule is t underscore f or another rule is t underscore identified. And this rule says that if f or comes, then the corresponding token is t underscore identifier. Or otherwise, if anything of this sort come,
+
+14
+00:06:26,040 --> 00:06:56,200
+Something like this right if anything of this outcome, then you will just say that this is identified So there are two rules then longest message that if if there are multiple rules that are matching Then we will go with the rule which is having the longest match. So let's see what like what we're trying to say. I mean if there are two rules like that and one rule is one rule is only only saying that this
+
+15
+00:06:56,500 --> 00:07:18,840
+like let's suppose if you have FORT then one rule is saying that this FOR corresponding to T underscore 4 so one rule is saying that this is T underscore 4 and another rule is saying that everything like everything that you start with small capital letters and followed by small capital letters or any number is your identifier there are two rules then longish mess says that we will go with the longish matching
+
+16
+00:07:19,100 --> 00:07:47,920
+Now, this FORT is longest matching, this whole thing is longest matching with T underscore identifier. That is why I will say that T underscore identifier is your corresponding token. T underscore identifier is your corresponding token. Why? Because this FOR is matching, I agree. FOR is matching, I agree. But this FORT is also matching, no? If two things are matching, if two things are matching, that FOR and FORT, then I will go with the longest match. So FORT is the longer match, right?
+
+17
+00:07:48,220 --> 00:08:14,220
+that is why I will I will resolve this with t underscore identifier. So let's see how to implement this longest match and by that you will be getting the idea that what is this longest match so till now you are you got the little idea now let me show you how to implement this and then you will get more idea okay. So how to implement a longest match given a set of regular expression how can we how can we use them to implement the maximal munch or longest match.
+
+18
+00:08:14,500 --> 00:08:36,940
+So, this is this is basically a set of regular expression we have and then how to how to implement this along this match, let us just see. Suppose, suppose these are the two regular expression you have for simplicity and I am taking very very simple expressions. So, if do comes then you will say this is the corresponding token which is t underscore do, if double comes then you will say that this is the corresponding token which is t underscore double.
+
+19
+00:08:40,110 --> 00:09:09,310
+and again you can you can have some token which is identifier or something so I'm taking these two as a simple example now you will you will start scanning this double and then you will say that see here you will you will you will basically you will write the corresponding this is important you will write the corresponding finite automata for every expression for this is first step basically first step first step is to given the regular expression you will write the corresponding DFH or NFH
+
+20
+00:09:09,570 --> 00:09:40,270
+So like if you are implementing it, then it has to be DFA because you can't write NFA in your program. NFA is non deterministic. You need to have deterministic something in your program. So let's suppose these are the two DFAs that we have, then we will run these two DFAs in parallel. We will run these two DFAs in parallel and we will say that whichever is having whichever is whichever we are keep on matching till the longest match, then we will assign
+
+21
+00:09:40,570 --> 00:10:06,360
+assign that to that like seem to corresponding to open. So, let's see what I mean to say that suppose you have two DFH which is do and double then you will start scanning that ok D then after reading D here you will come here in this DFA you will come here in this DFA then you will you will read out O then after reading O you will come here you will come here. Now see here this is important here you are getting do
+
+22
+00:10:06,850 --> 00:10:36,390
+You are getting like after reading do you you are getting the final state right you are getting the final state But here after reading do you are not getting the final state? So here you can say that since you are getting the final state Then you can just assign this do you can just assign this do to a corresponding token, which is t n s code do But are we going to do it? No, right? Why because we are going to just check the longest match, right? So we will we will keep on scanning now you comes B comes
+
+23
+00:10:36,890 --> 00:11:07,450
+Then you will come here here al comes you will come here e comes you will come here now You will just say that okay. There are two options one is t underscore do another one is t underscore double and Which one is longest which one is longest obviously t underscore double, right? So you will just assign this to t underscore double not to t underscore do Right, you will just assign this to t underscore double not to t underscore do Hope you got it. So basically there are there are multiple rules then you will you will just see
+
+24
+00:11:07,710 --> 00:11:34,780
+that whichever rule is following the longest match, you will just assign that particular stream of characters or lexeme to corresponding token. So here t underscore do is not a token, t underscore double whole thing is a token. I hope you got the idea. Now there is one more problem. So one problem is that that if if you have some rules, then how to how to say that this four is
+
+25
+00:11:35,060 --> 00:12:02,660
+four is corresponding to this first t underscore four and this four is corresponding to another token which is this I mean how to how to resolve that this four is corresponding to t underscore four or not right or this four is corresponding to t underscore identify that's what we have seen right so there are there are multiple options that we had right either either this option this option this option or any any any other things maybe you can say this fo is one t underscore identify this ORT another t underscore identify
+
+26
+00:12:03,100 --> 00:12:32,150
+So, there are multiple options that we had, then we have just seen that how to how to resolve this conflict, how to resolve it, we will just go with the longest match. This was the one problem and we have solved this problem with the longest match school, with the maximal match or longest match rule. So, we have solved this problem with the longest match. We will just run the all DfH in the parallel and we will keep on going till we reach to the final state.
+
+27
+00:12:32,610 --> 00:12:57,590
+or we stuck somewhere, suppose this is do-do, then what we will do? You will go in the both the DFA's do-do, after O you will reach here, you will reach here, in this DFA you will reach here, you will reach here. Now, once this D comes, now there is no way to go further, there is no way to go further, then you will drop the idea here, you will drop the idea here, then there is no way to go further.
+
+28
+00:12:57,910 --> 00:13:25,120
+then you will just say that okay this do is corresponding to my my first token which is t underscore 2 and then you will just restart you will just restart your your dfa so you will for this once you once you say that this is t underscore 2 you will restart your process which means you will again again start scanning this do from the beginning so you will you will again go from on reading d you will again go from here to here in this dfa in this dfa also right so this is how you will be doing
+
+29
+00:13:26,260 --> 00:13:56,970
+So either either either I'm I'm keep on running either I get you then I will keep on running If I do not get you if I if I get something else then I will I will stop at that point only right? So I hope that is clear that how to implement the maximum bunch But there is there is one more problem that can occur which says that if there are more than two rules that are matching with the longest bench Which means let's suppose this Suppose you have three rules something like this and double comes
+
+30
+00:13:57,640 --> 00:14:24,940
+Now this double is matching two rules, right? But the longest also it is matching two rules It will say that this double is corresponding to underscore double this whole thing and this double is corresponding to my t underscore identifier also Why because my identifier is defined like this that if you make the DFA that anything that comes anything that whether a a b anything that comes till like a small a a small b till z a small z anything that comes you will go to next state
+
+31
+00:14:25,150 --> 00:14:54,150
+and then you will you will say that now now you can have anything right now you can have anything here which is of this this form so this is the final state now if you if you run the run these these three DFA's then I agree that that this is not maximal month this is not maximal month so this is not a problem right this is not a problem this is not a maximal month but you will be getting maximal month in two cases right in both the DFA's you will be reaching in the final state and both the DFA's are saying that I'm maximal month I'm maximal month
+
+32
+00:14:54,590 --> 00:15:24,700
+Then in that case, how to resolve it? So what if more than one rule is matching? Then you will resolve this with very simple thing. Then you will say whatever rule you have defined first. So this thing will get resolved based on the priority. So let me just write it here. If more than more than one rule is matching, then it
+
+33
+00:15:27,140 --> 00:15:58,240
+will get resolved based on the priority of rule. So if I have defined this rule as first, if I have defined this rule as first, this rule as second, second priority, then I will just say that I will give priority to this. So if I have two options, whether I say that this is t underscore double or this is t underscore identifier,
+
+34
+00:15:58,510 --> 00:16:30,590
+if I have two options then with which option I will go if I have two options even after the longest match then with which option I will go I will go with the first option why because this rule I have defined first this rule I have defined first okay so basically there are two things one is the longest leggeme that you will be getting suppose you have do and dot do and dot right then you will say you will like there are two rules do and dot and
+
+35
+00:16:31,470 --> 00:16:59,770
+and dot comes right so this is one rule let's suppose t underscore do this is one rule this is another rule this is another rule then if dot comes then you will say that you you will not assign this do to t underscore do right because because dot is the longest match so you will assign to this so based on based on this longest lexie we will assign so do and dot come then dot is taken similarly similarly suppose suppose greater than
+
+36
+00:17:00,090 --> 00:17:26,630
+and greater than equal to both comes then you have two rules let's suppose t underscore greater greater than t underscore greater than equal to right suppose we have two rules like that and if this comes if this comes then you will not assign this to you will not assign this to t underscore g so let's suppose there are three rules let me just write it down here t underscore g t underscore g e t underscore equal okay there are three rules
+
+37
+00:17:26,940 --> 00:17:54,840
+it says if greater comes then I will assign like this if greater than equal to come if equal to come there are three rules okay and if greater than equal to comes then what to do are you going to assign this as one token which means t underscore g and this as another token which means t underscore e or you are going to assign this greater than equal to as one token which is t underscore e there are two options that you have right so let's just see how longest match is helping here so you will obviously have the dfa's so first dfa is looking like this
+
+38
+00:17:56,040 --> 00:18:29,210
+another DFA will look like this another DFA will look like this right look like this now there are three DFAs you have now on on reading this greater and then equal you will just say that okay let me let me go from left to right let me just read greater so after reading the greater you will come here in this DFA you will come here in this DFA and obviously this DFA will not be run because this is greater right so in these two DFAs in these two DFAs you will come here and here
+
+39
+00:18:29,630 --> 00:18:57,260
+Now if equal comes equal comes then what you will do here in this DFA you will this is the final state you will go further here in this DFA you will go further if equal comes and you will say that okay the final state has come and and final state has come for this also for this also but this is the longer match right this is the longer match so you will you will just assign this long greater than equal to as one token which is t underscore g right because this is the longer match
+
+40
+00:18:58,030 --> 00:19:26,410
+This is how longest matching is helping us now Suppose suppose you have something like this you have something which is which is let's suppose in this example we had we had We had double and there are two rules which are matching to double and in this example Let's suppose there are this while is one rule. So let me just go to the next page Let's suppose there is one rule which is saying that if while comes if while comes then I will match to this
+
+41
+00:19:26,710 --> 00:19:56,400
+and let's suppose there is another rule which says that letter followed by letter or digit comes then I will match to identifier so let's suppose there is another rule identifier which says if letter comes letter comes and the letter followed by letter or digit so there are different ways to write uh write the pattern letter you can just say letter plus digit or you may just omit this oblique so there are there are different ways right so if letter followed by letter or digit comes
+
+42
+00:19:56,640 --> 00:20:26,640
+and then establish means any repetition of that, then this is identified. Now, let us suppose while comes, while comes and here obviously, so let me quickly make the DFA for that for both of the rules. So, for first DFA you will say W H I L E, for first DFA this is your, for first regular expression this is your DFA, for second regular expression you will be having something like this.
+
+43
+00:20:26,940 --> 00:20:48,070
+if letter comes so letter could be anything which means w as a b c d could be anything and then followed by any letter or digit letter digit comes then you will reach here and then you will stay here for letter and digit so this is the second DFA you have right there are two DFA now on reading while on reading while you will you will first see w then you will go here
+
+44
+00:20:48,340 --> 00:21:17,610
+in this DFA here in this DFA you will read as you will go here in this DFA you will go here in this DFA and then for i you will go here you will go here you will go here and similarly you will you will keep on being the same state for this DFA now now you just see that on reading this while on reading this while you are reaching to the final state in both the DFA's right so there are two DFA's which are which are in which you are reading reaching to the final states so there are two DFA's which are basically following the longest match
+
+45
+00:21:17,940 --> 00:21:48,010
+even like even you follow the longest match there are two Dfh on which you are you are reaching to the final shape then what to do so here comes the rule priority rule priority if you're defining this t underscore while first then you will just say that if if there are multiple rules are matching then you will just say that this is corresponding to t underscore while right this is not corresponding to t underscore id so see here that this first listed matching pattern or the priority you can say the priority priority of the rules right priority of the rules
+
+46
+00:21:49,960 --> 00:22:16,420
+So you will, let's suppose you have defined this as a higher priority than this, then you will say that t underscore while is your token, not t underscore identified. So in the input, if we read while, then the lexer considered it as a keyword. So it will keyword means like this is one token, which means t underscore while. So it will consider it as a t underscore while. If we change the order, let's suppose if we change this order, then we will never able to detect that this was a t underscore while.
+
+47
+00:22:16,780 --> 00:22:48,330
+then we will then we will be saying that this is an identifier right if we change this order if we change this order then we will be saying that this while is just identified this while is just identified then we will never able to detect that this is a keyword right which is wrong so that's why we will keep this t underscore while as our first rule and then t underscore id is second rule right I hope you got it now there is one question that let me ask that question that what what if
+
+48
+00:22:48,770 --> 00:23:21,340
+What if you run run all DFA's like whatever regular expression corresponding to DFA you have all DFA and no no DFA DFA reach to final state Which means let's suppose let's suppose there are three DFA's that you have okay something like this maybe Let's suppose there are three DFA's
+
+49
+00:23:21,540 --> 00:23:51,010
+And this, this is start, this is like, give it an equal to, this says, let's suppose, A and then maybe, maybe anything, right? B, C, something, and then this says, let's suppose, any, any letter A, B, C, D, and then A, B, C, D, and then any digit also 0 to 9, like that, right? And in your input, if you have, if you have something like this, 9, A, B, 9, A, B, something like this. Now, tell me, tell me.
+
+50
+00:23:51,330 --> 00:24:19,870
+or maybe let's suppose you just have this, greater, you just have this greater. Then tell me what's going to happen if you run all the DFH, then obviously you can't run these two, you will run this, and then after reading this, you will go to this state, and these are the final states, you will go to this state. Now there is no more input to read, and you have reached to the,
+
+51
+00:24:20,140 --> 00:24:43,410
+to the final or let us suppose after that you have a or something okay you have you have greater than a let us suppose you have a b greater than or something like that right so for b for b you will be you will be saying maybe you will be saying that this is this is matching this rule let us suppose this is t underscore identifier this is t underscore abc this is t underscore greater than equal to right so and you have in your input you have b underscore a
+
+52
+00:24:43,660 --> 00:25:12,360
+Now, after reading this B, you will just say that okay, you have matched this and none of the none of the other DFH matching, you will say this is t underscore identify. But after reading this greater, so basically, this is greater than a, this is greater than a. And then after reading this greater, you will reach here, that's okay. Then you will you are encountering a and there is like, there is no way to go from like by a, there is no way to go from here to here. Now, now what to do? I mean,
+
+53
+00:25:12,600 --> 00:25:29,310
+you you you have not reached to the final state you have not reached to the final state and there is no way to reach to the final state by reading the same now what to do can lexical analyzer can lexical analyzer assign any token to this to this lexical
+
+54
+00:25:30,530 --> 00:25:58,520
+Just think about it. These are the three tokens that are possible in your language Let's suppose and this token is only when you have greater than equal to this this token is only when you have ABC this token is only when you have a AB anything followed by AB and digits, right? But this is this is this is not following any of the pattern This is neither following this pattern not following this pattern not following this pattern Then what will lecture manager will do? How to how to assign the token to this to to this greater?
+
+55
+00:25:59,310 --> 00:26:28,600
+So lexical errors won't be able to do it then what to do it will throw error This is what we call lexical error lexical error. So what is lexical error? lexical error are the errors Happens when you lexical analyzer is not able to assign any token, right? So let me just read it out write it out lexical errors errors errors type of
+
+56
+00:26:29,110 --> 00:27:05,830
+like this will happen this will happen lexical lexical analyzer lexical analyzer will throw throw error error when it fails to assign assign token to some lexical right so for this greater it is it is not able to assign any token that's why it will throw an error okay it will throw an error
+
+57
+00:27:06,610 --> 00:27:31,090
+I hope you got it so so what are the lexical errors it are like very simply like it cannot tell whether let's suppose if you have written fi instead of if you you wanted to write if but you have written fi then it cannot tell that this is misspelled it will just assign some token maybe t underscore identifier instead of instead of assigning t underscore if it will assign some token which is t underscore identifier right
+
+58
+00:27:31,450 --> 00:28:00,490
+So it is it is not able to detect these kind of errors. It can only detect the errors where it is not able to assign any token. So the lexicalizer can detect corrector that are not in the alphabet or strings that have no pattern. So basically this greater have no pattern, right? This greater have no pattern. Suppose in your alphabet, you have some you have you have a to a like a small letters like and like you have English alphabets in your in your language, but you do not have any foreign alphabet maybe maybe let's suppose you do not have at the rate then
+
+59
+00:28:00,750 --> 00:28:33,620
+if you write a at the rate b something like this in your program then for a it will assign for at the rate at the rate none of the rule will match then it will assign like it won't be able to assign so it will give error right it will give error so if no rule match then there is an error when lecture analyzer fail to give token then it produces error so this is important when the lecture analyzer fail to give token to something then it will produce any error an error right suppose suppose let's suppose like you have
+
+60
+00:28:33,860 --> 00:29:02,780
+something like this like in your in your C program you have some command okay a, b, c, d, e, f you have some command and there is there is one one dfa that says that if something something of that sort come then you will you will just keep on reading everything till till you get this till you get this and this is the final state then you will you will just like instead of assigning it you you may just say that ignore ignore the whole thing or you may just assign t underscore
+
+61
+00:29:03,220 --> 00:29:32,600
+comment, some token to that, but generally we ignore the comments. So, suppose this is the DFA that you have for the comment, but in your code, you forget to write, let's suppose you have written like this, but you forget to write this, like the closing of the comment. Suppose you forget this, you do not write like this, you forget this, you only have this, then what's going to happen? Lexis analyzer will on reading this, it will go like this, then it will be in this state.
+
+62
+00:29:32,880 --> 00:30:01,500
+And then since it is not encountering the closing of the parenthesis, it will remain in this state only. Right? It will remain in this state only. So it has not reached to the final state. It has not reached to the final state. That's why it will not assign any token to this. It will not assign any token to this. It assign token only when it reaches to the final state. So it will not assign any token to this. And when it fails to assign any token, then it will throw an error. So this is called lexical error. This is called lexical error.
+
+63
+00:30:04,110 --> 00:30:15,150
+I hope you got the idea. Now, let us take some questions and get there will be very simple questions from the lexic analysis, but we have studied this lexic analysis and very detailed. Now, let us solve some previous questions.
+

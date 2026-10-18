@@ -38,7 +38,9 @@ export function createPodcasts({store,directory=process.env.PODCAST_ROOT||defaul
   if(url.pathname==='/api/podcast-audio'&&url.searchParams.has('v')&&url.searchParams.get('v')!==episode.hash.slice(0,12)){send(404,{error:'This podcast has been updated. Reopen the section to load its current audio.'});return true;}
   const media=await episodeMetadata(episode);
   if(url.pathname==='/api/podcast'){
-   send(200,{...episode,ready:!!media,duration:media?.duration??null,chapters:media?.chapters||episode.chapters,turns:episode.turns.map((turn,index)=>({...turn,...(media?.turns[index]||{})})),audioUrl:media?`/api/podcast-audio?subject=${subject}&unit=${episode.unit}&v=${episode.hash.slice(0,12)}`:null});return true;
+   // Readable notation always comes from the authored dialogue. Media metadata
+   // supplies timing only, so speech-only wording cannot replace its formulas.
+   send(200,{...episode,ready:!!media,duration:media?.duration??null,chapters:media?.chapters||episode.chapters,turns:episode.turns.map((turn,index)=>({...turn,...(media?{index,start:media.turns[index].start,end:media.turns[index].end}:{})})),audioUrl:media?`/api/podcast-audio?subject=${subject}&unit=${episode.unit}&v=${episode.hash.slice(0,12)}`:null});return true;
   }
   if(!media){send(404,{error:'Audio is still being prepared. The conversation transcript is available.'});return true;}
   const etag='"'+episode.hash+'"',range=byteRange(!req.headers['if-range']||req.headers['if-range']===etag?req.headers.range:null,media.size),headers={'Content-Type':'audio/mpeg','Accept-Ranges':'bytes','Cache-Control':'private, no-cache','X-Content-Type-Options':'nosniff',ETag:etag};

@@ -1,0 +1,188 @@
+1
+00:00:00,000 --> 00:00:29,520
+so let's take some example and where we will try lr1 parsing and by that it will be more clear but before the example I want to recap what does lr1 item means suppose you have some item like this then it means that I have already seen alpha I am not yet ready to reduce which means once I see beta then I will be ready to reduce like this but I will be reducing only when I see A in the next input symbol so basically it means that
+
+2
+00:00:29,820 --> 00:01:01,780
+I will be reducing this alpha beta to x only when the next input symbol is a but yet I am not ready to reduce once I see beta and then I need to see a also if there is the next symbol is a then I will reduce this alpha beta to x that is what this this item means right before building the parsing table of lr1 parser we need to understand the closure of lr1 item suppose there is some item which is like this a alpha and then comma some look head
+
+3
+00:01:02,080 --> 00:01:31,100
+Suppose there is some LR one item like this, then how to take closure of this item, right? So closure means that you need to write all the productions of A because dot is before A, right? So suppose like my grammar is this, my grammar is this, then the closure of this item will be you need to write all the productions of A, which means this. Now what will the look ahead? Look ahead will depend on whatever is there after this capital A.
+
+4
+00:01:31,360 --> 00:01:58,860
+so after this capital A you have alpha and dollar so you need to take first of alpha and dollar so suppose that first of alpha and dollar is just alpha or or maybe A then you can write A so this is what closure means right earlier like earlier also we have taken the closure but earlier we have not considered about the look ahead so closure means like you need to take all the items in the consideration for which you have the non-terminal before the dot so this is the closure
+
+5
+00:01:59,160 --> 00:02:27,950
+earlier we have taken this kind of closures, now we will be taking this kind of closures. Now suppose if I ask you that you need to take a closure of this, suppose you need to take a closure of this and where let's suppose this is a and where c gives epsilon, like I mean this is the grammar that you have in the grammar that you have is this a gives bc and c gives epsilon, this is the grammar you have and this is the item for which you need to take the closure.
+
+6
+00:02:28,350 --> 00:02:57,460
+Now what you will be doing, you will say that you need to write all the productions of B. Okay, let's suppose the production of B is this. Now you need to write all the productions of B which is dot A and then after this, after this, you need to write everything which is the first of capital C smalling. So what is the first of capital C smalling? It is just smalling. So that's why you need to write smalling. Suppose you have epsilon or B in the C production.
+
+7
+00:02:57,830 --> 00:03:27,440
+then you will say after this capital B you have capital C and small a and first of capital C and small a is not just a it is also b so you need to write two symbols. I hope you got what this closure means right now let's make a parsing table for a grammar which is given to us is this so first we will be adding augmented production like this earlier we added the augmented production without look at earlier we added something like this
+
+8
+00:03:27,820 --> 00:03:55,250
+now we will be adding the augmented production like this which means what? that you are expecting to see capital S and you will reduce that to S only when you see dollar so basically you are expecting to see capital S and then dollar this means that so if there is something like this B.A and something like this then it means you are expecting to see not just A I mean you are expecting A but you are also expecting B which means
+
+9
+00:03:55,580 --> 00:04:25,030
+If A comes then you will reduce this whole thing to capital A and then you will do that only when you see next B. So this is what augmented production means that you are expecting S and dollar. I mean you will not get S in the input you will get something that will reduce to S and which is in fact true. Now let's add more productions. Now because of this capital A you need to write all the productions of A but before that let me write the look at.
+
+10
+00:04:25,320 --> 00:04:54,470
+Why you have written this production because of this capital S. So because of this capital S you have written this production. So whatever is after this capital S that is just dollar you need to take first of that which is just dollar. Now just write productions of capital A which is this. Now why you have written this production because of this A not because of the second A because of the first A because of the first A you have written this production right because of the first A. Now whatever is there after first A what is there after first A capital A and dollar.
+
+11
+00:04:54,730 --> 00:05:26,420
+So, you need to take first of capital A and dollar, which is A and B. Similarly, A and B. This is what closure means for this particular state. Now, if capital S comes, you are going to go to some state. If capital A comes, then it will go to this state. And now, because of this A, you need to write all the productions of capital A. Now, why you have written these productions? Because of this capital A.
+
+12
+00:05:26,700 --> 00:05:58,550
+and what is there after this capital A just dollar take the first of this which is just dollar so dollar dollar right now on small a you will be going to some state which is like this comma a comma b as it is now because of this capital A you need to write all the productions of capital A now again why you have written these productions because of this capital A right because of this capital A you have written these productions now what is there after this capital A small a and small b so you need to take first of that which is just a small a and small b
+
+13
+00:05:58,960 --> 00:06:30,510
+that is done and now on a small b it will go to some state which is a gives b dot a comma b right okay now on capital a it will go to some state which is just let me just erase this and write that a state which is just s gives capital a capital a dot dollar right and on a small a it will go to some state which is this a gives a small a capital a
+
+14
+00:06:31,170 --> 00:07:03,320
+comma dollar now just notice here that dot is in front of a non-terminal so you need to write all the productions of that non-terminal now why you are writing these productions because of this capital A right so just see you are adding these productions because of this capital A so just just take the first of whatever after their this capital A so this is dollar you need to write dollar dollar first of dollar is just dollar okay on a small v it will go to capital A be dot dollar right
+
+15
+00:07:05,010 --> 00:07:37,580
+Now this on capital A this on capital A will go to a gives a a dot a comma b and on a small a it will go to a gives a dot capital A comma a comma b and because of this capital A you need to write all the productions of capital A. So let me just minimize it and write everything in this page only. I hope it is visible.
+
+16
+00:07:42,920 --> 00:08:14,020
+okay because of this a capital A you need to write all the productions of capital A which is this and since you have written because of this capital A so whatever is there after that take the first of it which is just A B now you notice this state and this state is same right these two states are same so that's why instead of instead of saying that it is going to some other state let me just say it is a self-loop on A it is a self-loop right i'm removing this state because these two states are same that's why i'm removing this state now
+
+17
+00:08:14,940 --> 00:08:43,480
+on small a it is like this on capital A it is like this on small b it will go to capital A gives b dot comma a comma b right now on capital A it will go to capital A gives a dot dollar on small a if you notice actually it is a self-loop but let me just show you it will go something like this and because of this capital A you need to write all the productions of capital A
+
+18
+00:08:43,800 --> 00:09:20,340
+which is like this since you are writing because of this capital A take the first after that so this that is just dollar since these two states are same so let me just say this is a self-loop right so I'm removing this on a small b it will go to a gives b dot dollar right yeah so actually this state is already there so instead of instead of making it again let me just write it that b goes to the earlier state which is this and this state is already there
+
+19
+00:09:20,540 --> 00:09:53,120
+which is this right which is this so on b i can say that it is going here instead of writing it as next state as another state so i can say that b is going here right so on small a everything is done on small b is everything is done now i think we we have adjusted all the possibilities on small a capital a small b yeah everything is done so these are the states that i will be getting in my lr1 dfa so this is a lr1 dfa which means it is using lr1 items right
+
+20
+00:09:54,300 --> 00:10:13,480
+Now, like what does this capture? So it is capturing all the possibilities that I can see. I mean it is capturing all the possibilities that LR0 was capturing. So basically it is doing the job of LR0 but something more. It is also capturing the look heads. So it is more powerful than LR0.
+
+21
+00:10:13,730 --> 00:10:41,510
+So, it is not only capturing all the possibilities that I can see in any state. See, in any state, I am saying, okay, if I get capital A, if I get a small a, if I get a small b, something like that. In any state, I am capturing all the possibilities, right? So, I am making the DFA like that. But it is capturing more. It is saying that if you get a small a, then you will be in this state, which means you are not yet ready to reduce, but let's suppose you get capital A, then you will be ready to reduce.
+
+22
+00:10:41,810 --> 00:11:23,170
+only when the next symbols are small a and small b right only when the next symbols are small a small b so you will reduce this b to capital a only when the next symbols are small a and small b like that so let me number these states let's suppose this is zero this is one and let's suppose this is two two three four five six seven eight and now let me make a percent table let's suppose this is nine we have nine states
+
+23
+00:11:24,100 --> 00:11:51,940
+or I think 10 states we have from 0 to 9 so let me write all the states here 0 1 2 3 4 5 6 7 8 9 right and the terminals are A and A B and dollar and non terminals are A and S so terminals let me write the terminals here A B and dollar and non terminals are A and S now let's just fill all the entries
+
+24
+00:11:52,570 --> 00:12:20,400
+So that's very easy in case of LR1 parsing because the everything is given in the DFA only. So let me show you how. So at 0, you are going to go at state number 4 if A comes, which means shift 4. So here you are going to say shift 4. If B comes, then you are going to get at state number 3, which means shift 3. And if capital A comes, 1, capital S comes, 2. So this is 1 and 2. Let me just partition it.
+
+25
+00:12:20,620 --> 00:12:52,640
+so that it is visible more now if if you are a tested one and if capital A comes nine small a seven small v six capital A comes nine small a seven which means s seven a small v six which means s six right yeah and if you are at state number two like at state number two if dollar comes then you will say that it is a accepted state
+
+26
+00:12:52,810 --> 00:13:36,640
+which means like if the next look next look ahead or next input symbol is dollar then you are done so if you are in state number two if dollar comes then you say this is accepted state if you are in state number three and if if there is no sift entry so you will see there is only reduce entry so I will mark reduce entry later let me first mark sift entries if you are in state number four then at small a you are going to go at state number four only
+
+27
+00:13:36,980 --> 00:14:05,000
+4 at small a as 4 and at capital A you are going to go to state number 5 so capital A you are going to get H to number 5 now at small b you are going to go at H to number 3 so at small b as 3 right now if you are in state number 5 there is no shift 6 there is no shift 7 there is a shift right at capital A 8 is at small a 6 at small a 7 small b 6
+
+28
+00:14:05,470 --> 00:14:34,870
+a small a 7 I think this was the state number 7 a small a 7 a small v 6 capital A capital A 8 right if you are in a state 7 a small a 7 a small v 6 and capital is 8 right if you are in a state number 9 there is no shift move so these are the these are the only shift moves that we have shift move or this is the go-to part go-to part these this is the accent part right
+
+29
+00:14:35,150 --> 00:15:04,190
+Now, let me mark the reduce entries. Reduce entries in this case is very easy, which means you do not need to calculate anything. Every information is captured by the DFA. So, just see where are the reduce entries. Here you have the reduce entry. So, this reduce entry will go to A and B only. So, let me mark the productions. This is production number one, production number two, production number three. So, this reduce entry, like this is saying like B dot, which means after dot there is nothing. So, this reduce entry will only go to A and B to the look head only.
+
+30
+00:15:04,450 --> 00:15:33,170
+so this is production number three so in R3 you will say R3 A and B at the look head only you are going to write the reduce entries R3 R3 right whereas you have the reduce entry you have the reduce entry i think at this production at this state which is state number five now you will say this entry will go to A and B only right this is R2 so R2 in the state number five R2 will go to A and B only now if you are in state number six this will go to dollar only
+
+31
+00:15:33,460 --> 00:16:02,620
+now just write the dollar this is r3 so state number six r3 and like in the below in the column of dollar right and whereas yes if you are in state number nine or state number eight then also recent age so this is r1 in the column of dollar r1 in the column of dollar if you are in state number eight then r2 in the column of dollar if you are in state number eight then r2 in the column of dollar
+
+32
+00:16:02,860 --> 00:16:26,490
+So these are the reduce entries that we have for this LR1 parsing. So this is our LR1 parser table, LR1 parsing table. Very easy. How to construct it? You just need to put the reduce entries in front of the look head. That is all. Earlier we were putting in front of the follow symbol. But now this follow symbol is basically like super set of the look head.
+
+33
+00:16:26,700 --> 00:16:57,130
+So, whatever look at you have here, this must be the subset of the follow symbol. Earlier we were doing in the all follow, but here we are capturing the left context. Based on the left context, I am basically calculating the follow. This is also called look at. Okay. So, I hope you got the idea. This is how we are making the LR1 parsing table. Now, as you see that there is no conflict in this LR1 parsing table, that is why this grammar is LR1 grammar. Why? Because there is no conflict in the parsing table.
+
+34
+00:16:57,530 --> 00:17:26,770
+which means you do not have multiple entries here you have sift nt but there is no deduce nt or something like that right similarly here you have deduce nt there is no sift nt so there is no conflict sift deduce or deduce deduce so they so there are two type of conflicts either sift deduce or deduce deduce and none of them is present here that is why this grammar is lr1 grammar now we can construct lalr1 parser using lr1 parser only lalr1 so lalr1 parser means
+
+35
+00:17:27,120 --> 00:18:06,250
+look ahead l means look a means ahead and l means you are going left to right and r means you are doing reverse of right most derivation reverse of right most derivation and one means you are using one look at so this parser says that whenever you have core items same so suppose there is one state something like this alpha dot beta comma gamma where gamma is look at
+
+36
+00:18:06,540 --> 00:18:33,180
+and there is some state which looks like this alpha dot beta comma delta where delta is look at so if two states are having core items same which means this LR0 item same this is core item right these core items are same the only difference is in the look at so LLR1 says that if that is the case in LR1 automaton so I will merge them which means like this so it will merge these two states right it is merging the states that is important
+
+37
+00:18:33,550 --> 00:19:03,150
+so when you are merging the states the look heads will automatically get combined right now if you want to make LLR1 parser out of this LR1 parser or LR1DFA then what you need to do you need to identify that which all the states you can merge now just see which all the states are having common core see here 3 and 6 are having common core items right so you can merge 3 and 6 what else you can merge 4 and 7 because 4 and 7 are also having common core items
+
+38
+00:19:03,520 --> 00:19:34,250
+and you can merge I think five and five and eight right you can merge five and eight so three six four seven and five eight so you can merge these these three states because three and six are having common core item this three and six are having this is six six are having common core item but the look heads are different in four and seven if you observe then the core items are same only look head is different that is why you can merge them in five and eight if you observe that common core items are common in
+
+39
+00:19:34,460 --> 00:20:05,760
+eight and in five this this is five and this is eight in in both of the states core items are same and the locate is different so you can merge them now if you merge them then your parsing table will get little bit change so let me just merge three six four seven five eight three six four seven and five eight right now let me copy this in the next page and then I will merge so that you have two different tables for two different parsers now let's copy that
+
+40
+00:20:06,060 --> 00:20:35,950
+the next page okay so let me merge three six three six merging means like whenever i have three then instead of three i will be i will be merging them three m six so let me write three six i have straight everywhere okay so wherever i have three i will write three six so like this is true i have three so i'm writing three six this this six i have so i'm writing three six whereas here is six here is three where else i think i'm done right
+
+41
+00:20:36,290 --> 00:21:02,290
+so now let me merge them which means i will i will just copy this state so instead of writing it separately i will just copy this state this state upper which means this reduce item this is reduce item which is already there now this is like this is reduce item which is already there it will also having this reduce item notice here i am not writing three six here i mean this is the reduction right reduction is corresponding to the production number
+
+42
+00:21:02,460 --> 00:21:34,040
+this is not corresponding to the states so don't get confused like in the sift item i'm writing 3 6 but in the reduce item i'm not writing 3 6 now 3 6 is merge now just merge 4 7 which means wherever 7 you just write 4 4 7 here you have 7 you just write 4 7 and whereas you have 4 here just write 4 7 4 7 whereas you have 4 here just write 4 7 4 7 whereas i think i'm done right yeah so we are done so just merge 4 and 7
+
+43
+00:21:34,280 --> 00:22:03,550
+So, which means just copy this, copy this in the above row. So, you have see if 47473636 it is now there is nothing here. So, nothing will get merged. Now, let's merge 5 and 8. In 8, you have R2, okay. So, let's merge 5 and 8, which means like wherever you have 5, just write 5 and 8. Yeah, here you have 5, just write 5 and 8. Here you have 8, just write 5 and 8. Here you have 8, just write 5 and 8. Here you have 5, just write 5 and 8. Now, let's merge 5 and 8.
+
+44
+00:22:03,720 --> 00:22:34,280
+which means just copy this in the above group which means R2 R2 and R2 I will be having so now I have merged all the states and let me remove whatever I have merged which means like you can just erase them you can just erase these three lines okay so if you want let me just erase them which means now your new parsing table is looking like this just check whether there is a conflict here since there is no conflict here that is why this grammar is also LALR grammar LALR1 grammar
+
+45
+00:22:35,750 --> 00:23:03,550
+Okay, so this grammar is LR1 because there is no conflict in LR1 parsing This grammar is also LLR1 because there is no conflict in LLR1 parsing. I hope you got the idea So since we are merging there may be extra conflict, right? That is why sometimes the grammar is LR1 but not LLR1 But reverse is not true, which means if the grammar is LLR1 then definitely it is LR1 Why? Because LR1 is having more states so like
+
+46
+00:23:03,770 --> 00:23:29,810
+In LLR1, we are merging. In LLR1, we are basically, if you look from how we are going from LLR to LR, we are splitting the state. So if we are splitting, we cannot introduce more conflicts. If we are merging some states, if we are merging, then we can introduce more conflicts. But if we are splitting, then you cannot. So if the grammar is LLR1, it is definitely LLR1. But if the grammar is LLR1, it may or may not be LLR1. So with more examples, it would get clear.
+
+47
+00:23:30,570 --> 00:23:39,910
+Now I hope you got the idea about the LR1 and LLR1 with this grammar. Now we will be taking the most more example and by that it will get more clear.
+

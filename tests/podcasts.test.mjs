@@ -14,6 +14,12 @@ test('spoken scripts preserve mathematical comparisons instead of mistaking them
  const episode=buildEpisode({id:'c',name:'C Language'},{id:0,title:'Comparison operators',subtitle:'Compare two values',goal:'Evaluate comparisons.',range:[0,0]},[['Comparison operators']], [{id:0,lecture:0,ready:true,questions:[],foundation:{idea:'A comparison produces a truth value.',example}}]);
  assert.ok(episode.turns.some(turn=>turn.text===example));
 });
+test('spoken scripts do not ask a visual TOC question without its mathematical givens',()=>{
+ const prompt='Does this grammar satisfy CNF?';
+ const lesson={id:0,lecture:0,ready:true,foundation:{idea:'A grammar generates terminal words by rewriting nonterminals.',example:'S becomes AB, then aB, then ab.'},questions:[{type:'choice',prompt,options:['Yes','No'],answer:0,explanation:'Each right side has the required shape.',tocGiven:{title:'Rules',headers:['Production'],rows:[['S → AB'],['A → a'],['B → b']]}}]};
+ const episode=buildEpisode({id:'toc',name:'Theory of Computation'},{id:0,title:'Grammar forms',goal:'Inspect the rules.',range:[0,0]},[['Grammar forms']], [lesson]);
+ assert.ok(!episode.turns.some(turn=>turn.text.includes(prompt)));
+});
 
 test('section conversations include every published topic, examples, both hosts and ordered transcript chapters',async()=>{
  let episodes=0,topics=0;
@@ -33,7 +39,7 @@ test('section conversations include every published topic, examples, both hosts 
   }
   assert.deepEqual(covered,[...new Set(lessons.filter(l=>l.ready).map(l=>l.lecture))]);
  }
- assert.equal(episodes,90);assert.equal(topics,666);
+ assert.equal(episodes,109);assert.equal(topics,812);
 });
 test('audio byte ranges support open ends and suffixes without serving invalid or multiple ranges',()=>{
  assert.equal(byteRange(undefined,100),null);assert.deepEqual(byteRange('bytes=0-9',100),{start:0,end:9});assert.deepEqual(byteRange('bytes=95-',100),{start:95,end:99});assert.deepEqual(byteRange('bytes=-12',100),{start:88,end:99});assert.deepEqual(byteRange('bytes=95-999',100),{start:95,end:99});assert.deepEqual(byteRange('bytes=-999',100),{start:0,end:99});
@@ -60,18 +66,19 @@ test('podcast audio and transcripts require authentication, report readiness hon
  try{
   const episode=(await fixture.store.document('coa','podcasts.json')).episodes[0],folder=path.join(directory,'coa'),stem=path.join(folder,`unit-0-${episode.hash.slice(0,12)}`),audio=Buffer.from(Array.from({length:128},(_,i)=>i));
   await fs.mkdir(folder,{recursive:true});await fs.writeFile(stem+'.mp3',audio);
-  const meta={hash:episode.hash,duration:episode.turns.length,turns:episode.turns.map((turn,index)=>({index,speaker:turn.speaker,start:index,end:index+1})),chapters:episode.chapters};await fs.writeFile(stem+'.json',JSON.stringify(meta));
+  const meta={hash:episode.hash,duration:episode.turns.length,turns:episode.turns.map((turn,index)=>({index,speaker:turn.speaker,start:index,end:index+1,text:'Speech-only expanded notation must not replace readable formulas.'})),chapters:episode.chapters};await fs.writeFile(stem+'.json',JSON.stringify(meta));
   for(const endpoint of ['/api/podcasts','/api/podcast?subject=coa&unit=0','/api/podcast-audio?subject=coa&unit=0'])assert.equal((await fetch(base+endpoint)).status,401);
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'podcast_test',displayName:'Podcast Learner',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
   const headers={cookie:registration.headers.get('set-cookie').split(';')[0]};
-  const catalog=await(await fetch(base+'/api/podcasts',{headers})).json();assert.equal(catalog.episodes.length,90);assert.equal(catalog.episodes.filter(e=>e.ready).length,1);assert.ok(!JSON.stringify(catalog).includes('turns'));
+  const catalog=await(await fetch(base+'/api/podcasts',{headers})).json();assert.equal(catalog.episodes.length,109);assert.equal(catalog.episodes.filter(e=>e.ready).length,1);assert.ok(catalog.episodes.every(episode=>!Object.hasOwn(episode,'turns')));
   const detail=await(await fetch(base+'/api/podcast?subject=coa&unit=0',{headers})).json();assert.equal(detail.ready,true);assert.equal(detail.turns.length,episode.turns.length);assert.ok(!detail.audioUrl.includes(directory));
+  assert.deepEqual(detail.turns.map(turn=>turn.text),episode.turns.map(turn=>turn.text),'Media contributes timings while authored formulas remain the transcript');
   const partial=await fetch(base+detail.audioUrl,{headers:{...headers,Range:'bytes=4-19'}});assert.equal(partial.status,206);assert.equal(partial.headers.get('content-range'),'bytes 4-19/128');assert.equal(partial.headers.get('content-type'),'audio/mpeg');assert.match(partial.headers.get('cache-control'),/private/);assert.deepEqual(Buffer.from(await partial.arrayBuffer()),audio.subarray(4,20));
   const head=await fetch(base+detail.audioUrl,{headers,method:'HEAD'});assert.equal(head.status,200);assert.equal(head.headers.get('content-length'),'128');assert.equal((await head.arrayBuffer()).byteLength,0);
   const changed=await fetch(base+detail.audioUrl,{headers:{...headers,Range:'bytes=4-19','If-Range':'"old-audio"'}});assert.equal(changed.status,200);assert.equal((await changed.arrayBuffer()).byteLength,128);
   assert.equal((await fetch(base+'/api/podcast-audio?subject=coa&unit=0&v=old-version',{headers})).status,404);
   assert.equal((await fetch(base+detail.audioUrl,{headers:{...headers,Range:'bytes=128-'}})).status,416);
   const pending=await(await fetch(base+'/api/podcast?subject=coa&unit=1',{headers})).json();assert.equal(pending.ready,false);assert.equal(pending.audioUrl,null);assert.ok(pending.turns.length>0);assert.equal((await fetch(base+'/api/podcast-audio?subject=coa&unit=1',{headers})).status,404);
-  assert.equal((await fetch(base+'/api/podcast?subject=toc&unit=0',{headers})).status,400);assert.equal((await fetch(base+'/api/podcast?subject=coa&unit=9999',{headers})).status,404);assert.equal((await fetch(base+'/api/podcast?subject=..&unit=0',{headers})).status,400);
+  assert.equal((await fetch(base+'/api/podcast?subject=cd&unit=0',{headers})).status,400);assert.equal((await fetch(base+'/api/podcast?subject=coa&unit=9999',{headers})).status,404);assert.equal((await fetch(base+'/api/podcast?subject=..&unit=0',{headers})).status,400);
  }finally{await new Promise(resolve=>server.close(resolve));await fixture.dispose();assert.ok(directory.startsWith(path.join(os.tmpdir(),'csquest-podcast-')));await fs.rm(directory,{recursive:true,force:true});}
 });

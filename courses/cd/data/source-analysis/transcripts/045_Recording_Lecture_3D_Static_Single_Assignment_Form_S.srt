@@ -1,0 +1,1216 @@
+1
+00:00:24,620 --> 00:00:59,760
+Hi everyone. Welcome to Go Classes. In this lecture, we will study the next intermediate representation, which is a static single assignment. So SSA. In short, we will call it SSA. Okay. So let's see what is this intermediate representation. Before this SSA, we have already seen an intermediate representation, which is three address code. Yes or no? So three address code, that is also intermediate representation. And remember this SSA.
+
+2
+00:01:00,090 --> 00:01:29,310
+this is another intermediate representation okay so we have already seen what is three address code now in this lecture we will see what is static single assignment form okay so this is a intermediate representation now let's see what is this the name itself is telling you the definition of ssa okay look at the name the name has two things there are two things here one is static another is a single assignment okay single assignment means only one assignment and the another is static so
+
+3
+00:01:29,540 --> 00:02:00,500
+Remember the name itself is telling you the definition. What is static? What is static means? Let me tell you static simply means what is static means? Let me tell you static simply means in the program text static means in the program text in the program text. Is this clear? So this is important. Look at this in the program text. Okay. Means your program, your program that you have written in the source program. I can say in the program text, this is your source program.
+
+4
+00:02:00,820 --> 00:02:31,550
+so in the source program okay so this static means in the program text and what single assignment means that is very simple single assignment means every variable has only one assignment okay so remember every variable has only one assignment every variable okay whatever variable you take every variable has only one assignment only one assignment only one assignment okay so now you combine these two static
+
+5
+00:02:31,900 --> 00:02:59,980
+static means in the program text single assignment means every variable has only one assignment now you combine these two what you will get what the definition you will get tell me the definition will be in the program text every variable has single assignment okay is this clear in the program text in your source program the program that you are writing in the source program or I can say in the program text every variable has only one assignment is this clear so this is the definition you will get you can notice
+
+6
+00:03:00,350 --> 00:03:29,440
+That static means in the program text. Okay, this is static. This word, this word means in the program text. Okay, is this clear? And this single assignment, what it means, it means that each variable, every variable is assigned only once. Each variable is assigned only once. So very simple point. Okay, now let's see what is assignment. Tell me what is assignment versus use? What is assignment? What is assignment and what is use? Let's see.
+
+7
+00:03:30,310 --> 00:04:01,610
+So let's see what is assignment. Do you understand what is assignment versus what is use of a variable? Okay, assignment of a variable versus use of a variable. This is a very simple point. What is assignment of a variable that you already know? For example, in X, if I'm assigning some value, maybe I'm assigning Y plus one. So I can say this is this instruction is assignment of X. Yes or no? What I will say in this instruction, what we are doing? Tell me we are using X or we are assigning to X.
+
+8
+00:04:01,920 --> 00:04:30,600
+please tell me in this instruction we are using x or we are assigning to x so in this instruction you can see x is assigned yes or no x is assigned is this clear okay x is assigned is this clear let me know so you can very easily see this instruction means x is assigned for example if i give you this instruction y equal to x plus 1 in this instruction we are using x yes or no x is used x is not assigned here x is used
+
+9
+00:04:32,140 --> 00:05:01,320
+I hope you understood is this clear please tell me let me know and for example if I give you this instruction x equal to x plus 1 here x is assigned also x is used also yes or no so here you can notice that x is assigned also in x we are assigning also x is assigned and used okay so very simple remember x is used and assigned I can say first we are using this and then we are assigning this so I can say first we are using right first we are using x
+
+10
+00:05:01,590 --> 00:05:29,100
+so x is used and then x is assigned so is this clear is this point clear what is assignment versus use of a variable okay so tell me in the C language if you focus on the C language now in the C language what is the assignment operator tell me which operator we use for assignment in the C language what is the assignment operator for assignment which operator we use
+
+11
+00:05:29,290 --> 00:05:56,000
+we use this operator right yes or no this operator we use in the C language for assignment for example in the C language if I write like this x equal to x plus 1 or I can say x equal to maybe a plus 1 then here you can notice what we are doing basically this simply means x is assigned yes or no it simply means that x is assigned okay is this clear please tell me now you tell me few things I am asking
+
+12
+00:05:56,530 --> 00:06:24,180
+Ok few things I am asking for example if I write this instruction here x is assigned or x is used in the C language if I write this instruction in the C language if I write this x is used or x is assigned so here x is used right we are not assigning to x we are not assigning to x we are using x because this means we are comparing x with 0 yes or no basically we are checking is x equal to 0
+
+13
+00:06:24,600 --> 00:06:54,190
+is x equal to 0 this means this means is x equal to 0 is x equal to 0 right yes or no is x equal to 0 so very simple point so remember here we are using x and what about this one if I write x plus plus if I write this one here we are using x or we are assigning to x please tell me in this instruction we are using x or we are assigning to x first
+
+14
+00:06:54,550 --> 00:07:21,570
+We are using then we are assigning, right? Yes or no? So we are using and assigning We are assigning also because we will increment, right? Okay, so we are assigning also So here X is used as well as X is assigned I hope you understood So let's see the definition of static single assignment form So remember this is an intermediate representation, please understand This is an intermediate representation We have already seen one intermediate representation
+
+15
+00:07:22,060 --> 00:07:52,860
+So this intermediate representation, how many we have already seen? Intermediate representations. Okay. So how many we have already seen? We have already seen three address code, three address code, right? Three address code that we have seen. Now another is a SSA, static single assignment. This we need to study. Another that we will study that is context free control flow graph, control flow graph, control flow.
+
+16
+00:07:53,310 --> 00:08:22,080
+graph okay another that we will study that is a DAG and syntax tree okay and syntax tree so basically these are some intermediate representations there is postfix notation also that you study in the data structure right yes or no okay there is something called postfix postfix notation this you study in the data structure okay this is already covered in data structure
+
+17
+00:08:23,820 --> 00:08:48,700
+In the data structure course, this is already covered. Okay. This you study there. So now we have already seen three at us code. Now in this lecture, we will study seeing static single assignment as essay static single assignment. So what are the definition of static single assignment static means in the program text. This is the meaning of static. If someone asked you what is static, what this word means, this word means in the program text. Okay.
+
+18
+00:08:49,010 --> 00:09:20,730
+Next, single assignment. This means every variable has only one assignment. So you can see this is the definition in the program text. Every variable is assigned only once. Every variable is assigned only once. Very simple. Now, tell me the answer for this question. Which of the following program text is in SSA form? Two program texts are given to you. This program, this program, which of them is in static single assignment form? Tell me. So you can easily see here.
+
+19
+00:09:21,030 --> 00:09:48,640
+x is assigned here also x is assigned yes or no can you notice in this program look at this program can you notice here also x assigned here also your x is assigned and here also x is assigned okay so you can easily see that this is not in ssa this is not in ssa form can i say that this is not in ssa form right yes or no for example okay so you can easily see
+
+20
+00:09:48,920 --> 00:10:18,970
+this instruction look at this instruction look at this instruction so x is assigned here also x is assigned here also so this instruction I can say this program this program is not in ssa form is this clear this program text this is not in ssa form what about this one what about this one yes this is in ssa form right yes or no this is in ssa form this is in ssa form is this clear please tell me let me know is this understood here you can notice
+
+21
+00:10:19,240 --> 00:10:49,200
+every variable you are assigning at most once look at every variable you are assigning at most once yes or no look at any variable you are assigning at most once I can say every variable assigned at most once every variable is assigned is assigned at most once at most once okay so this is the definition of SSA very simple point okay
+
+22
+00:10:49,950 --> 00:11:21,460
+Now let's move on. What about this one? Can you convert this program into SSF form? First you tell me, right now is this in SSF form? Right now this program is this in SSF form. Please tell me. This program is not in SSF form. This is assignment of i. This is also assignment of i. Yes or no? Here also we are assigning i. Here also you are assigning into variable i. And here also you are assigning variable i.
+
+23
+00:11:23,180 --> 00:11:52,230
+correct okay so this program this right now this program is not in SSF form so how to convert how to convert this program in SSF form let's see that okay so very easy to convert into SSF form all you have to do just change the name yes or no are you getting my point see here you are using variable i user different variable here agree with me here you are using variable i so user different variable here okay you can make a new variable
+
+24
+00:11:52,780 --> 00:12:21,080
+you can make a new variable basically or what you can do just change the name you can call it I1 you can call it I2 yes or no so very simple point how to convert how conversion of program text into SSA okay how to do that very simple assign to a phrase variable every time this is the simple point right okay assign to a phrase variable every time assign to a new variable every time so all you have to do you can just change the names okay so let me
+
+25
+00:12:21,360 --> 00:12:49,040
+convert into ssa all you have to do just okay for example you can call it i1 okay what you can do you can call it i1 now after some time what you have you have this i this i you have this i you have this i you have tell me one thing tell me one thing this i should be this one right okay which i is this see this is the use okay yes or no this is the use there is no problem with use you can use any number of times
+
+26
+00:12:49,520 --> 00:13:18,660
+you can use any number of times okay any variable you can use any number of times in SSA only the assignment should happen at most once yes or no so this is the use so this variable we are using right this variable we are using so let's call it I1 okay assignment should happen at most once in the SSA static single assignment static single assignment single assignment so you should not assign
+
+27
+00:13:19,140 --> 00:13:47,810
+In this same variable, in this same variable, you should not assign again. So what you should do? You can use a different variable, i2. Okay, so you can call it i1, you can call it i2. This is the very simple idea. Okay, so now then what you can do j equal to? Now which i is this? Please tell me. Which i is this? i1 or i2? Which i is this? i1 or i2? Yes, this is a i2. Yes or no? This is the use. Okay, so very simple. I hope you understood.
+
+28
+00:13:48,300 --> 00:14:16,480
+is this clear to everyone please tell me so this is the idea you can see this is how you can convert into SSA static single assignment okay is this clear very simple let's solve this one before we solve this one let me tell you this word see SSA here this means static this means static static what static means static means in program text okay what static means
+
+29
+00:14:16,840 --> 00:14:46,720
+static means in the program text in the program text in the program text this is what static means now remember this means single assignment okay this means a single assignment so use you can do any number of times agree with me yes or no this is single assignment okay assignments should happen at most once okay so remember assignment to any assignment to any variable
+
+30
+00:14:47,510 --> 00:15:18,850
+assignment to any variable should happen at most once should happen once okay at most at most once at most once is this clear? so remember assignment should happen at most once use you can do any number of times okay a variable can be used any number of times a variable can be used any number of times any number of times number of times
+
+31
+00:15:19,430 --> 00:15:46,030
+okay so you can use it any number of times there is no problem can be used any number of times is this clear let me know you can use it any number of times so for example if I write this type of program like I am assigning this variable I am assigning only once okay let's assume I am assigning only once in the program I am assigning only once now I can use it any number of times for example I can use this here I plus J
+
+32
+00:15:46,300 --> 00:16:13,900
+Okay, I can use this again maybe i plus i plus something maybe k. Okay, right. Is this clear? So you can use this any number of times. There is no problem. You can again use i plus i. Okay, you can put in some other variable i2. So you can easily see that I hope you understood this point that you can use this any number of times. You can use this any number of times. So these are the uses of i1. This is a use of i1.
+
+33
+00:16:15,880 --> 00:16:46,560
+This is the use of I1, right? Yes or no? Is this clear? So very simple You can use any number of times But you should assign at most once Please tell me You should change at most once You should assign at most once But you can use any number of times, okay? So single assignment Means every variable is assigned at most once Okay Now let's see this one Convert this program into SSF form Right now, is this in SSF form? Tell me
+
+34
+00:16:46,870 --> 00:17:18,550
+right now look at this and tell me is this in SSF form is it in SSF form look at this and tell me is it in the static single assignment form so you can see P you are assigning here also here also here also right okay Q you are assigning here also here also so clearly this is a not in SSF form okay so what to do then what to do then okay so very simple point conversion is very easy
+
+35
+00:17:18,900 --> 00:17:47,220
+Yes or no? Conversion to SSA is very easy. What do you need to do? Assign to a phrase variable every time. Okay, yes or no? Just use a new variable for every assignment. For every assignment, use a new variable. Okay, yes or no? Just rename the solution, the conversion. For conversion, all you have to do, just use renaming. Okay, you can use, you can do the renaming. So just do assignment in a new variable every time.
+
+36
+00:17:47,480 --> 00:18:17,220
+assigned to a new variable to a fresh variable every time so what you will do tell me what you will do very simple let's call it P1 this new assignment we will call it P2 this new assignment we will call it P3 yes or no this new assignment we will call it P3 similarly this assignment let's call it Q1 this assignment we will call Q2 now it is very simple now okay see this you are using here right so we will call it P1 right yes or no similarly
+
+37
+00:18:17,850 --> 00:18:46,910
+Okay, where else? Can I say this is P1? Is this P1? Tell me, is this P1? No, this is not P1. This is P2. This is P2, right? This is P2. Okay, so this use is P2. Okay, similarly you can see this is your P3. Is this clear? For example, you can see this will be your Q1. Correct. Agree with me. This is your Q1. I can say this is Q1. Is this clear or not? Let me know. So very simple. This is Q1.
+
+38
+00:18:47,210 --> 00:19:19,870
+And then so on, what about this one? Is this Q1 or Q2? This Q, is this Q1 or Q2? See, this is Q1, right? Okay? Is this clear? Very simple. Because first we will use, then we will assign. Okay, look at this instruction. In this instruction, first we use Q, then we assign into Q. Okay, look at this instruction. I am telling you, in this instruction you notice, first we are using Q. Okay, then, then assign into Q. Then assign into Q.
+
+39
+00:19:20,200 --> 00:19:50,270
+okay is this clear? so first you are using this queue so basically this queue value you are using right agree that this queue value you are basically using here okay this queue value this queue okay so this queue is here so this is what you are using here i hope you understood so is this clear how to convert finally this is your ssa this is your 3 address code in ssa form this is your 3 address code in ssa form please tell me understood or not
+
+40
+00:19:50,680 --> 00:20:18,550
+So this is your three address code in the SSA form, static single assignment form. Let me know. Did you understand? Please tell me. So very simple. This is your three address code and this is your static single assignment form. Like this you can do. I hope you understood. Now let's move on. Now let me tell you something. This is an important point. Okay. When we study compiler design or I can say in the low level languages.
+
+41
+00:20:19,330 --> 00:20:45,150
+Define this word means assignment okay remember define this word and this word they are same so please understand that when you study compiler design course when you study code optimization or intermediate code representation basically when you study compiler design course in the compiler design course remember or I can say in the low level languages or I can say in the intermediate representations this word define this simply means assign
+
+42
+00:20:45,880 --> 00:21:14,030
+Definition and assignment, these words are synonym to each other. Is this point clear? See, in your high level language, in your high level language, like for example sea language, in sea language, can I say define and assign they are same? Can I say? Can I say define and assign are same? No, yes or no? In the sea language, you will say that, sir, in the sea language, we can define only once. We can assign any number of times, but we can define only once. Okay, for example, you can define only once.
+
+43
+00:21:14,300 --> 00:21:49,350
+but you can use any number of times something like that in the C language okay maybe some concept you have but I don't care about C language I don't care about C language remember in the compiler design course or I can say in the low levels okay in intermediate representations I can say in the intermediate representations in the intermediate representations or I can say in the compiler design course in compiler design course these two words are same
+
+44
+00:21:49,750 --> 00:22:16,980
+you are defining a variable this word is synonym to assign is this point clear I will use this word many times define define define that simply means assign definition means assignment okay I will say this is the definition of variable that simply means that is the assignment that simply means that is the assignment is this clear please tell me these two words they are synonym to each other for example if I give you this code let's assume I am doing this
+
+45
+00:22:17,390 --> 00:22:47,370
+i equal to a plus 1 so remember here you are defining i then after sometime let's assume I am doing this what I am doing I am doing this i equal to i plus 1 here also I am defining i is this clear and let's assume after sometime I do this x plus y here also I am defining i so remember I will say that in this instruction you are defining i this instruction defines i and remember this is same as I can say this instruction assigns i
+
+46
+00:22:48,140 --> 00:23:20,690
+Yes or no? Similarly what I will say? I will say this instruction defines I. I will also say this instruction assigns I. Okay. What about this one? I will say this instruction defines I. I will also say this instruction assigns I. Is this clear? So these words are synonym to each other. Let me know. Did you understand? So define a variable that is same as assign a variable. So these two things are same. Define assign. These two things are same synonym to each other.
+
+47
+00:23:21,110 --> 00:23:49,810
+Okay. I hope you understood. So very simple. The term defined that is same as the term assignment. So you can see the term assignment means variable definition. Okay. Is this clear? The term assignment that means variable definition. So very easily you can see here you are assigning to X. Yes or no. So I can say you are defining X. Okay. I can say the variable X is being assigned or I can say the variable X is being defined. You can say assigned also. You can say defined also.
+
+48
+00:23:50,530 --> 00:24:21,420
+Okay. You can say assigned also. You can say defined also. So you can see this is a definition or assignment. Okay. Is this clear? Let me know. Now let's move on. What about this instruction? What about this code? This program is given to you. This code, you tell me, is this code in the SSF form? Look at this code and tell me, is this in SSF form? I've given you this program. Okay. Consider this program.
+
+49
+00:24:24,300 --> 00:24:58,920
+Consider this program Okay, so before I ask you that Tell me which instruction is defining and which instruction is using Tell me Look at this code and tell me which instruction is using and which instruction is defining See, look at this instruction and tell me Okay, my question Please understand my question My question is Which instruction defines and which instruction uses Which instruction defines and which instruction uses
+
+50
+00:25:02,830 --> 00:25:34,320
+a variable please tell me let me know did you understand I am asking which instruction is defining which instruction is using for example here you are assigning so here you are defining X in this instruction look at this instruction in this instruction basically you are defining X in X you are putting some value some value you are putting some input you are taking okay remember some input you are putting in X so here you are basically assigning X what you are doing here
+
+51
+00:25:34,570 --> 00:26:07,500
+Here you are assigning X. That is same as what? That is same as what? That is same as you are defining X. Okay. Both are same. That is same as defining X. So you are defining X. What about this instruction? What about this instruction? Here you are using X. Yes or no? Here you are using X. We are not defining. Here we are using X. Yes or no? We are not defining X. We are not assigning X. I hope you understood.
+
+52
+00:26:07,830 --> 00:26:36,840
+so you are just doing the comparison is x equal to 42 is x equal to 42 here you are defining y yes or no here we are defining y here also we are defining y here also we are defining y okay is this clear and what we are doing here please tell me and what we are doing here we are using or defining we are using y okay here we are using y
+
+53
+00:26:37,290 --> 00:27:07,470
+We are not defining, we are not assigning, we are using Y. I hope you understood. Okay. Now let's see what this static word means. What this word means, right? This is a curious thing. See, this is very common sense, right? Single assignment. This word is very common sense. Agree with me? Yes or no? This is very simple. Single assignment. Single assignment means every variable has a single assignment. Every variable is assigned only once.
+
+54
+00:27:07,860 --> 00:27:36,680
+But what is this mystery? Yes or no? You might be thinking Sir what this word means? Like what this actually means? Why we are using this static word? Do you think? Yes or no? Are you curious? So what I told you? What I told you what this word means? What I told you? I told you this word means in the program text. I told you this word means in the program text. Yes or no? So now let me explain what it means. Let me explain. So consider this example and tell me.
+
+55
+00:27:36,870 --> 00:28:06,710
+is the following program is in ssa form this following program can i say this is in ssa form before you answer this question understand one thing that when you execute this then is it possible that these two assignments can happen tell me when you execute this program how many assignments will happen for why when you execute this program how many assignments will happen for why
+
+56
+00:28:07,430 --> 00:28:39,160
+See, during execution, how many assignments will happen for why? During execution, please understand. During execution, when you execute this program, during execution, why is assigned only once? Why is assigned only once? Do you agree with me? Do you agree with me that when you execute this program, when you execute this program, do you agree with me that why is assigned only once? During the execution, why is assigned only once? Because
+
+57
+00:28:39,570 --> 00:29:09,520
+this is if then if x value is 42 okay if x value is 42 if this is true if this is true then this will happen if this is true then this will happen and if this is false then this will happen yes or no so I can say that during the execution why is assigned only once why is assigned only once so can I say this is in SSF form so can I say this is in SSF form when you execute this program
+
+58
+00:29:10,030 --> 00:29:50,150
+then this variable y will be assigned only once yes or no if x value is 42 if this is true then this will happen and if this value is false then this will happen now my question is very simple so can I say this program is in the static single assignment form can I say this is in the static single assignment form think about it let me know can I say this program is in the static single assignment form and the answer is no
+
+59
+00:29:50,740 --> 00:30:20,360
+and the answer is very big no why? we don't care about execution the name itself is telling you static single assignment see look at the full form the full form is static single assignment okay the full form is static single assignment yes or no is this clear? please tell me the full form is static single assignment let me know is this clear? static static single assignment
+
+60
+00:30:20,660 --> 00:30:50,130
+so we don't care about the dynamic things what will happen with the execution we don't care the name is not dynamic single assignment yes or no execution means dynamic okay see if you are thinking about what will happen when you execute execution simply means basically okay anything which is related to execution that is dynamic let me tell you dynamic that means execution related see execution related things are dynamic okay when you execute a program
+
+61
+00:30:50,730 --> 00:31:21,500
+then that is simply that is simply that comes under the category dynamic okay actually if you go if you go to ISC let me tell you in the first semester there are two courses there are two courses one is static program analysis one is static program analysis program analysis and another is a dynamic program analysis let me tell you these two courses are there in the first semester I don't know now but when I was in ISC
+
+62
+00:31:22,030 --> 00:31:53,060
+from 2018 to 2020 then there were two courses in the first semester okay these two courses in the first semester ISC, CSA, first semester at my point at my time okay so I took this course this is what I took okay let me tell you in these two courses what happens here the program analysis happens on the text is this clear static means on text the program analysis happens on the text
+
+63
+00:31:53,710 --> 00:32:25,740
+In this course, we don't run the program. Is this clear? Means we don't run the program. Is this point clear? We don't run the program. Let me know, is this point clear? The analysis happens on the text. And here that analysis happens dynamically means analysis happens during execution. Is this clear? Please tell me, did you understand the difference between these two courses? You can check it out. In ISC, CSA, first semester or second semester, these two courses are offered.
+
+64
+00:32:26,310 --> 00:32:53,850
+Okay. So I took this course. This course is also called PAV. In short, this course is called PAV. This was the short name program analysis verification. But this was basically static program analysis. And there was another course, which was dynamic analysis. Okay. So this is what I'm telling you. So remember, there are two types of analysis possible. One is static. Static means we don't run the program. We don't care about the execution.
+
+65
+00:32:54,410 --> 00:33:22,440
+What happens during the execution? We don't care. Is this clear? During execution, how many assignments happen? We don't care. Is this clear? We don't care how many assignments happen during execution. Okay, static single assignment, that simply means in the text. Static, this word means in the text. In the program text. Just look at the text, text to text. Just look at the program text.
+
+66
+00:33:22,920 --> 00:33:49,080
+is this clear in the program text single assignment should happen ok we don't care what happens during the execution please tell me is this clear this SSA does not care what happens during the execution during the execution any variable can be assigned infinite number of times I don't care but in the text every variable should be assigned at most once now you tell me look at this text and tell me
+
+67
+00:33:49,460 --> 00:34:19,110
+don't run the program don't think about the execution of the program just look at this text look at this text this text you look and tell me is this in SSA this is the text is this in SSA look at this text please tell me no this is not in SSA because you are assigning Y more than once yes or no so is this clear we are assigning Y more than once please tell me is this understood let me know
+
+68
+00:34:19,700 --> 00:34:53,780
+so remember static single assignment means that we are dealing with only program text I hope you understood is this clear let me know okay so please understand that let me write this here that in the static single assignment SSA means static single assignment this SSA intermediate representation this is the intermediate representation that you already know okay SSA intermediate representation this means static static single assignment
+
+69
+00:34:56,080 --> 00:35:25,720
+During the execution what happens we do not care Is this clear? So static means in the on the program text Or I can say in the program text In the program text Is this clearly understood? Please tell me See tricky questions can be created If you do not understand this word What this word means What this word means Okay so static means in the program text Just look at the program text We don't care what happens during the run time
+
+70
+00:35:26,350 --> 00:36:01,120
+Okay, is this clear? During the, in the program text single assignment should happen. Is this clear? So, we do not care what happens during execution. We don't care about execution. We don't care about execution or run time. We study static single assignment. We do not study dynamic single assignment, right? This is a static single assignment. This is not dynamic single assignment. So, I hope this word is clear now.
+
+71
+00:36:01,470 --> 00:36:29,500
+the importance of this word is that clear please tell me the importance of static word is that clear so very simple this is your static single assignment that in the program text you should have single assignment for every variable every variable should be assigned at most once so very simple so remember here you can see look at this so this because of this assignment to assignment this is your assign here also we are assigning why
+
+72
+00:36:30,540 --> 00:37:09,720
+and here also you are assigning Y okay so that is the reason this code is not in SSA not in SSA form this program is not in SSA form I hope you understood okay now let's move on so very simple what this static word what this means the term static this indicates that SSA relates to properties and analysis of program text is this clear okay SSA relates SSA is basically related to
+
+73
+00:37:09,980 --> 00:37:41,340
+properties and analysis of program text program code now let me ask you this another question another beautiful question if a program is in ssa form every variable is assigned only once in the program text can we have a loop in the program which is in ssa form okay let me explain this question to you then you answer this question first let me explain this question see if you have a loop then what will happen
+
+74
+00:37:41,700 --> 00:38:08,880
+just notice let's assume you have a program which is in ssa okay let's assume you have a program which is in ssa now let's assume you have a loop okay there is some loop you have and inside this loop let's assume inside this loop you have this type of statement for example i equal to a plus b something like that okay or maybe i equal to i plus one something like that okay is this clear i equal to i plus one
+
+75
+00:38:09,150 --> 00:38:38,450
+so this is statement you have i equal to i plus 1 now you tell me now you tell me is this in ssa form basically basically the question is can we have loop if your program is in ssa form if your program is in ssa form can we have a loop see what is the problem with loop the problem with loop is when you execute this then this assignment will happen many times so can i say this is in ssa form
+
+76
+00:38:39,170 --> 00:39:08,300
+Are you getting my point? When you execute this during execution, many assignments will happen When you execute this loop during execution Okay, many assignments to I Okay, yes or no? Several assignments to I Okay, first this I will keep assigning Yes or no? When you run this program, you are running you are running this program Then what will happen? You are doing many assignments Assign, assign, assign In every iteration you are assigning If this loop is running 1000 times
+
+77
+00:39:08,620 --> 00:39:43,070
+then you are assigning 1000 times so during execution several assignments several assignments during execution several assignments to I so can I say this is in SSA so can I say this program is in SSA is this program in SSA let me know please tell me is this program in SSA can I say this is in SSA is this program in SSA let me know is this program in SSA
+
+78
+00:39:44,870 --> 00:40:14,710
+So, can we have loop if your program is in SSA? If your program is in SSA, can we have loop? Can we have this type of situation if your program is in SSA? Of course, we can have loop. There is no problem here. Why are you running the program? I am just confusing you. See, I am just confusing you that during the execution, during the execution, this assignment will happen many times. But we don't care about execution.
+
+79
+00:40:15,820 --> 00:40:40,650
+the name is static as for static is this clear please tell me let me know are you getting this point see the name is static why I am again and again telling you static static static we don't care about execution yes or no we do not care about execution during the execution assignment can happen any number of times I don't care
+
+80
+00:40:41,060 --> 00:41:09,150
+during the execution you can assign a variable 1000 times 1 crore times I don't care but in the program text in the program text your program text in the program text every variable should be assigned only once is this point clear now again and again I am telling you one day in the gate exam a nice question will come don't make this mistake so is this point clear now so remember static
+
+81
+00:41:10,370 --> 00:41:41,950
+this is a static single assignment means in the program text just look at the text we don't care about execution yes or no so can we have a loop the answer is of course the answer is of course of course yes the answer is of course yes who cares about execution yes or no is this an SSA again the answer is yes who cares about execution right can I say during execution who cares during execution who cares
+
+82
+00:41:44,110 --> 00:42:24,950
+Please tell me, understood now? Can you say that you understood this word static? Is this explanation clear to you? So remember, if a program is in SSF form, then can we have loop in the program? The answer is of course yes, no problem. Of course yes, no problem. We don't care about execution. Okay, during execution, any number of assignments can happen. During execution,
+
+83
+00:42:26,730 --> 00:43:05,910
+any number of assignments can happen to a variable we don't care any number of assignments can happen to a variable any number of assignments can happen to a variable can happen to a variable we do not care okay in capitals you can write we do not care is this understood is this point clear sorry again I am telling you static the name is static single assignment
+
+84
+00:43:06,920 --> 00:43:38,390
+okay now tell me do you need more explanation of this word static static means in the program text in the program text don't think about execution just think about program text forget about execution we do not care about execution okay in the program text okay yes or no forget about execution don't think about execution forget about execution
+
+85
+00:43:42,990 --> 00:44:21,480
+We don't care about execution, SSA doesn't care Okay, because this is static This happens only on the text Okay, so that's it I hope you understood this So very simple point, remember SSA This is a new intermediate representation We have already seen three address code which was another intermediate representation Three address code was another intermediate representation This is another intermediate representation Both are different Okay, some student was asking Are they same?
+
+86
+00:44:21,850 --> 00:44:51,020
+No, they are not same. They are different. Okay. Is this clear? The static single assignment. This is different. Three at a score is different. Okay. So you can see every variable has exactly one definition in the program text. So this word you notice in the program text, every variable has exactly one definition. Okay. This does not mean that there are no loops. I told you yes or no. You can see this is a static single assignment, not dynamic. Okay. So this is what I told you.
+
+87
+00:44:51,270 --> 00:45:20,530
+okay now let's move on so we have seen everything we have seen what is ssa ssa means static single assignment this is an intermediate representation where every variable is assigned at most once every variable is assigned at most once in the program text okay all these things matter like this in the program text every variable is assigned is assigned at most once so very simple simple points so you can see what is
+
+88
+00:45:20,780 --> 00:45:49,580
+static single assignment okay what is a static single assignment you can see that in the static single assignment form every variable is defined defined or assigned both are same right yes or no these two words are same defined or assigned both are same so you can see every variable you are assigning exactly once but maybe used multiple times okay you can use it multiple times you can use it many number of times okay so very simple point so you can see if this is your code then you can convert into sse
+
+89
+00:45:50,150 --> 00:46:19,450
+This code we can convert into SSA. Okay, very easily. All you have to do, just do the renaming. Yes or no? Assign to a fresh variable every time. Okay, so don't assign to the same variable more than one time. Don't assign to the same variable more than one time. Okay, just use different names. Yes or no? So assign to a new variable every time. Assign into a new variable every time. So for example, here you have A, here you have A, here you have A. So you can make it A1, A2, A3.
+
+90
+00:46:20,050 --> 00:46:49,280
+You can make it A1, A2, A3, right? Yes or no? Similarly, here you have B. Okay, there is no problem with B. There is no problem with B. So you can just simply call it maybe B1. You can call it C1, no problem. Okay, there is no problem with B. You can just simply call it B1, C1. Okay, so very simple. Now, you can see this A you are using here. So you will write it A1 here, right? Yes or no? So you are using here. Okay, so can you notice? Tell me, is the control flow changing?
+
+91
+00:46:49,790 --> 00:47:19,160
+let me know is the flow of execution changing okay is the flow of execution changing see this B you are using here no problem this B you are using here okay is the flow of execution changing or not flow of execution is not changing right yes or no see flow of execution is not changing please understand okay flow of execution is same agree with me or not yes or no is this point clear see flow of execution is everything is same flow of execution is same
+
+92
+00:47:20,140 --> 00:47:52,890
+Okay. So that is the point. So flow of execution does not change. Okay. Whether you have this code or you, you, you take this code, the flow of execution is same. Okay. So flow of execution remains same. You can, I can write here. Flow of execution remains same. Flow of execution remains same. Remains same. Okay. Anyway, so let's move on now. So you can see SSF form is static single assignment form.
+
+93
+00:47:53,270 --> 00:48:22,620
+Okay, this is a way of structuring the intermediate representation so that so that every variable is assigned only once. Okay, so very simple. So all these simple simple points we have already seen this example we have already seen how to convert this code into a static single assignment code that we have already seen. Now let's move on. Now let's solve this gate exam question. Can you tell me what is the answer? This is gate 2017 question.
+
+94
+00:48:23,960 --> 00:48:52,740
+Consider the following intermediate program in three address code. Intermediate program is given to you in a three address code. This program is given to you. Which of the following corresponds to the static single assignment form of the above code? So which is correct answer? Let me know which of them is correct answer. Let's take each option one by one. Okay. Let me check option a. So is option a correct static single assignment form corresponding to this given program? Okay.
+
+95
+00:48:53,040 --> 00:49:22,080
+see in this given program you can notice this variable you are using here notice one thing this variable you are using here okay so first of all this is not even in ssa option a option a is not even in ssa you are using you are assigning to p1 yes or no you are assigning to p1 more than once we are assigning to p1 more than once this variable p1 we are assigning more than once so this is not even in ssa look at this here
+
+96
+00:49:22,580 --> 00:49:53,450
+Okay, this variable Q1 also you are assigning more than once. So very simple, this option A, this note even in SSA, this note even in SSA form, because you can easily see SSA means static single assignment means every variable in the program text, every variable is assigned only once, yes or no. So you can see this option A, this is not even SSA form because this variable P1 you are assigning more than once.
+
+97
+00:49:53,930 --> 00:50:23,350
+this variable P1 you are assigning more than once so this is not even in SSA so this is wrong what about option B what is the problem with option B what is the problem with option B is there any problem with option B see option B is saying P3 no problem okay you can rename this P3 no problem I can call it P3 okay P3 is equal to A minus B no problem you can call it Q4 there is no problem okay now you can notice here this P you are using here so you will use P3
+
+98
+00:50:23,630 --> 00:50:53,810
+Yeah, that is also fine. That is also fine. Then you, you are calling it P4. That is also fine. You can call it P4. Okay, P4 equal to U into V. That is also fine. Then you are calling it Q5. That is also fine. No problem. Yes or no, you can call it Q5 renaming. Basically, you just need to rename the variables. You can give any name. You are renaming the variable. You can give any name. Now remember this P you are using means P4 you should use means you should use P4.
+
+99
+00:50:54,110 --> 00:51:24,390
+and remember this q4 you should use okay so this is correct right this option b this is actually correct answer yes or no option b is the correct answer is this clear see very simple point option b is actually the correct answer because okay let's convert this into ssa let me convert this into ssa what ssa says ssa says that every variable in this text in the program text every variable should have
+
+100
+00:51:24,830 --> 00:51:52,350
+single assignment yes or no to any variable you should not you should not assign more than once okay so if you are assigning more than once then just give different names yes or no if you are assigning more than once just give different names use renaming okay so use phrase variable or I can say phrase variables use free phrase variable for assignment very simple so what you can do I can call it P3 there is no problem I can call it P1 also
+
+101
+00:51:52,670 --> 00:52:21,610
+you can call it whatever you want this is just a different variable we are using okay we are using a different variable we are renaming the variable so that so that to any variable we do not have more than one assignment okay so you can use P3 no problem now you can see here you should have P3 okay you should have P3 so very simple point because this P you are using here so you should have P3 into C okay you can put that into Q4 no problem then next next
+
+102
+00:52:22,000 --> 00:52:52,110
+Then you are doing U into V. You can use a different variable here. You can use a different variable. You can say P4. And then finally, then finally, and then finally what you can do, you can use a different variable here. So you can use Q5 here. And this P must be this one. This P must be this one. So this must be P4 plus plus and this Q, which Q, this is your this Q. Okay, this Q. So you can see this will be Q4.
+
+103
+00:52:52,690 --> 00:53:22,670
+So, finally, your answer is option B. I hope you understood. Is there any problem with option C? What are the problems with option C? Please tell me. Let me know. What are the problems with option C? Is there any problem with option C? Any problem with option C? Yes, there is a problem with option C. See, this is the problem. Agree or not? Here is the problem. Okay, because remember, remember, you should use the same, this P you should use. Agree or not?
+
+104
+00:53:22,990 --> 00:53:54,810
+you should use this P remember this P you should use here okay this P you should use here this P you should use here and similarly this Q you should use here okay so you can see there is a problem so this is a not not equivalent to the given program yes or no this is not equivalent to given program to given program this is not equivalent to given program what about this option D is there any problem with option D
+
+105
+00:53:56,800 --> 00:54:27,890
+please tell me do we have any problem with option D yes again with D we have a problem the same problem in the option D also the same problem you are using P1 here you are using P here you are using different variables yes or no so this is the same problem this is the same problem with option D so finally your answer is option B that's it okay let's move on now now this is gate 2016 question let's solve it so remember in gate 2017
+
+106
+00:54:28,560 --> 00:54:56,710
+Question came from SSA, yes or no? Question came from SSA in 2017. In 2016 also, the question came from SSA. Okay, let me tell you. In 2016 and 2015 also, question came from SSA. So 2015, 2016, 2017, consecutively three years, the question on SSA came. And these are very simple, simple questions.
+
+107
+00:54:57,700 --> 00:55:26,810
+Okay, these are very simple, simple easy questions. So let's see consider the following code segment. This code segment is given to you the minimum number of total variables which are required to convert the above code into a static single assignment form. Okay, so let's convert this into SSF form and then you count how many total variables are there. Yes or no. So just convert this code into SSF form and then you count how many total variables are there. So let's let's calculate. Okay, so first you convert
+
+108
+00:55:27,260 --> 00:55:58,840
+First of all you tell me is this in SSA? This given code is this in SSA form? No this is not in SSA form because you can notice that variable X you are assigning more than once Yes or no? Variable Y you are assigning more than once Yes or no? Agree? So variable X we are assigning more than once and variable Y we are assigning more than once So this given code Okay this given code segment is not in SSA right? Is not in SSA form
+
+109
+00:56:00,310 --> 00:56:29,810
+We have to convert this into ssa form. So let's see how to convert. Okay, let's convert into ssa. So what you will get? First, what you will get very simple. Just rename the variables. Okay, what is the idea? The idea is very simple. Just rename the variables. Just change the variable names. Use different, different variables for assignment. Okay, don't assign the same variable more than once. So use different, different variables or you can rename the variables. For example, this variable X, I can call it X1.
+
+110
+00:56:30,380 --> 00:56:57,370
+Yes or no, this variable X, I can call it X1 no problem. Okay. Yes or no. So I can say this will be X1 equal to U minus T. So this different variable I can use. I'm using a different variable. Then what I'm doing, remember this, this is X1, right? Yes or no. This is X1. X1 multiplied by V. Okay, because you can easily see the same X you are using here. We are using the same X here. So this will be X1 into V.
+
+111
+00:56:57,790 --> 00:57:29,980
+and this you are putting into Y so let's call that Y1 okay what else let me know what will be the next what you will do next tell me so very simple then you can easily see Y plus W which Y is this which Y is this so this is your this Y yes or no so this is Y1 so I can say this is Y1 plus W and you are putting this into X2 you can use a different variable X2 okay then what you can do let me know
+
+112
+00:57:30,160 --> 00:57:59,590
+then what you will do please tell me please tell me so then what you are going to do very simple t-z t-z okay you can assign this into a new variable you can use a new variable you can use maybe y2 it does not matter you can use y3 also basically just use a different variable just use a different variable you can use t2 also no problem you can use for example m2 also no problem you can use m also no problem are you getting my point
+
+113
+00:57:59,790 --> 00:58:30,750
+just use a different variable okay so for simplicity just use y2 then what you can do very simple then this is x into y so this y is y2 and which x is this this is this x right yes or no so this is this x means this is your x2 this is your x2 and you are putting this you are assigning this to y so use a different variable y3 tell me total how many variables the question is asking total so total how many variables are there
+
+114
+00:58:31,260 --> 00:58:57,310
+Please tell me how many total variables the question is asking how many total variables are required to convert the code segment into SSF form? Okay, so tell me how many total variables are there in this code? How many total variables we have? So let's read. How many you have? Tell me so you can see five five five variables you have here x y five variables are here x y then ut
+
+115
+00:58:57,770 --> 00:59:26,510
+okay so see total variables are these these are the total variables let me let me write it five variables are x1 x2 y1 y2 y3 y1 y2 y3 these are five variables then what you have then you have u then you have t then you have v then you have w then you have z okay so so you can see u v w z t u v w z t yes so finally the answer will be 10
+
+116
+00:59:27,880 --> 00:59:58,640
+Total variables will be 10. Is this clear? Please tell me. So very simple question, right? So the total variables that are required, that will be 10. Did you understand this? Let me know. Is this question clear to everyone? Please tell me. So the answer is going to be 10. Now, this is your 2015 question. Let's solve it. Did you notice one thing that from SSA, the question came in 2015, in 2016,
+
+117
+00:59:59,280 --> 01:00:31,630
+in 2017 okay three times consecutively the question came from SSA and this is a very easy topic let me tell you this is easy okay in future also if any question will come from SSA I guarantee that you will be able to solve it okay so let's solve this question the question is saying the least number of temporary variables which are required see the question is asking the temporary variables we are asking how many temporary variables are required
+
+118
+01:00:31,970 --> 01:01:07,260
+to create a three address code in static single assignment form. You create a three address code in SSF form for this expression. This expression is given to you. So can you take your copy pan? Can you take your copy pan? Let's do it. So this expression is given to you q plus r divided by three plus s minus t multiplied by five plus you multiplied by V
+
+119
+01:01:08,030 --> 01:01:38,050
+divided by W okay so this is the expression that is given to you so let's solve it first what you do you create three address code is this clear what you do you create a three address code in static single assignment form so what we need to do we need to create three address code in SSF form this is what you need to create create three address code in SSF form SSF form means
+
+120
+01:01:38,600 --> 01:02:07,540
+Don't assign same variable more than once. Yes or no? Static single assignment. Don't assign same variable more than once. Okay. And three address code you already know. So let's do that. So tell me, if you convert this into three address code, first what will happen? First what will happen? Let me tell you something. First of all, let me tell you that these are arithmetic operators. What are their precedents? Do you know from your school life? Let me take you back to the school life.
+
+121
+01:02:09,420 --> 01:02:39,120
+in the school life you have already seen what are the precedents see you already know these operators multiplication and division they have the same priority multiplication division they have same priority yes or no they have same precedents same priority okay and they have more priority than addition comma subtraction and addition comma subtraction have same priority they have same priority yes or no and also
+
+122
+01:02:40,510 --> 01:03:11,110
+also for example if you have this type of thing okay if you have this type of thing then what we will do first division or multiplication here what we will do first division or multiplication tell me they have same priority multiplication division they have same priority they have same priority and when they have same priority you do them left to right the associativity is from left to right yes or no also you do them left to right is this clear
+
+123
+01:03:11,690 --> 01:03:41,900
+please tell me so here what you will do here actually first you will do u into v first you will do this and okay let's assume you put this into some variable okay maybe let me just call maybe t4 then what you will do then you will do t4 divided by w is this clear or not please tell me did you understand this this point let me know is this point clear to everyone this is from your school life understood
+
+124
+01:03:42,500 --> 01:04:10,200
+so remember multiplication comma division they have same priority and we do them left to right if they have same priority we execute them from left to right next these two addition comma subtraction they have same priority we execute them left to right okay so very simple point now let's come back to this question so first what will happen tell me first what you will do okay so first you can do r divided by 3 because the highest priority
+
+125
+01:04:10,990 --> 01:04:39,160
+multiplication, command division, they have highest priority. So what you will do, you will do them left to right. So first you will do R divided by three. Okay. You can do this R divided by three. So let's solve it. So first you can do R divided by three and you can assign this to some variable T1. Okay. Some temporary variable T1 you can use. So very simple. Then now this is done. Okay. This is where this you have in T1. Is this clear?
+
+126
+01:04:39,760 --> 01:05:07,020
+this you have in T1 then what you will do please tell me then what the next thing you will do let me know what will be the next thing that to do that will be T into 5 yes or no this you will do T into 5 okay so very simple then you will do T this T is not a temporary variable right this T is not a temporary variable this T is not a temporary variable see this is temporary variable this is your temporary variable
+
+127
+01:05:07,580 --> 01:05:41,390
+But this is not temporary variable. This is source program variable. Yes or no? Okay. This is a source program variable. Source variable. Okay. Source program variable. Source code variable. So very simple. So you can see you will do T multiplied by five and you can store this into some other temporary variable T2. Okay. Because you want SSF form. So don't assign into the same temporary variable more than once. Okay. So very simple. This is what you will do.
+
+128
+01:05:41,580 --> 01:06:10,780
+Now this you have in t2 finally I can say this is what you have in t2 next what you will do tell me next what you will do next you will do u into v yes or no next you are going to do u into v this is what you are going to do okay so just do this u into v and you will put this into temporary variable t3 yes or no so just put in temporary variable t3 then what you will do then what you are going to do then you are going to do t3 divided by w yes or no t3
+
+129
+01:06:11,420 --> 01:06:38,370
+this t3 you are using t3 divided by w you can store this into some temporary variable t4 okay yes or no so very simple because we want SSF form you want a static single assignment form so don't assign this to the same variable which you have already assigned don't assign this into the same variable which you have already assigned okay assignment to any variable will happen at most once okay what about next
+
+130
+01:06:39,570 --> 01:07:08,900
+Now this is this is what you have in T for basically I can say this is in your T for then what you will do tell me What are the next thing to do the next thing to do that is only plus minus plus minus so then you will do this Okay, this you will do q plus t1 and you will put this into t5 then what you will do tell me Now this is what you have remember this is what you have in a Now this is what you have in t5 in t5 you have this Okay, then what you will do you will do
+
+131
+01:07:09,350 --> 01:07:41,940
+t5 plus s yes or no t5 plus t5 plus s very simple so this you will put in t6 okay now this is done then what you will do then what you are going to do then you are going to do t6 minus t2 yes or no then you are going to do t6 minus t2 this you will put in t7 okay is this clear then what you are going to do after this after this what you are going to do
+
+132
+01:07:43,790 --> 01:08:14,720
+Then you will do T7 plus T4 and this you will put in some other variable T8. So finally that's it. So how many temporary variables are needed? The question is asking how many temporary variables are needed? Let me know. How many temporary variables are needed? The answer will be 8. Is this clear? The answer is going to be 8. I hope you understood. Is this clear or not? Please tell me. So very simple question, right? Agree or not?
+
+133
+01:08:15,150 --> 01:08:47,260
+This is an extremely simple question. You can see now you have three address code in the SSA form in the static single assignment form. So very simple question. The answer is going to be eight. This will be the final answer. The answer will be eight. Okay. So we have seen all the gate exam questions. Each and every gate exam questions we have done. So did you understand SSA? So far we have seen SSA. Also we have done all the gate exam questions. Are you confident in SSA?
+
+134
+01:08:47,650 --> 01:09:18,060
+static single assignment form what this static means what single assignment means and what this together means static single assignment what this means how to convert a program into static single assignment form so all these concepts and the gate exam questions are they clear please tell me are you confident in the static single assignment now i'm going to teach you something which has not come in the gate exam so far but it will come in the gate exam someday okay basically now what i'm going to teach that is
+
+135
+01:09:18,350 --> 01:09:47,430
+part of ssa that is given in every standard resource you can study any standard resource if you study ssa from any standard resource okay whatever book you study whatever nptl lecture or whatever university article you study the few the concepts that i will teach you now those concepts will be given but these concepts that i will teach you now from these concepts in the gate exam so far there is no question okay so that is the reason
+
+136
+01:09:47,790 --> 01:10:17,110
+No coaching institute is teaching these concepts. Okay. So some students might be thinking that these are out of syllabus. No, these are in the syllabus, but let me tell you that the question will come in future. I guarantee. So the topics that we are going to that I will teach you now. These are standard topics. Okay. Remember, these are part of SSA. These are standard topics in every standard resource in every book in every university article in every NPTEL lecture, you will find these topics.
+
+137
+01:10:17,520 --> 01:10:46,820
+But in the coaching institutes, they will not teach when they will teach in the coaching institute when they will teach when the question will come in the gate exam. Okay. So remember the topics that I will teach you now. These are for future gate exam question and I promise you one thing in the future. Okay. Maybe after two years, maybe next year, maybe, maybe, maybe you will give the gate exam, maybe in your year or maybe after two, three years, the question will definitely come. Okay. Let me tell you one thing. Actually,
+
+138
+01:10:47,160 --> 01:11:17,520
+from this SSA question came in 2015 this was the first question came from SSA okay in 2015 the first question from SSA came question from SSA came is this clear the first question from SSA came then in 2016 the question came then in 2017 the question came so actually let me tell you one thing okay before this in the coaching institutes they did not teach SSA
+
+139
+01:11:18,280 --> 01:11:47,930
+Okay. So let me tell you before 2015 in the coaching institutes, they did not teach as as a this static single assignment. Okay. But when the question came in the gate exam, then they started teaching. Okay. They did not teach even here also in 2015 also they did not teach. It means after 2015 also they did not teach. Why? Because they thought this is a rare question. Yes or no. This is rare question. This will not come again.
+
+140
+01:11:48,670 --> 01:12:17,790
+But next year also the question came, then they started teaching. Nowadays you can see they are teaching in the coaching institutes. People are teaching SSE. Now let me tell you what will happen. Okay. See this concept that we will study now. This is a very simple concept. This is, you will see this. This is a very simple concept. The concept of five node, the five node concept. So this concept is very standard concept, very simple concept. And in the future exam, this question will come. I can say after some time.
+
+141
+01:12:18,180 --> 01:12:48,790
+Okay, after some time the question will come from this concept. So anyway, let's continue this. So let's study this concept. So remember, this is a future gate exam question will come from this concept. Okay. So basically, this is converting conditional statement and loops into SSA. So far, what we have done? Can anyone tell me? Can anyone tell me so far what we have done? So far, what we have done? Can anyone tell me so far? We have converted a straight line code.
+
+142
+01:12:49,110 --> 01:13:22,080
+into ssa right yes or no so far you have straight line code which you have converted to ssa you have a straight line code do you agree with me do you agree with me that so far the straight line code you have converted to ssa this straight line code okay very simple straight line code is there and that we have converted to ssa converted to ssa right but so far did we consider conditional statement did we consider loop
+
+143
+01:13:22,830 --> 01:13:55,380
+Did we consider conditional statement? Did we consider loop? Tell me. Now what we are going to do? Now we are going to see how to convert conditional statements. You know, if then statements. Okay. If then statements or if your loop. Okay. How to convert these things? How to convert these things to SSA? Okay. So how to convert these things to SSA and to convert these things to SSA? There is a concept.
+
+144
+01:13:56,040 --> 01:14:26,190
+This conversion is done to convert. Okay. To convert to SSA, we use a concept of five node. Okay. This five node concept we use. This concept is very simple concept. It will become your favorite. Don't worry. This is a very interesting concept. So this five node concept we use. Okay. Let's see what is this concept. So remember conversion of conditional statements and loops into SSA. And for this, we use this five node concept.
+
+145
+01:14:26,500 --> 01:14:56,020
+So let me tell you what to do. Okay. Look at this program. Convert this program into SSA. Can you do that? This program you have. Convert this program to SSA. We want to convert this program. This program has if then statements. Yes or no. There is if then statements. So you can see conditional statements you have. Okay. So we want to convert this program into SSA. Now let's see how to do. First, let me tell you what this program means. So you can easily see.
+
+146
+01:14:56,270 --> 01:15:24,930
+in this program basically what will happen you will assign some value to x okay here what you are doing you are assigning some value to x some value you are assigning to x okay so this is assignment of x you are using x here here we are using x right agree with me here we are not assigning x we are using x so please understand here we are not assigning x here we are using x okay we are not assigning x so this is actually
+
+147
+01:15:25,330 --> 01:15:57,640
+x equal to equal to 40 basically is x equal to 40 so remember this is actually x equal equal 40 okay so very simple now you can see here you are assigning here you are assigning and then here you are using here we use y okay here we assign y here also we assign y okay so very simple now actually what will happen first you will put some value into x then you will check is x equal to 42
+
+148
+01:15:58,310 --> 01:16:29,430
+you are checking is x equal to 42 yes if x is equal to 42 means if this is true then you will execute y equal to 1 this is what you will execute and if this is false then you will execute y equal to x plus 2 ok and after that at the end you will execute print y yes or no this is what you are going to do now let's convert this into ssa ok now let me convert into ssa so tell me do I need to do anything for x
+
+149
+01:16:30,260 --> 01:17:00,860
+Do I need to do anything for X? No. Yes or no? Because X only assigning once. See only here X is assigning. Yes or no? Here we are assigning X. Look at this. Here we are assigning X. Only here we are assigning X. So we don't have to worry about X. But there is assignment to Y here also. Here we have to care. Okay. So what we have to do? Here we have to take care. So what I can do? I can write Y1 here. I can write Y2 here.
+
+150
+01:17:01,320 --> 01:17:29,980
+so can I say this is your answer tell me can I say this is your answer just tell me just tell me do you think this is the answer this is the final answer that I am putting y1 here I am putting y2 here okay you can see now we are using different variables for y1 for y you can see y1 y2 so can I say this is the answer no see the question is what to put here which y to put here yes or no see this is correct this is correct this is correct no problem
+
+151
+01:17:30,470 --> 01:18:03,650
+This is correct. This is correct. No problem. But what to put here? Yes or no? You must be thinking. But what should we put here? This must be what? Please think about it. This must be what? Tell me. Can I put Y1? Can I put Y1 here? Print Y1? Will that be correct? Can I put Y1? Will that be correct? Can I put Y2? Will that be correct? Tell me. Can I put Y1? Will that be correct? Can I put Y2? Will that be correct? What to put here?
+
+152
+01:18:04,120 --> 01:18:32,800
+is this question clear to everyone what to put here see very simple if x is equal to 42 then what will actually happen just think about it if x is equal to 42 let's assume if this input value is 42 then actually what will happen tell me if this input value is 42 then actually what will happen then this will be executed and you will print y1 yes or no agree with me then this will be true
+
+153
+01:18:33,110 --> 01:19:04,610
+and you will print y1, y1 will be printed okay but notice if this input is let's assume 50 let's assume this input is 50 then this will then this will happen then this will become false yes or no this will become false okay then what will happen then y2 will happen here is this understood so tell me what should I put I don't know what are the value of x I don't know what are the value of x so should I put y1 or y2
+
+154
+01:19:07,170 --> 01:19:39,310
+If I put Y1, will that be correct? Just tell me. If I put Y1, will that be correct? If I put Y1, will that be correct? Just tell me. I am putting Y1 here. Will that be correct? No, that will be wrong. Yes or no? So this also will be wrong. Okay. If I put Y2, will that be correct? If I put Y2, that also will be wrong. This is also wrong. So what is correct then? Now let me tell you. So in this type of situation,
+
+155
+01:19:39,690 --> 01:20:14,580
+to convert into ssa we use a concept of phi we use phi instruction what we use we use phi instruction okay let me tell you what we do in ssa there is a special instruction ssa has a special instruction ssa this static single assignment form ssa has a special instruction okay a special instruction when multiple values are coming to a point yes or no
+
+156
+01:20:14,910 --> 01:20:45,230
+when multiple assignments when multiple assignments or I can say multiple definitions of a variable are coming to a point when multiple or I can say when more than one definitions when more than one definition definition means assignment right yes or no definition means assignment so remember SSC has a special instruction when more than one definition reach
+
+157
+01:20:46,070 --> 01:21:18,090
+when more than one definition of a variable of a variable reach at a point at a point this type of point is called join point. Okay. This type of point where basically multiple assignments are multiple definitions are coming. This type of point is called joining point. Is this clear? Okay. Is this clear? This type of point. This is your point, right? This is your point. So this type of point is called joining point.
+
+158
+01:21:18,430 --> 01:21:50,040
+okay this type of point we call it join point anyway so is this clear so this is special instruction what this is special instruction this is special instruction is phi instruction this is special instruction is phi instruction okay so actually what we do let me tell you we have a special instruction basically what this phi instruction will do this is a function this phi instruction will take two variables see there is a confusion we should use why or why or why because ultimately there is a print y here
+
+159
+01:21:50,580 --> 01:22:20,570
+see ultimately there is a print y here what is the confusion tell me just tell me what is the confusion you tell me you tell me what the confusion the confusion is this y should be y1 or y2 agree with me the confusion what the confusion that you tell me the confusion is this y should be y1 or y2 so what you do no problem give this to this five function okay you are confused what to use y1 or y2 you are confused you don't know should I use y1 should I use y2
+
+160
+01:22:20,790 --> 01:22:53,770
+So no problem. This is a magical function. Okay, let's assume this is a magical function. Think about this function as a magical function. This is the magical function. Okay, let's call this magical. This is a magical function. Okay, what is this? This is a magical function. Okay, through this magical function, you give Y1, Y2 because you are confused. Okay, I am confused. Should I use Y1? Should I use Y2? Because I want to print the value of Y. So should I use
+
+161
+01:22:54,020 --> 01:23:18,240
+Should I print the value of Y1 or should I print the value of Y2? So no problem. Use the five function. Is this clear? Because more than one definitions are reaching at a point. More than one definitions are reaching at this point at this point. Yes or no. So use this five function and what you do this five function will either give you Y1 or it will give you Y2. See if you come from here, it will give you Y1.
+
+162
+01:23:18,500 --> 01:23:47,480
+this five function this is a magical function please understand this is a magical function so if you come from this side this five function will give you y1 if you come from this side this five function will give you y2 this is a magical function okay so what you do basically you just use y3 okay and what you what you will print you just print y3 is this clear please tell me just print y3 so this is the solution is this solution clear to everyone did you understand the original problem
+
+163
+01:23:48,200 --> 01:24:19,340
+See, this was your code. In this code, did you understand the problem? Let me know. Did you understand the original problem? Like what to put here? Should I print Y1 or should I print Y2? This was the problem or not? I'm asking you some questions. First, you tell me, did you understand the original problem? The ambiguity, did you understand? Please tell me. You understood, right? Okay, because here we want to print the value of Y. Should I print Y1 or should I print Y2? So there was a confusion here. Okay.
+
+164
+01:24:19,710 --> 01:24:49,730
+you cannot print Y1 if you print Y1 that is wrong if you print Y2 that is wrong yes or no because if you go like this then you should print Y1 if you go like this then you should print Y2 so basically what value I should print here that will depend on which which branch I am taking yes or no okay so which value of Y I should print here that will depend from which side I am going okay from which side I am coming to here to this point
+
+165
+01:24:50,150 --> 01:25:19,730
+So what I can do very simple just use a five function. This is special instruction you use. Okay. This is a magical function. This is a magical instruction. This will give you this five function. What it will do if you go by this direction, then this will give you why one this five function will return why one and if you go by this direction, then this five function will return why two whatever value this five function will return. You put that into some variable y three and this y three you put here.
+
+166
+01:25:21,510 --> 01:25:51,900
+Okay. Did you understand? Let me know. Please tell me. Please tell me. Did you understand this five function? Let me know. Yes or no. Is this clear? See very simple point. Let's assume that here some Y value you are assigning. See, let me tell you here. Let's assume some Y value you are assigning. Okay. Here also some Y value you are assigning. Here also some Y value you are assigning. Okay. Now, now here also here also and here also. Now let's assume that
+
+167
+01:25:53,660 --> 01:26:22,120
+At this point, you want to print the value of y. Okay. What do you want to do at this point? You want to print the value of y. I want to print the value of y. Okay. Now I can come from here also. I can come from here also. I can come from here also. Okay. Is this clear? I can come from this side also. Let me call this this is let me call it even is let me call it e2 is let me call it e3 is okay. Is this clear? So
+
+168
+01:26:22,500 --> 01:26:54,270
+I can come this is the this is just the age name okay what is this even this is the age name I am giving you age name given by me this is just the age name given by me okay for understanding purpose for understanding purpose I am giving this name even is this clear now what are the confusion you tell me just tell me what are the confusion okay now this is in SSI or not first to tell me first to tell me is this in SSI is this in SSI this is not in SSI right
+
+169
+01:26:55,210 --> 01:27:23,200
+this is not in SSA because you can see here also you are assigning y here also you are assigning y here also you are assigning y so this is definitely not in SSA is this clear assigning y assigning y assigning y so this is not in SSA now let's convert to SSA what I will do I am converting to SSA okay I am converting to SSA so if I want to convert to SSA what I will do very simple thing I will do
+
+170
+01:27:23,350 --> 01:27:55,590
+I will call it Y1, I will call it Y2, I will call it Y3. Yes or no? I will call it Y3. Okay. So is my work over? Can I say my work is over? Can I say I have created SSA? Did I create SSA? Did I create SSA? No. Now there is a problem. This Y should be what? This Y should be what? Should this be Y1? Should this be Y2 or should this be Y3? Did you understand the problem? You understood the problem, right?
+
+171
+01:27:55,940 --> 01:28:25,610
+This Y should be what? Y1 or Y2 or Y3? I don't know. I don't know. If you are going by this, this edge, if you are coming here at this point, okay. At this point, if I'm coming from this side, then I should print Y1. If I'm coming from this edge, I should print Y2. If I'm coming from this edge, I should print Y3. Yes or no? So the solution, where is the solution? So what to print here? Let's call it join point. Okay. This type of point is called join point. Is this clear?
+
+172
+01:28:26,140 --> 01:28:59,390
+see this type of point what this point is called tell me what this point is called this type of point is called what this is called joint point joint point or merge point okay because many many edges they are basically coming here okay so you can you can call it joint point merge point something like this okay so here what you can do in this type of situation what you can do basically we don't know should I put y1 here y2 here y3 here
+
+173
+01:28:59,610 --> 01:29:30,400
+That is the confusion. Okay. So at this point, should I print Y1? At this point, should I print Y1 or should I print Y2 or should I print Y3? That is the problem. That is the confusion. Okay. What is the solution? So that is the confusion, right? Yes or no? So the solution is this. The solution is use a magical function. See, I am not calling it magical. I am not calling it magical.
+
+174
+01:29:30,890 --> 01:30:01,210
+Everyone calls it magical. Okay. Everyone calls it magical. Harvard University, okay. Or Washington University, all of them they call it magical. So use a magical function, which is a special function in SSA, which is a special function provided by SSA, which is, which is a special node provided by SSA, provided by SSA. Okay. Is this clear? So this is provided by SSA. So use a magical function.
+
+175
+01:30:03,040 --> 01:30:31,300
+This five function you use, okay? Phi y1, y2, y3. This function you use, that's it. That's it, that's it. This function will give you the correct value. Okay, because this is a magical function, so this will give you the correct value. If you come from this side, it will give you y1. If you come from this side, it will give you y2. If you come from this side, it will return y3. Okay, is this clear? So just use this magical function and this, let's assume this magical function will give you the correct value.
+
+176
+01:30:32,030 --> 01:31:02,040
+Okay, Y1, Y2, Y3. And you just put this into some other variable Y4 and then you print Y4. Is this clear? And then you print Y4. So very simple point. What you basically need to do, let me tell you, basically, you just need to do this. Instead of printing Y, what you can do, you can do this. See what you can do. You can do this. First, you can use a five function. Okay, this five function, it will be like this, that
+
+177
+01:31:02,350 --> 01:31:33,710
+If you come from this age, then it will give you Y1. Is this clear? Okay. Are you getting my point that if you come from this age, it will give you Y1. If you come from this age, it will give you Y2. Understood or not? Okay. And if you come by this age, if you come by this age, it will give you Y3. Okay. The value you can store into Y4 and finally just print Y4. Just print Y4. Okay. Is this clear?
+
+178
+01:31:33,950 --> 01:32:04,230
+So that's it. I hope you understood the same thing you can write like this. The same thing you can simply write like this that this five function just give y1, y2, y3 to this five function and this will give you correct value and then you can just print this y4 understood. So did you understand this magical function? This magical function. Did you understand? Please tell me. So there is a magical function here. Basically you are confused what to do.
+
+179
+01:32:04,510 --> 01:32:32,430
+Should I print? What to do? What to print here? So very simple. Just use this magical function. Okay. If you are coming from this side, then you use Y1. If you're coming from this side, then use Y2. Okay. So remember, you can directly put it Y1, Y2. No problem. This is also correct. Means you can directly say Y1, Y2. That is also correct. Y1, Y2. You can directly say Y1, Y2. That is also correct. Okay.
+
+180
+01:32:32,850 --> 01:33:01,110
+So this is the point understood is this clear to everyone now you might be thinking how how we can use a magical function how to execute this how to execute yes or no during the execution how we how we will know what is this yes or no are you thinking please tell me are you thinking how we can use a magical function in the program a magical function how we can use in a program how to execute this instruction
+
+181
+01:33:02,280 --> 01:33:33,120
+how to convert this instruction this five instruction how to convert this instruction into assembly language code into the machine code how to convert this are you thinking so let me tell you this ssa program we never run okay let me tell you see ssa program is never run ssa program is intermediate representation please understand ssa program is just a intermediate representation we are never going to run it it's just a
+
+182
+01:33:33,260 --> 01:34:02,110
+intermediate representation is this clear? we never we are never going to run it we never we are never going to run it is this clear please tell me is this point clear that we are never going to run it so don't worry about it see you might be thinking sir how to run it if we run then how we will know so no problem we are never going to run it this is just an intermediate representation we are never going to run it
+
+183
+01:34:04,980 --> 01:34:32,760
+is this clear please tell me so actually let me tell you what we do this ssa we use only for optimization ssa is used only for optimization only for optimization means what we do we convert to ssa do some optimization and then we convert back to three address code okay see very simple point basically what we do this three address code
+
+184
+01:34:33,220 --> 01:34:59,720
+this three address code we convert to ssa please notice this three address code or control flow graph either three address code or control flow graph okay this this we convert to ssa this we convert to ssa for optimization what you do for optimization for optimization purpose please understand for optimization purpose we convert to ssa okay we do some optimization
+
+185
+01:35:00,380 --> 01:35:29,950
+okay on this SSA we do some optimization we do some optimization we do and then let me tell you then let me tell you then we convert again to 3 address code or or control flow graph did you understand so we are never going to run it this SSA we are never going to run it I hope you understood this actually why SSA see SSA makes optimization easy makes
+
+186
+01:35:30,430 --> 01:36:02,520
+Certain optimizations easy Certain optimizations easy Can you think about it? Why? Certain optimizations very easy Anyone? This is very very intuitive SSMX Certain optimizations very easy Very easy Okay, very easy Okay, let me give you the analogy You tell me In this real world Do two different people have different names?
+
+187
+01:36:02,820 --> 01:36:32,790
+tell me in the real world you tell me in the real world different people do they have different names not necessarily yes or no see SSA simply means don't give same name yes or no to different assignment okay see what this SSA says SSA says that this SSA is saying that don't give same name to different people yes or no don't give same name to different assignment to different assignment
+
+188
+01:36:35,470 --> 01:37:05,530
+two different assignments yes or no this is what SSS says now you tell me just just consider this situation analogy you consider in the real world I am also Deepak maybe your name is also Deepak maybe there are many Deepak yes or no so now just think about it if there is a rule that two different people will have different names if there is a rule okay two different people have different names
+
+189
+01:37:05,880 --> 01:37:35,560
+Then many things will become very easy. Do you agree with me? Do you agree with me that many things will become very easy? If there is a rule that two different people will have different names, means if I am Deepak, there is no other Deepak. Okay. Is this clear? Please tell me. Are you getting my point? So if there is a rule that in this world, two different people will have different names, then many things will become very easy. Agree with me. Okay. Yes or no? So that is the same idea. Remember in the SSA, we are
+
+190
+01:37:35,960 --> 01:38:09,490
+we are giving different names to different assignments yes or no basically this ssa what it does it gives different names it gives different names different names to different assignments agree yes or no is this clear so to different assignments so because of that many optimizations there will become very easy okay because of that what will happen many
+
+191
+01:38:09,880 --> 01:38:45,870
+I can say certain optimizations they will become very easy so ssa is only used for optimization ssa this is useful for certain optimizations okay some kind of optimizations you can easily do on ssa is this clear please tell me so very simple so we don't we are never going to run it is this clear or not please tell me so that is the reason again i'm telling you you have a three address code or you have a control flow graph
+
+192
+01:38:46,270 --> 01:39:14,710
+this you will convert into ssa you will do some optimization on this ssa you will perform certain optimizations you will do okay some optimizations you will do after doing these optimizations what you will do you will convert again to 3 address code or control flow graph is this clear please tell me let me so remember for optimization purpose we do this
+
+193
+01:39:16,270 --> 01:39:44,570
+for optimization purpose we do this nothing else once our certain optimizations are over then we will I can say convert I can say into normal 3 address code or control flow graph so we are never going to run this SSA so don't worry about 5 function is this point clear now that is the reason we can use this magical function because we are not running it this SSA we don't convert into machine code
+
+194
+01:39:44,970 --> 01:40:13,800
+We are not going to convert SSA to machine code. We are not going to run SSA code. This is just only used for optimization. Do the optimization and then you convert again to three address code. Is this point clear? Please tell me. Let me know. So remember, we don't care about the five function. So remember, there is a magic function. You can see this is IIT Kanpur slide. IIT Kanpur slide. You can see there is a magic function, this five function. This is five used for selection. Agree or not?
+
+195
+01:40:14,180 --> 01:40:43,890
+we use this five four selection yes or no if there are multiple things are coming okay at a point if multiple things are coming like let's assume y1 is coming y2 is coming y3 is coming then we use five function for selection okay means which to select y1 y2 or y3 which of them to select and you put that into y4 so very simple this is used for selection not every joint node needs a five function basically you need this five function
+
+196
+01:40:44,220 --> 01:41:12,170
+only if multiple definitions are reaching that node yes or no i will give you the example don't worry if multiple definitions are reaching at this node then you use five function yes or no if only single definition is coming from every like for example just think about it tell me if from this from this side let's assume x is coming and y1 is coming from this side let's assume x is coming and y2 is coming
+
+197
+01:41:13,010 --> 01:41:42,340
+and from this side x is coming and y3 is coming then tell me you will use 5 function for x or not will you use 5 function for x will you use 5 function for x no there is no need yes or no because from this side also x is coming from this side also x is coming from this side also x is coming yes or no is this clear so there is no need for x okay so you will use 5 function for y1
+
+198
+01:41:43,150 --> 01:42:15,340
+Y1, Y2, IY3 for these you will use the five function. There is no need of no five function for X needed for X. Okay. Is this clear? So I hope you understood this. So let's move on. Now, but what is this five? So let me tell you, this is just a conceptual entity. This is IIT Kanpur slide. You can see this is just a conceptual entity. Is this clear? Read this word. This is just a conceptual entity.
+
+199
+01:42:15,910 --> 01:42:50,220
+Nothing else. We are never going to convert into machine code. Is this clear? Okay, we will never convert into machine code. This is just a conceptual entity. Okay, I hope you understood. Now let's move on. So remember, like this is a very beautiful line you can see here. Okay, see, how do we choose which value of Xi to use? We don't really care. Okay, see, you might be thinking how this five function will decide which, which value to return? Yes or no?
+
+200
+01:42:50,440 --> 01:43:22,970
+are you thinking is there anyone here who is thinking sir how five function will decide which x value to return which x value to return so remember we don't care okay is this clear we do not care so this is a very beautiful line you can see okay so just notice this now let's move on now let's see this example this is a ulman question a beautiful question let's solve it
+
+201
+01:43:23,640 --> 01:43:52,560
+convert the following program with conditional statement into SSA okay this code is given to you in the Ulman book now what we need to do first of all you tell me is this in SSA right now you tell me is this in SSA look at this and tell me is this in SSA right now do we have this in SSA no this is not in SSA right yes or no so this is not in SSA okay because
+
+202
+01:43:53,070 --> 01:44:24,480
+You can see you are assigning more than once. Okay. So this is not in SSA right now. This program text. This is your program text and this program text is not in SSA. So how to convert? We need to convert into SSA. Anyone want to help? This is your code. Your code is something like this. If flag something, then if this is true, then X will be minus one else.
+
+203
+01:44:26,500 --> 01:44:55,530
+else x will be 1 okay whatever you do here basically you will do x into a okay let's convert this to ssa we are going to convert this to ssa first just create the graph okay that is very easy first you convert first you write a graph for this okay the best way I'm telling you the best way I'm telling you first you create a graph for this
+
+204
+01:44:56,390 --> 01:45:26,340
+first you create a graph for this so what the graph will look like see the graph will look like this if a flag the graph will look like this if this is true if this flag is true then what will execute please tell me if this is true then what will execute and if this is false then what will execute if flag is true then what will execute then x equal to minus 1 will execute if flag is false then who will execute
+
+205
+01:45:26,890 --> 01:45:55,660
+then x equal to 1 will execute yes or no is this clear please tell me okay if this is true then you will execute this if this is false you will execute this so very simple and whatever you do at the end you need to execute this one okay at the end you need to execute y equal to x multiplied by a this is what you need to execute at the end clear so from here from here
+
+206
+01:45:56,800 --> 01:46:27,360
+Okay, now let's convert. Now what we will do, we will convert. I hope you understood. So remember, this is your code. If there is flag, okay, this is what you have. Now, if on the true branch, what will happen on the false branch, what will happen true branch, false branch in the true branch, basically X equal to minus one, you will put X equal to minus one in the true branch. And in the false branch, you will put X equal to one.
+
+207
+01:46:28,950 --> 01:47:02,360
+and at the end at the end what you are going to do at the end you are going to do this y equal to x into a okay so this is the given code let's convert into ssa first of all right now this is not in ssa right yes or no okay right now you can notice this is not in ssa not in ssa now let's convert into ssa so what the first thing you will do see for ssa
+
+208
+01:47:03,020 --> 01:47:32,240
+this is assignment to x, this is assignment to x first you will do this x1 x2, right? yes or no? this is very simple do you agree with me? yes or no? in the SSA, I want to convert to SSA so you can see this is assignment to x, this is assignment to x so first I will do this this I will write x1, this is I will write x2 is my work over? please tell me, can I say my work is over? can I say my work is over? no, no, no, no my work is not over because what this x should be?
+
+209
+01:47:33,240 --> 01:48:04,030
+see what this x should be should this be x1 or should this be x2 yes or no this should be x1 or x2 is this clear this x this should be x1 or x2 so what to do see if you are coming by this side then this should be x1 if you are coming by this side this should be x2 yes or no so what what to do should I put x1 should I put x2
+
+210
+01:48:04,940 --> 01:48:33,900
+so here five function will help you yes or no so here who will help you very simple a magical function is there a magical instruction is there that five function is going to help you okay so here a five function is going to help you so what you can do you can write a five function okay the five function will help you x1 x2 just basically this five function will return the correct value remember this is a magical function okay this has magic powers is this clear
+
+211
+01:48:34,440 --> 01:49:01,540
+remember this is a magical function and because this is a magical function so this will return the correct value means if this flag is true means if you are going if you are coming by this side then remember five function will return the value x1 if this flag is false then basically you are you are coming from this side then this five function will return x2 remember this is a magical function it will return the correct value okay five function will return the correct value
+
+212
+01:49:01,860 --> 01:49:35,950
+so this you can store into some variable x3 and finally you can just use this x3 here x3 multiplied by a okay is this clear please tell me so now this is your ssa now this is the ssa are you finding this interesting or not please tell me see many beautiful questions can be created on this five function on this five function many beautiful questions can be created and I promise you one thing in future gate exam this five function will come
+
+213
+01:49:36,350 --> 01:50:04,180
+one day will one day this question will definitely come and only the go classes students will be able to solve it two easy marks only go classes students will get okay so and after that every coaching institute will start teaching this concept okay so this happens anyway now let's see this is this clear please tell me now let me tell you see either you can write like this okay or there is another way of writing
+
+214
+01:50:05,020 --> 01:50:34,000
+Basically, you can write like this. See, if you are coming from this side, okay, let's call it mean, okay, let me call it a, let me call it B. Means if you are coming from a side, then X1 and if you are coming from B side, then X2. Is this clear? Means if you are coming from a side, then X1, return X1. If you are coming from B side, return X2. So you put in X3 and then you use X3. Anyway, this is just a small either you can write like this.
+
+215
+01:50:34,450 --> 01:51:05,450
+or you can write like this both are fine both are fine okay both are fine okay so this was in the diagram now in the program text how to do see in the diagram we have done but in the program text how to do this program text how to convert to ssa so let's convert to ssa now you already know how to do that this program text you can easily convert like this if a flag x1 equal to minus 1
+
+216
+01:51:07,520 --> 01:51:37,090
+else x2 equal to 1 then where the five function you will put after this or before this please tell me where the five function you will put please tell me where are you going to put the five function before this or after this before this right yes or no so before this statement before this statement you are going to put the five function pi x1 x2 in x3 and this x3 you use here okay so this is the idea
+
+217
+01:51:38,000 --> 01:52:13,620
+I hope you understood this is the idea this is your answer is this clear tell me okay so very simple concept five function very very very simple concept you can see okay so this is the five function concept now let's solve some more questions so right now tell me is this in SSA or not look at this program text is this in SSA this is your program text is this in SSA okay see this is the graphical
+
+218
+01:52:14,180 --> 01:52:46,200
+this is the graphical representation okay but you tell me this program text this is not in ssa right okay this is right now not in ssa not in ssa so convert into ssa why this is not in ssa why this is not in ssa you can see see you are you can see you are assigning i here also here also okay notice you are assigning j here also here also so that is the reason this is not in ssa is this clear
+
+219
+01:52:46,640 --> 01:53:19,500
+So convert to SSA. What you do? Convert into SSA. Can you do that? Now this is cakewalk for you. You are expert now. Okay. Now you are expert. So let's convert to SSA. See what is happening. First you are assigning i, assigning j. Okay. You are assigning some value to i. You are assigning some value to j. Then what you are doing? Then you are checking is i equal to i is i less than 20?
+
+220
+01:53:19,930 --> 01:53:46,830
+if i is less than 20 if this is true then you will execute i equal to i plus j if this is false then you will execute j equal to j plus 2 and finally you will print i comma j okay is this clear so we need to convert this into ssa you tell me very simple point so let's convert to ssa okay let me try let me try first you can see this is assignment of i this is assignment of i
+
+221
+01:53:47,300 --> 01:54:13,770
+This is assignment of J, this is assignment of J, so what I should do? What is my starting point? Tell me, what should be my starting point? My starting point should be, I can make it I1, I can make it I2. Yes or no? Agree, agree or not? I can make it J1, I can make it J2. Yes or no? Okay, is this clear? Please tell me, so far everything is clear?
+
+222
+01:54:14,170 --> 01:54:45,830
+See I can make it I1, I can make it I2, I can make it J1, I can make it J2 So far everything is fine You tell me what is this J? Is it guaranteed to be J1? Can you guarantee this will be J1? Can you guarantee? Can you give me a guarantee that this will definitely be J1? Please tell me Can you guarantee that this will definitely be J1? Yes, yes, yes, yes This will definitely be J1, right? Okay Because See if you, if
+
+223
+01:54:46,110 --> 01:55:14,840
+if this happens then you will always have J1 here yes or no and can you guarantee this will be J1 can you guarantee this will be J1 yes this also will be J1 there is no problem okay this also will always be J1 correct or not this also will be J1 so there is no problem this always will be J1 right yes or no okay see whatever happens whatever whatever whatever happens this always will be J1 and what about this this always will be I1
+
+224
+01:55:15,600 --> 01:55:50,670
+Okay, so everything is fine so far. What should I print? Should I print? Okay, here you are I2, here J2. So should I print I2J2? So can I say that will be correct answer if I do I2J2? If I do I2J2 means this I2 is coming from here, J2 is coming from here. So if I print I2J2, can I say this is correct answer? If I do I2J2, can I say that will be correct answer? Where is the problem? This is not correct answer.
+
+225
+01:55:51,900 --> 01:56:26,540
+This is not correct. Where is the problem? You tell me the problem. You tell me, find a problem. Can you tell me the problem? Can you find the problem? Tell me. Anyone? Where is the problem? Let me know. In this entire code, in this entire code, where is the problem? This is not correct, but you find the problem. Can you find the problem? Where do we have the problem? Is there any problem here?
+
+226
+01:56:27,120 --> 01:56:57,980
+I am asking you, is there any problem here? No, there is no problem here. Is there any problem here? No. See, this will always be J1. This will always be J1. This will always be I1. So, there is no problem. Yes or no? And here you are using I. Here you are not assigning I, you are using I. So, where is the problem? Let me tell you, here is the problem. Okay, let me tell you, here is the problem. Why this is the problem? Why this is the problem? See, notice, notice, notice. If this is true,
+
+227
+01:56:58,380 --> 01:57:30,160
+just assume assume if this is true then should i print i1 or i2 notice one thing okay here there is a problem why there is a problem notice okay there is a problem why there is a problem let me tell you the problem is like this if this is true the problem is like this if if i is less than 20 means if this is true means if this is true is this clear if it's true okay means if if it's true
+
+228
+01:57:31,520 --> 01:58:04,460
+if if is true then then tell me what should I print just tell me just tell me what should I print please tell me if if is true means if this is true then what should I print then I should print i2j1 very good then I should print i2j1 agree with me and if if is false if if is false then then tell me what should I print then what should I print
+
+229
+01:58:04,680 --> 01:58:41,110
+means if I go by this direction then I should print i1 j2 okay so did you find the problem I am directly writing i2 i2 that is wrong yes or no I am directly writing i2 i2 that is wrong understood the problem or not please tell me did you understand the problem now what is the solution you understood the problem so tell me the solution now so what should I print here so what should I print here you understood the problem but what should I print here this
+
+230
+01:58:41,480 --> 01:59:17,050
+this should be i1 or i2 what should be this similarly this this should be j1 or j2 what should be this so tell me the solution what should i do yes very simple just use the five function right yes or no just use the five function so very simple five function use the five function if you are coming from this side okay just use the five function if you are coming from this side then then what should be printed just put i3
+
+231
+01:59:17,450 --> 01:59:49,710
+Tell me if you are coming from this side, what should I print? Tell me if you are coming from this side, what should I print? I should print I2. Okay and if you are coming from this side, I should print I1. Similarly for J, for J you tell me, for J. If I coming from this side, then what I will do? Then I will print J1. And if I coming from this side, then I will put J2. Okay and just create J3. So finally you can say I3, J3.
+
+232
+01:59:51,340 --> 02:00:21,370
+this solution understood is this clear please tell me see very simple solution that if you coming from this side then i2 should be printed if you coming from this side i1 should be printed so one five function for i variable and one five function for j variable is this clear one five function for i variable one five function for j variable please tell me understood or not so I can say this is a one five function for one five function
+
+233
+02:00:24,210 --> 02:00:56,020
+four i and one four j okay so is this clear please tell me so if you go by this side then j1 should be printed if you go by this side j2 should be printed okay and finally you can print i3 j3 is this clear please tell me understood or not let me know let me know understood or not please tell me is this point clear or not please tell me so like this you can create this you can convert into ssa this code
+
+234
+02:00:56,360 --> 02:01:25,740
+you can convert into ssa basically here you need to put five function okay what do you need to do you need to make it i1 you need to make it j1 you need to make it i2 you need to make it j2 and then you can easily see here you need to put five functions see here you need to put i1 and here you need to put i2 then you can see here j1 here j2 and then you can see that five functions you need to put okay you need to put five functions you need to put
+
+235
+02:01:26,190 --> 02:01:59,700
+So these five functions you need to put Finally, so you can see Finally, you can print J3 I3 Okay, is this clear? Please tell me Now, did you notice one thing? Is there anyone here who noticed one thing that I'm writing I2 I1 J1 J2 I'm writing I2 I1 J1 J2 Can I change the order like can I write I1 I2 J1 J2? Can I write that? See, did you understand? Notice
+
+236
+02:02:00,140 --> 02:02:29,120
+what this simple point you notice okay notice one thing here here you want to print okay remember here you want to print i comma j okay you want to print see you want to print i comma j you want to print okay this is what you want to print i comma j now from this direction who is coming from this direction who is coming from this direction i2 is coming j1 is coming correct
+
+237
+02:02:30,110 --> 02:02:59,850
+i2 is coming j1 is coming from this direction who is coming j2 is coming i1 is coming okay is this clear from this direction this is coming this is coming is this clear or not okay let's call this direction let's call this direction e1 let's call this direction e2 or you don't have to write so basically like that see okay maybe let's call this this point okay let me call this point a let me call this point b
+
+238
+02:03:00,330 --> 02:03:36,890
+Okay. These are just points. This is just a point point name given by me. Okay. So these are just point names. Okay. This is just a point name. Okay. Now see one thing, not as one thing. Can I write like this? I'm using the five function. Okay. I need to put the five function that you already know. So let me put the five function now. I'm putting the five function. So you tell me, can I put the five function like this, that okay. I want to I want to
+
+239
+02:03:39,240 --> 02:04:11,350
+I1, I2 and J1, J2 and J1, J2. Okay. Will this be correct or not? And then you print, then you print I3, J3. Okay. So tell me, will this be correct or not? Why this is not correct? Tell me why this is not correct? See, this is not correct. You are putting I1, I2, J1, J2. This is not correct. Okay. This is not correct. Is this clear? This is not correct. Why this is not correct?
+
+240
+02:04:11,740 --> 02:04:47,580
+because very simple thing see this is not correct very simple thing okay basically what to do here okay so this is not correct now let me tell you why this is not correct because yes order matters okay order will matter because order will matter okay order will matter so you have to use the same convention the order will matter for example if you are writing like this ccc if you are writing the this is here
+
+241
+02:04:48,010 --> 02:05:16,720
+means first if you are writing this this age means on this age what is coming? okay if first you are writing this age then every time you should write this age like for example first you are writing this age means I2 I1 okay on this age I2 and on this age I1 then the same convention you should follow for J okay the same convention you should follow for J J1 J2 is this clear? please tell me
+
+242
+02:05:16,940 --> 02:05:46,780
+Please tell me a simple point. This is not a complicated point. Just tell me simple point. Did you understand? So the same convention you should follow means, means, means if fast you are writing this age. Okay. This age you are writing fast. Then every time you should write this age fast. Is this clear? Okay. So finally you can, you can print I three J three. This you can print. This is correct. Okay. This is correct. Now remember one more thing.
+
+243
+02:05:47,380 --> 02:06:15,610
+see the benefit let me tell you now if you use this notation then there is no problem right see if I use this notation that that from B side if you are coming then put I1 okay and from A side you put I2 if I use this this convention then there is no problem right do you agree with me do you agree with me that if I say that
+
+244
+02:06:15,790 --> 02:06:45,040
+from B side if you are coming then return I1 if you are coming from B side return I1 if you are coming from A side return I2 yes or no if you are coming from A side return J1 if you are coming from B side return J2 this is also fine is this clear so basically if you are using this convention if you are writing basically from where you are coming yes or no from which age you are coming
+
+245
+02:06:45,700 --> 02:07:14,330
+from which age you are coming if you are writing that also then there is no problem okay then there is no problem of convention then we do not have any problem of order then we do not have any problem of order but if you are directly writing I1 I2 then you should follow the order means if first you are writing this this age then every time you should write this age okay is this clear so this matters I hope you understood I hope this point is clear so remember
+
+246
+02:07:14,700 --> 02:07:46,630
+ordering of five arguments according to the age ordering is important. Okay. So this is a small note. This is not a complicated point. This is a small note. Okay. So I hope you understood. So let's move on. So we have seen everything. You can just notice these are the properties of five function. You can have multiple five function. No problem for multiple variables. You can put five function. No problem. Okay. For multiple variables, you can put multiple five functions. Okay.
+
+247
+02:07:47,040 --> 02:08:15,500
+These are pledged only at the entry of the join node. Okay. We just put them at the entry of the joint node. Nothing else. Okay. So and remember for every variable, we don't have to create the five node. We do not have to create five node for every variable. For example, can you convert this into SSA? Can you convert this into SSA? First of all, you tell me right now, is this in SSA? Right now, is this is this in SSA? This is not in SSA, right?
+
+248
+02:08:16,360 --> 02:08:46,650
+Okay, why this is not in SSA? Right now this is not in SSA Tell me why? Because here you are assigning why? Here also you are assigning why? Okay, so this is not in SSA Now let's convert this to SSA Okay, now I am converting this to SSA So tell me what to do to convert to SSA Now I am converting to SSA Okay, so tell me What's the first thing I will do? Very simple I will make it Y1, I will make it Y2 Okay, yes or no?
+
+249
+02:08:47,220 --> 02:09:16,080
+Is this clear? Now, where is the problem? The problem is here. See the problem is here. This should be Y1 or Y2. This should be Y1 or Y2. That is the problem. See, this is fixed, right? If I make it X1, can I guarantee this will always be X1? Can I guarantee this will always be X1? Please tell me. If I say this is X1, can you guarantee that this will always be X1? Can you guarantee like if you go like this, then also it is X1?
+
+250
+02:09:16,300 --> 02:09:45,570
+if you go like this then also it is x1 so this will always be x1 right is this clear this will always be x1 this will this will always be x1 this also will be x1 right yes or no is this clear please tell me so remember for x you don't have to write a phi node there is no need to write phi node for x is this clear we do not have to create phi node for x because there is no ambiguity with x
+
+251
+02:09:46,010 --> 02:10:20,010
+We have no ambiguity with X. So there is no need to put the five node for X. Okay. We don't have to create five node for X. So this five node, you can create only for Y. Y one, Y two, put some Y three. And then finally you can see in the Z you can put Y three plus X one. Okay. So you can notice. So four X, four X, no five node required. No five node needed.
+
+252
+02:10:20,370 --> 02:10:48,930
+is this clear please tell me understood we only need phi node for y only for y we need phi node we don't need for x okay is this clear no problem you can keep it x okay satyam is asking y x 1 no problem you can keep it x okay don't worry don't worry don't worry this okay this is not a problem sorry sorry sorry this will be x sorry sorry for that
+
+253
+02:10:49,230 --> 02:11:19,260
+because see if you make it x1 here then it will be x1 see like if you make it x1 x1 then it will be x1 okay but you can keep it x no problem is this clear sattam means I am saying that if you make x1 x1 everywhere then it will be x1 basically the same axis coming okay by this path or by this path same axis coming okay so this is the point so you can see this is the point given to you not every joint node needs
+
+254
+02:11:19,550 --> 02:11:51,400
+by operator for every variable, basically for every variable, you don't need a final like here for X, we don't need a final for X. There is no final required. Okay, no final is required only for why we need a final. Okay, so this is how you can convert only for why we need a final we don't need final for X. So I hope you understood this. Remember, final is a conceptual entity.
+
+255
+02:11:52,240 --> 02:12:25,190
+This is a magical function and this is a conceptual entity. This is just a conceptual entity and how this will decide this five function, how it will decide which variable, which value to return. We don't care. Okay. We don't care. One last example I want to take that is regarding loops, how to convert loop into SSA. So far what we have seen now, now you tell me so far what we have seen so far we have seen.
+
+256
+02:12:25,870 --> 02:12:56,620
+straight line code how to convert into ssa if you have straight line code how to convert into ssa we have seen yes or no if you have straight line code how to convert that into ssa that we have seen this we have seen also what we have seen tell me also what we have seen let me know also what we have seen we have seen if then a statement if then a statement how to convert them to ssa
+
+257
+02:12:57,720 --> 02:13:27,730
+This also we have seen you become expert. Yes or no. Here we use, here we use pi nodes. Okay. Yes or no. So now what we are going to do now, we will see how to convert loops into SSA. The same five node we are going to use. So I'm giving you one example. Can you solve it? Can you solve it? Can you convert this into SSA? First you tell me right now, is this in SSA? Is this in SSA right now? Tell me.
+
+258
+02:13:28,750 --> 02:14:04,610
+Is this in SSA right now? Right now is this in SSA? The answer is no. This is not in SSA, right? Because look at the program text. Look at the program text. Look at the program text. In the program text, this variable A you are assigning multiple times. This variable B you are assigning multiple times. Yes or no? So this is not in SSA. Let's convert to SSA. Let's convert to...
+
+259
+02:14:04,500 --> 02:14:34,190
+SSA, can you do it? Let's convert to SSA, can you do it? So very simple thing. First, let me write it A1. Let me write it B1. Yes or no? Let me start. Let me write it A1, B1. So this assignment I will write B2, A2. Agree with me. So far, do you agree with me? Okay, are you with me? So far, see, very simple. I want to convert into SSA. So this is A1, B1. These assignments are A1, B1.
+
+260
+02:14:34,460 --> 02:15:09,340
+So these assignments must be different to the same variable. I cannot assign more than once. Yes or no to the same variable. You cannot assign more than once. So I'm writing it a1 b1. I'm writing it a2 b2. So far everything is fine. So can I stop here? So can I stop here? Please tell me. Can I simply stop here? Think about it. Can I stop here? No, I cannot stop. So where is the problem? Where is the problem? There is a problem. There is a problem. Where is the problem? See, there is a problem.
+
+261
+02:15:09,650 --> 02:15:39,860
+just tell me which B is this just tell me which B is this see notice one thing see see notice one thing see if you are coming by this side let me call it as even let me call it as even if you are coming by even is okay if you are coming through even is then this value should be what tell me if you are coming by even side by even is if you are coming if you are coming by even is then this B value should be what
+
+262
+02:15:40,140 --> 02:16:08,880
+this would be B1 yes or no but if I'm coming if I'm coming by E2A's if I'm coming by E2 there is an E2A's this is the E2A's if I'm coming by E2A's then what should happen if I'm coming by E2A's see this is the E2A's means means means means I'm coming like this okay I'm coming like this so tell me now tell me if I'm coming by E2A's
+
+263
+02:16:09,100 --> 02:16:40,540
+then this B value should be B2 or not understood did you understand my problem this problem did you understand see very simple point if you are coming by even age then this B should be B1 and if you are coming like this by E2 age okay this is your E2 age I am calling it E2 age okay if you are coming by E2 age then if you are coming like this then this B value should be actually B2
+
+264
+02:16:41,010 --> 02:17:10,920
+yes or no because you are going like this you are going like this so this B value should be B2 understood okay what about this A what about this A what about this A tell me what about this A if you are coming by even is what should be this value if I'm coming by even is then this is should be even and if I'm coming by e2 is if I'm coming by e2 is
+
+265
+02:17:11,640 --> 02:17:45,180
+then this value should be a2 agree agree or not what about this n is there any problem with this is there any problem with n is there any problem with n with n do we have any problem there is no problem right okay this always will be n here there is no problem this always will be n for example if you write it n1 then this always will be n1 yes yes or no if you write it n1 then it will always be n1
+
+266
+02:17:45,840 --> 02:18:23,370
+Is this clear? So there is no problem with n. So for how many variables, we will create five node. This is my question for how many variables we will create five node. How many five nodes we need? How many five nodes needed? So the answer will be two answer will be two for which variable for which variables for variables a comma B yes or no for variables a comma B.
+
+267
+02:18:23,660 --> 02:18:53,000
+Agree? Do you agree with me? So we need two five nodes. Okay. Very simple. We need two five nodes. We need. Okay. If I call it an one, then this will be simply an one. We need only two five nodes. So very simple. I will create one five node for variable a one five node. I'm creating for variable a. I will put in a three. Okay. I'm putting so a one a two. Is this clear? Please tell me very simple, right?
+
+268
+02:18:54,090 --> 02:19:28,540
+Now this is a cakewalk for you. You are expert now. B1, B2. Okay. Is this clear? Finally, this should be B3. Finally, this should be A3. And this is your SSC. Now this is your SSC. Are you feeling confident or not? Please tell me. So many examples I have taken. Every simple, simple point I told you. Everything I've told you. Everything. Okay. In the next 10 year, 20 year, whatever gate question will come in future or in past.
+
+269
+02:19:28,810 --> 02:19:50,130
+Every question you can solve. Every gate question from the past, from the future, you can solve now. From SSA, from a static single assignment, this is over. Everything we have seen. Please tell me, did you understand? Please give me your feedback. Please give me your review. Are you feeling confident in SSA? Whatever question comes in the gate exam.
+
+270
+02:19:50,360 --> 02:20:20,040
+from these five functions for conditional instructions for conditional statement for loop for straight line code whatever they give you in the exam what they can give you in the gate exam either they can give you if else statement or they can give you some loop they can give you or they can give you straight line code they can give you basically these things they will give you yes or no whatever they give you in the gate exam can you solve please tell me are you confident or not very good very good okay
+
+271
+02:20:20,340 --> 02:20:54,110
+So like this you can convert into SSA. Like this you can do. Is this clear? So very simple. So like this you can do. Okay. Let's solve this question. Tell me the answer for this question. Let's quickly solve it. Consider the following code segment. This code segment is given to you. The minimum number of total variables required to convert the code segment into single static single assignment. So right now is this in SSA?
+
+272
+02:20:54,610 --> 02:21:23,600
+Now this is not in SSA because you can see this variable you are assigning two times this variable also you are assigning multiple times so let's convert into SSA what you will get you will get something like A1 equal to B plus C then you can say D1 equal to B into E then this you can write A2 equal to this this will be D1 right because this is what you are using here so this will be D1 plus F
+
+273
+02:21:24,010 --> 02:21:53,180
+And then finally this d2 equal to this a you will use. Okay. This a you are going to this a you are going to use. So this will be a2 divided by G. So total how many variables are there? Tell me a1, a2, d1, d2, then B, C, E, F, G. So total nine variables are there. Yes or no. Total are there nine variables and how many temporary variables?
+
+274
+02:21:54,010 --> 02:22:25,260
+Okay, see, total variables are nine. Okay. So anyway, in this question, they will ask you only this one. Okay. In this type of question, they will ask you only total variables. They will ask you. Is this clear? In this type of question, they will only ask you total variables. Okay. What are the reasons? See, the reason is like this, because whether to consider, for example, you don't have to change it. Yes or no? See, what you do, you can just simply keep it a
+
+275
+02:22:26,210 --> 02:22:54,790
+you can make it even are you getting my point so they will not ask you temporary variables in this type of question in this type of question they will ask you only total variables in some poor test series they can ask you in this type of question they can ask you temporary variables in some poor test series okay in a very poor test series this type of question they can ask you but remember in this type of question they will not ask you temporary variables they will simply ask you how many total variables are there because
+
+276
+02:22:55,420 --> 02:23:24,490
+because because because there is no need to rename it you can keep it a yes or no you can keep it a you can make it a1 similarly you can keep it d you can make it d2 okay so something like that I hope you understood okay so very simple for this question the answer will be 9 let's solve this question this is a beautiful question regarding SSA do you really understand SSA tell me do you really understand SSA tell me the answer for this question
+
+277
+02:23:24,810 --> 02:23:53,810
+which of the following statements regarding SSA form static single assignment form of intermediate representation is false the statement is asking which is false so tell me the first one if a program is in SSA then use of a variable is reached by exactly one definition of that variable is this true or not use of a variable is reached by exactly one definition of that variable is that correct or not
+
+278
+02:23:55,540 --> 02:24:26,890
+let me know if your program is in ssa form then use of a variable when you are using a variable that will be reached by exactly one definition of that variable yes this statement is true yes or no yes or no this statement is true because remember for example let's assume here you are assigning y equal to y1 here y equal to y2 and let's assume here you are printing y okay here you are printing y right yes or no
+
+279
+02:24:26,970 --> 02:24:59,950
+So this is the use see this is the use of why this is the use of why and these are the definitions of why yes or no these are the definite this is the definition of why definition means assignment this is the definition of why similarly this is the definition of why definition of why see right now this is not in ssa so if the code is not in ssa right now this is not in ssa
+
+280
+02:25:00,390 --> 02:25:29,090
+because this is not in ssa so you can notice this use okay this use is okay this definition also reaching this use and this definition also reaching this use yes or no so if your program is not in ssa if your program is not in ssa then this use of variable y you can reach by multiple definitions agree with me please tell me this variable this use of variable y
+
+281
+02:25:29,330 --> 02:25:59,090
+You can reach by multiple definitions, you can reach by this definition also, you can reach by this definition also. But once you convert into SSA, once you convert into SSA, now this is a variable Y1, this is a variable Y2. Now they are different variables. Yes or no? Agree. Now they are different variables. Now you tell me. Now because they are different variables, so use of any variable will reach from only one definition. Yes or no? Agree with me? Please tell me.
+
+282
+02:26:00,140 --> 02:26:40,200
+Is this clear? Okay. Now you can notice the use of any variable print y three. So you can notice this is the use. This is the use of use of why? Correct. This is the use of why and can you notice this is only reaching from one definition? Yes or no. This is the definition from only one definition. This use will reach. Please tell me. Did you understand this? Let me know. Is this point clear? Anyone?
+
+283
+02:26:40,620 --> 02:27:09,280
+anyone has any doubt on this only by this definition so this use of variable y this is only reaching from this definition okay see very simple point in ssa what happens you know that in the program text if this is your program text then in this program text what will happen there is only one assignment for any variable that you already know this is your program text and in this program text you already know that
+
+284
+02:27:09,500 --> 02:27:40,880
+for any variable there is only one assignment there is only one assignment this is the only assignment for y this is the only definition of y okay this is the only definition of y if this is the only definition of y then if you are using this y anytime then that will only reach from this definition or not can you reach from other definition please tell me can you reach from other definition
+
+285
+02:27:41,340 --> 02:28:15,900
+Can you reach from other definition? No, you cannot reach. Yes or no? So you can notice any use of Y will only reach from unique definition of Y. Okay, is this clear? So you can notice any use of Y will reach from unique definition of Y. Unique definition of Y. I hope you understood because there is only one definition of Y.
+
+286
+02:28:16,340 --> 02:28:46,050
+there is no other definition of why there is only one definition of why there is no other definition of why so this statement is actually true okay if your program is in ssa form then use of a variable use of a variable is reached by unique definition of that variable so this statement is true what about option B what about option B what about option B flow of control in ssa remains same as flow of control in known ssa yeah that is also true
+
+287
+02:28:46,390 --> 02:29:12,410
+flow of control is not changing yes or no flow of control is not changing you are just renaming the variables flow of control is not changing you are just renaming the variables what about C since every variable has exactly one definition in the program text so there are no loops in SSA this we have seen this is false loops are fine you can have loops in SSA because because remember this is static single assignment
+
+288
+02:29:13,120 --> 02:29:40,430
+This is static single assignment, not dynamic single assignment. I told you in the beginning of the lecture, in the starting of the lecture, I told you that this is static single assignment, not dynamic single assignment. So option C, that is false. What about D? What about D? Some compiler optimizations, they perform better on SSF forms. Yeah, that is true. SSA we use for some compiler optimizations. There are some compiler optimizations, which are
+
+289
+02:29:40,810 --> 02:30:17,170
+very easy to do on ssa form if you have ssa form then these compiler optimizations are very easy to do so the only false statement is option c yes or no so for this question the answer will be option c is this understood please tell me this is a nice beautiful question okay i hope you understood so we have seen every point you can see this is the summary of ssa in ssa what we do let me tell you the summary a program is in ssa form
+
+290
+02:30:17,470 --> 02:30:46,870
+if each use of a variable every use of a variable notice notice every use of a variable is reached by exactly one definition this we have already seen flow of control remains same okay as in known SSF form there is a special merge operator phi this we use for selection of values in the join nodes yes or no not every join node needs phi operator for every variable yes or no only for some variables we create phi node those variables
+
+291
+02:30:47,260 --> 02:31:14,140
+which basically those variables for for which multiple definitions more than one definition is reaching to a certain point for those variables we create five node. Yes or no, we create five node only for those variables for which multiple definitions more than one definitions are reaching to a certain point to the joint node. So for these we create the five node. Okay. Yes or no. So if same definition is reaching
+
+292
+02:31:14,590 --> 02:31:44,750
+then for these variables there is no need to create a phi node yes or no if a same definition is reaching from all path from here also from here also from here also from all the path if same definition is reaching then there is no need to create phi operator so all these points we have seen let's see this final question tell me the answer for this question consider the expression this expression is given to you a plus minus b
+
+293
+02:31:45,020 --> 02:32:15,570
+see this is an array operator a plus minus b into c plus d by e the minimum number of temporary variables the question is asking the minimum number of temporary variables required to create a three address code in a single static assignment form okay i hope you understood the question so this expression is given to you see the expression the expression is a plus minus b this is an array operator multiplied by c plus d divided by e
+
+294
+02:32:15,730 --> 02:32:48,090
+This expression is given to you. First, you need to convert this to three address code. What do you need to do? You need to create three address code in static single assignment form. Okay. What do we need to do? Create three address code in SSF form in SSF form. This is what we need to do. So first, what is the first thing you will do? Tell me who will be done first? What will be done first? What will be done first? See very simple point.
+
+295
+02:32:48,650 --> 02:33:19,610
+first this honorary operator will be done yes or no first you will do this honorary operator agree so this honorary operator first you will do remember please understand this is honorary operator this is a honorary operation operator this is your minus b basically this code is similar to a plus minus b multiplied by c plus d multiplied by e so first you need to do minus b
+
+296
+02:33:19,790 --> 02:33:49,550
+this is the first thing to do this is the first thing to do first you do minus b then what you will do then you will do multiplication this is the second thing to do then this is the third thing to do okay yes or no then this will be the third thing to do then what will be the fourth thing fourth thing to do then fourth thing will be this will be the fourth thing to do correct this will be the fourth and then finally this will be the fifth thing to do yes or no then finally
+
+297
+02:33:50,680 --> 02:34:22,600
+Okay. This will be the fifth thing to do. I hope you understood. Okay. So this is the simple idea. So let's first do this minus B. Okay. First, we are going to do this minus B. Sorry. D divided by E. There is there is D divided by E. Yeah. Okay. That is also fine. Right. Okay. So everything is fine. Okay. So tell me. So first what we are going to do, please tell me. We are going to do this minus B. This is what we are going to do first. Okay.
+
+298
+02:34:22,860 --> 02:34:52,090
+in the three address code there is a instruction if you remember in three address code do you remember we have this instruction a variable is equal to another operator variable to this instruction is there in the three address code if you remember this instruction is there variable is equal to another operator v2 this is another operator this is another operator if you remember in the three address code this instruction we have so first we are going to do minus b
+
+299
+02:34:52,410 --> 02:35:21,470
+So in the T1, we will put minus B. Then what we are going to do? Okay, now this is in T1. Remember, this is in T1. Then what we are going to do? Then we are going to do this. Yes or no? Then we will do T1 multiplied by C. We will put in T2. Now this is in T2. Okay, this thing is in T2. Now what we are going to do after that? After that, we are going to do D divided by E. This we can put in T3 because you want SSF form.
+
+300
+02:35:21,770 --> 02:35:50,470
+static single assignment form so do not assign to the same variable more than one time okay so this is what we have done then finally what we will do then we will do a plus t1 okay yes or no sorry a plus a plus t2 because remember this value is in t2 this value this value is in t2 so what we will do you will do a plus t2 yes or no a plus t2 you will put in t3 and finally you will do t3 plus
+
+301
+02:35:51,540 --> 02:36:22,760
+Sorry, you will put in T4. Okay. You cannot use T3. You have to use T4. Then finally this T4 plus T3 you will do. Okay. And then you can put it in T5. So what will be the final answer? Five temporary variables are needed. Yes or no. We need total five temporary variables. So how many temporary variables are needed? The answer is going to be five. Understood. Please tell me, is this question clear to everyone? This question is clear and the solution is clear or not?
+
+302
+02:36:22,980 --> 02:36:51,330
+Let me know. So very simple. First you will do this, another operation, another operator you do, then you do this one, then you do this one. And then finally you can do this and then this complete thing. Okay. So five temporary variables will be there. So this is your SSA. SSA is over a static single assignment. This is over. We have done the complete analysis, all the gate question, a lot of practice we have done and everything we have seen. I told you that.
+
+303
+02:36:51,630 --> 02:37:34,330
+future and past gate exam questions you can solve in the gate exam in future if any question comes from ssa you can solve it everything covered okay so please let me know did you understand please share your feedback okay so this video i will put on the go classes youtube channel so please comment please like and comment okay so did you understand please tell me let me know all the students who are live please tell me
+
+304
+02:37:34,920 --> 02:37:57,820
+So this is your SSA, static single assignment. This is over. Everything we have seen. Did you understand? Please tell me. Are you confident? Five function. Did you understand how to convert conditional statements into SSA, how to convert loop into SSA, how to use this five function? Okay. So basically every detail I have told you. Okay. Thank you, everyone.
+

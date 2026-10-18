@@ -16,7 +16,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
   browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
   const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce'}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'podcast_browser',displayName:'Audio Learner',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
-  await page.goto(base+'/#podcasts');await page.locator('[data-podcast-id="coa:0"]').waitFor();assert.equal(await page.locator('[data-podcast-id]').count(),90);
+  await page.goto(base+'/#podcasts');await page.locator('[data-podcast-id="coa:0"]').waitFor();assert.equal(await page.locator('[data-podcast-id]').count(),109);
   await page.locator('#podcast-course').selectOption('coa');assert.equal(await page.locator('[data-podcast-id]').count(),6);
   await page.locator('#podcast-search').fill('cache');assert.equal(await page.locator('[data-podcast-id]').count(),1);await page.locator('#podcast-search').fill('');
   await page.locator('[data-podcast-id="coa:0"]').click();const dock=page.locator('#podcast-player');await dock.waitFor();await page.waitForFunction(()=>Number(document.querySelector('[data-podcast-seek]').value)>.1);
@@ -37,7 +37,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
     await page.setViewportSize({width,height});
     await dock.locator('[data-podcast-open-transcript]').last().click();
     const transcript=page.locator('[data-podcast-detail]');await transcript.waitFor();
-    assert.ok(await transcript.evaluate(el=>document.activeElement===el),'Transcript shortcut focuses the scrollable reader');
+    await page.waitForFunction(()=>document.activeElement===document.querySelector('[data-podcast-detail]'));
     const bounds=await transcript.boundingBox(),playerBounds=await dock.boundingBox();
     const headerBounds=await page.locator('.topbar').boundingBox();assert.ok(bounds.y>=headerBounds.y+headerBounds.height&&bounds.y+bounds.height<=playerBounds.y+1,`Transcript is accessible above player at ${width}/${theme}: ${JSON.stringify({bounds,playerBounds})}`);
     assert.ok(await transcript.evaluate(el=>el.scrollHeight>el.clientHeight),'The complete episode card is a bounded scroll container');
@@ -58,6 +58,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
     await page.waitForFunction(()=>{const line=document.querySelector('.podcast-turn.is-active'),reader=line?.closest('[data-podcast-detail]');if(!line||!reader)return false;const a=line.getBoundingClientRect(),b=reader.getBoundingClientRect();return a.top>=b.top&&a.top<b.bottom;});
     await transcript.hover();await page.mouse.wheel(0,600);
     await page.waitForFunction(()=>!document.querySelector('[data-podcast-follow]').checked);
+    assert.equal(await page.locator('[data-podcast-action=follow]').innerText(),'Back to audio');
     await page.waitForTimeout(150);const manualPosition=await transcript.evaluate(el=>el.scrollTop);
     await dock.locator('[data-podcast-action=back]').click();
     assert.ok(Math.abs(await transcript.evaluate(el=>el.scrollTop)-manualPosition)<2,'Audio updates preserve manual reading position');
@@ -65,6 +66,15 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
     if([390,1440].includes(width)){await dock.locator('[data-podcast-open-transcript]').last().click();await page.screenshot({path:`qa-results/podcasts/${theme}-${width}.png`});}
    }
   }
+  await page.emulateMedia({reducedMotion:'no-preference',contrast:'more'});
+  assert.equal(await dock.evaluate(el=>getComputedStyle(el).borderTopWidth),'2px','Higher contrast gives the player a defined border');
+  const press=dock.locator('[data-podcast-action=forward]');await press.hover();await page.mouse.down();
+  assert.notEqual(await press.evaluate(el=>getComputedStyle(el).transform),'none','Pointer-down feedback is immediate');
+  await page.mouse.up();
+  await page.emulateMedia({reducedMotion:'reduce',contrast:'no-preference'});
+  await press.hover();await page.mouse.down();
+  assert.equal(await press.evaluate(el=>getComputedStyle(el).transform),'none','Reduced motion keeps feedback static');
+  await page.mouse.up();
   const mobileContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce',storageState:await context.storageState()}),mobile=await mobileContext.newPage();
   mobile.on('pageerror',e=>errors.push(e.message));
   await mobile.goto(base+'/#podcasts');await mobile.locator('[data-podcast-id="coa:0"]').click();
@@ -88,6 +98,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
   await dock.locator('[data-podcast-action=next]').click();await page.waitForFunction(()=>document.querySelector('[data-podcast-now-title]')?.textContent.includes('Instruction sets'));assert.ok(await dock.locator('[data-podcast-action=toggle]').isDisabled(),'An unavailable section stays in sequence and is not silently skipped');
   const newlyReady=episodes[2],stem=path.join(directory,'coa',`unit-2-${newlyReady.hash.slice(0,12)}`),step=20/newlyReady.turns.length,turns=newlyReady.turns.map((t,index)=>({index,speaker:t.speaker,start:index*step,end:(index+1)*step}));await fs.copyFile('tests/fixtures/podcast-tone.mp3',stem+'.mp3');await fs.writeFile(stem+'.json',JSON.stringify({hash:newlyReady.hash,duration:20,turns,chapters:newlyReady.chapters.map(c=>({...c,start:turns[c.startTurn].start,end:turns[c.endTurn].end}))}));
   await page.locator('[data-podcast-action=refresh]').click();await page.waitForFunction(()=>!document.querySelector('#podcast-player [data-podcast-action=toggle]').disabled);assert.equal(await dock.locator('[data-podcast-action=toggle]').getAttribute('aria-label'),'Play podcast','Refreshing newly rendered audio does not autoplay unexpectedly');
+  await dock.locator('[data-podcast-action=close]').click();
+  await page.locator('#podcast-course').selectOption('dl');
+  await page.locator('[data-podcast-id="dl:1"]').click();
+  await page.locator('[data-podcast-detail] h2').waitFor();
+  assert.ok((await page.locator('.podcast-transcript').innerText()).includes('2×16+10=42'),'Readable transcript retains the formula instead of replacing it with speech-only text');
+  assert.ok((await page.locator('.podcast-transcript').innerText()).includes('1/2+1/8=0.625'),'Fractions and decimal notation remain visible');
   await dock.locator('[data-podcast-action=close]').click();
   assert.deepEqual(errors,[]);console.log('Podcasts passed: real media decoding, course/topic search, play/pause, speed, skips, chapters, live transcript, route persistence, automatic next episode, previous, six widths and both themes.');
  }finally{await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));await fixture.dispose();assert.ok(directory.startsWith(path.join(os.tmpdir(),'csquest-podcast-browser-')));await fs.rm(directory,{recursive:true,force:true});}

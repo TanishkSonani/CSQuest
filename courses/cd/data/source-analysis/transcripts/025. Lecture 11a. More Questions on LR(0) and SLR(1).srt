@@ -1,0 +1,256 @@
+1
+00:00:00,430 --> 00:00:28,320
+Hi everyone, welcome to Go Classes. So in this video we will be talking about LR0 and SLR1 parsers. Till now we know what is LR0 automaton. But we haven't talked about parsing. But we know the basic idea about LR0 and SLR1. In fact all the parsers like I have talked about the strategies on which they have built on. But in this video we are going to talk about in detail like for LR0 and SLR1 particular these two parsers.
+
+2
+00:00:29,320 --> 00:00:56,300
+So when I talk about LR0 parser, then it says that we can reduce where wherever we can, which means whenever you have this kind of item in your LR0 automaton, this is called reduce item. Whenever you have reduce item, then you should reduce. This is what LR0 strategy says. And SLM on parser says that you should reduce only when the next input, okay, the next symbol in the input is in the following.
+
+3
+00:00:57,470 --> 00:01:31,620
+Let me just talk about the examples and after that it will be more clear. So let's take this grammar and let me try to design a LR0 and S11 parser. So let's try to design LR0 and S11 parser for this grammar. Now the first step is that we will be adding an augmented production which is this. This says that I am looking for E$. See your input is your input is this and after your input you have $ right? After your input you have $.
+
+4
+00:01:33,010 --> 00:02:01,350
+So what does this item says? It says that you are expecting something that will reduce to E and then dollar. Is it true that your input will should eventually reduce to E and then you have dollar? So that is why I am adding this augmented production. I hope you got the idea. See this augmented production means that I am expecting something that will reduce to E or in simple terms that you are expecting to see E and then dollar. In fact this is true.
+
+5
+00:02:01,690 --> 00:02:24,320
+like you are expected to see input which will reduce to finally e where e is the start symbol and then dollar so this is what augmented production means and then we will take closure of that which means I will be adding all the productions of e like this e into b e plus b dot e plus b and then dot t
+
+6
+00:02:25,430 --> 00:02:53,050
+Because of this dot, because of this dot, dot E, I will be adding E or the productions of E, but I have already added, that's why I'm not adding it again. Otherwise, I need to add all the productions of E. See, because of this dot, this dot E, I'm adding all the productions of E. But now again, I found that there is a dot in front of E. That is not doing anything more in this example. Why? Because this says that you need to add all the productions of E, which are already added. So that is why you do not need to add anything else.
+
+7
+00:02:53,540 --> 00:03:22,590
+Now, because of this dot B, I need to add all the productions of B, which means B gives dot 0 and B gives dot 1. I'm not writing B here, but that's okay, right? Now, this is one item or one state of LR0 automatically. So, let's call it a state 0 or I0. Now, if E comes, then you will go to where? If E comes, then you will say that E prime gives E dot dollar and E gives E dot cross B.
+
+8
+00:03:23,330 --> 00:03:52,920
+gives e dot plus b that is all right now one thing is to note is that What does this mean when I say that e comes? See in the input you are not not going to see e which means in the input you are only going to see small symbols right like 0 1 plus star in this case You are never going to see e you are never going to see e then what does this mean to say that e comes it means to say that Something will come which will finally reduce to e
+
+9
+00:03:53,140 --> 00:04:18,280
+if that happens then you are going to in this state so basically you know that we run the dfa again and again right so every time we run the dfa so you will get to know this like when i take more examples that what do i mean by saying that e comes but i hope you got the idea from the previous video that e comes means that something will come that will finally reduce to e if that happens then you are here okay
+
+10
+00:04:19,470 --> 00:04:51,190
+if e comes then that's the case if b comes if b comes then you are going to reduce this e to b dot if 0 comes then you are going to say b gives 0 dot if 1 comes then you are going to say b gives 1 dot now from from the above state if dollar comes you are going to go in the next state which is like this if dollar comes let me just erase other things let me just erase this
+
+11
+00:04:51,600 --> 00:05:22,700
+and erase this yeah so if dollar comes then you are going to go to this state e prime gives e dollar dot this is basically asset state generally like this is state one generally like this ended up getting a state two so anyway this is state two and if star comes then you are going to go e gives e star dot b and yeah that is all and i i'm going to add all the productions of b which means b gives dot g b gives
+
+12
+00:05:23,860 --> 00:05:53,480
+dot zero and dot one right dot zero and dot one now if B comes from here you are going to go to some mistake which is basically E gives E cross B dot if zero comes then you are going to go to this state if one comes we are going to put this state so let me just write it if zero comes if one comes right now here if a star comes that's going to happen similarly plus comes then you are going to go to a different state which means this state let me just write it here
+
+13
+00:05:54,410 --> 00:06:23,220
+here okay this state which is e gives e e plus dot b and because of this dot you are going to write all the productions of b this is next another state now if 0 comes you are going to go here if 0 comes you are going to go here if 1 comes you are going to go here right this is what is going to happen and now if b comes then you will go to another state which is
+
+14
+00:06:23,540 --> 00:07:01,100
+E gives E plus B dot. This is how you will get the LR0 automaton. Now, this LR0 automaton is common for LR0 parser and SLR1 parser. So what do I mean by that? Let me try making LR0 parser here, LR0 parsing table and SLR1 parsing table. So first step is that I'm going to write this automaton in the table form.
+
+15
+00:07:01,440 --> 00:07:31,580
+which means first let me name the states let's suppose this is i1 this is i2 this is suppose i3 this is suppose i4 this is suppose i5 i6 i7 maybe and then i8 and i9 now let me write this automaton in the table form in the in the x axis you are going to write all the states which is your 0 to 9 so there are 10 states 0 1 2 3 4 5
+
+16
+00:07:31,860 --> 00:08:01,740
+6, 7, 8, 9. Now, on this another axis, you are going to write all the small and capital symbols. So, here I think we have plus star 0, 1 and dollar. These are the small symbols and in capital symbols, I have E and D. E and D. Yes. Now, this part is called go to part. This part is called go to part.
+
+17
+00:08:02,360 --> 00:08:34,590
+This part is called xn part action means there will be two types of actions if you remember one action is shift another option action is Reduce This part is just go to part which means I'm not going to take any action here. I'm just going to change my state Okay on this part on seeing the capital symbols I'm only only going to take the actions on seeing the small symbols. That's why I'm calling it an action I'm only only going to change the states. That's why I'm calling it go to only okay, so let me just partition it so that it
+
+18
+00:08:34,910 --> 00:09:02,970
+is clearly visible to everyone right so let me tell you from zero you are going to see zero like i mean from i0 you are going to see zero then you are going to go at the four so which means at zero these are the states these are the states at zero you are going to see zero and then you are going to go at the state four so this is called four shift four basically you are going to shift it because
+
+19
+00:09:03,560 --> 00:09:32,850
+because these are the like these are the sift actions which means on zero you are going to sift it and you are going to go at the straight four that is why I'm calling it sift four s four okay now on the zero you have one so that is why you are going to write s five on the one you are going to write s five s five on e you are going to go one right on e on if if you have zero if you are in the zero th state on e you are going to go one and at b
+
+20
+00:09:33,400 --> 00:10:03,290
+at B you are going to go at 3. So this is the all the transactions that we are happening at 0. See here these are the 4 transactions like transitions that we are doing at 0. So that is why I have written these 4 transitions. One is that on state 0 if you see 0 you are going to go at the going to go at the state 4 that's why I am writing shift 4. But here you do not write shift or reduce. Here I am not shifting or reducing. I am just changing my states. Okay.
+
+21
+00:10:03,580 --> 00:10:32,450
+That is why I do not call it xn part. I only call it xn part for the terminal symbols, not for the non-terminal. So I'm not going to call it xn part and do not write it sift here. Just write the state number. Okay. Now, now at one, now at one, you are, if you see the, if you see dollar, then you are going to go at state two. At one, if you see dollar, then you are going to go state two. So this is basically state two is accept state. So you can just write accept.
+
+22
+00:10:33,870 --> 00:11:02,460
+so this entry is very unique which means if you are if you are here if you are in the state one and you see dollar you see dollar which means your input has been ended and you have reduced everything to e right you have reduced everything to e and your input has been ended that in that means this is this is asset stake so suppose like if this LR0 automaton is given to you and if I say that I am in a state I1 then what do I mean so what do I have on the stack
+
+23
+00:11:03,950 --> 00:11:33,700
+From the previous video if you recollect that if you are in a state I1 then on the stack there must be E, right? Otherwise you can't be in a state I1 because you run the DF every time So if you're in a state I1 there must be E on the stack, right? There is E on the stack and then you see dollar which means you have reduced everything to E and now you are seeing dollar which means it is an accepted state It is an accepted state, right? Similarly if I ask you that you are in a state 6
+
+24
+00:11:34,190 --> 00:12:03,600
+you are in isix and like if i ask you are in isix though so what what is on the hashtag then what will your answer you will say that on the on the hashtag there must be e star otherwise you cannot be no isix because you run the df every time similarly there could be many questions that i can ask you let's suppose if i ask you that if you end up in state five then what are the possibilities that you have on the stack then maybe you will say that in state five
+
+25
+00:12:03,920 --> 00:12:33,260
+you might have gone directly right you might have gone directly which means on the stack there may be only one there may be only one or maybe you you may have taken this path e star and then then one right who knows so if i just tell you that you are in state state five then you can't say that what is what is on the stack but you can definitely say that that on the top of the stack there must be one or anyway like you you you can partially answer this question that if you are in state five then what could have been in the stack
+
+26
+00:12:33,490 --> 00:13:01,960
+maybe maybe you can directly go or maybe you might have gone through the other path right there there are i think one two or three paths are possible to go to state five so there are multiple answers if you are in state five they there are multiple like you do not know exact answer which means on the stack there there may be one or maybe e star one or maybe e uh this is plus right e plus one so on the on the stack there may be one there may be e star one there may be e plus one
+
+27
+00:13:02,370 --> 00:13:30,460
+Now you may say that how can how can there will be just one or something on the stack? So there could be I mean I'm not saying that this is like see in this case that one is accepted I mean one is the part of grammar but it is not necessary always I mean if you are in some state then it does not mean that that string is valid if you finally reach to state I2 if you finally reach to state I2 then you will say that string is valid otherwise you do not know whether string is valid or not right
+
+28
+00:13:30,860 --> 00:13:59,820
+which means that string is a part of the grammar language or not you do not know if you are in any of the state but if you are you reach to state i2 and you do not have any other things to say which means like on i2 everything is ended which means like you have seen the dollar and there is nothing more to see which means you you have like the string that that you have just seen is in the grammar but if you are in state i7 or in any other state
+
+29
+00:14:00,060 --> 00:14:27,890
+then you can't say that string is yet in the grammar or not, you are yet to see more of the symbol and if you do not find any of the symbol which means that string is not in the grammar. Anyway, let me return to my table. So, suppose you are in state 1 and this is a state 1, you see dollar then you will go to state 2 or I am just calling it accepted state or maybe you can write a state 2 but generally we call it accepted state.
+
+30
+00:14:30,220 --> 00:14:59,560
+and if you are in I1 you see star you go to I6 if you are in I1 you see star you go to I6 which means shift 6 if you are in I1 you see plus you go to I8 which means shift 8 shift 8 if you are in 1 yeah these are the three transitions now if you are in 3 there is no more transition if you are in 4 there is no outgoing edge if you are in 5 there is no outgoing edge if you are in 6 you see B you will go to 7 if you are in 6
+
+31
+00:15:00,350 --> 00:15:29,560
+UCB, you will go to 7. Should I write it as 7 or just 7? Am I shifting here? No. So here in the capital or in the non-terminal part or in the go-to part, you are only going to write the state number. You are not going to write the shift or reduce. So you are in state 6 and UCB, you will go to 7. You are in state 6, UCB, you will go to 7. You are in B, you are in 6, you see 0, 4, 1, 5. 0, 4, which means shift 4,
+
+32
+00:15:29,840 --> 00:15:57,720
+shift 5 and yeah 6 is over 7 7 is already over 8 on 8 you can see either b or 1 or 0 if you see b you go to 9 if you see b you go to 9 if you see 0 you go to s4 and s5 just verify it if you see 0 you will go to s4 if you see 1 this is s5 your 8 is also over and where is 9 9 is also over so this is the
+
+33
+00:15:58,550 --> 00:16:27,140
+This is the exact copy that I am like instead of having the DFA, I am just having this in the tabular form. Till now, I do not have any information about the reduce entries, which means this is just a replica of the automaton in the tabular form. I do not have any information about the reduce entries and I have not incorporated any information about the parser. I have just copied my DFA in the tabular form. I hope that is okay to everyone.
+
+34
+00:16:27,470 --> 00:16:58,810
+Now there will be a difference between LR0 and SLR1 parser which means till now LR0 and SLR parsing table both are same. So if I just copy this table in the both side then it will work which means let me just copy this table on the both side. So this is your LR0, LR0 parsing and this same table will work for the SLR1 parsing if there is no reducing tree.
+
+35
+00:16:59,180 --> 00:17:40,440
+So this is LR0 and let me just erase this part. Maybe I think it will be too small but we will go to the next page later. Okay. This is the SLR1 table. Now till now everything is same which means this is the SLR1 table. This is LR0 table. Now there will be a difference between reduce entry. Just see here wherever you have the reduce entry like just write the reduce entry in every of the terminal.
+
+36
+00:17:40,780 --> 00:18:08,940
+which means this e gives b dot e gives b dot is in state i3 so in state i3 you have reduced everywhere so let me just name these productions this is production number one two three four five so e gives b is production number three so we just write r3 r3 r3 r3 r3 right now let's go to state four instead four if you notice there is a reduction or there's a complete item this b gives zero dot
+
+37
+00:18:09,200 --> 00:18:39,380
+this is r4 so you are going to write r4 everywhere r4 r4 r4 r4 r4 now let's check state 5 in state 5 there is again complete item or reduce item so this will go to the whole row of fifth like whole fifth row and it is production number 5 so you are going to write r5 r5 everywhere r5 r5 r5 r5 everywhere now let's go to state 6 in state 6 i think there is no reduce item in state 7 there is a reduce item
+
+38
+00:18:39,630 --> 00:19:08,430
+which is r1 right so you okay so i think these entries are corresponding to state 8 so by mistake i have written in the state 7 s4 s s5 and 9 these entries are in state 8 here also let me correct it s4 s5 and 9 s4 s5 and 9 so these entries are for state 8 s4 s5 and 9 okay 9 was uh let me just check it in state 8
+
+39
+00:19:09,400 --> 00:19:36,990
+If you go at B, there will be 9. At B, there is 9. So S4, S5 and 9. This is in state 8. So in state 7, if you just check it, there is a reduced entry which is basically R1. So you are going to write it everywhere. Which is in state 7, R1 everywhere. R1, R1, R1, R1 everywhere. Now in state 8, is there a reduced entry? No.
+
+40
+00:19:37,240 --> 00:20:06,720
+in the state line there is a reduce entry which is r2 so you are going to write r2 everywhere r2 r2 r2 r2 r2 r2 everywhere now if you need to make slr1 parser for the same grammar the only difference will be in the reduce entry see here the reduce entry is in the whole row whole row of 3 4 5 7 and 9 but in slr1 parsing reduce entry will not be in the whole row it will be only in the follow-up that non-terminal let's just check the third third state
+
+41
+00:20:07,020 --> 00:20:35,700
+or any state which is having the reduced reduced item so this state is having reduced item earlier the reduced entry was in the whole third row but here the reduced entry will be in the fall of e only so let me calculate fall of e what is fall of e? fall of e is dollar since it is a start symbol and multiplication and plus so reduced entry will be only in the three terminals dollar plus and star so you will be having reduced entry here
+
+42
+00:20:35,990 --> 00:21:05,200
+which is r3 dollar plus n star not in zero element not in zero element so this is the difference here the reduce entry is only at the three places here the reduce entry in the lr0 parcel the reduce entry at the all the places now what about what about state four in state four if you just notice there is a reduction and this reduce entry should be in the fall of b only so let me calculate the fall of b what is fall of b fall of b is just fall of e which is again dollar
+
+43
+00:21:05,500 --> 00:21:34,940
+star n plus right so again this r4 will be in the dollar star plus only now similarly this r5 if we just notice in the fifth state in the fifth state there is a reduction this will go to only only the fall of b so this is a reduction number five so this will go to only the fall of b which means r5 r5 only at the three places now just go to state number seven there is again reduction this reduction will go to in the fall of e fall of e only right
+
+44
+00:21:35,190 --> 00:22:06,140
+So R1 will be in the fall of E only. Now let's go to state number 9. Here is again reduction. This reduction will be in the fall of E only. So you are going to write R2, R2, R2 at the 3 places only. So the difference between SLR1 parsing and LR0 parsing is that the number of reduce entries in SLR1 parsing are less. Why? Because you are going to write in the fall of the non-terminal. You are not going to write everywhere. So if the grammar is LR0, then definitely it is SLR.
+
+45
+00:22:06,300 --> 00:22:32,200
+why because in SLR we are just eliminating some of the entries so if there is no conflict here what is a conflict conflict means that you do not have multiple entries in in a cell let's suppose like apart from R2 let's suppose you have S4 or something so there are multiple entries right then parser is confused whether to reduce to production number 2 or to shift it and go to the state 4 so parser will be confused if parser is confused then then this grammar
+
+46
+00:22:32,620 --> 00:23:12,270
+let's suppose LR0 parser is confused or having the conflict then this grammar is not LR0 but in this case there is no conflict there is no confusion that is why this grammar is LR0 and also SLR1 okay now we will see more examples let's solve this question in this question also we need to check whether the grammar is LR0 or not or if it is LR0 then we will go for SLR okay SLR1 or not let me first
+
+47
+00:23:13,090 --> 00:23:40,450
+augment the grammar with the augmented production this and then we will take the closure of this augmented production which means this and then a gives dot a because because of this dot a i'm writing this production and then dot b now if s comes you are going to go s prime gives s dot dollar and if dollar comes then this is a accepted state right this is a accepted state s dollar dot
+
+48
+00:23:40,860 --> 00:24:10,510
+if capital A comes then you are going to go in some state where A dot A and because of this dot A you are going to write all the productions of A which are these now if B comes or small A comes then you are going to go to a state where A dot A and then because of this dot A you are going to write dot A A and then dot B right and if B comes then you are going to go to some state where A gives B dot
+
+49
+00:24:10,750 --> 00:24:41,020
+so let me just write it here if b comes then a gives b dot now if if capital a comes from here then you are going to go to some state where s gives a a dot and if a small a comes then you are going to go to some state where a gives a dot capital a which is already present right so this is already present if a small a comes now if a small b comes then you are going to go to this state which is already present now if capital
+
+50
+00:24:41,790 --> 00:25:11,090
+A comes, yeah, that is done now from here if capital A comes then you are going to go to some state which is A gives AA dot if a small a comes this is interesting if a small a comes then you are going to go to a state where you are going to say that a small a dot capital A and then you are going to write all the productions of capital A right see here then you will go to a small a dot capital A and then all the productions of capital A which are like this which is already already present where in the in the
+
+51
+00:25:11,470 --> 00:25:43,200
+In this state itself, right? So if a small a comes, then you are going to go to the same like same state, which means self-loop Now if B comes if B comes then you can go to this state a small capital a a small a b everything is done here capital a small a and b everything is done Here there is no shift. There is no shift. There is no shift. There is no shift. Yeah, everything is done So these ministers are there now you need to make the parsing table and you need to check whether it is a 7 sr and 0 or
+
+52
+00:25:43,450 --> 00:26:17,690
+SLR1 or LR0 or not. SLR1 or LR0 or not, right? To do that, let me go to the next page. Let me just name them. Let's suppose this is 0th state or I0 or this is 1, this is 2, this is 3, this is 4, 5, 6 and 7. Then these are 0, 1, 2, 3, 4, 5, 6 and 7. And this is your, this is your small a small vn dollar.
+
+53
+00:26:18,060 --> 00:26:50,250
+a small a small b and dollar and then capital S and capital A right now, let's just Write the all the shift moves for the shift move at 0 it is If you are at 0 and if that is capital S then you will go to 1 0 capital S you will go to 1 0 capital A you will go to 3 0 capital A you will go to 3 0 small a you will go to 5 that means shift 5 so sorry 0
+
+54
+00:26:50,780 --> 00:27:22,450
+Ismoli you will go to five that means shift five right shift five and Zero is small we shift six shift six Yeah, all the four four transitions has been done Now if you are let's suppose at one then if Donald comes then you are going to a state two if you are one Donald comes a state two and generally there's a accepted state, right? This is accepted state. So let me write just accept Now if you are in a state three if capital A comes you will go to state four capital becomes you will go to state four
+
+55
+00:27:22,640 --> 00:27:54,640
+let me just partition it so that it is visible to everyone yeah if a small v comes you are going to go at state six a small a state five a small a state five set five small b set six now if we are at four if we are at four there is no shift move if we are at two there is no shift move if we are at five a small v six a small a five a small b six a small a five and what else
+
+56
+00:27:56,080 --> 00:28:25,650
+a small a small b capital a you are going to go at it's a 7 capital a you are going to go at it's a 7 and a small a small b capital a everything is done I think now if you are in a state 6 there is no shift move at 7 there is no shift move yeah so every shift move has been done now this is just a replica of DFA right till now I have not talked about any parsing method which is LR0 or SLR I have not talked about any parsing method so now let me try to make LR0 parsing table
+
+57
+00:28:26,310 --> 00:28:56,230
+Let's first try to make LR0 parsing table So in the next page we will be making SLR1 but here I am making LR0 parsing table So I am copying it so that I can paste it to the next page while I am making the SLR1 parsing table Till now everything is same in SLR1 and LR0 So let's suppose this is SLR1 I will modify it later and this is LR0 Okay this is LR0 Now Let's just quickly see where are the reduce moves So reduce move is here So
+
+58
+00:28:56,540 --> 00:29:24,600
+let me mark them one let's suppose this is production number one production number two production number three right this is production number one this is production number two this is production number three now in in state four there is a reduced entry in lr0 lr0 this reduced entry will come to the every every place which means it is not going to you are not going to see whether uh whether a or b is in the fallow of s or not you are just going to write the reduced entry everywhere this is reduced of what production this is reduced of
+
+59
+00:29:24,890 --> 00:29:53,230
+first protection so you are going to write r1 everywhere r1 r1 now let's check state 5 in state 5 do you have reduced entry no instead 6 yes we have reduced entry now this is r3 so let me write r3 everywhere r3 r3 r3 and let's check state 7 do we have reduced entry yes this is r2 so this is r2 r2 r2 right now you're done with your lr0 part sector what about slr1
+
+60
+00:29:53,510 --> 00:30:23,540
+in slr1 we are not going to write blindly which means we will we will be writing in the follow of non-terminal so see here in state 4 this is the reduction that we have so what is the follow of s follow of s is dollar only right and what is follow of a let's suppose like for state 7 we will be needing follow of a that's why i'm calculating it early so follow of a will be first of a and yeah so first of a and follow of s so first of a
+
+61
+00:30:23,820 --> 00:30:53,040
+and follow face so follow face is dollar that's why i'm writing dollar and what is first of a first of a will be small n small b so this is small a and small b this is follow a right now this this state 4 has a reduction which will go to the follow face only so this will go to dollar only this s gives a dot will go to dollar only so this is r1 this will go to dollar only this is the difference see here
+
+62
+00:30:53,190 --> 00:31:21,870
+this is slr1 parsing and that was lr0 parsing in lr0 parsing i i wrote r1 everywhere but in slr1 parsing you are going to write r1 in the follow face only which means in dollar only now just look at str6 and 7 in str6 you have reduction so here it will go in the follow of a which is dollar ab so this is r3 r3 will go to dollar ab r3 r3 r3 similarly str7 has the reduction
+
+63
+00:31:22,200 --> 00:31:50,460
+this will go to follow of A which is $AB again so this is $AB again and I think this is R2 right R2 R2 R2 I think this is R2 yeah this is R2 so this will go to in the follow of A only this happens to be all that all the non-terminals that that's okay but like we are we are following the algorithm which means it will go to the follow of non-terminals only so in LR LR0 you were having R1 R1 here but in SLR1 you do not have R1 R1 here
+
+64
+00:31:50,680 --> 00:32:16,010
+that that is the difference. So, here number of reduce entries are less. Now, since there is no conflict no conflict means like there is there is no multiple entries in any of the cell that is why this grammar is LR0 and since this grammar is LR0 this is automatically SLR1 because if there is no conflict in LR0 how can there be conflict in SLR1 right. So, this grammar is LR0 and SLR1. Now, let us look at the more examples.
+

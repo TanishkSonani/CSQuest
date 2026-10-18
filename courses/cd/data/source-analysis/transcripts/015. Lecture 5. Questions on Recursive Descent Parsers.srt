@@ -1,0 +1,648 @@
+1
+00:00:00,140 --> 00:00:26,320
+Hi everyone. So in this video, we will solve 20 questions on recursive descent parsers with backtrack. So this particular parser is very, you know, less understood to most of the experience. So that's why we will solve many, many questions, which is around 20 questions to make sure that you understand this parser very well. Okay. How does it work? Why it work and on different cat type of grammars? How it will look like.
+
+2
+00:00:26,940 --> 00:00:52,920
+So all of the questions has been taken from standard university or standard books. So let's just get started and let's just start with the very first question here. So let's see this question number one. What they are saying is that consider the given grammar blow. How many times we need to backtrack to pass this particular string, which means that this particular parser is a backtracking parser, right? As the name says that it is a recursive present parser with backtrack.
+
+3
+00:00:53,930 --> 00:01:22,840
+So it means that if we need to pass some string then it may need to backtrack and that's what they're asking that how many times you need to backtrack if you want to pass this particular string for this particular grammar, right? So what does this backtrack mean? It is given to us in this particular quotient which we are saying that if a production x gives y is a failure That means it returns false then we count it as one backtrack So you may not remember what is this recursive descent parser. So let me just quickly revise you that what was that, right? So see
+
+4
+00:01:23,160 --> 00:01:38,720
+Let's suppose we have this particular grammar. Now we will write different different functions for each of the non-terminal. So which means if they are these are the two non-terminal then we will be writing two functions 1 for E, 1 for T and if E is the start symbol then we will say that okay.
+
+5
+00:01:38,910 --> 00:02:02,350
+A equal to E, I mean we will be basically saying that whatever E written may be true or false and then we will be at the last we will be checking whether the last symbol is ending with some special character which is dollar right and then if that is the case which means E is written in true and the last is also some special character which is dollar then we will say parsing is successful okay so that's how we write the code now
+
+6
+00:02:02,650 --> 00:02:27,790
+there will be two functions one for e one for t now let me just just tell you that how we write the function so for e we will be writing t we will first trying this production t and then we will we will be trying t plus e right so we will be trying this t and then we will be trying t plus e so these are the two productions that we will try now for this e so i'm writing e1 and e2 for these two productions i'm saying this is e1 this is e2 here i'm saying this is t1
+
+7
+00:02:28,030 --> 00:02:57,550
+T2 and this is T3. Okay. So I'm saying T1, T2, T3 and even E2 for these, these productions. Now what is the code for even? It will be just T. So for even, I will just say whatever T is returning, it will just T and for the E2, which is this production, it is saying that A equal to T, which means T and then plus and then E, right? And then I will match with plus, then I will say that I will be calling E and then I will be returning A and B and C. Okay. And similarly, we can write code for T. So if T is this, then we can write code for T also.
+
+8
+00:02:57,770 --> 00:03:02,150
+how let's just see see t is this so t1 t2 t3 these are the three productions right
+
+9
+00:03:03,150 --> 00:03:30,210
+Now to write the code for t we will say that for t1 it is just matching with int for t2 it is matching with int then start then then it will be calling t and it will be checking whether all of them is true or not if all of them is true it will return true right and similarly for t3 it will be matching with this then calling e and then matching with closing parenthesis and then it will be checking whether all of them is true or not okay so based on that it will be it will be basically writing the code for this t3
+
+10
+00:03:30,430 --> 00:03:54,330
+okay hope you understood that how to write the code for t12 t3 by the way one more thing is that that if you uh if you match let's suppose the input string if you are calling this if you are matching okay for example if you are matching for let's suppose t2 if you are calling this t2 and if you are matching with int star and then you will you will call t but let's suppose initially initially it is not int okay initially it is star itself
+
+11
+00:03:54,540 --> 00:04:19,500
+Then since star is not matching with int, then A will return false, right? A will return false. If it is not int, I mean, if you are calling T2 and the start symbol, the current symbol is not int, then it will return false. Okay, let's suppose the current symbol is star and you're calling T2, then it will return false. Then this T2 won't proceed further, which means that for the sake of saying, I'm saying that you will call these three. Otherwise, otherwise, like in actual implementation, let me just show you that, see.
+
+12
+00:04:19,940 --> 00:04:46,640
+Yeah, so in actual implementation, you will be matching with int. If this is false, you won't be calling others. Okay, you won't be calling others. I'm just trying to make it a little simpler. That's why I'm writing it in three lines. Otherwise, it should be something like this, right? That if it is matching with int, then then you will not be calling others. Okay, you will not be calling match star and this. I'm assuming this is C programming code. So, so which means that you can say that if if this is false, if this is false, then then
+
+13
+00:04:46,960 --> 00:05:16,720
+After this end, whatever is written, it won't be executed. So anyway, let's just start with the question number one, what it is saying. So this was the question number one, right? Now they are saying that how many times we need to backtrack to pass this particular string for this grammar, right? So let me go to the next page and let me write the string and the grammar both. So this is the string that we want to parse and let's see what is the grammar. This is the grammar using which
+
+14
+00:05:17,070 --> 00:05:45,800
+you want to parse this string and the parser by default the parser and all the quotients are recursive descent parser okay recursive descent parser with backtracking now let's just see okay so for this particular for this particular question what you need to do you just need to check that how many backtrack you need to make so first you will be having e then e will be calling t right then t will be calling t will be calling the very first production int now tell me
+
+15
+00:05:46,110 --> 00:06:11,800
+tell me is this into matching with the current symbol current symbol this opening parenthesis since it is not matching that is why you will do backtrack so what is a backtrack backtrack basically means that if there is a fail okay if there's some some capital symbol is saying that okay there is a failure okay and there's some production okay then you will you will use another production so you will backtrack at t why because this t production got failed right
+
+16
+00:06:12,150 --> 00:06:35,290
+Since this T production got failed, that is why you will backtrack at T itself. It is not the case that you will not backtrack at E, which means you will not try this. Okay, you will not try this. It's not like that you will try the E, second production of E. No, you will try the second production of T itself because there was a failure at T. Okay, so that is why there is a failure at this point. So that is why you will try the second production at T itself.
+
+17
+00:06:35,590 --> 00:07:01,350
+So, which means you will say, okay, let me try int start T intuitively also, you know that it will also fail because this int and this opening parenthesis again not matching. So you will again backtrack. Now tell me where is the failure? The failure is again at T, right? It's not at E. It's not at E. It's again at T. So that is why that is why you will say that, okay, this is E E and then then let me try the next production for the T, which is, which is this one, right?
+
+18
+00:07:02,640 --> 00:07:26,080
+Now, see here, this and this is matching. That's good. So that's why you can you can proceed further. Now for this E, what is the very first production? E Gibbs T, right? So you will try E Gibbs T. You will try E Gibbs T. And then this T Gibbs int, right? So you will try the next production, which is T Gibbs int. Okay. So let me write it. T Gibbs int.
+
+19
+00:07:26,700 --> 00:07:55,960
+And then you will say that, okay, this int, this C, this opening parenthesis is matching. This int is also matching. And then this closing parenthesis is also matching. That's really great. So that's why what will happen? What will happen? Since all of them is matching. So this T will say that, okay, I'm success. Now this time I'm success. So it will return true. It will say I'm success. So he will return true. So, so how many times you're backtracking? You're just backtracking two times, one time here, one time here, right? So what is the answer? Answer of this particular question is two, right? So answer is two.
+
+20
+00:07:56,200 --> 00:08:25,920
+right you are backtracking here and you are backtracking here just two times you are backtracking i hope you understood easy question just to get a start okay now now let's just see the second question which i have taken from this university so what they are saying how does uh what are the following code parts see they are saying match a and match x and match y and match q so ax yq now you can easily understand that answer is a why because you are matching with a
+
+21
+00:08:26,190 --> 00:08:56,620
+So if AXYQ is there then it will turn true. It means, it means they are asking for A, right? AXYQ. Now let's see this question number three, which is a little variation of question number two. Now they are saying match A or match X or match Y or match Q. Now can you tell me what is the answer? This is AXYQ, which means if all of them match then only true. It is saying either this or this or this or this. And in the same order, which means first it will try A.
+
+22
+00:08:56,890 --> 00:09:24,660
+So A then X then Y and then Q. So first it will try A then X then Y then Q. Okay. So that is why D is the correct answer here. D is the correct answer here. So for D you will write code something like this. Let's suppose, let's suppose if one of the option is, one of the option is this X, Y, A, Q. Let's suppose E is this option. Is this also true? Tell me. If this is MSQ and E is this option, is this also true?
+
+23
+00:09:25,370 --> 00:09:52,550
+The answer is no because he is saying first try X Although in this question it might not I mean in the in the real Answer it might not even matter. But anyway Sometimes it will matter. We will see we will see the order of production might also matter But anyway for this particular question, you will say that D is the only answer is not the answer Why because he is saying first try X then why then a then Q and here you are trying a XYQ So that is why that is why he is not the answer
+
+24
+00:09:52,780 --> 00:10:21,160
+okay and d is the answer because a then x then y and q see first you will try a if this is true you will not even look for the right because of the short circuiting that we see in the c programming okay if even if you don't know about the short circuiting at all so just see here that if something is true then true or anything okay true true or anything whatever is written there okay whatever is written there true or anything is actually true so that's why you don't need to look at what is this right true or anything this is
+
+25
+00:10:21,400 --> 00:10:51,000
+if this is true that or anything doesn't even matter. So that's why it will not look at the further things. So that's even called a source circuiting in C programming, but let's not even worry about it. Okay. So that's why D is the correct answer. Now let's see this particular question. Okay. Which is a little more variation of the previous two questions. So here what we are saying, match Q, match P or match A and and S. So this is interesting, isn't it? Now.
+
+26
+00:10:51,620 --> 00:11:23,030
+Now, can you solve this? They are saying that Q P So you need to match Q and P first or or A and then you will be calling S So what is the answer? I think A is the correct answer, right? Q P A and S Okay In this option, I think this is very mistake. I put 2 vertical bar, but that's fine Okay, so this is A S Q P No, this is Q P first you will be matching Q and P and
+
+27
+00:11:23,530 --> 00:11:56,670
+Once you match this, if this is false, then OR A and S, right? A and S. So I think A is the correct answer here. Okay. Now let's see this question. Can the below grammar be parsed by the recursive-descent parser? What do you think? See, this grammar is left recursive, right? Since this grammar is left recursive, so you will say no because the grammar is left recursive, right? Because this grammar is left recursive, that's why you can't parse using recursive-descent parser. Okay. Now let's just see this particular question. What they're saying.
+
+28
+00:11:56,970 --> 00:12:31,030
+Consider the grammar given below. How many times do you need to backtrack to pass this? Okay, that's interesting. And even like it might be a little lengthy also, but let's just solve this, right? Let me go to the next page and let's just try solving this. What is the grammar that is given to us? Let me copy this grammar also. Okay. So first they are saying that you will try this S, capital S, Gibbs, capital S, Gibbs A.
+
+29
+00:12:32,480 --> 00:13:01,110
+Then this capital A will try a small a small a capital B. And since this small a small a is matching, so that's really good. And then you will be trying this capital B. Capital B will say the very fresh production is triple B. Very fresh production here is triple B. Even there is just one production. That's fine. So now you will say that, okay, this is this and this is matching. And then this B is not matching with this D. Since this B and D are not matching, that's why this B is a failure, right? This B is a failure.
+
+30
+00:13:01,400 --> 00:13:29,790
+So since this B is a failure, that is why you will backtrack here. Okay. See, tell me, is this B a failure? This A is a failure or S is a failure? What is a failure? Failure is this B, which means you will now try the different production of B. Okay. So tell me, tell me what is the different production of B. So you will backtrack and then you will try the next production of B. So what is the next production? Here, as you can see, there is no next production, which means, which means there was only one production of B, which you have tried.
+
+31
+00:13:30,050 --> 00:13:52,450
+which which got failed right see here you are saying let's just backtrack okay which is really good we need to backtrack and now now you are saying that this b is having only one production is having only one production which means all of the production you have tried all of them are failure so that's why that's why you will backtrack it a now because you will say that this a this a will return false
+
+32
+00:13:53,040 --> 00:14:25,580
+which means that this A is a failure. Why? If B is returning false, then then this A will return false. Then this, at this A, at this A, you will backtrack again. Right? Backtrack means that you will try the different production of A. Okay. So do you have any different production of A? This, this you have tried. Now you will be trying this A, A, B, A. Okay. So the next production of A that you will be trying is this one, A, A, B, A. As Gibbs. So the next production you will try, a small a small a.
+
+33
+00:14:25,860 --> 00:14:54,500
+capital uh small a small a small b small a and then this is it so as you can see this a is matching and this b is matching this a is not matching this b right so that's why this particular production is also failure so now you got to know that this is also the failure right so see you have tried this b this was failure you have again tried the next production of a which was again failure now since all of the production of a has been adjusted so this a is a failure itself
+
+34
+00:14:54,830 --> 00:15:21,270
+so that is why you will say that since this a is a failure let me just backtrack on s now so now you will backtrack and you will try the different production of s right you will try you will backtrack and then you will say let me try so this s is also the failure see let me just count the failures right the failure production so this b was the failure first and then this a a was the failure because b was the failure and and
+
+35
+00:15:21,750 --> 00:15:49,030
+there is only one B production. So since this is returning false, that's why A is also failure. So I tried the next production, right? Of A. Now I'm saying that, okay, A, I have tried this, this is also the failure. So see, this B was failure, this A was again failure. Now this A is a failure. Because this A is a failure, that's why this S is also the failure, right? So that's why, that's why I'm just, you know, marking this whatever is a failure production. So basically the back track is defined like this.
+
+36
+00:15:49,230 --> 00:16:12,230
+If a production is a failure, then we count it as a one-back track. So here, here, this A was the failure. That's why there's a one-back track. I'm just making it a square, I mean, making a square around it. And then this S is again a failure because, I mean, one of the production of S, which was S gives capital A small a. This is again a failure. So that's why this is, I'm marking it as
+
+37
+00:16:12,880 --> 00:16:38,620
+square bracket right now let's just backtrack on this particular symbol now which means that you have tried this now let me try the another production of s which is capital C small e now now as you know that this capital C will be giving you a small a small a d right so this is matching which is really great now capital D will be giving you b b and then d
+
+38
+00:16:38,830 --> 00:16:57,290
+okay that's that's really great so this this d will return true that's why the c will also return true that's why this s will turn true and finally this is success right parsing successful so how many backtrack you have here how many backtrack you have here you have one backtrack here one backtrack here
+
+39
+00:16:57,440 --> 00:17:24,340
+I mean, backtrack here means that how many productions got failed, right? This particular production got failed. This particular production got failed. This particular production got failed. So there are four productions, or you can count with the square mark that there are four productions which got failed, right? So that's why the answer is four. See, the answer is four, okay? So there's a failure here.
+
+40
+00:17:24,620 --> 00:17:54,540
+because of this failure this b got failed and a gives a b also turns false right i mean this is also full so this is fail this is fail this is fail this is fail so there are there are four fails right okay so there are four backtracking that you need to do i hope you understood this particular question this was the question number six now let's just move to the next question which is question number seven so what they're saying consider the grammar below will the recursive descent parser with the backtrack be able to solve the given string this system
+
+41
+00:17:55,300 --> 00:18:22,100
+This is, this is one of the very interesting question. They are asking whether the recursive descent parser with backtrack will even able to parse the system for this grammar? Let's just see. Okay, let's just see. So this is the very first kind of question where we are seeing this type of thing, right? So what, what we will do as usual, we will start with the start symbol, which is E. Now, as you know that
+
+42
+00:18:22,390 --> 00:18:50,890
+from this e we will we will go to the very first production which is t so maybe due to the lack of space i will start from here okay e that will go to t then it will say that let me now go to the very first production which is int since int is not matching that's why you will backtrack right then you will try this int starty so basically you will backtrack here and then you will be starting you will be i mean writing int starty the next production again this int is not matching this so you will backtrack again
+
+43
+00:18:51,180 --> 00:19:20,540
+So anyway, this was also the common sense that this, this will backtrack, this will backtrack. So you could have directly written this, okay? I mean, with the little bit of practice, you will get to understand that you could have directly started with this. I mean, you could have directly written this state, okay? Because you know that anyway, this will backtrack, this will backtrack, and they're not asking the number of backtracks. They're asking whether it will, like this particular parser will be able to parse this or not, right? Anyway, so let's just do step by step. This will backtrack, this will backtrack. So there's a failure here, there's a failure here.
+
+44
+00:19:21,060 --> 00:19:52,740
+Okay. Now, now you got this. No, since this is matching, this is matching. Now you will proceed further and then you will say that, okay, this E, this E will give you again T, right? T. And now this time, this T gives in will be successful. Okay. Let me write here. This T gives in to will be successful. So just see here what is happening. This got matched, right?
+
+45
+00:19:53,300 --> 00:20:11,460
+That's why I move further for this E, then E gives T, T gives Sint. This also got matched. Since this has got matched, so that is why I will say this is returning true. Okay? This will return true. It means that it is success. See, for this, for H per this T, there is no fault of this T. T is saying that I am successful.
+
+46
+00:20:12,420 --> 00:20:42,160
+So it will return true and now he will say since he has returned true. That's why I will also turn true So so this is success now it will just say that okay. Let me just match this with The remaining thing which is plus right so this these two has got matched now. Let me match this and plus Now tell me is this matching? Since it is not matching so there's a failure now. This is a fault of whom There's a failure of whom is this teacher failure this is a failure this is a failure this teacher failure who got failed
+
+47
+00:20:42,380 --> 00:21:12,460
+tell me see this is not matching with this particular plus right so this is a part of this t see t will say i will be successful only when this is matching this is a success this is matching right since one of them is not not success so that's why this t is a failure here okay interestingly this e is not a failure okay this e will say that the t is saying true t is passing so i will pass i will not backtrack there is no backtrack on e there's a backtrack on t so so
+
+48
+00:21:12,700 --> 00:21:40,430
+This will be, this will be E Gibbs, E Gibbs T. Now, one of the production you have tried, which was not successful. I mean, this was even the last production. So you will say that you have tried all the productions of the tree, right? All the production of the tree. So there is, I mean, there's a failure. So you will say that this particular T, you have tried everything. Now you need to backtrack even at E, right? You need to backtrack even at E. So you need to basically say, let me backtrack at E.
+
+49
+00:21:40,620 --> 00:22:11,260
+Which means, let me try the different production of E. So you will try, you will try E gives T plus E. T will try int. Obviously, it will be failure by the intuition. You can say int, int, starting, these will failure. So the only thing that will get success is this, right? And then this is matching. This is matching. So this E will go to T and T will go to int, which will, which will again match, but this will fail, right? This will, this will fail just like this. So this will fail with this plus. So which, which failure is this?
+
+50
+00:22:11,670 --> 00:22:40,390
+The failure of whom? Failure of whom? Failure of again this T, right? So you will say that here also you have tried all the production of the T because this is the last production. So you have tried all the production of the T. So this T got failed. It means what? It means that let me just backtrack at E. Now E also you have tried everything. So this E will say that, okay, I have tried everything. Now this production is not working. This production also not working. And earlier production was also not working. So E will also turn false.
+
+51
+00:22:40,820 --> 00:23:14,680
+So that is why that is why this will I mean ultimately will return false as why this will not get even pass. Okay. So the parcel will not recognize this parser will not recognize. Okay. Let me let me just explain it once more. Let me just explain it once more. Probably you will understand. Okay. A better way. See this is int plus int. Okay. In the bracket.
+
+52
+00:23:16,110 --> 00:23:53,750
+Now let me let me draw the ideal okay the ideal ideal tree that you're looking for the ideal tree is you will start from e then I think from this e to t then this Okay, and then this e should be going to t plus e Right, so sorry. So basically from here this e should be going to t plus e t plus e then this t will give you int
+
+53
+00:23:54,120 --> 00:24:11,910
+This will give you T and then N. This is the ideal tree that you are looking for. But unfortunately, we are not getting this tree. Let's just see why we are not getting this tree. See, you will start from E. Using the recursive decent parts are basically we are not getting this tree. Then obviously from E to T, that's fine.
+
+54
+00:24:12,200 --> 00:24:40,940
+then obviously this will backtrack so i'm not writing it even just to show you so i'm not writing it okay because interval backtrack and start will backtrack because the first symbol is uh open open parenthesis so i'm directly writing this right the last production you will try and then this will not backtrack here i mean till now i think things are fine now now this is matching that's really good now on this e on this e you will say that let me let me so basically this is matching right
+
+55
+00:24:42,040 --> 00:25:11,530
+Maybe I can just make a copy of this so that I can show you what is happening on the runtime. Right. So this is matching. Now you're looking for it. So this evil again, again, go to T this T will again go to int. Great. This int and this is also matching. Now you're looking for plus. Okay. Now just see here, this will return success. That is why this is a successful. Okay. He will also return success. And now
+
+56
+00:25:11,800 --> 00:25:39,740
+Now, this is not matching with the plus. Hence, hence you will say that there's a backtrack at T. Okay, there's a backtrack at T. This is a mistake. There's a no backtrack at T. I mean, you should not backtrack at T. Basically, you should have been backtrack at E, right? See, this E, if you could have tried the different production, which is, which is let's suppose T plus E. Okay, instead of E gives T, if you try T plus E here. Okay, see, on this, on this E itself, if you try, if you try, let's suppose.
+
+57
+00:25:40,540 --> 00:26:09,340
+on this e itself you try t plus e or something right then in that case you could have gone to the success but you are saying that you don't need to backtrack at e using the algorithm what will you will say you will say that okay e is giving t, t is giving inter this is a success so that is why e is calling just one thing right which is t so what will the code of e? e will be just saying okay it is either even or e2 so even even is basically true right even returns true even so you will return if even is
+
+58
+00:26:10,420 --> 00:26:33,560
+Now returning true then you will return true, right? Something like this. So you will say that, okay, if this is true, then I am true. Which means that it will say that, okay, that this E will return true because this E1 is returning true. Now you will be forwarding this responsibility on T. You will say there is a fault of T. Okay? That is where this parser is going wrong.
+
+59
+00:26:33,840 --> 00:27:00,100
+That is where the sparser is going wrong. So this sparser is saying that you are, you do not need to backtrack at this particular moment, which is E. You need to backtrack at T. Okay. You need to backtrack at T, which is wrong. So if you backtrack at T, you will be getting, you will be getting, you will be saying, okay, I have tried all the productions of this, then you will be backtracking even at E. So you will say that T plus E, right? T plus E.
+
+60
+00:27:00,860 --> 00:27:15,980
+Now now because of that you will say that okay now now again you need to restart which means your input pointer will get restored okay your input pointer will get restored to again to this int right and then
+
+61
+00:27:16,260 --> 00:27:44,200
+you will say that okay now this t will go to int which will which will not match and int star will also not match so you will go something like this this will match and then this e to t and t to int which will match that's fine that's fine but now this is a failure right since this is a failure so this t is a failure so you will say that okay for e this e i have tried e gives t i have tried e gives t plus e both of them are failure so that's why this is a fail which means the parser will not be able to recognize
+
+62
+00:27:44,760 --> 00:28:14,810
+You can even write a simple C code. Okay, if you want write a simple C code give this as an input Okay, this give this string as an input and then let's just see that what you are getting true or false You can take it as a homework or take it as an exercise if you want you can write simple functions right one two three four five three four four five functions You need to write just a main function. Just call this It's a very simple exercise and then you can definitely check that this will not be able to pass the string, right? Okay, so
+
+63
+00:28:15,100 --> 00:28:45,540
+that's how you can you can do this question this is a very very interesting question where the string is in the is in the grammar okay or the language the string is in the language but still you are not able to parse I mean the recursive descent parser with backtrack it is not able to parse right so a very good question I will say okay cool so let's just move to the next question and let's just see if we are able to solve those questions so let's just see this question consider the given grammar below
+
+64
+00:28:45,810 --> 00:29:14,030
+How many times we need to backtrack to parse the CAD? Okay. So this question is, is comparatively easy. They are just saying how many times we need to backtrack if we want to parse something like CAD on this particular grammar using the recursive descent parser. Okay. The string is CAD. So S will go to a small c capital A small d.
+
+65
+00:29:14,710 --> 00:29:47,220
+Then the C and the C is matching. So now this is AB, right? This is A matching. So this B and D is not matching. So who's fault? This is a fault of A. So you will backtrack at A, right? This is a fault of A. So you will try a different production of A, which means you will try this capital A gives a small A now. So then C is matching, A is matching, right? And then this time D is also matching. So that's great. So this will turn true. So I think just one backtrack you need to do, right?
+
+66
+00:29:47,720 --> 00:30:25,880
+So what is the answer? Answer is one backtrack only, okay? Okay, so there is only one backtrack. Easy question, but you need to understand the parser to answer this completely, right? Now let's just see this question number nine. Consider the grammar given below. How many times we need to backtrack for this BCD? Okay, let's just see that for this small b, small c, small d, right? For this particular string, how many times we need to backtrack?
+
+67
+00:30:27,040 --> 00:30:58,530
+Let's just see. Let me go to the next page. Let's just try answering this. So B, C and D. Okay. Now let's just start with S. Now it will be B, A, B. This B and this B is matching. Now this A and this C is not matching. So you will backtrack, right? You will backtrack on this S because the production of S got failed. So you will backtrack on S. So small B, capital A.
+
+68
+00:31:00,070 --> 00:31:29,080
+Now you will again say, okay, this B and this B is matching. Now this A will give you D. So this time this D is not matching. So you will backtrack on capital A, right? So you will backtrack on capital A, which means you will try the different production of capital A. This B and this C is matching, right? And then this capital A will go to D, I think, and D and D is matching. So how many backtrack you are having here? Just two backtrack, right? This is a backtrack on S, this is a backtrack on capital A.
+
+69
+00:31:29,890 --> 00:32:02,900
+Okay. And then two is the answer. So, so there is a backtrack, there is a backtrack. So answer is two. Understood? Cool. Let's now see this question number 10. So what they're saying, consider the given grammar blow for which of the following input strings backtracking will be required. Okay. So these are the four options which are given to us. And now for which of them the backtracking will be required. So see this grammar is given to us, right?
+
+70
+00:32:03,370 --> 00:32:28,790
+So now let's just check, do we really need the backtracking for ACC to pass this ACC? Now see by default the parser is recursive descent parser with backtracking, okay? Now don't worry about the parser. See, first you will go to capital A, capital B, small d. This capital A will go to small a, that's really good. This capital B will go to small a. So here you need the backtracking, at least at this right, at least at this B.
+
+71
+00:32:29,050 --> 00:32:58,240
+and then later on you may need even at this S which is fine but at least one backtracking is needed here because this capital A is producing small a which is fine but this capital B is producing small a so this B is a failure right this B is a failure so that is why there is a backtracking here right so that's why you will say you will say that this is the answer but since this is MSQ there may be the multiple answers let's just see let's just see if you really need the backtracking for the CACD so capital S capital S
+
+72
+00:32:58,620 --> 00:33:12,220
+will give you capital A, capital B, small d. This will give you small a, right? The very first production is small a. Now, this is CAC is CD. So, this is not C. So, that's why you may need the backtracking at A.
+
+73
+00:33:12,510 --> 00:33:41,690
+I mean later on you will try this B also and then you will say this A is a failure so you you will you will even say that okay let me try with this right maybe you will be ultimately needing the backtracking it as but that's fine but at least one backtracking that you need right so that's why B is also true so you also need the backtracking at this string also right now what about this small C small C is sorry this what about this option C option C is AAD so this capital S is giving you capital A capital B
+
+74
+00:33:41,880 --> 00:34:09,850
+small d this will give you small a which is matching this b will give you this b will give you small a at first which is also matching right which is also matching and then small d so there is no backtracking required for this small a small a small d right so there is no backtracking required here at option c what about the option d like just check so this is capital S which will give you which will give you capital A capital B small d right
+
+75
+00:34:10,300 --> 00:34:43,770
+and then this capital A will give you a small a this capital B will give you a small a first so this is matching but this is not matching so you need to backtrack at C and then you will say it is successful so at least one backtracking again you need at this D also so that's why ABD is the answer right so ABD are the answers okay this was the MSQ question let's now see this question number 11 so what they are trying to say they are saying that there are two rules are given in this grammar
+
+76
+00:34:44,120 --> 00:35:13,470
+then they are saying how many calls to s parser needs to make in order to parse this okay so by default this is recursive descent parser with backtracking okay so for all the questions just assume the parser is same now let's just see that how many calls to the s we need so see there will be very first call to s that we need from the main function right so that is why you will say that okay the very first call to s and then which will be ASB and since this is matching this is matching so that's why you will say now again
+
+77
+00:35:13,810 --> 00:35:41,930
+this is ASB so I think till now two three calls till now then this is matching then this will again be going to ASB but this will backtrack right this ASB will backtrack so these are the four calls till now so I'm just circling it if this is a unique call I'm circling it so till now four calls that you have made and now it will be the backtrack right now it will be the backtrack so on this backtrack on this backtrack you will see that what is happening this is S
+
+78
+00:35:42,800 --> 00:36:12,680
+which is ASB this is also as which is ASB now Now this S was ASB, but it will backtrack and now why it will backtrack because this A and this B is not matching So now it will be BA right now it will be BA. So this These are the three calls now. This is not a new call. Okay, there is no new call to us. This is just BA So as has first tried ASB and now we are saying that this ASB got failed. So that is by this as itself
+
+79
+00:36:12,970 --> 00:36:41,170
+See, there will be the S which will be trying ASB. So this is a call to S, right? This is a call to S and now it will try BA. Now it is the next production that says it's trying. So there is no new call. It is not a new S. It is just an old S which is trying the new production which is BA, okay? There is no call to S which is happening, okay? There is no new call. So only four calls has been there till now. So A was matching. This B is matching. This A is also matching. And then this B and this B is matching. So everything is matching. So
+
+80
+00:36:41,530 --> 00:37:09,180
+only four calls right not five calls or something so four is the answer right four calls to S in order to pass this particular string easy but very good question I hope you understood okay now let's just move to the next question which is which is saying that will this record will this recursive descent parser with backtracking recognize the sentence ABC so there they have given some some grammar
+
+81
+00:37:09,510 --> 00:37:32,520
+and the parser is recursive descent parser only. Will it recognize this ABC? Let's just see. It is very very interesting question. Let's just see. Will it be able to recognize or not? See this S will be giving you capital A small c, right? And now this capital A will be giving you a small a because this is the very first thing that you need to do. And then what you will say that this small a and this small a is matching.
+
+82
+00:37:32,970 --> 00:38:00,880
+So now that's why that's why just Understand this carefully. That's why this capital A will say that it's a success Why because because if if capital A is calling C capital is calling this match a this is even and this is a to write So it will say that okay if even is true if this production is true then it will say that okay This even is true if even is returning true then it will say return true Return true agent it so this capital is returning true directly
+
+83
+00:38:01,690 --> 00:38:30,310
+So here you will not get a chance to try this AV Okay, you will not get a chance to try this AV So that is why this capital A is returning true So hence you will say that here you will say that this is true Now you will you will try to match you will try to match this C this C with this B Okay, you will try to match the C with B Since there's a fail that's why you need to backtrack But there was only one option for S and you can't backtrack on S so you will say that there's a fail so
+
+84
+00:38:30,600 --> 00:39:00,200
+this was true this was true and this is failed right I mean this is not matching so ultimately this is basically false so ultimately it will be returning false okay so that's why this parser will not be able to recognize this abc on this grammar okay maybe I can just explain you once more because this is really a good question and this is a very fresh question of this type right so let's just see see what is happening here this s will be calling two things right I want to parse abc so s will be calling
+
+85
+00:39:00,470 --> 00:39:30,300
+capital A and then it will be calling two things which is match C, right? First it will be calling capital A. That's how the algorithm will work. Now, capital A will be calling match A. This is the first thing that it will be doing, right? Since this is true, this is matching. So this is true. That's why it will say that it is true. So this will return true, right? This will return true. So here it is returning true. And when can capital S return true whenever both of them are returning true? Now this match C,
+
+86
+00:39:30,530 --> 00:40:00,220
+okay match C will say that this is not matching hence hence this will return false okay now basically this is returning false it means that you need to backtrack on this but there is no other option so ultimately it is returning false only right ultimately it is returning false so that's why it won't be able to parse because in the main function you are saying that let's just call S let's just match dollar and and if both of them true if A and B A and B
+
+87
+00:40:00,510 --> 00:40:23,340
+a and then b then you will say parsing successful okay parsing success then you will say parsing success but here here this s is false so that's why parsing is not successful okay so that's how the algorithmic wise it will work i hope you understood that how the algorithmic wise it will work see see what is happening let me again try to explain you
+
+88
+00:40:24,090 --> 00:40:46,950
+here it's very interesting right here this is not able to parse ABC very simple string but it's not able to parse because this s is basically capital a small c and then this capital a will say a small a now now because because this is this is success right this small a is is matching here because this is success that is why you are not backtracking on the same
+
+89
+00:40:47,570 --> 00:41:20,560
+Suppose by chance if you backtrack on this A and then you try AB, then it's great, right? Then it's matching. So this matching. But you do not get chance to backtrack on this A. That's the problem. Okay. So that is why it will return true and then this will not match. Obviously, this will not match. So it is returning true. Okay. It is not matching with B. See, that's the thing that was happening earlier also. If you remember, maybe I can just tell you in one of the question that we did. Yeah. So see.
+
+90
+00:41:20,840 --> 00:41:46,190
+here also it was not able to pass this string why because see this is our ideal tree I mean if this could have happened then it will it it would have able to pass right but the problem here is that that this e okay if you remember this e was returning true and and I was not backtracking on this e if I could have backtracked on this e then I could have tried this t plus e here but here this e is returning true
+
+91
+00:41:46,370 --> 00:42:15,250
+And that is a problem actually. I mean, since this is returning true, this returning true itself is a problem. Why? Because if it is returning true, then I'm not getting chance to try the other production, which is T plus E here, right? See ideally, ideally after this, I should have tried T plus E. But I'm not getting a chance to try T plus E. Because this is returning true, so hence there's a failure on this T. There's a failure on this T. So I will be backtracking on this T. And since all the productions, okay.
+
+92
+00:42:16,190 --> 00:42:43,880
+All the production yeah, so I will backtrack on this T. T has this last production which is in the parenthesis capital E. So all the production of T has been tried. So I will be backtrack on this E and all the productions of E also has been tried because this is the last production. That's why it will return false. So I'm not getting a chance to backtrack on this E. So that is a problem, right? So similarly, similarly, let me just go here. Similarly, like that's the same problem that we are facing.
+
+93
+00:42:44,350 --> 00:43:11,430
+facing here also, right? Let me go to that particular slide. See, here, this is written in true, which is a problem. If, if, see, what is the ideal tree? The ideal tree could have been look like this. This is the ideal tree. Ideal tree could have been capital S, gives capital A, small c, capital A, gives small a, small v, and then, this is small c, right? So, this is the ideal tree.
+
+94
+00:43:11,590 --> 00:43:45,150
+So which means if I could have backtracked on this capital A, that's good But I'm not getting chance to backtrack on this capital A. Okay, so we are not getting chance to backtrack Here that is a problem. Okay, so for this so for this particular question what we are saying So we will not be able to will this parsable able to parse then what is the answer? The answer is no, okay
+
+95
+00:43:45,880 --> 00:44:16,070
+this is the answer now let's see the next question here so also you can see the answer here so as you can see that they are saying that the non-terminal see they are saying then the limited backtracking algorithm will not recognize the sentence abc the non-terminal as called at input position one which means initially it was called at at this position input position one will call will call at input position one will call
+
+96
+00:44:16,370 --> 00:44:45,730
+A at the input position one right now you will call I mean S is calling S got called and S will call A using the first alternate which means the first alternate is this one using the first alternates A report the success and moves to the input pointer to the position two okay so A reports the success and then it says that okay it is a success so it is a success and now the input pointer is here okay so you have called this and then the C C this C does not match with this B okay that's that's the problem this C does not match with this B
+
+97
+00:44:46,900 --> 00:45:17,060
+interesting right now let's just see this question here here what I did instead of writing a okay instead of writing a a b I'm writing capital small a b and then a so basically the difference between this question and this particular question is only that so earlier this is earlier grammar the question is question is as it is same the only difference in the is in the order of the production okay so this is earlier this is earlier
+
+98
+00:45:17,500 --> 00:45:45,650
+and now we have this let's just see let's just see that now are we able to parse so what do you think see this capital S will go to capital A small c and then this capital A will say that okay let me go to A B right let me go to A B since this A is matching with this A this B is matching and the C is matching so it is equal to parse so now the answer is yes now the answer is yes okay just because we are altering okay we are changing the order of production
+
+99
+00:45:45,930 --> 00:46:16,020
+the grammar that is sorry the language it is recognized is basically changing right hope you understood now let's just see this question what they're saying will the recursive descent parser again will it be able to parse the system this is also very interesting question let's just see if you are if you can solve this okay let's try it out so capital E will give capital T plus and capital E first right now
+
+100
+00:46:16,410 --> 00:46:46,880
+now this capital T will give you okay will give you this which is actually will backtrack anyway so let me note write it because this is not matching with this so it will backtrack so let me write the next thing directly okay it will be like this now now this is success right because this is matching see this is matching this end so this is success because this is success it will say that I am successful okay now it will match this plus with this star tell me is this is this matching
+
+101
+00:46:47,200 --> 00:47:18,020
+since it is not matching so that's why that's why it will backtrack okay this is success here but this plus and star are not matching so that's why it will backtrack on which on which terminal so like which terminal got failed this t this e this e which one this e right this e because one of them has got failed so now it will try the next thing which is which is just t and then t will try anyway like it will try this but it is not successful so it will try int right
+
+102
+00:47:18,440 --> 00:47:48,500
+I mean, there will be a backtrack on this, but that's fine. It will try int. Now this int is again successful, right? So it will say that, okay, again success. I'm successful. Now, now this e will return. See, interestingly, this e will return true, which means is this e will also say that I'm also successful. What is the reason? The reason is that, okay, let me, let me tell you the reason why, why this e will also say that I'm also successful. See, this e has called, e has called this t, right? e has called this t.
+
+103
+00:47:48,720 --> 00:48:14,680
+if t success then e success so this is just like the second production right so it will say i'm successful it will say i'm i'm successful which means it will return true but does this mean that the parsing is successful no right see the input was the input was int int star star int right this is the input okay let me write it here so this is the input now what you will do
+
+104
+00:48:15,230 --> 00:48:43,490
+You say that okay this int and this int is matching. So now the remaining input is this obviously it is ending with some special symbol. Let's suppose dollar Now now in the main function, just look at the main function What does the main function has in the main function? You will say that okay, you will you will call this e let's suppose this is e and There is a b which is match dollar right match dollar and then you will say if a and b is success then then parsing success
+
+105
+00:48:44,590 --> 00:49:13,730
+Tell me what will happen see this this particular This is success this particular a will return to right. This is true I agree with you which means this is written true But is the next symbol dollar is the next symbol dollar Since the next symbol is not dollar which is a star. That's why it will say fail So so this system will also not be recognized by this particular I'm using this grammar by that records at which and parts are so what is the answer the answer is no
+
+106
+00:49:15,090 --> 00:49:42,240
+Okay, this is the answer. Let me just explain you once more Okay, so what is happening here that you wanted to pass int star int Okay, you wanted to pass int star int Now this e will try see ideally e should go to t right e should go to t and And then this t should go to I think int star int and and so on right, but the problem here is that
+
+107
+00:49:42,530 --> 00:50:10,120
+I mean E should go to T that's fine I mean till this point we will be having and this this T should go to this T should go to finally I mean this is the ideal T let me write the ideal T you see you don't need to write the ideal T in the exam I'm just telling you what what is the ideal T this is the ideal T right but the problem with us is that that we are able to get this but the moment we we try this T this int is successful so we are not backtracking on this T we are backtracking directly only
+
+108
+00:50:11,440 --> 00:50:38,040
+Okay, I mean we don't need to backtrack because this this was successful So let me tell you again what is happening this e right this e will be trying t plus e first But ultimately as you know that this t will be trying int and then this plus is not success So that's why it will backtrack right it will ultimately it has to backtrack to t. Okay Now now this t will be trying any with this this was failure now it will try int Now since it is trying int
+
+109
+00:50:38,540 --> 00:51:10,380
+That is why it is success it is also success, but ultimately it is a failure Okay at the end it will be the failure because it is not the next symbol is not the dollar Okay, I hope you understood Maybe you will get to understand more with the examples So if I just ask you let's suppose in this particular question if I just ask you that Can you give me a string which is which is not passed here? I think I think if you give me let's suppose int
+
+110
+00:51:10,610 --> 00:51:33,680
+plus int. Will it be able to parse, int plus int? No, because e gives t and then t gives int. It is success, right? It is success, success. So it will say it is success, but ultimately it's not dollar. So int plus int itself won't be able to parse, won't get parsed using this recursive descent parser on this grammar, right? Okay. Hope you understood. Cool.
+
+111
+00:51:34,330 --> 00:52:02,900
+Now, let's see more examples and then you will you will get to understand more about this particular parser. This is this is just a algorithmic parser, which behaves just in very simple algorithm. Okay, once you understand the algorithm, you will get to understand this parser. Now, let's see this particular question which I have taken from Berkeley University. So what they're saying that first unlike the production that we studied in the recursive descent parser is sensitive to the order of the productions that is recursive descent parser may behave differently. Okay, when the production
+
+112
+00:52:03,470 --> 00:52:32,790
+is rewritten from this to this, right? Okay, so what is the question? To see the order of production matters, consider the following grammar. E is the only non-terminal in this grammar. Also, IDE denotes the area elements. Anyway, let's not worry about it. So what they're saying, give one sequence of tokens that belongs to this language of this grammar, but it's not recognized by the parser. Can you give me one string which is generated?
+
+113
+00:52:33,400 --> 00:53:04,620
+by the grammar or maybe which is in the language of this grammar, but not recognized by the parser. Can you give me one string? The answer could be ID. ID, right? This is why, because, because for this string, it will go to, it will go to ID. Okay. And then this will say, okay, this is success. He will, he will say I'm successful, but ultimately this not the dollar, right? So you can say, you can say recursive, decent parser.
+
+114
+00:53:08,470 --> 00:53:37,580
+recursive descent by the way what does this descent mean? descent means top down I mean you are going down okay that's what descent mean that's why we call it descent not the ascent right because we descent parser parser will with backtrack right with backtrack will not be able to parse this easy right
+
+115
+00:53:38,660 --> 00:54:09,710
+Very good question, but but you need to understand I mean this will be easy question if you understand the records of decent parts are really well Now let's see this question what they are saying they are saying that In this particular note that there is no no left records and and all now they are saying how many calls to f is needed if the input is 3? Let's just see how many calls to f again this question is from the Berkeley University So how many calls to f is needed? Let's just see so this e
+
+116
+00:54:10,190 --> 00:54:38,640
+will be calling t plus e see the input is 3 right 3 means int okay 3 means int now this t will be calling f into e and then this f will be calling int so there is one call here okay I'm just making a circle here there's a one call here we need to we need to do for f so this is the first production and t is having the first production which is f into e this is this is success now this is the failure
+
+117
+00:54:38,990 --> 00:55:09,760
+Okay, so this is a failure. So the failure of whom? Failure of F or failure of E or failure of T, failure of whom? See, this is a failure because this is not the dollar, right? So failure of T. So since this got failed, okay, since this got failed, so you need to backtrack. Which means you will try a different production of this T. So you will try a different production of this T. So F into E you have tried. Now you will try F divide E. So again, this will be int. Okay, this will be
+
+118
+00:55:10,090 --> 00:55:40,460
+a new call but but but this will a new call but again this is not the dollar so that's why that's why this will get failed so again you need to backtrack right and then you will be trying you will be trying this particular production which is e gives t plus e and then then the last production is f which is int okay now again this is success again this is success and this is a new call so i'm making a circle here so this is success this t is successful finally right
+
+119
+00:55:40,700 --> 00:56:11,650
+at least he is successful now because this plus is not the dollar so whose fault it is this is the fault of whom can you tell me okay so see this is this is not like this is not the dollar so that is why this is the fault of this capital E right you will try the different production now which is capital T minus capital E so see there are three now now you will try capital T minus capital E right the different production
+
+120
+00:56:12,610 --> 00:56:42,890
+Now again because of this there will be three more, right? There will be three more and ultimately you will you will say that okay This minus is not the dollar. So this will again be failed, right? This capital E again be failed. So there's a three more, okay? I'm not writing Those but there are three more calls to F three more Calls to F, right? And then you will say that okay here here. This is Minus which is not dollar. So you will backtrack on this E which is T
+
+121
+00:56:43,230 --> 00:57:15,880
+right the last is t now again because of this t there are three more calls right i mean this t will first try this then this then this and finally this will be successful so three more calls you can say okay so three more here calls to f and then it will be successful so once it is successful it will say okay this will be successful now you will be having basically something like this right you will be having let me also write it something like this so you will say that it will be e t
+
+122
+00:57:17,730 --> 00:57:48,360
+and fint. This is not a new call. I mean, I have already counted it. Okay. Don't count it. So you will be having it will be success, success, success. So finally it will be successful. So how many three here? And then whenever you are trying this particular production, then again this three, then again this three. So total nine calls. Okay. Total nine calls. Good question. So what is the answer? Answer is nine calls.
+
+123
+00:57:51,250 --> 00:58:20,760
+Now let's see a new question. So this question and the previous question is almost same, but it is it might be little more lengthy. Okay, so they are asking for this three into three string. Just solve this question and comment out your answer. Whatever answer you are just getting, just comment out. Okay, comment out your answer for this particular question. This question might be little lengthier than the earlier question, but just try this question so that you get more comfortable for this particular parser. Okay, remember this question might be lengthy also.
+
+124
+00:58:21,020 --> 00:58:50,490
+Okay, but comment out your answer. I don't have the answer with me, but you can comment it out, right? Okay, just try, definitely try this out and just comment out your answers. Now let's see this question, which is a MSQ question. What they're saying, consider the grammar given below, which of the following string can be generated or can be recognized by the recursive descent parser with backtrack. So with this grammar, and the parser is recursive descent parser. Okay, so can it recognize recursive descent parser, can it recognize this particular string?
+
+125
+00:58:50,680 --> 00:59:09,520
+let's just see obviously this how it can recognize because this is not even in the language but I still let's just see this is a a this a is matching with this a and then this a is not matching with the dollar right ending with the some special symbol whatever you want to say hash dollar star whatever right but it's not matching so it will obviously not recognize so this will not recognize
+
+126
+00:59:10,190 --> 00:59:31,430
+What about this A? So this A is matching, A is matching, this A is matching, A is matching. Yes. And then this is ending with dollar. So anyway, the final dollar will get matched, right? So this is getting matched. What about this four times A? This A is matching. Interestingly, this is also matching. So these two A's are matching. Now, interestingly, it will say true. Okay, it will say true. It will say true.
+
+127
+00:59:31,940 --> 00:59:53,380
+Since it is saying true, that is why ultimately it is not the dollar, right? Ultimately it will match with the dollar, it is not the dollar, so that's why it will say that, okay, you need to basically, the parsing will be failed. I mean, you cannot parse this particular string. Although this string is in the language, right? This string in the language, still it is not able to parse. So, no. What about triple A's?
+
+128
+00:59:53,640 --> 01:00:15,780
+so this a this a again these two a will will get matched and it will say true but still again ultimately ultimately this a is not dollar and also this is not in the language so it will not anyway get passed but still like according to algorithm I'm running so this a a will get matched it will return true but then this is not the dollar so it will also not get passed so the only string actually it can pass is a
+
+129
+01:00:16,290 --> 01:00:48,360
+There is no other string from this language, right? So whatever you write either you write four times a you write six times a because these are even numbers of age, right? It won't be able to pass any other string So so B is the answer here and you can say this parser parser can parse parse only Now let's just see a next question which I've taken from willman now
+
+130
+01:00:48,730 --> 01:01:17,080
+In this question, this small a, I have written or maybe the book has written later on. So you might be knowing about Ulman. He is a Turing Award winner. He has written multiple books. And on DBMS also, he has written books on compiler design also, I think on TOC also. So he has written multiple books. He is a Turing Award winner. So let's just see what they are saying. They are saying the grammar.
+
+131
+01:01:17,400 --> 01:01:46,650
+as gives ASA now or a small a generates all even length strings of A we can device a recursive descent parser with backtrack for this grammar if we choose to expand by the production A first if we if we are doing this first then we shall only recognize A that was the question number I mean the previous question right so if we are doing this first then we shall only recognize A okay okay that's what we have seen thus any reasonable recursive descent parser will first try this now what they are saying
+
+132
+01:01:46,890 --> 01:02:16,700
+that show that recursive descent parser recognize input A I mean two age four age and this is eight age okay eight age but not six age so they are saying they are saying that you have you have capital S gives A capital S A A this can recognize this can recognize A this can recognize four times A this can not recognize six times A
+
+133
+01:02:16,980 --> 01:02:46,920
+but it can again recognize again recognize eight times okay that's what we need to show that is the question that they're asking okay so let's just let's just try with the input one i mean input one means a small a okay so let's just try with this first input which is small a will will it be parsing this small a let's just check input one which is small a will it be parsing this small a see this s will be going
+
+134
+01:02:47,240 --> 01:03:05,140
+small a capital s small a now now blindly you can you can write like this i mean see these two ways are there so that's why it will expand till this point at least first it will expand till this point later on it can it can may backtrack and and these things may happen right because these two ways should match right so
+
+135
+01:03:05,400 --> 01:03:36,710
+so now this capital S will again go to small s small s small s small s and whatever you try actually it is not a dollar right it is ending with the dollar whatever you try it is not a dollar so you will see this S as a failure right now you will try a different production on this S ASA was there now the difference production is A okay A now you will again say you will again say that this so maybe I can I can just copy right see you will again say that this
+
+136
+01:03:37,070 --> 01:04:07,650
+as was the failure now you will try a now you will again say that this s is again a failure because you have tried both the productions which is asa and now now you have tried a which is also the failure because this is not the dollar so that's why this is also the failure so you will again backtrack and and then this time you will try a and then this will be successful right so yeah there will be there will be multiple backtracks but ultimately it will be it will be recognized this a so a success right now now let's just see four times a
+
+137
+01:04:07,820 --> 01:04:39,890
+Will it be able to recognize this four times or not? Let's just see this quickly. Okay. So A was success. Now let's just see four times A. Okay. For now, let's just suppose that it is three times A. Can you tell me what is the very first thing this parser will do? It will immediately expand till this point, right? See, this is three times A. So it will immediately expand till this, till this three H because it will be matching, matching, matching. And then it will be immediately expanding till this three H, right? If it is four times A, actually it will immediately expand.
+
+138
+01:04:40,360 --> 01:05:00,600
+till this point and later on it may be backtrack but that's fine okay first it will expand till this point right okay now now let's just check what is happening so they are saying it is four times a so see this is matching matching matching matching now now this s will whatever you try actually it is not a dollar so this s will be failure right
+
+139
+01:05:01,080 --> 01:05:35,230
+So that is why that is why you will see this as a failure So you will you will not be basically it will get failed at this as so you will not be using this particular production, right? I mean ASA so that's why you will be using the next production, which is what is the next production a So on this as let me let me just tell you what will happen. So basically on this as You will be using the next production, which is a now now what is happening here this
+
+140
+01:05:35,580 --> 01:06:05,810
+this s was the failure right let me just mark it with the different color okay now you are using uh you are using a now these are the four h which are matching but this a is not the roller so this s is actually completely failure right complete failure so that's why that's why you will you will say that okay this s you have tried s as a now you will be trying which one you will try a so so what will happen now let me just tell you that now you will be trying a
+
+141
+01:06:06,180 --> 01:06:41,450
+on this S right so on this S which is the third S from this top on this S you will do tank A okay now here what will happen you will say that C now this is okay this is okay this is okay this is also okay but this A is not matching right this is not matching dollar because my input is A A A dollar okay this is my input now tell me tell me interestingly if this is matching this is matching this is matching this is also matching
+
+142
+01:06:41,830 --> 01:07:12,980
+If this is not matching with the dollar, then it is a fault of whom? Is this S got failed? This has got failed or this has got failed? Let's just suppose, let me just name it S1, S2, S3. Can you tell me which S is a failure here? S1, S2 or S3? S2, right? Because something from S2 got failed. So you will not backtrack here at S3 or something. I mean, we have already done it. But anyway, this S2 is failed, right? So this S2 is failed, so that's why instead of... So this was...
+
+143
+01:07:12,940 --> 01:07:42,450
+ASA so instead of ASA you will be trying AA and then this time you will say okay everyone is success so finally it is success so it seems like that 4 times A is also successful now let's just try input 3 which is 6 times A okay which is 6 times A so input 3 which was AAAAA $ right see what is the ideal tree here let me just write ideal tree
+
+144
+01:07:42,980 --> 01:08:12,260
+Just I mean you don't need to write it, but just for the sake of explanation or just for the sake of understanding that what is happening. We are just writing, okay? Basically, you will say that okay, this should be the ideal to write this should be like one two three four five six This should be that you'll be but but it seems that the question is saying the parser will not be able to generate this ideal to let just see let just see if that is true See this capital S will first go to this and since it is six times a that
+
+145
+01:08:12,470 --> 01:08:45,650
+as you know that it will be basically generating six A's right six A's first six A's so basically it will be a long tree i think i have already the diagram so i can just copy paste the diagram so that is the six A's so there is some diagram which i have taken so let me just copy paste this diagram directly okay so this is the very first thing that parser will do now now you will say that okay all of this is matching these are the six A's so whatever you do at this S this S is the definitely failure
+
+146
+01:08:45,900 --> 01:09:15,920
+so you will be backtracking right so you will backtrack on this S this S is completely failure so you will say now ASA you have tried now let me try let me try A so basically basically you will say you will say that let me now try we have tried ASA let me try A is this fine to everyone tell me see what is happening this will generate this is the very first step and now now this S is a complete failure now you are trying the next step which is A on this S you are trying A okay
+
+147
+01:09:17,140 --> 01:09:46,400
+Now see, these are the six A's, so this A is not the roller, so that's why this S, you have tried ASA, you have tried A, so both are the failure, so what is the next thing? What is the next thing? You will try, on this S, you will try, you will say that okay, ASA you have tried, now on this S, so maybe, maybe I can just copy this, okay, so on this S, you will say that okay, ASA you have tried, now you will be trying A only, okay, let me try A.
+
+148
+01:09:47,910 --> 01:10:16,620
+Now these are the five age and this is six one. So this is not the dollar. So that's why that's why there's a fail Now this is a failure of whom let's suppose this is one two three four five This is a failure of whom as five as three as four as two as one which one is which one got failed? Basically as four got failed right because as four is generating as a and then this is not the dollar So as four will get backtrack here interestingly. Okay, so which means this is the failure, right?
+
+149
+01:10:16,930 --> 01:10:49,830
+so because this is a failure so which means you have tried ASA now you will be trying AA okay on on this S4 you will be trying AA now so so let me try let me just remove this let me try AA now okay so which means this was the failure you have tried ASA now let me try AA now if you try AA let me know which one is the failure now which one is the failure see now you will say you will say
+
+150
+01:10:50,090 --> 01:11:17,930
+that this is a four times a five six now this is the failure right i mean this is not the dollar okay so see this is not the dollar since this is a failure so you will see that on this s interestingly on this s you will be trying the next protection right which is a i say now you will try on this s you will try a so so here here let me just tell you the next thing that will happen to you is something like this see
+
+151
+01:11:18,480 --> 01:11:49,340
+This S was a failure, right? So that's why on this S you are directly trying A. And because of that, the whole thing is basically getting mashed up. C. Now if you try A, then, then what will happen? Then you will say that, see, here, it will, it will match, it will match, it will match, it will match. And then ultimately, it is basically, it will return true. It will return true, but this is not the dollar, so it will false. See, this is ideal tree, right? Which I have written here, which is,
+
+152
+01:11:49,750 --> 01:12:07,370
+S1, S2, S3. On S3 if I could have tried A then I think I could have saved my thing. So 1, 2, 3. So on S3 actually we are not even getting a chance to roll back. S3 was saying I am success. And S2 at S2 we are getting the chance to roll back. That is the problem, right?
+
+153
+01:12:07,900 --> 01:12:39,200
+See in all of the example why it is not able to pass maybe because that wherever I needed to actually backtrack see on S3 I should have tried a right I should have tried it and then I should have saved it but on S3 it is success and S2 on S2 I'm backtracking that is why that is the ultimate it is a failure Okay, see in whatever cases we have seen Let me just remind you Yeah, see here that what is what is the problem here see
+
+154
+01:12:39,500 --> 01:13:09,750
+we are saying that this E will try this capital T then it was trying capital T plus E and then this E was successful because this E was successful I am not able to roll back on this E gives T and then that is why this is a problem right? I mean this E is successful I am not getting a chance to roll back on this E so that's why that was the problem here similarly here also I am not getting a chance to roll back right? I am not getting a chance to roll back on S3 so we are not getting
+
+155
+01:13:14,250 --> 01:13:41,910
+chance to roll back on S3 right so the answer is no okay very good question actually this is this is quite a difficult question so if you want you can take it as an optional question because this is I mean this is one of the very difficult question and this the purpose of this question is just to make sure that you understand this parts are really very well okay
+
+156
+01:13:42,210 --> 01:14:10,910
+This question has been taken from Ulman and it is really a very difficult question. Even on ishtag or flow there are multiple people which are asking about this question and this diagram which I have taken in this diagram these things are from ishtag or flow only. On ishtag or flow like multiple people were asking about this explanation of this particular question because this is really a good question. So if you are not able to solve it, it is completely fine. Now let's just move to the next question. So what they are saying?
+
+157
+01:14:11,270 --> 01:14:42,740
+Which of the following is your odd true? A recursive descent parser is a sensitive to order of production? What do you think? Is it sensitive to order of productions? Answer is yes, right? Answer is yes. It is true. A recursive descent parser with backtrack is a top-down parser? Yes, it is a top-down parser. Is this a predictive parser? No, okay, no. What is a predictive parser? Basically, we need to understand, we need to see the predictive parser in the future lectures, but the predictive parser actually make a call based on the next input symbol.
+
+158
+01:14:43,100 --> 01:15:09,770
+which means see here here what we are doing let's suppose a gives a gives something right something like this then here what we are seeing we are we are directly we are directly going to this and then we are seeing that okay is this matching first we are calling and then we are seeing is this matching to the let's suppose my input is just B is this matching B no then we will backtrack and then we will say that okay now things are fine but predictor parser will not first call
+
+159
+01:15:09,970 --> 01:15:36,530
+It will call based on based on the next input symbol. It will predict that which one to use. Any human being can tell very intuitively that okay, it is starting with A, it is starting with B. You need to start with B. So that's why it is a common sense to directly go for this. That's what the predictive parser does. It basically directly goes for this. We will see this later on. But yeah, this recursive descent parser is not a predictive parser for sure. It is blindly calling. So that's why it is no.
+
+160
+01:15:37,390 --> 01:16:01,790
+A recursive descent verb with backtrack, do not work with the left recursive programmer, as you know it will go to the infinite loop, so that's why this is also true, right, this is also true. So what are the answers? Answer is A, B and D. These are the answers. Understood? Really a very good question. And we have solved, we have solved all of the questions very nicely.
+
+161
+01:16:02,120 --> 01:16:28,800
+And I hope that you understood this recursive descent parser now completely. If you completely understood this, then please comment that you have understood. If you've loved this session, then just commented that loved it completely. I mean, you have understood, then just let us know what is the feedback. Okay. Because it really motivates us. So just let us know your feedback if you have understood this particular parser completely. So these are the 20 questions which I have taken from different different sources. Okay. So thank you for watching.
+
+162
+01:16:29,050 --> 01:16:32,650
+Just let us know in the comments if you have understood everything. Thanks.
+

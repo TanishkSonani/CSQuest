@@ -12,6 +12,8 @@ export function diagramKind(subject,lesson){
  if(subject==='os')return 'os:'+lesson.osLab;
  if(subject==='dbms')return 'dbms:'+lesson.dbmsLab;
  if(subject==='cn')return 'cn:'+(lesson.cnLab?.kind||'layers');
+ if(subject==='toc')return 'toc:'+(lesson.tocSpec?.kind||'dfa');
+ if(subject==='cd')return 'cd:'+(lesson.compilerSpec?.kind||'lexer');
  throw Error('No visual subject: '+subject);
 }
 const controls={

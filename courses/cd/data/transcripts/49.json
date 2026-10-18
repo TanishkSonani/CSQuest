@@ -1,0 +1,1941 @@
+{
+  "id": 49,
+  "title": "Propagate liveness around loops",
+  "file": "049_Lecture_5B_Liveness_Analysis_&_Dead_Code_Elimination.mp4",
+  "seconds": 9031.821,
+  "segments": [
+    {
+      "start": 179.89,
+      "end": 220.06,
+      "text": " hi everyone is the audio clear so now we will discuss live variable analysis but remember this live variable analysis or you can call it liveness analysis okay liveness analysis this we have already discussed in the last lecture okay so what we have already seen in the last lecture that I will not discuss I will quickly",
+      "avg_logprob": -0.09164186200452229,
+      "no_speech_prob": 0.2149658203125
+    },
+    {
+      "start": 220.5,
+      "end": 249.48,
+      "text": " give you overview of what we have seen in the last lecture. What is this liveness analysis? Okay. And this liveness analysis, basically this is what are the applications? Can anyone tell me what are the applications? What are the applications of this liveness analysis? One is dead code elimination. Okay. So one is dead code elimination. This is one application. And then another application is a register, register allocation. Okay.",
+      "avg_logprob": -0.14673913642764091,
+      "no_speech_prob": 0.25
+    },
+    {
+      "start": 249.91,
+      "end": 271.23,
+      "text": " I will tell you why. I will tell you why in Rajashtra allocation, we use this liveness analysis. Yes, this is very important. In the GATE 2021, this question came from this topic. So you can notice this topic is added in the last year. So last year, this topic got added.",
+      "avg_logprob": -0.22961957126423932,
+      "no_speech_prob": 0.0955810546875
+    },
+    {
+      "start": 272.06,
+      "end": 302.38,
+      "text": " so you can notice what is this liveness analysis the topic is the concept is extremely simple okay just think about it and tell me okay this concept is very very very simple what okay just think about it and tell me let us assume you have s equal to a plus b okay and then you have s equal to c plus d okay now uh then tell me okay and then we have some statements now just tell me this point is there any uh can i remove this which statement can i remove just tell me this point okay from this",
+      "avg_logprob": -0.10587032487459272,
+      "no_speech_prob": 0.2320556640625
+    },
+    {
+      "start": 302.64,
+      "end": 331.24,
+      "text": " Okay, tell me which statement can I remove? Can I remove something here? Yes, this statement I can remove, right? Yes or no, this statement can be removed. So this statement we call it dead. Okay, this statement is dead gold. Why? Because we are not using it. Okay, just think about it. We are not using it. Okay, because here we are assigning A plus B to S. And now in the next statement, we are assigning C plus D to S. So we are not using this assignment. So basically this assignment is not used.",
+      "avg_logprob": -0.12083333351959785,
+      "no_speech_prob": 0.6328125
+    },
+    {
+      "start": 331.85,
+      "end": 359.25,
+      "text": " or yes or no. So I can say this assignment not used. This assignment is dead. I can say this assignment is not used, is not used. So this assignment is not used. So we can just remove this assignment. Now, another example, let's see another example. So let's see another example. For example, if you have s equal to 1, s equal to 2, s equal to 3, s equal to 4.",
+      "avg_logprob": -0.13918137987670692,
+      "no_speech_prob": 0.15185546875
+    },
+    {
+      "start": 360.36,
+      "end": 388.06,
+      "text": " Tell me which is dead gold. Tell me which of them is dead gold. Now, you can notice these are the dead golds. Yes or no, these are the dead golds. Okay, again, these assignments we are not using. Now, first of all, let me tell you very, very, very important thing. Okay, in compiler design, in the compiler design, this is very important. I want to tell you in compiler design, whenever I say definition, definition, okay, definition.",
+      "avg_logprob": -0.1745535657519386,
+      "no_speech_prob": 0.14697265625
+    },
+    {
+      "start": 389.53,
+      "end": 421.66,
+      "text": " definition is same as assignment that is same as modification or I can say that is right operation that is right operation and you can notice use use is same as read operation read operation okay so remember whenever I say assignment that means definition whenever I say definition that means assignment okay so tell me if I give you this statement tell me",
+      "avg_logprob": -0.21454326923076922,
+      "no_speech_prob": 0.63134765625
+    },
+    {
+      "start": 421.84,
+      "end": 450.1,
+      "text": " in this okay some statements I'm giving you and you tell me in these statements okay what I'm defining and what I'm using okay basically remember read operation means read read operation means use okay if you are using it use means read operation okay and write operation means assignment or I can say definition so tell me if I give you this statement a equal to b plus c then tell me what is the what is the use of use in as well",
+      "avg_logprob": -0.08159234550561797,
+      "no_speech_prob": 0.35302734375
+    },
+    {
+      "start": 450.16,
+      "end": 478.91,
+      "text": " like what I'm using in S1 and what I'm defining in S1 tell me what I'm using in S1 and what I'm defining in S1 use another word of use is reference another word for use is a reference so either call it use or reference or you can call it read okay so tell me in this statement what I'm using and what I'm defining so in this statement I'm using b comma c I'm defining a",
+      "avg_logprob": -0.11341003107500601,
+      "no_speech_prob": 0.0655517578125
+    },
+    {
+      "start": 479.69,
+      "end": 509.91,
+      "text": " In this statement, tell me what I'm using, what I'm defining. In this statement, what I'm using and what I'm defining. I'm using A comma C and I'm defining A, okay? I'm defining A, correct? So is this clear to everyone? Okay, so for example, S3, okay. In S3, print, print F A comma B comma C. Tell me what I'm using and what I'm defining, what I'm using and what I'm defining.",
+      "avg_logprob": -0.1591981110988923,
+      "no_speech_prob": 0.428466796875
+    },
+    {
+      "start": 510.84,
+      "end": 539.92,
+      "text": " I'm using. I'm reading these things. Okay. I'm reading these things. I'm reading these things and I'm not writing anything. So, okay. So this is empty and this is ABC. I'm not right. I'm not changing them. Yes or no. Is this great to everyone? Okay. So are you getting this point? So here I'm not defining anything. Okay. Use means reference. Okay. So for example, I can also say",
+      "avg_logprob": -0.1639030673065964,
+      "no_speech_prob": 0.198974609375
+    },
+    {
+      "start": 540.2,
+      "end": 569.25,
+      "text": " okay both are same thing for example if i give you s3 if a is residency go to l then tell me what i'm defining and what i'm using what is that what i'm defining this is also called referencing okay what is this what i'm using and sorry uh sorry use use what i'm using and what i'm defining what i'm defining in s3",
+      "avg_logprob": -0.11947916666666666,
+      "no_speech_prob": 0.203857421875
+    },
+    {
+      "start": 569.57,
+      "end": 602.56,
+      "text": " so in s3 i'm not defining anything i'm using a comma c i'm using a comma c correct yes or no is this clear to everyone what i'm using what i'm defining i hope this is clear correct so use means basically the from this okay from this point onwards read read simply means use use simply means reference okay and write write means defining okay define okay",
+      "avg_logprob": -0.1071874972184499,
+      "no_speech_prob": 0.2215576171875
+    },
+    {
+      "start": 603.01,
+      "end": 634.43,
+      "text": " so this is the assignment that means assignment okay now tell me okay so basically here in this actually these definitions are not used yes or no these definitions not used these definitions these definitions or I can say these assignments these definitions slash assignments not used not used anywhere correct",
+      "avg_logprob": -0.11350661043364269,
+      "no_speech_prob": 0.247314453125
+    },
+    {
+      "start": 637.66,
+      "end": 665.82,
+      "text": " Is this clear to everyone? So this is dead gold. I hope this is clear to everyone. So basically, what I mean, what I mean is this, okay, you can notice. Are you using, are you going to use it? This is the point. Are you going to use it? Is the value needed? Will you use it anywhere? Okay, so will you use it? For example, if I have, okay, if I have this statement, okay, let's assume I have this statement a equal to b plus c. When will I call this statement live?",
+      "avg_logprob": -0.14462809424755002,
+      "no_speech_prob": 0.67138671875
+    },
+    {
+      "start": 666.24,
+      "end": 698.57,
+      "text": " when can i say that this is live just tell me this one when can i say that this statement is live i will say this statement is live it means it means somewhere this a is used somewhere i'm using this a yes or no somewhere this a is used okay yes or no somewhere this definition is used here this is the definition of it you can notice here we are defining a we are defining a",
+      "avg_logprob": -0.07253086125409161,
+      "no_speech_prob": 0.7861328125
+    },
+    {
+      "start": 699.1,
+      "end": 729.37,
+      "text": " We are using B, C or we are using B, C. Now this assignment, this definition is somewhere used. Then we say that this statement is live. When can I say this statement is dead? This statement I will call dead. This assignment, this definition is called dead. If we don't use it anywhere, if this A is not used anywhere, not used anywhere, not used.",
+      "avg_logprob": -0.15453505534224393,
+      "no_speech_prob": 0.51611328125
+    },
+    {
+      "start": 730.05,
+      "end": 779.13,
+      "text": " anywhere. Okay, is this clear to everyone? Okay, so this is the point. Now, I was telling you that liveness analysis can be used in register allocation. Why? Can anyone tell me? This is my question. Why can I use? Okay, liveness analysis can be used in register allocation. Why? Okay, so this is the question. Why liveness analysis can be used in register allocation? Anyone? Yes, very good, very good, very good.",
+      "avg_logprob": -0.13687193744322834,
+      "no_speech_prob": 0.48876953125
+    },
+    {
+      "start": 779.31,
+      "end": 808.65,
+      "text": " see okay let me tell you why okay just think about it if we have if we have done liveness analysis the answer is very simple okay let us assume you have done liveness analysis you have done liveness analysis what it means okay now what do you have liveness analysis what you have done okay you have done you did it liveness analysis now now what we have now we know at every point what is life what is",
+      "avg_logprob": -0.12225274365026872,
+      "no_speech_prob": 0.40087890625
+    },
+    {
+      "start": 809.05,
+      "end": 840.09,
+      "text": " dead yes or no so okay so at every point at every statement at every statement we know which variable is live which variable is dead yes or no we know which variable live and which variable dead correct which variable is live comma which is dead yes or no now just think about it and tell me let us assume this is a point at this point let us assume",
+      "avg_logprob": -0.09147135478754838,
+      "no_speech_prob": 0.77685546875
+    },
+    {
+      "start": 840.35,
+      "end": 866.45,
+      "text": " This is a statement. Okay. In this statement, let us assume that these variables are live. Let us assume these variables are live. Okay. A, B, C, D, E. These variables are live. What it means, just tell me this point. At this statement, these variables are live. What it means? It means they are used somewhere. It means somewhere you are using A, somewhere you are using the value of A.",
+      "avg_logprob": -0.13482862775043775,
+      "no_speech_prob": 0.21630859375
+    },
+    {
+      "start": 866.83,
+      "end": 897.28,
+      "text": " you are using the value of A somewhere you are using the value of B somewhere you are using the value of D yes or no correct correct yes or no D comma E okay so this is the point now tell me if you know that these are the okay so now tell me can I put them in the same resistance can I put them in the same resistance okay see at this point of time at this point of time you know they are live",
+      "avg_logprob": -0.11174508359994781,
+      "no_speech_prob": 0.69921875
+    },
+    {
+      "start": 897.5,
+      "end": 926.38,
+      "text": " you know they are live okay now my question is because all are live so i have to give them different register yes or no because this value will be used somewhere this value will be used this value will be used okay all these values are going to be used okay in the future program in the future in the future they are going to be used okay so it means these variables must be given different these variables must be given different register these variables should be in the current register",
+      "avg_logprob": -0.0653257945433576,
+      "no_speech_prob": 0.72607421875
+    },
+    {
+      "start": 926.65,
+      "end": 957.51,
+      "text": " so they should be in different register yes or no they should be allocated different register I can say allocated different register okay correct or not now just tell me this point very important tell me if you know that variable a comma c are never live together okay at okay there is no point there is no point okay so okay I can say no statement where",
+      "avg_logprob": -0.10739356754482657,
+      "no_speech_prob": 0.349609375
+    },
+    {
+      "start": 964.4,
+      "end": 990.43,
+      "text": " then what can I do then then what can I do then I can give then I can allocate them same resistance yes or no then they can be given same resistance they can be allocated same resistance yes or no allocated same resistance okay so this is the idea okay so you can notice one thing you can notice that okay just tell me this point when you are writing three address code",
+      "avg_logprob": -0.16947916626930237,
+      "no_speech_prob": 0.580078125
+    },
+    {
+      "start": 990.98,
+      "end": 1020.6,
+      "text": " Do you worry about how many registers are there in the machine during 3 address code? Do we worry about how many registers we have in the machine? We don't worry about yes or no. This is the intermediate code. We don't know how many registers are there in the machine. How many registers are there in the machine?",
+      "avg_logprob": -0.1765854746541556,
+      "no_speech_prob": 0.89794921875
+    },
+    {
+      "start": 1020.8,
+      "end": 1051.76,
+      "text": " Yes or no? In the target machine, correct or not? Correct. So how many registers we have in the target machine? This we don't know. So actually during this TSE, back to back you are using temporary registers. Yes or no? Yes or no? Temporary variables. During TSE, we are using temporary variables. Temporary variables you are using.",
+      "avg_logprob": -0.19414062146097422,
+      "no_speech_prob": 0.6171875
+    },
+    {
+      "start": 1052.22,
+      "end": 1076.22,
+      "text": " correct and we are just using it for example like this okay t1 is allocated a plus b then t2 is allocated t1 plus c and then t3 is allocated t plus e something like this and then t4 is allocated t2 plus t3 and so on correct yes agree so you can notice when you are writing three address code and this three address code is an intermediate code this is an intermediate code",
+      "avg_logprob": -0.1172816250697676,
+      "no_speech_prob": 0.07379150390625
+    },
+    {
+      "start": 1076.55,
+      "end": 1101.85,
+      "text": " and because this is an intermediate code, so you don't have information about actually how many registers are there in the target machine. So you can notice that we are using these temporary variables and we do not worry about how many registers we have. So we are just using these temporary variables in the three address code. The compiler is using. So these temporary variables are going to be created by compiler, created by compiler.",
+      "avg_logprob": -0.12233455601860495,
+      "no_speech_prob": 0.1451416015625
+    },
+    {
+      "start": 1103.79,
+      "end": 1130.38,
+      "text": " Now just think about it and tell me, let us assume in your target machine, you have 30 registers. Okay. So 32, let us assume you have 30 available registers in your target machine. Okay. So 30 available registers you have in the target machine. And then tell me, okay. Okay. And also how do we, and let's assume these two statements. Okay. So total 30 registers we have in the target machine and let's assume",
+      "avg_logprob": -0.1438172068647159,
+      "no_speech_prob": 0.1854248046875
+    },
+    {
+      "start": 1130.71,
+      "end": 1160.8,
+      "text": " if the maximum number of variables that are used at a time okay that are live at a time that is less than equal to 30 then can I fit them all in the registers yes I can do that okay if okay maximum number of variables that are live at the same time okay that are used at the same time if that is less than equal to 30 then I can give them different different registers but now you can notice here in this example just think about it in this example let us assume",
+      "avg_logprob": -0.07118941151670047,
+      "no_speech_prob": 0.1328125
+    },
+    {
+      "start": 1161.14,
+      "end": 1194.38,
+      "text": " that when you look at the program then these variables okay so you can notice let us assume we have we have only three registers in the program okay in the program we have three registers then what should we do let us assume assume we have three registers in the machine port assume in a machine we have three registers then what should you do then what should we do we have only three registers",
+      "avg_logprob": -0.08274147417638208,
+      "no_speech_prob": 0.56982421875
+    },
+    {
+      "start": 1194.73,
+      "end": 1224.85,
+      "text": " So this we can give to R1, this we can give to R2, this we can give to R3. Where should I store D comma E? Can anyone tell me? Where should I store D comma E? Then two variables are stored in memory. Yes or no? Two variables stored in memory, stored in memory, main memory. And this is called spilling. This is called spilling. Spilling means basically you are storing in the main memory.",
+      "avg_logprob": -0.11903994599568475,
+      "no_speech_prob": 0.5029296875
+    },
+    {
+      "start": 1226.24,
+      "end": 1256.06,
+      "text": " So this is the point. So you can notice that this liveness analysis, this liveness analysis is useful in the register allocation. So how liveness analysis can be used in the register allocation? Is this clear to everyone? So from the liveness analysis, you can very easily find out, okay? Basically, whether you need a spelling or not. Is this clear? Anyone has any doubt? So liveness analysis can be used in register allocation.",
+      "avg_logprob": -0.1029177306562054,
+      "no_speech_prob": 0.445556640625
+    },
+    {
+      "start": 1256.5,
+      "end": 1285.13,
+      "text": " okay so this is another application of liveness analysis okay so now let's go to the next point in this in this program can anyone tell me in this basic blog if this is your basic blog in this basic blog this is your basic blog can you tell me is there any any dead code is the is there any dead code here do we have any dead code yes you can notice okay so let let us assume okay just focus on the",
+      "avg_logprob": -0.11227177033263645,
+      "no_speech_prob": 0.251220703125
+    },
+    {
+      "start": 1285.34,
+      "end": 1317.19,
+      "text": " Just focus on this. Okay, let us assume this is like, okay, this is the whole program. Let us assume this is the whole program. Okay, let's assume this is the whole program. Okay, so let's assume this is the whole program. Then tell me, do we have dead code? Do we have dead code? And let's assume here you return g, here you return g. Okay, let's assume you are returning g. No, because you are returning g, okay, so you can notice because you are returning g, so this is not a dead code. So this is definitely live.",
+      "avg_logprob": -0.1350532945736434,
+      "no_speech_prob": 0.5029296875
+    },
+    {
+      "start": 1318.02,
+      "end": 1348.97,
+      "text": " And you are using this app here. This is use. So this is definition. This is definition and this is use. This is use. So you can notice this is definition and this is use. Okay. So this is statement is definitely live. This is statement is also live. But these statements are dead. We are not using them. This definition is also live. This definition is also live. And this definition is also live. Yes or no?",
+      "avg_logprob": -0.1456116959452629,
+      "no_speech_prob": 0.424072265625
+    },
+    {
+      "start": 1349.34,
+      "end": 1376.42,
+      "text": " is this clear to everyone so you can very easily you can notice so you can remove them okay so this is the whole point okay which statement is dead see this example is already present in the last lecture just quickly tell me which statement can be removed from this so we can remove this state you can notice this statement we can remove because you can notice this definition we are not using anywhere so this is statement we can remove this also we can remove okay",
+      "avg_logprob": -0.06822916881905662,
+      "no_speech_prob": 0.4931640625
+    },
+    {
+      "start": 1376.7,
+      "end": 1406.03,
+      "text": " this also we can see you are using this you are using this but this is not used this is not used so i can remove these two this i can remove this i can remove okay so these two i can remove correct okay so this example is already present in the last lecture so what is statement can be removed so you can very easily see that okay this can be removed and this can be removed these two statements can be removed okay remember this x is used this x is used",
+      "avg_logprob": -0.12076823002037902,
+      "no_speech_prob": 0.44384765625
+    },
+    {
+      "start": 1406.25,
+      "end": 1437.07,
+      "text": " So don't remove this. Don't remove this. Okay. Don't remove this. This cannot be removed. And let us assume this is a basic blog. Let us assume this is a basic blog. Let's assume this is the basic blog. If this is the basic blog, can I, if this is one of the basic blog, can I remove this? This is used. This is used. So I cannot remove this. So basically these two statements can be removed. Okay. Here. Can I remove something? Can I remove something here? Tell me this is statement. Can I remove?",
+      "avg_logprob": -0.11101310243529658,
+      "no_speech_prob": 0.377685546875
+    },
+    {
+      "start": 1440.65,
+      "end": 1469.89,
+      "text": " okay so very easily you can notice that this definition see just think about it and tell me can I remove x equal to y plus 1 so make the control flow graph so that you can know okay so here actually you can very easily see if you make the control flow graph for this then see if this d if this d is true then you will not use x but if d is false then you will use x yes or no so it's like this x equal to y plus 1",
+      "avg_logprob": -0.10188466249053012,
+      "no_speech_prob": 0.2398681640625
+    },
+    {
+      "start": 1470.45,
+      "end": 1505.49,
+      "text": " y equal to 2 into z. And then you can notice that if d, okay, if d is true, if d is true, and if d is false, if d is true, then you will define x again. And if d is false, okay, if d is true, then you will do this. Okay. Then you, then basically you will do this. And let's assume, okay. And if else, what will happen?",
+      "avg_logprob": -0.20312499487271873,
+      "no_speech_prob": 0.253173828125
+    },
+    {
+      "start": 1510.9,
+      "end": 1539.04,
+      "text": " z equal to 1, z equal to x. So you can notice that if D is false, then you will use x. Okay, if D is false, then you will use x. So this is not dead code. This is not dead code because if D is false, then you can use x. Definitely this can be removed. You can remove this. There is no problem. Okay, you can very easily, you can remove this. This cannot be removed because if D is false, then you can use this, then there is a use.",
+      "avg_logprob": -0.14281798480895527,
+      "no_speech_prob": 0.60498046875
+    },
+    {
+      "start": 1539.9,
+      "end": 1564.53,
+      "text": " Okay. And if these two, then there is a use here. So this is the point. So only you can remove this z equal to one. This can be removed. Nothing else can be removed. Okay. So only this can be removed. I hope this is clear. Okay. Now in this point, in this graph, what can we remove? So, okay. These examples are already present in the last lecture. So you can check there. Okay. So you can just check that. Okay. Here we cannot remove anything.",
+      "avg_logprob": -0.11697635054588318,
+      "no_speech_prob": 0.2294921875
+    },
+    {
+      "start": 1565.24,
+      "end": 1596.74,
+      "text": " okay because you can notice if D is true see if these you can notice here okay what I'm saying if D is false then you are using X you are using X if D is false okay so if D is false you are using X and if D is true then you are using Y and you can notice that you if what else I can say here can I remove this Z equal to 1 can anyone tell me can I remove Z equal to 1",
+      "avg_logprob": -0.15367445382443104,
+      "no_speech_prob": 0.4375
+    },
+    {
+      "start": 1597.12,
+      "end": 1629.38,
+      "text": " this z equal to one can I remove this I cannot remove because you are using this z here you are using this z here because this loop is running you are running this loop okay this loop is running running running so because this loop is running so you are using this z here you are using this z okay so anyway this is your dead code okay so now okay let us see very important point okay so you can notice here in the last lecture also I told you",
+      "avg_logprob": -0.14885753008627123,
+      "no_speech_prob": 0.68798828125
+    },
+    {
+      "start": 1629.63,
+      "end": 1659.63,
+      "text": " Okay, for example, if you have a statement like this, let us assume A equal to P plus C. Okay, can you tell me, okay, let us assume here, okay, at this, okay, so this is your statement. Okay, let's assume here live, here, let's assume E comma F is live. Then can anyone tell me, what can I say? At this point of time, what is live? Another statement you have here, another statement you have here, let's assume here you are using E plus F. So you can notice that, okay, so",
+      "avg_logprob": -0.14557926102382382,
+      "no_speech_prob": 0.292724609375
+    },
+    {
+      "start": 1660.21,
+      "end": 1689.69,
+      "text": " see okay you can notice that you are using e plus f okay here if you are standing here then you are using e plus f you are using e you are using f so i can say that e comma f is live yes or no here okay here e plus f is live correct so these are the live these are the live variables correct or not why these are the live variables why these are the live variables because tell me why these are the live variables here here when you are standing here",
+      "avg_logprob": -0.06441326545817512,
+      "no_speech_prob": 0.81005859375
+    },
+    {
+      "start": 1690.06,
+      "end": 1720.5,
+      "text": " then okay when you are standing here this is your control flow this is your control flow okay then at this point of time you can notice here you have a equal to a plus f so you can notice here at this here at this point of time you are using e plus f here so i can say these are live and what can i say here what is live what can i say here live see here e plus f is live okay now here what is live definitely here b is live",
+      "avg_logprob": -0.060285115979381444,
+      "no_speech_prob": 0.38623046875
+    },
+    {
+      "start": 1720.8,
+      "end": 1753.09,
+      "text": " c is live because you are using b comma c e is live f is live okay so here here these are the live these are the live because you are using b you are using c you are using e you are using f so these are live can anyone tell me what is live here what is live here here what is live here you are using a see if you are standing here if you are standing here just before this statement then you can see that you are using a",
+      "avg_logprob": -0.07446545833035519,
+      "no_speech_prob": 0.6953125
+    },
+    {
+      "start": 1753.52,
+      "end": 1785.22,
+      "text": " you are using all these things, so you are using B C E F. Is this clear? These are mine. Tell me, is this part clear to everyone? Anyone has any doubt in this? So let me give you another program. Okay, let's consider this basic block. Just consider this basic block and tell me, okay, so some statements I'm giving you. Okay, so let us assume this statement you have A equal to A plus C, F equal to D plus D.",
+      "avg_logprob": -0.20021445552508035,
+      "no_speech_prob": 0.421142578125
+    },
+    {
+      "start": 1788.68,
+      "end": 1814.7,
+      "text": " Let us assume these are the statements. Okay, so tell me, okay, let us assume initially, as I told you, liveness analysis we do in the, in the, in the bottom of fashion, okay, back in the reverse order. So tell me what is life? Let us assume here, this is the life, this is given. Okay, now find what is life here, find what is life here, what is life here, find what is life here and find what is life here.",
+      "avg_logprob": -0.20297759054404385,
+      "no_speech_prob": 0.5966796875
+    },
+    {
+      "start": 1816.59,
+      "end": 1851.97,
+      "text": " tell me what is the answer so tell me what is the answer so you can notice we are using a comma d right we are using a comma d so here i can say a comma d are live yes or no let us do this is given this is already given that this is live this is already given that here nothing is live okay now tell me if you okay because you are using a comma d you are using a comma d so these are live what about this okay let us assume this is a comma f okay let us do return a comma f let us",
+      "avg_logprob": -0.11988384639267373,
+      "no_speech_prob": 0.8779296875
+    },
+    {
+      "start": 1852.45,
+      "end": 1882.01,
+      "text": " Let us assume I return a comma f. Let us assume this is f. Now tell me. Okay, so here a comma f are live because you are using them. Since you are using them, so a comma f are live. Tell me what is live here at this point. Okay, okay, before this. So now you can notice you are not using f. Okay, just think about it. If you are standing here, if you are standing here, you are not using f because you are defining f. So I can say b comma d comma a.",
+      "avg_logprob": -0.18723289885072628,
+      "no_speech_prob": 0.62841796875
+    },
+    {
+      "start": 1882.35,
+      "end": 1910.02,
+      "text": " and what about this you are using a right you are using a so i can say a comma c comma b comma d is this clear no see you are using see at this point you are using a right you are using a live means what you are using in the future okay just think about it if you are standing here okay if you are standing here if you are using something here if you are using something here",
+      "avg_logprob": -0.09374999892280762,
+      "no_speech_prob": 0.2498779296875
+    },
+    {
+      "start": 1910.38,
+      "end": 1941.62,
+      "text": " if you are using okay if you are using p comma c then i will say then i will say then i will say that here life is equal to b comma c if you are using in the future okay is this clear you are standing here if you are using you are using a in the future see you are using a in the future so that is there is an a c b d these are the life is this clear to everyone i hope this is clear okay so",
+      "avg_logprob": -0.143118347259278,
+      "no_speech_prob": 0.393310546875
+    },
+    {
+      "start": 1942.11,
+      "end": 1971.19,
+      "text": " at each instruction we see whether each variable is live ordered remember at each instruction we will see and very important thing actually I want to tell you here okay this many students they do not understand this so that is the reason I am telling you just look at this live at an instruction means live just before that instruction so this is a very very very important one see so far what we have done did you notice so far what we have done so far we were doing this",
+      "avg_logprob": -0.09131384120192579,
+      "no_speech_prob": 0.1927490234375
+    },
+    {
+      "start": 1971.39,
+      "end": 2004.5,
+      "text": " this is a statement we were calculating what is live here see this is statement this is a statement as we have we were calculating what is live here and what is live here and let us assume this is a statement as yes or no and let us assume this is statement as zero are you understanding what I'm saying I'm saying so far we have done we have done that these are the statement we were checking what is live here what is live here between the statements we were taking",
+      "avg_logprob": -0.12304687600893278,
+      "no_speech_prob": 0.6474609375
+    },
+    {
+      "start": 2004.94,
+      "end": 2033.34,
+      "text": " between the statements we were checking what is life means before this statement what is life and after this statement what is life before this statement what is life after this statement what is life so this is what we have done so far yes or no before this statement what is life and after this statement what is life agree agree so far this is what we have done each year you can notice you can just check here okay before this statement this is your statement",
+      "avg_logprob": -0.11314957664254006,
+      "no_speech_prob": 0.67578125
+    },
+    {
+      "start": 2033.72,
+      "end": 2062.22,
+      "text": " before this statement what is live and after this statement what is live so this is the point correct now very important that this terminology live at an instruction means live just before that instruction okay so now this is what we are going to do basically basically what what is this this you can put here basically this is what i want to say if i give you a program let us assume this is the program a plus c",
+      "avg_logprob": -0.08003048426130922,
+      "no_speech_prob": 0.368896484375
+    },
+    {
+      "start": 2062.65,
+      "end": 2093.09,
+      "text": " and let's assume f is equal to a plus b and let's assume a is equal to okay d plus f okay and then let's assume return okay return a comma d okay so let's assume this is your program now okay in this program now my question is this okay my question is this this is s1 a statement this is s2 a statement this is s3 statement",
+      "avg_logprob": -0.11576704506750231,
+      "no_speech_prob": 0.1783447265625
+    },
+    {
+      "start": 2093.5,
+      "end": 2122.09,
+      "text": " This is error 4. My question is, this is my question. So let's see the question. The question is this, what is live variables at S1? What are the live variables at S1? What are the live variables at S2? What are the live variables at S3? And what are the live variables at S4? Tell me, what is the answer? Live variables at S1. Remember this point.",
+      "avg_logprob": -0.18125000099341074,
+      "no_speech_prob": 0.36767578125
+    },
+    {
+      "start": 2122.82,
+      "end": 2147.98,
+      "text": " live variable at an instruction means live just before that instruction just before that instruction so live at s1 means what that means see live at s1 means this this okay this is live at s1 okay what you are what you write here this is called live at s1 this is known as live at s1 this is known as live at s3",
+      "avg_logprob": -0.17099472418637343,
+      "no_speech_prob": 0.230712890625
+    },
+    {
+      "start": 2153.98,
+      "end": 2187.48,
+      "text": " here what is live this is known as live at S okay so tell me what is live at S1 can anyone tell me what is live at S1 what is live at S2 what is live at S3 so very simple live at S4 so okay what is live at S4 so live of S4 I can say what is live at S4 live at S4 means what you are using here just before this live at S4 means A, D see remember",
+      "avg_logprob": -0.1372884097509086,
+      "no_speech_prob": 0.455810546875
+    },
+    {
+      "start": 2188.19,
+      "end": 2217.52,
+      "text": " basically this now we are writing with with this statement this is the only point okay so a comma d okay now tell me what is live at s s3 what is live at s3 means means what is live here means what is live here so what is live at s3 so now a is not live okay here a is not live here here here here here here a is not live because you are assigning a because we are redefining a",
+      "avg_logprob": -0.15607444222053785,
+      "no_speech_prob": 0.50732421875
+    },
+    {
+      "start": 2217.79,
+      "end": 2249.97,
+      "text": " So A is not live. I can say df. Only df are live. Okay. What is live at h2? What is live variables at h2? Now, f is not live. Here, here, here, here. Here, f is not live. So what is live? a, b, a, b, d. a, b, d are the live. a, b, d are live. Correct? And what is live at s1? What is live at s1? Live at s1 means what is live here? What is live here?",
+      "avg_logprob": -0.1730276588045183,
+      "no_speech_prob": 0.513671875
+    },
+    {
+      "start": 2250.27,
+      "end": 2295.72,
+      "text": " that is acbd that is acbd is this clear all these points are they clear live at instruction means live just before that instruction okay clear is this clear now some rules okay what are the rules so actually remember liveness is checked at every statement first of all okay first of all you already know that liveness we check what are the variables live at each statement",
+      "avg_logprob": -0.1291666595141093,
+      "no_speech_prob": 0.69580078125
+    },
+    {
+      "start": 2296.16,
+      "end": 2326.59,
+      "text": " this this you can see at each instruction at each instruction we see what are the variables live and what are the variables dead yes or no at each instruction we will see what are the variables which are live what are the variables which are dead okay so if you have this type of statement okay then what what are live at this okay can you see at this statement and what are the live what are the live variables at this statement and at this statement means basically here what is live here",
+      "avg_logprob": -0.07181803269001345,
+      "no_speech_prob": 0.654296875
+    },
+    {
+      "start": 2326.91,
+      "end": 2354.06,
+      "text": " see what is live here so what is live here that is x y s t that is x y s t correct yes or no x y s t so this is the point okay so this is important point now some rules we are going to see okay some rules let us assume that you already know that what is live here okay so let us assume this is a statement okay so the rule one let's assume this is your statement",
+      "avg_logprob": -0.05605014430922131,
+      "no_speech_prob": 0.3515625
+    },
+    {
+      "start": 2354.83,
+      "end": 2383.8,
+      "text": " Okay. And in this statement, you have a equal to B plus. Okay. And let us assume you already know what is live before. Okay. This is out live. Actually, this is known as outline live out, or you can say outline means what is live at here. Okay. Means after this, just after this statement, what is live that is called outline means out live off and let's call this a statement and so what is out live off and means just outside this statement.",
+      "avg_logprob": -0.22487745404827827,
+      "no_speech_prob": 0.490966796875
+    },
+    {
+      "start": 2384.03,
+      "end": 2415.83,
+      "text": " Just after this statement, what is life? Let us assume that x comma y are life. Then tell me, what can I say about life at n? What will be life at n? Tell me. What will be life at n? Tell me. If you know x comma y is life, then here answer will be x comma y comma b comma c. x comma y comma b comma c. Click. So this is the rule one. Very simple.",
+      "avg_logprob": -0.18667762499106558,
+      "no_speech_prob": 0.443359375
+    },
+    {
+      "start": 2417.12,
+      "end": 2450.63,
+      "text": " So from this, can you make generalize this? Can you make some generalize this? Why not a because we are not using a as I told you use means these are we are using again very important B, C we are using. We are not using a we are defining a this is definition. This is use. Okay. Is this clear? Is this clear? Is this clear to everyone?",
+      "avg_logprob": -0.20783131847898645,
+      "no_speech_prob": 0.27099609375
+    },
+    {
+      "start": 2453.09,
+      "end": 2482.67,
+      "text": " is that we will see that we will see just wait okay we will see all these things don't worry so first let me tell me okay just tell me this point if I have this statement okay this rule one let me continue this rule one okay we will create a rule one basic okay this is what we are going to create so we are going to create a rule one formally we are going to create a rule one let us assume that this is your outline okay let us assume you know something is out live here",
+      "avg_logprob": -0.09511529343220794,
+      "no_speech_prob": 0.65771484375
+    },
+    {
+      "start": 2483.05,
+      "end": 2515.54,
+      "text": " This is your out live off end. Okay. This is, this is something. Okay. You already out. No, this is given. Let us assume something is already known to you. See, this is your statement and this is the statement and this is already known to you. Let us assume something is known to you that what are the variables that are live here. This is already known to you. Is this clear? Let us assume this is already known to you. Now, let us assume that you are defining. Okay.",
+      "avg_logprob": -0.14041193588213488,
+      "no_speech_prob": 0.779296875
+    },
+    {
+      "start": 2515.9,
+      "end": 2546.93,
+      "text": " This is your defining in n, what you are defining in n, and what you are using in n. These things are more. So these three things are given to you. Can you calculate live at n? If these three things are given to you, then can you calculate these are given? Remember, these are given. Okay, these are given to you. This is given, this is given, and this is given. If these are given to you, can you calculate live of n? Can you calculate live of n?",
+      "avg_logprob": -0.1246416328150198,
+      "no_speech_prob": 0.7236328125
+    },
+    {
+      "start": 2550.83,
+      "end": 2581.94,
+      "text": " Let's see who will calculate live of n correct. Some students are saying use plus, okay, so that is wrong. You can take example. Can I say which statement is correct? Okay. Or let me give you some options. Okay, let's see some options. Live at n, that is equal to out live, what is out live of n? Union use of n. Is this correct? Is this correct? Which is correct?",
+      "avg_logprob": -0.23658288383613463,
+      "no_speech_prob": 0.295654296875
+    },
+    {
+      "start": 2590.38,
+      "end": 2623.3,
+      "text": " Let me give you some options for the options. Let me give you some options. First option, let me give you use at end union out at end. Out live at end. Out at end. Second option, let me give you. Let me give you second option. Use at end union out at end minus depth of third option. Let me give you depth of end.",
+      "avg_logprob": -0.250200323569469,
+      "no_speech_prob": 0.45556640625
+    },
+    {
+      "start": 2625.23,
+      "end": 2663.84,
+      "text": " minus out of and union use of and let me give you option P out of and minus depth of and union use of and which option is correct. Which option is correct? Which option is going to be correct? Okay, see, okay, just okay, let's let's play a game. Okay, I'm giving you a statement and you tell me whether your answer that you are thinking is correct or not for this statement.",
+      "avg_logprob": -0.25390623950145463,
+      "no_speech_prob": 0.69091796875
+    },
+    {
+      "start": 2664.06,
+      "end": 2693.64,
+      "text": " let us assume your statement is this f is equal to a plus b and let us assume this is your statement let's assume this is your statement and let's assume out of n out of n is f comma b f comma b then tell me what will be can you can can you tell me what will be live of n remember live of n means what is live here that is live of n what is live here can you tell me what will be live of n",
+      "avg_logprob": -0.14968417283702404,
+      "no_speech_prob": 0.283447265625
+    },
+    {
+      "start": 2694.82,
+      "end": 2726.33,
+      "text": " That will be AD only. That will not include F. That will not include F. Can you see? Is this clear? See, just think about it. You are defining it. You are redefining it. You are only using. So, okay. So, is the, okay. Is your answer correct from this scenario? From this scenario, is your answer correct? So, in this statement, you can notice. In this statement, you can notice what I'm using. What I'm using. I'm using A, D. So, use is A, D.",
+      "avg_logprob": -0.17981771516303222,
+      "no_speech_prob": 0.8056640625
+    },
+    {
+      "start": 2727.07,
+      "end": 2769.55,
+      "text": " I'm using a comma D and I'm defining what? I'm defining F. So tell me from this now tell me what is the answer? What should be the answer from these four options? What should be the answer? These four options, which option you can remove? Which option you can eliminate from this scenario? Which option you can eliminate? Definitely option A is gone. Okay. Option A is definitely gone. Okay. And what option is gone?",
+      "avg_logprob": -0.18334441695441592,
+      "no_speech_prob": 0.6962890625
+    },
+    {
+      "start": 2770.66,
+      "end": 2802.18,
+      "text": " B is also gone. B is also gone. Can you see B is also gone or not? No, B is not gone, right? So far, B is not gone. From this example, B is not gone, correct? From this example, B is not gone. Yes or no? B is not gone. A is gone, but B is not gone. C is gone. Can you see C is gone? C is also not gone, okay? Okay, C is also not gone, I think. Def minus this. C is also not gone.",
+      "avg_logprob": -0.10977564128036173,
+      "no_speech_prob": 0.771484375
+    },
+    {
+      "start": 2802.41,
+      "end": 2838.13,
+      "text": " Okay, let me give you another example. Consider this statement. Is node n is this? Okay, a equal to a plus b. And let us assume out of n is this. I'm giving you out of n. Out of n is a comma f. Now tell me what is live of n. I won't correct answer. Tell me what is live of n. You can very easily see. Okay, what is live of n? So you can very easily see live of n will be what means what is live here?",
+      "avg_logprob": -0.17869318425655364,
+      "no_speech_prob": 0.465576171875
+    },
+    {
+      "start": 2838.61,
+      "end": 2868.88,
+      "text": " Live of N means what is live here? So A is live, B is live and F is live. ABF, correct? I think every, okay, everyone has given correct answer. So live of N is ABF. Okay. So you can very easily notice that, okay, here, what is, what is, what is death of N? Can anyone tell me what is death of N? What is death of N? That is only A. And what is use of N? What is use of N? That is A comma B.",
+      "avg_logprob": -0.189144730829356,
+      "no_speech_prob": 0.385498046875
+    },
+    {
+      "start": 2871.59,
+      "end": 2897.18,
+      "text": " So now tell me what should be the correct definition now tell me the answer okay I hope you okay now can you give me the answer here what is the answer answer is option D option D is correct here option D is correct why option D is correct let me tell you okay let me explain this why option D is correct now you can very easily see option D is correct why option D is correct",
+      "avg_logprob": -0.14951172303408383,
+      "no_speech_prob": 0.705078125
+    },
+    {
+      "start": 2897.99,
+      "end": 2928.86,
+      "text": " because this is what you do see this is what you will do so this is a rule I can say this is a rule if you have a statement let's assume this is a state this is a statement and let us assume that use of n is given to you okay and out of n you already know so out of n is given so these are given these are known to you let us assume these are known to you out of n what we are defining in n and what we are using in n",
+      "avg_logprob": -0.10682240423589649,
+      "no_speech_prob": 0.59521484375
+    },
+    {
+      "start": 2929,
+      "end": 2966.13,
+      "text": " what we are using in n now just tell me this point so now i can calculate live of n very easily what i will do very simply first of all from out of n i will remove the def of n yes or no from the out of n i will remove the def of n and then i will take union with use of n then i will take union with use of n is this clear to everyone union with use of n is this clear so you can notice here",
+      "avg_logprob": -0.06611841869981665,
+      "no_speech_prob": 0.52294921875
+    },
+    {
+      "start": 2966.38,
+      "end": 3001.73,
+      "text": " from out of n first I will remove this definition of n so from this a comma f I will remove this a then I will take union with a comma b so actually what I'm doing I'm doing this from this a comma f I am removing a and then I'm taking union then I'm taking union with a comma b to how many students this is clear this rule is clear to how many students now can you very easily see",
+      "avg_logprob": -0.08575994038785045,
+      "no_speech_prob": 0.147216796875
+    },
+    {
+      "start": 3002.04,
+      "end": 3033.53,
+      "text": " if you know what is live after a statement then can you tell me what is live at a statement anyone has any doubt in this if you know what is live after a statement then can you tell me what is live at a statement any statement I give you you can do that correct yes or no so finally this is the this is the final point okay statement and so you can very easily calculate live of n so this is our this is our rule so this is a rule that live of n",
+      "avg_logprob": -0.10172032587455981,
+      "no_speech_prob": 0.355712890625
+    },
+    {
+      "start": 3033.98,
+      "end": 3073.28,
+      "text": " is equal to out of n minus def of n union use of n. Okay. I hope this rule is clear. I hope this rule is clear. Okay. So this is the rule. So let's see. So you can handle one statement, individual statement you can handle. Okay.",
+      "avg_logprob": -0.16679687549670538,
+      "no_speech_prob": 0.2230224609375
+    },
+    {
+      "start": 3074.25,
+      "end": 3103.09,
+      "text": " So we will complete this course. Okay. We will complete the topic. Then we will stop. Okay. If you, if you need to go see, if anyone needs to go, you, you can go because the lecture will be uploaded on the YouTube. Okay. So you can post the lecture on the YouTube also on the go classes, YouTube channel, you can post it. Okay. And if you can stay, you can stay. Okay. So that we can discuss. Okay. So that you can ask your doubts because many new things, many good things are coming and then we will solve the gate yourself. Okay. So this is the point.",
+      "avg_logprob": -0.14085647949466,
+      "no_speech_prob": 0.297607421875
+    },
+    {
+      "start": 3103.47,
+      "end": 3144.05,
+      "text": " Now, let's see, okay, for this, for this, give me, okay, find at each instruction, what is live? At each instruction, what is live? Tell me, tell me, find live variables at each instruction. Find live variables at each instruction. Find live variables at each instruction. So tell me, let's call S1, let's call S2, let's call S3, let's call S4, let's call S5.",
+      "avg_logprob": -0.12994259595870972,
+      "no_speech_prob": 0.26904296875
+    },
+    {
+      "start": 3144.61,
+      "end": 3172.94,
+      "text": " Let's go as six. These are the statements. Okay. So find live variables at each instruction. So the answer is very, very, very simple. Just tell me, okay, I'm asking you, you tell me the answer. Okay. So tell me what are the live variables here? What are the right variables at this statement? What do I mean at this statement? What do I mean by at this statement? I mean, I mean, what I'm using here or in future, what I'm using here or in future.",
+      "avg_logprob": -0.10770089511892625,
+      "no_speech_prob": 0.331298828125
+    },
+    {
+      "start": 3173.26,
+      "end": 3206.15,
+      "text": " so live at an statement means remember this point remember live at an state live at a statement live at a statement and live at a statement and means means live just before live just before statement and okay means means okay means live",
+      "avg_logprob": -0.16692707803514267,
+      "no_speech_prob": 0.60205078125
+    },
+    {
+      "start": 3208.09,
+      "end": 3238.76,
+      "text": " add or in future live at n or in future live at used at n or in future means used at n or in the future. Okay. So these are the points. Okay. So you can notice here live at S six. What are the live at S six? You are using by three because at S six, we are using by three here. What are we using?",
+      "avg_logprob": -0.2610176167426965,
+      "no_speech_prob": 0.6591796875
+    },
+    {
+      "start": 3240.62,
+      "end": 3269.49,
+      "text": " Now you can notice, okay, just remove, okay, apply the algorithm, please, apply the rule. Are you applying the rule? Apply the rule so that you can handle the complicated questions. Apply this rule, out minus def union use. So now this is the out. Yes or no, this is the out of S5. Out of S5 is, yes or no, out of S5 is by three. You can notice here. Now this is the out of S5.",
+      "avg_logprob": -0.15065870726225422,
+      "no_speech_prob": 0.39208984375
+    },
+    {
+      "start": 3271.01,
+      "end": 3300.26,
+      "text": " means what is here, what is live here, that is this Y3. So from Y3 you remove Y3 and then you union with Y2X3. So finally you will get Y2X3. Are you applying the rule or not? See, are you getting the rule? So you can notice what is, if I ask you what is out of S5, what is out of S5, tell me. Out of S5 is in off S6, I can say. Out of S5 is this.",
+      "avg_logprob": -0.15937500257383694,
+      "no_speech_prob": 0.2445068359375
+    },
+    {
+      "start": 3301.01,
+      "end": 3332,
+      "text": " and this is actually in of s6 okay at any statement means this is your statement this is your statement okay what is what is live here that is called in of n and what is live here that is called out of n in of n is same as what tell me tell me in of n is same as live of n this is same as this is same as live at n",
+      "avg_logprob": -0.17278814470613157,
+      "no_speech_prob": 0.57421875
+    },
+    {
+      "start": 3333.44,
+      "end": 3365.96,
+      "text": " Is this point clear? Anyone has any doubt? Very simple. So what I can see here, here you can notice, if I ask you, if I ask you what is in of S6, so that is in of S6 means what is here, in of S6 means here. Okay. So tell me what is, what is live at S4? Live at S4 means out of S4 minus definition of S4 union X1, union X2.",
+      "avg_logprob": -0.18909438243325877,
+      "no_speech_prob": 0.418701171875
+    },
+    {
+      "start": 3366.16,
+      "end": 3405.79,
+      "text": " so that will be x1, x2, x3 and what is life here? okay remove x3 and then x1 union x2 and here what is life? x1 and here what is life? tell me here what is life? nothing here what is life? nothing is this clear? anyone has any doubt? is this clear to everyone or anyone has any doubt? so remember okay if you have some statements let's take one for more example we will take okay",
+      "avg_logprob": -0.12048968826372598,
+      "no_speech_prob": 0.26318359375
+    },
+    {
+      "start": 3406.19,
+      "end": 3437.79,
+      "text": " So how are you calculating so fast by this rule by this rule see this rule you have this rule you have a statement this rule I am using nothing else this rule we have already seen the proof we have already seen the proof of this rule we have already seen a statement of N if this is the statement and now what is live here that is outline what is live here okay that is outline this is called out of N.",
+      "avg_logprob": -0.17269258842218754,
+      "no_speech_prob": 0.50439453125
+    },
+    {
+      "start": 3438.8,
+      "end": 3469.67,
+      "text": " This is called in-of-n and here we call live-of-n. Live-of-n is same as in-of-n, both are same. Live-of-n is equal to in-of-n and you already know live-of-n that is equal to what? This formula we have already seen. What is that? Out-of-n minus def-of-n union use-of-n. This formula I'm using.",
+      "avg_logprob": -0.15523437693715095,
+      "no_speech_prob": 0.40869140625
+    },
+    {
+      "start": 3475.22,
+      "end": 3508.93,
+      "text": " so this is the point why we go backwards I will explain okay why we go backwards can we go forward can anyone tell me can we go forward I told you in the last class live variable analysis is backward analysis this live variable analysis this is backward analysis we are going for backward can you notice we are going backward yes or no in this example also we are going backward we are going backward right yes or no we are going backward can we go forward I will explain to you",
+      "avg_logprob": -0.08116776315789474,
+      "no_speech_prob": 0.68115234375
+    },
+    {
+      "start": 3509.26,
+      "end": 3542.78,
+      "text": " Yes, we can go forward also, but it will take more time. Okay, let me explain. It will take more time. In this example, let me explain that it will take more time. It will take many sessions, actually. Okay, if you go forward, okay, see, okay, this question, let me ask. This is the question. Okay. In liveness analysis, we are going backward. In liveness analysis, we go backwards. We go backwards, correct?",
+      "avg_logprob": -0.16496394574642181,
+      "no_speech_prob": 0.440673828125
+    },
+    {
+      "start": 3543.53,
+      "end": 3581.93,
+      "text": " Or I can say lameness analysis is backward analysis. We go backwards. But can we go forward? First of all, why? Why we go backward and can we go forward? Why not go forward? Let me explain. Yes, you can go forward, but the answer is efficiency. The answer is efficiency. So the answer is this. Yes, you can go forward.",
+      "avg_logprob": -0.18058894345393547,
+      "no_speech_prob": 0.1474609375
+    },
+    {
+      "start": 3582.3,
+      "end": 3630.56,
+      "text": " Yes, we can do liveness analysis in forward manner. In any mirror, we can go forward. We can go forward in liveness analysis. But it is inefficient. It is very inefficient. Backward analysis is efficient. Let me answer why. So it's the same example I will take. Let me take the same example that is here. So you can notice this is the same example. Let me take.",
+      "avg_logprob": -0.1478160572322932,
+      "no_speech_prob": 0.2822265625
+    },
+    {
+      "start": 3632.64,
+      "end": 3688.58,
+      "text": " Okay, so this is the same example I wrote. Okay, so the same example I'm going to take. So can you tell me? Okay, initially, initially nothing is live, right? Yes or no? Initially nothing is live. So now you notice what is going to happen. Okay, so initially nothing is live. Okay, let's assume you are going forward. Let's assume you are going forward. Initially nothing is live. Initially nothing is live. Nothing, nothing, nothing, nothing is live. Okay, now let's go forward. Okay.",
+      "avg_logprob": -0.12904094853277864,
+      "no_speech_prob": 0.391845703125
+    },
+    {
+      "start": 3688.94,
+      "end": 3716.35,
+      "text": " here can you tell me at this point of time can you tell me at this point of time at s1 can you tell me something is something can you tell me can i can i say something okay don't go at s2 s3 don't look at s2 s3 okay just tell me okay by looking at s1 can you tell me something some can something become live can some variable become live just by looking at s1 just look at s1 can you say no no variable will become live okay so this is okay now",
+      "avg_logprob": -0.062102137961321406,
+      "no_speech_prob": 0.47900390625
+    },
+    {
+      "start": 3717.83,
+      "end": 3750.41,
+      "text": " can I say something will become live can I say something will become live yes x1 will become live x1 will become live so okay so let me tell you this is the initial setup so this is a initially okay so let me let me say this is initial okay now let's see now let's see this is the initially now what will happen first iteration now I'm telling you first iteration first iteration",
+      "avg_logprob": -0.17255014843410915,
+      "no_speech_prob": 0.77783203125
+    },
+    {
+      "start": 3751.78,
+      "end": 3781.04,
+      "text": " Okay. So here you can say that X1 is live. Now you have this information that X1 is live. Now you have this information that X1 is live. What can you say about, what can I say about S3? What can I say about S3? I can say X1, X2 are live. X1, X2, I can say they are live. Okay. And what can I say about S4? What can I say about S4? X1, X2 are live, again X1, X2 are live. What can I say about",
+      "avg_logprob": -0.11089939290915078,
+      "no_speech_prob": 0.75634765625
+    },
+    {
+      "start": 3782.19,
+      "end": 3810.51,
+      "text": " S5. What can I say about S5? Y2, X3 are live. And what can I say about S6? S6. Y3 is live. This is the first iteration. Do you agree? This is the first iteration. Okay. This is the first iteration. Agree? Now let's... Okay. Is this the final answer? Just tell me this point. Is this the final answer? Is this your final answer? No. So let's do the second iteration. Okay. Let's...",
+      "avg_logprob": -0.12306479658555547,
+      "no_speech_prob": 0.7275390625
+    },
+    {
+      "start": 3810.52,
+      "end": 3840.35,
+      "text": " do the second iteration so let me do the second iteration now what will happen second iteration let's do second iteration again go forward again go forward tell me now now can you notice something is something interesting will happen tell me what can you say about live at s1 what can you say about live at s1 live at s1 means more see live at s1 live at s1 means",
+      "avg_logprob": -0.11949118541983458,
+      "no_speech_prob": 0.60693359375
+    },
+    {
+      "start": 3841.08,
+      "end": 3872.42,
+      "text": " out of S1 minus def of S1 union use of S1. So what is out of S1? Tell me what is out of S1 that is X1 minus def of S1 that is X1 union use of X1 that is pi. So finally, pi. So in the second iteration also this will be pi. Is it clear? In the second iteration also this will be pi. Okay, tell me.",
+      "avg_logprob": -0.20294944355996808,
+      "no_speech_prob": 0.3837890625
+    },
+    {
+      "start": 3872.77,
+      "end": 3907.08,
+      "text": " tell me what about life of h2 what about life of h2 what about life of h2 that means out of h2 minus death of h2 union use of h2 okay so let's see so you can notice out of h2 minus death of h2 union use of h2 okay so tell me what is out of h2 what is out of h2 just tell me this point what is out of h2",
+      "avg_logprob": -0.10290948395756469,
+      "no_speech_prob": 0.2139892578125
+    },
+    {
+      "start": 3907.49,
+      "end": 3936.62,
+      "text": " Out of H2 is X1, X2. Out of H2 is X1, X2. Out of H2, out of H2 means what is here. Out of H2 means what is here, what is here, what is live here. Live here is X1, X2. Live here is X1, X2. So out of H2 is X1, X2. X1, X2. Minus, therefore, X1. Minus, sorry, therefore, X2. Minus, therefore, X2 means X2. Therefore, X2 means X2.",
+      "avg_logprob": -0.1364746034378186,
+      "no_speech_prob": 0.5390625
+    },
+    {
+      "start": 3938.62,
+      "end": 3968.92,
+      "text": " union use of h2 use of h2 is x1 so finally what you will get finally what you will get that is x1 so finally in the second iteration here you will get x1 okay x1 again again you will only get x1 same now similarly can you do what can I say about s3 what can I say about s3 now s3 will be what that will be x1",
+      "avg_logprob": -0.12118902575315499,
+      "no_speech_prob": 0.374267578125
+    },
+    {
+      "start": 3969.6,
+      "end": 4000.9,
+      "text": " union x2 that will be your x1 union h2 what can you say about s4 what can you say about s4 s4 tell me what can you say about s4 s4 means y2 x3 minus y2 so this will be x1 x2 x3 this will be now x1 x2 x3 okay now tell me what can you say about s5 what can you say about s5 what can you say so again you can notice",
+      "avg_logprob": -0.10633224029290049,
+      "no_speech_prob": 0.67236328125
+    },
+    {
+      "start": 4001.28,
+      "end": 4030.53,
+      "text": " what can you say y3 y3 cancel so this will be y2 x3 this will be y2 x3 so okay so in the second iteration this will be your answer okay in the second iteration is it different from the first iteration this answer is it different from the first iteration is it different from the first iteration yes this is different you can notice the difference you can notice the difference this additional thing is coming this additional thing was not here here we did not have",
+      "avg_logprob": -0.07080592136634023,
+      "no_speech_prob": 0.488037109375
+    },
+    {
+      "start": 4030.83,
+      "end": 4061.96,
+      "text": " so the second iteration is different if i do the third iteration will the answer change can i do the third iteration in the third iteration will answer change let's do the third iteration in the third iteration again you can check okay so this will be same okay so you can notice and this will be same because you can notice okay x1 x2 okay so this will be same next again you can notice that x3 okay so x1 x2 so now it will not change so second iteration is equal to third iteration so now you can stop",
+      "avg_logprob": -0.05812355489642532,
+      "no_speech_prob": 0.1429443359375
+    },
+    {
+      "start": 4062.61,
+      "end": 4117.93,
+      "text": " Second iteration is same as third iteration. Now you can stop. So you cannot a second iteration. Second iteration result is same as third iteration reason. So stop. So fine. You have final answer. So your answer is so, so, so you can see, can you see forward analysis is inefficient? Yes or no? So forward analysis is inefficient, but you can do. So.",
+      "avg_logprob": -0.2230468735098839,
+      "no_speech_prob": 0.281005859375
+    },
+    {
+      "start": 4119.17,
+      "end": 4150.97,
+      "text": " If you got everything so far, then you can do anything. All the questions you can do. Tell me. All the concepts, everything is over from this liveness analysis. Tell me. Anyone has any doubt or is it clear? Can you tell me? Is it clear or not? Anyone has any doubt? Small doubt, big doubt doesn't matter. Anyone has any doubt? Yes, we will take. Astitva, don't worry. We will take loop question. What if we have loop? I will take. First, so far, is it clear?",
+      "avg_logprob": -0.13878676746071889,
+      "no_speech_prob": 0.4931640625
+    },
+    {
+      "start": 4151.24,
+      "end": 4182.19,
+      "text": " So this is the liveness analysis. So can you understand this image? Can you understand this image? So you can notice here we are referencing f. So can you notice this image? Can you understand? So here f comma e will be there and then f comma a comma b comma c. I will explain. Don't worry. It is coming. It is coming in the future. One by one, slide by slide, just understand all these things that you are asking are coming in the future.",
+      "avg_logprob": -0.1491135833068536,
+      "no_speech_prob": 0.1981201171875
+    },
+    {
+      "start": 4183.08,
+      "end": 4211.46,
+      "text": " loop out how to calculate out all these things are coming so is this is this picture clear to everyone this picture can you understand okay now let's see is this picture clear just just look at these pictures and tell me are they clear to everyone so abc this is live here now here you are defining so this will be removed now ab now okay so this this picture is also clear very very easy because you are defining a so now here this is not live",
+      "avg_logprob": -0.06169327607621317,
+      "no_speech_prob": 0.51806640625
+    },
+    {
+      "start": 4211.75,
+      "end": 4244.27,
+      "text": " here at this point of time, a is not right. So what we are referencing, use means reference, see some authors use, use means reference, use also means reference. So for example, what are you referencing here? Are you referencing or defining? For example, in x plus, so tell me in this statement, x equal to 3, in this statement, tell me what is the use",
+      "avg_logprob": -0.2076981683693281,
+      "no_speech_prob": 0.576171875
+    },
+    {
+      "start": 4244.76,
+      "end": 4275.82,
+      "text": " what are the variables that you are using and what are the variables you are defining tell me use means read and death means write so here we are not using anything but here we are defining x okay use means reference okay so like this you can okay so you can check in this we are not defining anything in this we are defining also and reading also so i hope these points are okay so",
+      "avg_logprob": -0.12670272646042016,
+      "no_speech_prob": 0.174072265625
+    },
+    {
+      "start": 4279.94,
+      "end": 4310.72,
+      "text": " So like this you can do. Okay, so this formula, this formula we have already seen, correct? Yes or no? Live of n. Live of n is equal to in life. In life means live of n because see if you have this statement, okay, if this is your statement, if this is your statement and then remember in in life means at okay, here what is live? Okay, here what is live? This is called in life. Okay, this is called in life.",
+      "avg_logprob": -0.20828276149277547,
+      "no_speech_prob": 0.85498046875
+    },
+    {
+      "start": 4312.43,
+      "end": 4343.6,
+      "text": " and here what is okay just after this this is called outline and and what is this live of n again because this is important many students they make mistake here so that is the reason I'm asking again what is live of n what is live of n live of n simply means what is in live correct because live at a statement it automatically means just before yes or no just before correct",
+      "avg_logprob": -0.1907467462799766,
+      "no_speech_prob": 0.271728515625
+    },
+    {
+      "start": 4344.14,
+      "end": 4380.54,
+      "text": " means just before it what is life and just after it what is life. So this formula we have already seen the proof we have already seen. Okay. No. Okay. So all these things you can just take it out. Okay. So how to calculate out? Okay. This is an interesting point. Someone is asking. So we have now seen, okay, you can very easily calculate. Okay. This you can calculate by looking at the statement. If you look at the statement, you can do this, you can find this, these, these things you can find. Okay. If you know this,",
+      "avg_logprob": -0.17349999713897704,
+      "no_speech_prob": 0.499755859375
+    },
+    {
+      "start": 4380.86,
+      "end": 4411.56,
+      "text": " then you can find this if you know this then you can find this but how can you find out like this is the question how can you find out like can anyone tell me can anyone tell me how can you find out like means it's like this if you have some statement then how can you find what is live just after this so for example if you have a statement let's assume this is a statement as my question is my question is",
+      "avg_logprob": -0.10551264111915332,
+      "no_speech_prob": 0.55810546875
+    },
+    {
+      "start": 4411.74,
+      "end": 4444.73,
+      "text": " let us assume these are given to you now these are known to you okay now these are known to you these are known to you in of every statement okay you know in of in live of every statement every statement you know in live of every statement let's assume you know this every statement okay you know in live of every statement there is a statement as to there is a statement as three and so okay",
+      "avg_logprob": -0.09784914829112866,
+      "no_speech_prob": 0.59228515625
+    },
+    {
+      "start": 4445.02,
+      "end": 4474.97,
+      "text": " and let's assume this is a basic block this is a basic block let's assume this is a basic block okay so tell me if this is a basic block okay what it means this is a basic block what it means i'm saying this is a basic block what it means it means how many successor of s1 how many successor of s1 tell me this is a basic block how many successor of s1 s1 has only one successor how many successor of h2",
+      "avg_logprob": -0.06936677380612022,
+      "no_speech_prob": 0.370361328125
+    },
+    {
+      "start": 4476.51,
+      "end": 4505.11,
+      "text": " How many successor of S2? How many successor of S3? How many successor of S3? Not known. Very good. Not known. Anything. Okay. How many? Because basic block you already know. See, this is a basic block. If this is a basic block, okay. If this is a basic block, I told you in basic block, if this is your statement S1, this is your statement S2, S3, S4. Now you can notice here the control can come from anywhere.",
+      "avg_logprob": -0.15926031891359102,
+      "no_speech_prob": 0.28173828125
+    },
+    {
+      "start": 4505.87,
+      "end": 4539.07,
+      "text": " the control can come from anywhere here the control can go to anywhere so remember successor of S2 will be only S3 remember successor of S2 will be only S3 but successor of S4 can be many yes or no can be many successor of S4 can be many character or not can be many okay successor of S1 will be only S2",
+      "avg_logprob": -0.14529080419904655,
+      "no_speech_prob": 0.77734375
+    },
+    {
+      "start": 4539.29,
+      "end": 4571.21,
+      "text": " you can notice successor of s1 will be only s2 is this point clear now my question is this if you know in off okay can you find out okay what is out of s1 what is out of s1 you know these are these you know so this is what i what i want to find okay just find what is out of what is out live off s1 what is the answer tell me tell me what will be the answer what will be out live off s1",
+      "avg_logprob": -0.11050257977751113,
+      "no_speech_prob": 0.5849609375
+    },
+    {
+      "start": 4573.96,
+      "end": 4604.96,
+      "text": " Outlive of S1 means in of S2. Yes or no? Outlive of S1 means in of S2, very simple. So the answer is very simple. Outlive means, see, okay, this is very simple. Okay, what is outlive of S1? What is here? This is in of S2. Yes or no? This is in of S2. So in of S2 is basically outlive of S1. Is this clear? Okay, is this clear? Now, okay, interesting thing, interesting thing.",
+      "avg_logprob": -0.12472825775975767,
+      "no_speech_prob": 0.66162109375
+    },
+    {
+      "start": 4605.13,
+      "end": 4641.69,
+      "text": " What is outlive of S4? What is out here? Okay, what is outlive here? What is outlive of S3? Basically, this is my question. What is outlive of S3? So this is a basic block. In this basic block, you have S1, you have S2, you have S3. My question is, what is outlive of S3? If you know, in of everything you know, in of everything you know.",
+      "avg_logprob": -0.1081250026077032,
+      "no_speech_prob": 0.27490234375
+    },
+    {
+      "start": 4642.57,
+      "end": 4672.67,
+      "text": " in of everything known okay what is known in of everything you know let me tell you okay so remember this is a basic block this is a basic block so there can be another basic block there can be another basic block there can be something like this okay there can be something like this correct there can be something like this so what is outlive of s3 anyone want to try anyone want to try like can you give me some idea i just want your idea",
+      "avg_logprob": -0.1796874948169874,
+      "no_speech_prob": 0.4267578125
+    },
+    {
+      "start": 4673.05,
+      "end": 4704.43,
+      "text": " In live of S3, no, no, no, no. Intersection of in. Union of in, actually, okay, take this example, take this example, see, okay, consider this example. Let us assume that you have this graph, okay, A equal to B plus C, okay, and let's assume here you have if, okay, here A is greater than B, okay, if, then, then if A is greater than B, then basically if this is true, then you will go here.",
+      "avg_logprob": -0.19380733835587807,
+      "no_speech_prob": 0.59228515625
+    },
+    {
+      "start": 4704.66,
+      "end": 4732.9,
+      "text": " okay what you will do you will do b equal to a plus d and if this is false then you will go here and what you will do you will do a equal to b plus c okay now this is interesting now now tell me okay now tell me okay so this is the exit block let's assume this is the exit block okay now on this course on this on this let's try so tell me here you have nothing okay five five okay nothing is live here",
+      "avg_logprob": -0.09366688742599588,
+      "no_speech_prob": 0.2080078125
+    },
+    {
+      "start": 4733.14,
+      "end": 4762.64,
+      "text": " can anyone tell me what is live here at this point what is live okay so this is the what is live here tell me what is live here what is live here so you can very easily notice here what is live here live is a comma d so here a comma d is live and here live is b comma c b comma c is live now tell me what is out live often",
+      "avg_logprob": -0.10480925053745122,
+      "no_speech_prob": 0.0390625
+    },
+    {
+      "start": 4763.15,
+      "end": 4794.22,
+      "text": " This statement, let's call it as one, let's call it as two, let's call it as three, let's call it as four. What is outlive of S2? Just tell me this one. This is my question. What is outlive of S2? What is outlive of S2? What is outlive of S2? Means what is outlive here? Here, here, what is live? Here, what is live? Here, what is live? What is outlive of S2? Tell me. Quickly tell me. The answer is A, B, C, D. Yes or no? A, B, C, D.",
+      "avg_logprob": -0.1323660757924829,
+      "no_speech_prob": 0.71630859375
+    },
+    {
+      "start": 4794.57,
+      "end": 4823.62,
+      "text": " because you can notice what is live here tell me if you are standing here if you are standing here okay just think about it and tell me okay just think about it this is a very simple point if you are standing here what is live for you what is being used what is being used if you are standing here what is being used see here a comma d is being used here b comma c is being used if you are standing here then what is live a comma d is live",
+      "avg_logprob": -0.10888671774106722,
+      "no_speech_prob": 0.5615234375
+    },
+    {
+      "start": 4824.02,
+      "end": 4855.74,
+      "text": " B, C is live. So finally I can say outlive of h2 is equal to abcd. Do you agree or not? Anyone? Very, very intuitive. Very intuitive. If you are standing here, then what is live? If you are standing here, then what is live? So here a, a, d is live. Here b, c is live. So finally I can say if you are standing here, then you are using a variable here, d variable here, b variable here, c variable here. So if you are standing here, then you are using",
+      "avg_logprob": -0.17290806474764486,
+      "no_speech_prob": 0.71728515625
+    },
+    {
+      "start": 4856.06,
+      "end": 4896.62,
+      "text": " you are using you are using correct correct so if you are standing here then you are using okay okay so i hope this point is clear so now can you tell me what is the answer what should be the answer here what should be the answer here what should be the outlive of s3 let's assume this statement is s4 let's assume this statement is s5 let's assume this statement is s6 now tell me what is outlive of s3",
+      "avg_logprob": -0.08652553635258828,
+      "no_speech_prob": 0.326171875
+    },
+    {
+      "start": 4897.53,
+      "end": 4929.79,
+      "text": " Tell me what is out live of S3. Tell me what is that? That is union of in yes or no. So that is in of S4 union, in of S5 union, in of S6. Correct? Correct. What I can say, what I can say, what I can say. The same thing I can say that in means, in means what is live at S4, basically I can say.",
+      "avg_logprob": -0.2303370799911156,
+      "no_speech_prob": 0.436767578125
+    },
+    {
+      "start": 4930.15,
+      "end": 4961.43,
+      "text": " then what is live at s4 union what is live at s5 union what is live at s6 isn't it correct to how many people this concept is clear everyone has given correct answer so that is the reason i am asking is this clear to everyone so now can you find out okay so now you can find everything out live of h2 you can find okay what is out live of s1 tell me find out what is out live of s1",
+      "avg_logprob": -0.07965353430937165,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 4964.65,
+      "end": 4993.94,
+      "text": " You have what is outline of S1. First you find, okay, outline of S1 is simply in off S2. That is simply in off S2. And what is in off S2? How will you find, can you tell me, how will you find in off S2? Do we have formula? Do we have formula? How will you find in off S2? How will you find in off S2? Very simple.",
+      "avg_logprob": -0.1737231118704683,
+      "no_speech_prob": 0.611328125
+    },
+    {
+      "start": 4994.36,
+      "end": 5027.22,
+      "text": " From out of S2, what is in of S2? See, in of S2, that is simply out of S2 minus def of S2 minus def of S2. What else? What else? Tell me what else? Quickly tell me what else? Union use of S2. Isn't it correct? So finally, I can say ABCD minus what is your defining and then union use. So again, ABCD.",
+      "avg_logprob": -0.19557005756503934,
+      "no_speech_prob": 0.139892578125
+    },
+    {
+      "start": 5027.38,
+      "end": 5071.76,
+      "text": " so finally here also answer will be a b c yes or no yes or no no one is giving answer now tell me got it and what is in off s1 what is in off s1 give me the answer in off s1 in off s1 what is that that is out of s1 minus okay so that is out of s1 minus what you are defining on s1",
+      "avg_logprob": -0.12389824195550038,
+      "no_speech_prob": 0.2344970703125
+    },
+    {
+      "start": 5071.93,
+      "end": 5105.23,
+      "text": " union use of s okay so out of s1 you already know out of s1 abcd minus a so okay bcd so the answer will be bcd okay so here answer will be bcd okay so this will be answer will be bcd okay is this clear the answer will be bcd correct rasi yes or no so like this you can do so finally how can you find out",
+      "avg_logprob": -0.09647529139075169,
+      "no_speech_prob": 0.64599609375
+    },
+    {
+      "start": 5105.71,
+      "end": 5137.39,
+      "text": " Okay, so this was our topic. Our topic was how to find out life. Okay, so how to find out life. Now, can you give me the formula for out life? Can you give me the formula for out life? So finally, what formula can you find out for out life? So I can say out live off any statement. What is that out live off any statement? What is that? That is union of that is union of in line of successor of and successor of and yes or no.",
+      "avg_logprob": -0.17541273092886187,
+      "no_speech_prob": 0.50146484375
+    },
+    {
+      "start": 5137.7,
+      "end": 5177.78,
+      "text": " So find all the successor of n. Okay, so that is union of basically this is union of in live all the successors of. Okay, in a straight line code what you can say in a straight line code this this statement we have but if you have a basic block then what can you say if you have like this s1 s2 s3 s4 if you have this then what can you say.",
+      "avg_logprob": -0.27040442578932816,
+      "no_speech_prob": 0.223876953125
+    },
+    {
+      "start": 5178.64,
+      "end": 5207.59,
+      "text": " If you have this straight line port, means if you have this straight line port, then what can you say? Now, out of S1 will be because only one successor. If you see how many successor of S1, so that will be only S2. This is the successor of S1. What is the successor of S2? The successor of S2 will be S3. So out of S1 will be what? Out of S1 will be what? Tell me, out of S1 will be what?",
+      "avg_logprob": -0.12779530527394847,
+      "no_speech_prob": 0.52587890625
+    },
+    {
+      "start": 5208.04,
+      "end": 5237.31,
+      "text": " that will be in off S1. That means live off S1, sorry, S2, S2, S2, live off S2. Similarly, out of S2 will be in off S3, means live at S3. Similarly, out of S3 will be in off S4, means",
+      "avg_logprob": -0.19423076923076923,
+      "no_speech_prob": 0.39111328125
+    },
+    {
+      "start": 5237.78,
+      "end": 5271.65,
+      "text": " live of S4. What is out of S4? That is union of successor of S4. That is union of successor of S4. Okay, so this is the formal analysis. Okay, I hope this is clear. I hope. Okay, hopefully this is clear. Anyone? How many people can say that everything is clear to you?",
+      "avg_logprob": -0.16178385416666666,
+      "no_speech_prob": 0.380615234375
+    },
+    {
+      "start": 5272.25,
+      "end": 5303.42,
+      "text": " So, okay, backward analysis we do mostly, okay, as I told you, so we do the backward analysis, okay. So, okay, this program is already given in the last lecture, okay, so I am going quickly, okay, you just, you just check it out. This is given, let us assume this is given. This is given, okay, so these are live here. So tell me here, what will be live? Here, what will be live? Quickly tell me, quickly, okay, quickly tell me, what will be live here? Quickly, that will be BDE, that will be BDE.",
+      "avg_logprob": -0.1716382638974623,
+      "no_speech_prob": 0.50537109375
+    },
+    {
+      "start": 5303.82,
+      "end": 5333.39,
+      "text": " So tell me quickly what will be live here? Okay, quickly tell me what will be live here? What will be live here? Okay, that will be, okay, see, okay, that will be, okay, what will be live here? Very simply, you can find out. Okay, all you have to do BDE minus D union, union A. Okay, so finally, what will be live here? That will be, okay, BDE minus D. So that will be BEA, correct?",
+      "avg_logprob": -0.22152452574712095,
+      "no_speech_prob": 0.405517578125
+    },
+    {
+      "start": 5333.79,
+      "end": 5363.23,
+      "text": " Yes or no? B, E, A. Correct or not? Agree? Yes. Very good. Everyone has given correct answer. Very good. Very good. What will be live here? Means what will be live here? I can say what will be live here? What will be live here? Because what is live here? That automatically means what is live here? So what is live here? E will be removed and A, B, D. Again A, B, D. Okay. So next again A, B, D. Okay. Next, what is live here? That will be A, B, D minus D. Okay. So A, B. So that will be A, B. Okay.",
+      "avg_logprob": -0.139156877194475,
+      "no_speech_prob": 0.697265625
+    },
+    {
+      "start": 5363.64,
+      "end": 5391.76,
+      "text": " next what is live here means basically what is live at this statement live at second statement what is live at second statement that will be only b that will be ab that will be ab okay that will be ab next what will be live at the first statement what is live at the first statement that is b that is okay so this is how you can do liveness analysis in the backward only one pass you need yes or no can you notice in the backward we only need okay if you do backwards",
+      "avg_logprob": -0.10242187321186065,
+      "no_speech_prob": 0.261962890625
+    },
+    {
+      "start": 5392.15,
+      "end": 5421.99,
+      "text": " then how many, how many iteration you need? Backwards, how many iteration you need? Tell me. Backwards, how many iteration, only one iteration is needed. So in this liveness analysis, liveness analysis, on a basic block, on a basic block, okay, basically, okay, on a basic block, I can say that backwards, if you go backwards, then only one iteration, you only need one iteration.",
+      "avg_logprob": -0.19752038432204205,
+      "no_speech_prob": 0.54052734375
+    },
+    {
+      "start": 5423,
+      "end": 5457.26,
+      "text": " Okay, and forward if you go, if you go forward, then, okay, more than, okay, then many, maybe, maybe, may, may need, many, may need, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many",
+      "avg_logprob": -0.0984722211625841,
+      "no_speech_prob": 0.59912109375
+    },
+    {
+      "start": 5457.37,
+      "end": 5485.27,
+      "text": " Okay, what this tells you, what this tells you, now you can eliminate the dead call. See, this tells you that after this statement, F is not live. After this statement, F is not live. See, this what this tells you, just think about it. What this tells you, this tells you that after this statement, after this statement, F is not live. Means after this statement, F is not used. After this statement, F is not used. So I can remove this statement.",
+      "avg_logprob": -0.1392246494596859,
+      "no_speech_prob": 0.57373046875
+    },
+    {
+      "start": 5485.72,
+      "end": 5515.89,
+      "text": " so this is called dead code elimination so you can remove this statement this statement is gone okay now this this tells you okay what this tells you tell me what this this means that this d is used this d is definitely used so don't remove it okay now similarly here you can notice this this means what this means this means that c is not live this means c is not live here c is not live here what it means it means",
+      "avg_logprob": -0.08131286022306859,
+      "no_speech_prob": 0.56884765625
+    },
+    {
+      "start": 5516.31,
+      "end": 5548.86,
+      "text": " This C is not used anywhere. This C is not used anywhere. So you can remove it. Okay, like this you can do. C, okay. Now you can notice one thing in the last lecture also I told you. If you do like this, okay, first you do liveness analysis, then you do dead quad elimination, then you will have to do multiple times. Again, you do liveness analysis. Again, on this program, finally on this program, again you do liveness analysis, then you will get this. Okay, liveness analysis.",
+      "avg_logprob": -0.16335227765327642,
+      "no_speech_prob": 0.434326171875
+    },
+    {
+      "start": 5549.22,
+      "end": 5575.95,
+      "text": " we are doing liveness analysis finally you will get this then again you do dead code elimination then you will get this you will get this again you do liveness analysis okay again you do liveness analysis then you will get this this is what you are going to get okay then again you do dead code elimination then finally you will get this so can you notice that okay just tell me this point just tell me this point if you do liveness analysis first you do liveness analysis",
+      "avg_logprob": -0.08516398691894984,
+      "no_speech_prob": 0.44384765625
+    },
+    {
+      "start": 5576.75,
+      "end": 5607.86,
+      "text": " Okay. And then you do dead code elimination. Is this efficient? Is this efficient? This is liveness analysis. Okay. Is this efficient? This is not efficient. This is not efficient. So what is efficient? Efficient is simply there is a combined algorithm. There is a combined algorithm. There is a combined algorithm. Basically do together, do simultaneously. This liveness analysis, this liveness analysis,",
+      "avg_logprob": -0.13547585159540176,
+      "no_speech_prob": 0.55615234375
+    },
+    {
+      "start": 5608.52,
+      "end": 5636.8,
+      "text": " okay plus dead code elimination simultaneously do them simultaneous do them simultaneous okay so if you do them simultaneously this is what is going to happen okay you can notice simultaneously i'm doing okay so here b comma d is live okay so what it means it means f is not live it means i can remove this okay so simultaneously i'm doing okay just remove just remove it okay so this is gone",
+      "avg_logprob": -0.11038960845439465,
+      "no_speech_prob": 0.5
+    },
+    {
+      "start": 5637.12,
+      "end": 5665.22,
+      "text": " now again what okay so tell me what will be like okay so this d is used okay this d is a used okay now you can notice that finally i will have echo again it means this is also gone it means this e is not used okay so this is also gone okay this is also gone now again what you have so this d is also gone because this d is not like this means d is not like here d is not like it means this d is not used okay so this d is also gone then again this c is also gone",
+      "avg_logprob": -0.12105791612502632,
+      "no_speech_prob": 0.339599609375
+    },
+    {
+      "start": 5665.46,
+      "end": 5699.61,
+      "text": " can you see this combined algorithm is very simple this is more efficient this combined algorithm can you see yes or no so we have a combined algorithm where liveness analysis and dead code elimination both of them we do together if we do them together then you can very easily do this okay now loops how to handle loops okay so this is the question how to handle loops okay so this is what we are going to see now so first of all this this formula we have seen anyone has any doubt in this formula",
+      "avg_logprob": -0.0724009874433574,
+      "no_speech_prob": 0.394287109375
+    },
+    {
+      "start": 5700.13,
+      "end": 5729.78,
+      "text": " this we have already seen this out live out live is equal to union of in live of successor okay yes or no this formula we have already seen so there is any doubt in this formula anyone has any doubt in this formula so this we have already seen correct so okay so now let's see so finally we have these two formula okay finally we have these two formula now in these two formula actually you can merge can you see that can you replace this value with this value yes or no",
+      "avg_logprob": -0.12403350023879219,
+      "no_speech_prob": 0.58984375
+    },
+    {
+      "start": 5730.57,
+      "end": 5761.92,
+      "text": " You can replace this outlive of n. You can replace this value with this. Okay. So finally you can write like this also. Remember this means this automatically means in live of n. So you can merge them basically instead of this instead of this, you can directly use this. You can directly use this. Okay. So just put this value here. Then what you will get, then you will get this formula. This formula you are going to. Okay. Now let's see. Let's see how can we handle.",
+      "avg_logprob": -0.18965022935779816,
+      "no_speech_prob": 0.36328125
+    },
+    {
+      "start": 5762.24,
+      "end": 5790.24,
+      "text": " So if you have a basic growth, if you have, okay, without loop, what you need to, okay, so far what we have seen, this is what we have seen. So far, liveness analysis on without loops, liveness analysis on CFG without loops, yes or no, on CFG without loops, so far we did not have loops, okay. So we have seen so far liveness analysis on CFG without loops, okay.",
+      "avg_logprob": -0.17012117346938777,
+      "no_speech_prob": 0.12213134765625
+    },
+    {
+      "start": 5791.65,
+      "end": 5819.58,
+      "text": " For this without loop actually when you have CFG without loops on this what you can do you can okay one backward one backward pass One backward iteration or pass is enough Okay, remember one backward pass is enough if there is no loop then only one backward pass is enough Okay, just go backward and one passes in one iteration is enough this we have already seen now what will happen if you have",
+      "avg_logprob": -0.21934335744833644,
+      "no_speech_prob": 0.320068359375
+    },
+    {
+      "start": 5820.33,
+      "end": 5855.82,
+      "text": " Let us assume you have this type of loop. So this is loop. Yes or no? This is a loop. Can you see this is a loop? This is a loop. Yes or no? Can you see this is a loop? Now tell me, is this analysis correct? Are they correct? Are these answers correct? Just think about it and tell me, are these answers correct? Let's see how to handle loops. Okay. How to handle loops. This is what we are going to see now. Okay. So tell me, first of all, okay, just apply your intuition. Apply your intuition and tell me, is this answer correct?",
+      "avg_logprob": -0.10856481481481481,
+      "no_speech_prob": 0.7412109375
+    },
+    {
+      "start": 5857.07,
+      "end": 5910,
+      "text": " Okay. Don't worry about the algorithm. Don't worry about anything. Just tell me, is this answer correct? It seems correct, right? It seems correct, but is there any mistake or is it correct? Do we have any mistake here or is it correct? It looks like this is correct, but I don't like, okay. You tell me, is there any mistake here? Let me tell you there is mistake here. What is the mistake? Let's see whether you can find it out. Okay. What is the mistake? Just think about it and tell me.",
+      "avg_logprob": -0.10638020845750967,
+      "no_speech_prob": 0.5185546875
+    },
+    {
+      "start": 5910.91,
+      "end": 5940.84,
+      "text": " see here z that is fine right this is correct right just okay tell me one by one okay step by step I'm asking is this correct is this correct yes this is correct right yes or no this is correct okay so there is no problem here so this is correct okay no don't tell me okay at this statement at this statement can I say y comma z this is also correct right yes or no this is also correct so there is no problem here this is also correct correct yes or no because you are using z see this is",
+      "avg_logprob": -0.12463492628569915,
+      "no_speech_prob": 0.88330078125
+    },
+    {
+      "start": 5941.16,
+      "end": 5969.72,
+      "text": " okay you can notice you y union z okay just apply the formula just apply the formula this is also correct okay is this correct is this correct x y z see you are referencing x so x is coming and y z so this is also correct this is also correct okay oh and can you see this is also correct x comma here if you are standing here if you are standing here what are we using if you are standing here if you are standing here",
+      "avg_logprob": -0.08081597321563297,
+      "no_speech_prob": 0.62255859375
+    },
+    {
+      "start": 5970.04,
+      "end": 5999.84,
+      "text": " then we are defining z but we are using x y if you are standing here then we are defining z but we are using x y so this is also correct and here we are defining x y so this is so seems like correct is there any mistake let me tell you there is a mistake but can you find it out there is a mistake here and the mistake is because of this loop you are not considering this loop you are not considering this loop just consider this loop there is a mistake because of this loop some some issue is coming",
+      "avg_logprob": -0.05592873880517817,
+      "no_speech_prob": 0.51904296875
+    },
+    {
+      "start": 6000.12,
+      "end": 6036.9,
+      "text": " yes very good x is missing here here x is missing see just think about it if you are standing here if you are standing here can you see that you are using x can you see you are using x if you are standing here can you see you are using x you are using x so if you are standing here can you see x is missing x is missing can you see is this point correct is this clear to everyone there is a mistake this is not correct",
+      "avg_logprob": -0.06338205677206799,
+      "no_speech_prob": 0.53125
+    },
+    {
+      "start": 6037.14,
+      "end": 6068.18,
+      "text": " because x is missing so x is missing the correct answer is this this x was missing this x was missing so how to handle these loops now let me tell you very easy extremely easy okay all you have to do can anyone tell me what we have to do how to handle looks very easy just multiple iterations okay basically multiple iterations that's it this is the answer multiple iterations just keep iterating",
+      "avg_logprob": -0.07857572029416378,
+      "no_speech_prob": 0.434326171875
+    },
+    {
+      "start": 6068.81,
+      "end": 6119.88,
+      "text": " See, I told you, if you don't have loops, then single pass is enough. If there is no loop, okay. If there is without loops, if there is no loop, then single pass is enough. If you have loop, then multiple iterations, then keep doing the iterations. Now, for the example, this, okay, let's take this example. The same question we will take. Okay. Let me take the same question and let me try. Okay. So, okay. So this question, let me take. Yeah. So taking this question. Okay. So let me take.",
+      "avg_logprob": -0.14637499713897706,
+      "no_speech_prob": 0.8544921875
+    },
+    {
+      "start": 6120.09,
+      "end": 6153.44,
+      "text": " initially this is the initial setup okay this is the initial setup just see this okay very simple very simple initially this is the initial setup correct yes or no so this is the initial setup now let me write this is initially okay so this is initially initially this is this is happening okay now we are going to go one by one we are going to go okay but go in backwards okay go backwards see okay multiple iterations but going backwards",
+      "avg_logprob": -0.0772977937670315,
+      "no_speech_prob": 0.60302734375
+    },
+    {
+      "start": 6153.84,
+      "end": 6196.59,
+      "text": " always do backward because that that will okay so but okay but go backwards but go backwards why can anyone tell me why do we have to go backwards or we are doing this for efficiency but okay multiple iterations but go backwards so that less number of iterations you have to do so that less less number of iterations you have to do okay so this is the point okay let's do this on on this question we will do",
+      "avg_logprob": -0.0665945039097085,
+      "no_speech_prob": 0.6318359375
+    },
+    {
+      "start": 6197.2,
+      "end": 6230.81,
+      "text": " So this is the question. So this is the initial setup. Initially, this is the point. Now go backwards. Tell me in the first iteration, what will happen in the first iteration? Just apply these formulas. Okay. All you have to do apply these formulas that you have seen. Okay. Just apply these formulas for which formula? For example, out live off end. This is union offer in a live off successor off. Okay. This formula you have to use. And also",
+      "avg_logprob": -0.22203125461935996,
+      "no_speech_prob": 0.66943359375
+    },
+    {
+      "start": 6231.29,
+      "end": 6265.24,
+      "text": " in live of n what is that that is equal to in live of n is equal to what that is equal to out live of n out live of n minus depth of n union use of n just apply these formulas nothing else very simple extremely simple let me promise you okay just try this okay so here go backwards okay always go backwards so first impression okay so this will be z correct go backwards i am going back",
+      "avg_logprob": -0.18731175237391368,
+      "no_speech_prob": 0.375732421875
+    },
+    {
+      "start": 6265.66,
+      "end": 6294.35,
+      "text": " okay go back okay so this is z okay tell me in the first iteration I'm going in the first iteration so what what should I write here tell me what should I write here okay I'm going backwards I am going backwards what should I write here what should I write here I should write y comma z correct I should write y comma z very good okay what should I write here what should I write here I should write x comma y comma z correct yes or no very good very good okay very good okay what should I write here",
+      "avg_logprob": -0.12945385931808256,
+      "no_speech_prob": 0.9150390625
+    },
+    {
+      "start": 6294.7,
+      "end": 6326.37,
+      "text": " what should i write here i am going in backward direction what should i write here see okay x comma y x comma y i should write correct yes very good very good okay what should i write here this is also correct so this is the first iteration this is the result of first iteration this is the result of faster iteration okay let's see the second iteration now we will do the second iteration okay let's do the second iteration so in the second iteration",
+      "avg_logprob": -0.07157117914822367,
+      "no_speech_prob": 0.210205078125
+    },
+    {
+      "start": 6326.67,
+      "end": 6353.9,
+      "text": " okay at this statement is anyone changing let's call it as one let's call it as two let's call it as three let's call it as four let's call it as five here is anything changing here okay go backwards go backwards is anything changing here no nothing is changing okay nothing okay okay tell me about s4 tell me about s4 now okay is anything changing here is anything changing here is anything changing here",
+      "avg_logprob": -0.07180059417372658,
+      "no_speech_prob": 0.54150390625
+    },
+    {
+      "start": 6356.54,
+      "end": 6384.63,
+      "text": " Yes, because what are the successor of S4? Apply the formula, please apply the formula. These formulas we have already seen, we have already proven. These formulas you apply, why are you not applying these formulas? Okay, what are the successor of S4? Just tell me this point. What are the successor of S4? So successor of S4, what is that? That is S5, S2, S5.",
+      "avg_logprob": -0.163719090786609,
+      "no_speech_prob": 0.67431640625
+    },
+    {
+      "start": 6385.07,
+      "end": 6415.54,
+      "text": " So what is out, what is out live off S4? Out live off S4 is union, okay, out live off S4 is in off S2 or I can say, okay, I can say live off S2 union live off S5. What is live off S2? Live off S2 is X comma Y union live off S5, which is Z. So finally X, Y, Z. Isn't it simple?",
+      "avg_logprob": -0.20584239745917526,
+      "no_speech_prob": 0.2071533203125
+    },
+    {
+      "start": 6416.59,
+      "end": 6449.76,
+      "text": " Is there anyone who can tell me is this simple or not? Isn't it simple? I hope you are finding this interesting. Like this chapter, this core optimization chapter is very interesting. If you understand it, see many students, they don't understand it. Okay. They just like by heart. Okay. Most of the things they don't understand the basics of it. They don't understand it. Okay. But if you understand it with basics, without by hearting, okay, then you can, you can find it very interesting. Like this seems like very interesting topic.",
+      "avg_logprob": -0.13602941426910273,
+      "no_speech_prob": 0.57861328125
+    },
+    {
+      "start": 6450.32,
+      "end": 6482.1,
+      "text": " Okay. Is there anyone who is enjoying this? Like, okay, all these one by one, we are handling all these things. First, we handled statements. First, we saw how to handle a statement. Then we saw how to handle basic block. Then we saw how to handle control flow graph without loop. Now we are looking at control flow graph with loops. Are you finding it interesting or not? Is anyone here who is understanding all the points that I'm teaching? Okay.",
+      "avg_logprob": -0.13890625521540642,
+      "no_speech_prob": 0.1976318359375
+    },
+    {
+      "start": 6482.38,
+      "end": 6511.45,
+      "text": " so okay so tell me here okay so this is also very simple so this will be x y z okay is anything will change here will anything change here okay here okay s s 3 at s 3 anything will change no nothing will change okay nothing will change at s 4 at s 2 nothing will change okay so you can notice this is the point okay so this is the second iteration in the third iteration also nothing will change let me tell you in the third iteration you can you can try the third iteration nothing will change in the third iteration",
+      "avg_logprob": -0.0665522752521194,
+      "no_speech_prob": 0.420166015625
+    },
+    {
+      "start": 6511.79,
+      "end": 6547.06,
+      "text": " nothing will change correct so the third iteration is also same if you do the third iteration then also answer is same so finally i can say that third iteration and second iteration result are same yes or no yes or no second iteration result is same as third iteration result so stop so this is your answer so final answer is yes or no if you do this can you see there is no scope of mistake you will not do any mistake okay yes or no",
+      "avg_logprob": -0.06535287720433781,
+      "no_speech_prob": 0.59619140625
+    },
+    {
+      "start": 6547.4,
+      "end": 6577.98,
+      "text": " we are not doing any mistake there is no mistake because what is the successor of S4 look at the successor of S4 the successor of S4 is S2, S5 just apply the formula nothing else okay so this is the algorithm that we have done basically this algorithm means basically do iterative okay backward analysis do iterative backward backward go backward okay remember go backward analysis go backward backward analysis multiple iterations multiple",
+      "avg_logprob": -0.1443900623953486,
+      "no_speech_prob": 0.84375
+    },
+    {
+      "start": 6578.48,
+      "end": 6611.62,
+      "text": " it raises as long as now okay until nothing changes until nothing changes this is your algorithm yes or no isn't it simple this algorithm okay so this is we have already done so this is the point okay this is your gate exam question let's solve it okay and let me tell you one more thing so far most of the students they know the answer of this question but they don't they have not done it",
+      "avg_logprob": -0.10499237986599527,
+      "no_speech_prob": 0.65673828125
+    },
+    {
+      "start": 6612.13,
+      "end": 6640.65,
+      "text": " the way it should be happened. Okay, now we are going to do it. Okay, now we are going to solve it and very, very, very easy. Okay, just look at this gate 2015 question. Okay, this has a loop. Does it have a loop? This control flow graph, does it have a loop? Yes, there is a loop here. There is a loop here. Because of this loop, we might, we may need multiple addresses. There is a loop here. If there is no loop, then what will be the answer? Okay, see, if there is no loop, then this question is very easy.",
+      "avg_logprob": -0.10996240467057192,
+      "no_speech_prob": 0.65771484375
+    },
+    {
+      "start": 6640.86,
+      "end": 6672.58,
+      "text": " okay let's solve this question without loop okay let's solve okay let's change this question let me change this question let me just remove this loop okay this this possibility of loop let me remove and let's solve this question now if there is no loop okay if this loop is not given if this loop is not given now let's solve this question okay let's remove all these things okay let's remove all these things um yes okay tell me so this is the definition this is nothing but the definition that we have seen",
+      "avg_logprob": -0.056114783009084374,
+      "no_speech_prob": 0.31201171875
+    },
+    {
+      "start": 6672.96,
+      "end": 6703.76,
+      "text": " This is the definition that we have already seen. This is just a definition. Okay. Can anyone solve it? Okay. Tell me. Now go backwards. How many iterations we need? Tell me how many iterations we need? There is no loop. Okay. Because there is no loop. So you can see there is no loop because there is no loop. One backward iteration is enough. One backward pass is enough. One backward pass enough. One backward pass enough. Okay. So tell me what is live here?",
+      "avg_logprob": -0.13612913354387823,
+      "no_speech_prob": 0.53515625
+    },
+    {
+      "start": 6704.58,
+      "end": 6736.6,
+      "text": " What is live at 4? What is live at 4? That is V, R. What is live at 3? What is live at 3? Tell me, tell me, tell me. S, U, V, R. S, U, V, R. Correct? S, U, V, R. Correct or no? What is live 2? Live of 2. Tell me live of 2. Live of 2. Okay. So you can notice that is VR minus V.",
+      "avg_logprob": -0.19863861622196613,
+      "no_speech_prob": 0.751953125
+    },
+    {
+      "start": 6737.1,
+      "end": 6764.93,
+      "text": " so basically vr-v and ru, ru, yes or no? ru, correct? yes or no? live of two, is this correct? live of two, live of two is ru, because with this v will be removed, this v will be removed, okay? ru, okay, now tell me, okay, okay, this statement, okay, so this statement, what is the live of this statement? just tell me the live of this statement, live of",
+      "avg_logprob": -0.2408980568057125,
+      "no_speech_prob": 0.3583984375
+    },
+    {
+      "start": 6765.57,
+      "end": 6795.49,
+      "text": " means live at this statement that will be what okay let me let me call this okay let me give names let me give names here let me call this s1 let me call this s2 let me call this s3 okay let's handle s1 here okay so let's handle s3 here so tell me what is live of s3 the what is the formula what is live of s3 what is the formula the formula is out live out live is what",
+      "avg_logprob": -0.11466734223468329,
+      "no_speech_prob": 0.69384765625
+    },
+    {
+      "start": 6796.08,
+      "end": 6824.55,
+      "text": " Okay, see out live, the formula is this out live of S3 minus def of S3, okay, out live of S3 minus def of S3 union use of S3, union use of S3. What is out live of S3? Okay, what is out live of S3? This is a union of successor. This is a union of, this is actually, okay, what is this?",
+      "avg_logprob": -0.19540230364635072,
+      "no_speech_prob": 0.2047119140625
+    },
+    {
+      "start": 6825.49,
+      "end": 6856.35,
+      "text": " Outlive of S3, can anyone tell me that is in of 2, in of 3. That means in of 2 union in of 3. Minus def of S3, correct? Agented correct? And union use of S3. Actually, you don't have to write these formulas in the gate exam. Can you notice in the gate exam, you can very easily do, okay? How can you do very easily? See, SURV, okay?",
+      "avg_logprob": -0.2699742366358177,
+      "no_speech_prob": 0.64208984375
+    },
+    {
+      "start": 6856.63,
+      "end": 6885.94,
+      "text": " So this is s u rb s u rb minus u okay so s u rb minus u so this will be okay so final answer will be what so the final answer will be what s u rb minus u s u rb minus u so this will be the answer correct yes or no s rb many students have given correct answer s rb what is live of s2 tell me what is live of s2 live of s2",
+      "avg_logprob": -0.12364130434782608,
+      "no_speech_prob": 0.2467041015625
+    },
+    {
+      "start": 6886.32,
+      "end": 6920.88,
+      "text": " what is that SRV is already there SRV minus s pq so rv pq pq rv pq rv pq rv okay so that will be pq rv and what is live of s1 what is live of s1 live of s1 so remove p okay so q rv so that will be q rv okay so everyone has given correct answer so far so can you notice this is very easy so if there is no loop",
+      "avg_logprob": -0.11393229205471773,
+      "no_speech_prob": 0.58740234375
+    },
+    {
+      "start": 6921.13,
+      "end": 6952.65,
+      "text": " one backward pass is enough isn't it simple this question if this comes in the gate exam without loop then this is very simple right now you will see that this question is also very simple okay this multiple pass we have okay basically we need multiple pass nothing else okay this question is very simple but we need multiple pass okay so let's make multiple pass here okay because of okay let's make multiple pass here we need multiple pass basically okay because you have loop okay since you have a loop",
+      "avg_logprob": -0.06052673969072165,
+      "no_speech_prob": 0.38232421875
+    },
+    {
+      "start": 6952.88,
+      "end": 6980.69,
+      "text": " so multiple paths are needed okay so let's start okay so again let's start from the bottom okay from the bottom what is the okay so tell me what is again this is s1, s2, s3 you already know this is s1, s2, s3 okay so let's call this statement s1 let's call this statement s2 let's call this statement s3 okay so tell me okay backward pass okay first hit listen initially everything is fine yes or no initially",
+      "avg_logprob": -0.10929608721323687,
+      "no_speech_prob": 0.71728515625
+    },
+    {
+      "start": 6981.35,
+      "end": 7012.04,
+      "text": " you can notice okay initially at every node at every statement you have at every statement okay live is equal to five okay now tell me now fetch iteration what will happen in the fetch iteration go backwards go backwards so tell me what is live or for to quickly tell me what is live or for live or for okay means what is live here so what is live here live offer for",
+      "avg_logprob": -0.2076041646798452,
+      "no_speech_prob": 0.76611328125
+    },
+    {
+      "start": 7012.36,
+      "end": 7041.46,
+      "text": " so here live of four is v comma r this is the live of four okay vr okay now you already know vr now tell me what is the live of two what is live of two what is live of two you already know vr is live of four then what is v of two live of two so that will be we will be removed so this will be r u are you are you yes or no and what will be live of okay",
+      "avg_logprob": -0.1394230815080496,
+      "no_speech_prob": 0.3359375
+    },
+    {
+      "start": 7041.71,
+      "end": 7073.02,
+      "text": " so what will be live of three what will be live of three what will be live of three what will be live of three that will be what okay so that will be vr vrsu correct okay very good okay now tell me what is live of s1 what is live of s1 live of",
+      "avg_logprob": -0.15057963901950466,
+      "no_speech_prob": 0.089111328125
+    },
+    {
+      "start": 7074.23,
+      "end": 7101.39,
+      "text": " or you can say live of s3 actually okay just calculate live of s3 live of s3 because go backwards go backwards so live of s3 what is that okay so what is the live of s3 so you can notice that okay this is s u r v minus u so that will be s u r v minus u so that will be s r v this will be sr what is h2 what is live of h2",
+      "avg_logprob": -0.13456811395923743,
+      "no_speech_prob": 0.60595703125
+    },
+    {
+      "start": 7101.96,
+      "end": 7132.96,
+      "text": " Live of S2 that will be PQRB and what is live of S1? Live of S1 what is that? Live of S1 what is that? That is P will be removed basically P will be removed so QRB okay QRB correct okay so this is the first iteration now let's make second iteration now what will happen in the second iteration just tell me this one okay can anyone tell me where the changes will happen in the second iteration?",
+      "avg_logprob": -0.20022552037976452,
+      "no_speech_prob": 0.57861328125
+    },
+    {
+      "start": 7133.22,
+      "end": 7162.9,
+      "text": " okay which is the part where you should look at in the second iteration where you should look at where you should look at in the second iteration where you should look at you should look at this this four because four is a multiple successor you should look at four why you should look at four because four has multiple successor actually you should look at everything okay but four is important because four is a multiple successor what are the successor of four",
+      "avg_logprob": -0.08416605810093325,
+      "no_speech_prob": 0.58837890625
+    },
+    {
+      "start": 7164.07,
+      "end": 7197.88,
+      "text": " What are the successor of four? Successor of four is s1 comma. Successor of four is s1. Sorry, sorry, four has, okay, sorry, sorry, sorry. So four has only one successor. Four only has one successor, which has more than one successor. Is there anything which has more than one successor? Do we have more than one successor anywhere? One, yes, one has more than one successor, yes. Okay, so one has more than, yes, so successor offer.",
+      "avg_logprob": -0.18661557152023855,
+      "no_speech_prob": 0.630859375
+    },
+    {
+      "start": 7198.28,
+      "end": 7226.94,
+      "text": " one that will be 2,3. Okay. Anyway, okay, so let's let's do one more address. Tell me what will be for tell me is will there be any changes here? Okay, in the second address, just tell me if will there be any changes here? Answer is very simple. Out means, okay, what is s1? You know what is okay. So q rv, q rv minus q. Okay, so basically rv, there will be no changes. Yes or no?",
+      "avg_logprob": -0.30034721697922107,
+      "no_speech_prob": 0.406494140625
+    },
+    {
+      "start": 7229.01,
+      "end": 7257.15,
+      "text": " There will be no changes. Yes or no? Oh, Mr. Oh, see, Mr. Oh, Mr. Oh, Mr. Oh, see, this is like this. So successor O4 is actually S1. Successor O4 is actually S1, S1. Is this clear? So there will be no changes here. Okay. So here there will be no changes. Okay. Is there any changes in three? Will there be any changes in three? Okay. So you can notice in three, will there be any changes? Okay. So do you have RV?",
+      "avg_logprob": -0.16361053817528337,
+      "no_speech_prob": 0.67724609375
+    },
+    {
+      "start": 7257.75,
+      "end": 7287.38,
+      "text": " okay so there will be again no changes is there any changes in two is there any changes into no there is no change is there any changes anywhere okay looks like do we have any changes anywhere okay let's see make okay will there be any changes anywhere right it looks like there will be no changes it looks like there will be no changes from one to four okay so let's let us check it out",
+      "avg_logprob": -0.12374614491874789,
+      "no_speech_prob": 0.29150390625
+    },
+    {
+      "start": 7287.6,
+      "end": 7317.92,
+      "text": " Okay, so let's check it out. S3. What can you say about S3? S3 again will be VRSU, VRSU minus U. So that is also no changes. There is no changes actually. Yes or no? In the second iteration also there is no changes. So the first iteration is same as second iteration. You can just check it out. The first iteration is same as second iteration. Okay, because you have VR and here S1 has QRV.",
+      "avg_logprob": -0.15965346062537467,
+      "no_speech_prob": 0.48974609375
+    },
+    {
+      "start": 7318.34,
+      "end": 7348.04,
+      "text": " so okay so you are removing q okay and rv okay so there is no change here because there is no change here so there is no change here there is no change here and so there is no change so there is no change anywhere actually let me tell you if there was any change at four then there would have been changes because there is no change at four so that is the reason there is no changes so second iteration is same as fourth iteration so it's a first iteration second iteration and first iteration both are same so what I can say tell me",
+      "avg_logprob": -0.10057713601503286,
+      "no_speech_prob": 0.6669921875
+    },
+    {
+      "start": 7348.26,
+      "end": 7383.29,
+      "text": " What I can say? So you can notice the first iteration, second iteration result are same result, same as second iteration result. So now the answer you can give. So what the question is saying? The question is saying the variables which are live at basic block 3 and in this statement, in this statement, in this statement, 2 comma 3, what are the basically what is the intersection of 2 comma 3? So finally, what is the answer?",
+      "avg_logprob": -0.2500000141000235,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 7384.3,
+      "end": 7411.9,
+      "text": " Live at 2 comma 3. Live at 2 and 3. Live at 2 and 3. What are the variables which are live at 2 and 3 that are R comma U. R comma U. So these are the variables which are live at R comma U. So answer will be option C. Is this clear? You can notice here there is only one iteration is needed. Only one iteration is needed. Only one iteration is needed.",
+      "avg_logprob": -0.14968039975924927,
+      "no_speech_prob": 0.515625
+    },
+    {
+      "start": 7412.6,
+      "end": 7441.47,
+      "text": " Tell me one more thing. Very interesting thing I want to ask you. Okay. If you don't do second iteration. Okay. For this question, there is backward as from one to four. From one to four, there is no, from four to one, there is age. From four to one, there is age. We have taken it, we have taken it in the consideration. You can just check it. So we took union between S2 and S3.",
+      "avg_logprob": -0.1924426070585543,
+      "no_speech_prob": 0.347900390625
+    },
+    {
+      "start": 7443.01,
+      "end": 7482.32,
+      "text": " No, we did not take union. We applied the formula. We applied the formula. We removed S. From this, we removed this S and then we took union with P comma Q. For the answer, we took intersection because the question is saying, what are the state live at both here, here and here? What are the variables which are live here and here? So the answer will be R comma U. We took intersection R comma U. Anyone has any doubt?",
+      "avg_logprob": -0.16031568588650957,
+      "no_speech_prob": 0.572265625
+    },
+    {
+      "start": 7482.89,
+      "end": 7511.9,
+      "text": " Is this question clear? This gate exam question, is this clear? The complete analysis we have done, we have solved this question in the correct manner. Many students, they solve it wrongly actually. Okay, they solve it, but they solve it wrongly. Okay, tell me one interesting thing. If you have this question and these are the options, can I stop without doing second iteration? Like, okay, don't do second iteration. Can I stop without doing second iteration? Can I stop?",
+      "avg_logprob": -0.15685096311454588,
+      "no_speech_prob": 0.63818359375
+    },
+    {
+      "start": 7512.34,
+      "end": 7542.76,
+      "text": " without doing second iteration. Actually, actually, I can't, but, but, but, but after the first iteration, I can remove option A, option D. After the first iteration, I can remove option A, option D. Why? Tell me why? Because this is a very important note. This will help you. This is a big note. Once you, okay, in any iteration, once you find out that something is live at some point,",
+      "avg_logprob": -0.15789473276389274,
+      "no_speech_prob": 0.315185546875
+    },
+    {
+      "start": 7543.19,
+      "end": 7580.9,
+      "text": " In the next iteration, will it go away? Tell me, will it go away? No, it will never go away. So this is the very interesting point that, okay, it stays, okay. As soon as, as soon as you find out that variable X is live at a statement as then in future iterations in",
+      "avg_logprob": -0.2222481352179798,
+      "no_speech_prob": 0.720703125
+    },
+    {
+      "start": 7582.15,
+      "end": 7615.32,
+      "text": " future iterations, in future iterations, X will remain live. X will remain live at S. Is this point clear? So for example, after the first iteration, you know that here RU is live. Here RUSB is live. It means this RU will always remain live here. These four will always remain live here. So they will remain live here.",
+      "avg_logprob": -0.17290295738922923,
+      "no_speech_prob": 0.67578125
+    },
+    {
+      "start": 7615.73,
+      "end": 7650.13,
+      "text": " they will remain live here so definitely after the first iteration you can easily say that definitely are you will be live here and here but maybe something more so whenever you do iteration what okay the live variables are added they are not removed yes or no so basically in every iteration in every iteration live variables at a statement at a statement",
+      "avg_logprob": -0.12157451923076923,
+      "no_speech_prob": 0.666015625
+    },
+    {
+      "start": 7651.92,
+      "end": 7690.99,
+      "text": " Okay, in every iteration, live variables at a straight line may increase, may added, never removed. Okay. May, may, may be added, may be added, but never removed or stay same. Okay. Or stay as it is, may be added. Okay. So this is the point. Okay. I hope all these concepts are. This is a gate 2021 question. This is a, okay. Just tell me the answer. Can anyone tell me the answer?",
+      "avg_logprob": -0.2727997473308018,
+      "no_speech_prob": 0.78857421875
+    },
+    {
+      "start": 7692.09,
+      "end": 7721.85,
+      "text": " This is a gate 2021 question. The question is saying that you have basic block in which you have S1 followed by S1. You have a basic block in which you have S1 followed by S1. The question is asking, what is out of S1? The question is asking, what is out of S1? Can anyone tell you what is the answer? Okay, option A. Yes or no? Isn't it simple? Option A, out of S1 will be, out of S1 will be, okay, will be in off S2. So the answer will be option.",
+      "avg_logprob": -0.1358366970333361,
+      "no_speech_prob": 0.7802734375
+    },
+    {
+      "start": 7722.15,
+      "end": 7758.39,
+      "text": " a answer will be option a because because here see how many successor of s1 because this is the basic block see okay if if they ask you okay remember this this point you already know that out of out live of s that is nothing but union of union of in live of successors of s i i don't know maybe i don't know one more tomorrow i don't but",
+      "avg_logprob": -0.17826704932497695,
+      "no_speech_prob": 0.736328125
+    },
+    {
+      "start": 7758.67,
+      "end": 7788.89,
+      "text": " this is the gate 2021 question so we have done gate 2021 question we have done gate 2015 question okay this gate 2015 question also we have done okay so this question also we have done both these gate exam questions you can just check it out okay can we do some variations okay let's do some variations okay let me make some variation here in this question let me make some variation let me give you some more options okay some more options let me give you so let us assume can i okay if you have this option",
+      "avg_logprob": -0.06977634891575459,
+      "no_speech_prob": 0.77294921875
+    },
+    {
+      "start": 7789.18,
+      "end": 7823.51,
+      "text": " would it be correct if i write like this out of s1 is equal to in of s2 union use of s2 is this correct in of s2 union use of s2 is this correct yes this is also correct why this is also correct why this is also correct because in of s2 already includes use of s2 yes or no in of s2 in of s2",
+      "avg_logprob": -0.08698918116398346,
+      "no_speech_prob": 0.213623046875
+    },
+    {
+      "start": 7823.88,
+      "end": 7857.29,
+      "text": " is a superset of use of as to isn't it okay so these these are some some observations okay some observations can you make some observations let me make some observation first observation okay the first observation can you see that in of s this will always be superset of use of s in of s will always be superset of use of s correct or not yes or no yes",
+      "avg_logprob": -0.12983141565009168,
+      "no_speech_prob": 0.72998046875
+    },
+    {
+      "start": 7858.49,
+      "end": 7893.08,
+      "text": " correct that's it so this is first observation second observation you can notice okay i think like like this you can make some observations okay and this is not observation but this okay in off s is same as live off s live at x okay this you already know so these are some these are not observations but actually uh these are the final final conclusion i can say okay final conclusion third uh in off s that is equal to what",
+      "avg_logprob": -0.13079043556662168,
+      "no_speech_prob": 0.3623046875
+    },
+    {
+      "start": 7893.33,
+      "end": 7923.28,
+      "text": " that is out of s minus def of s union use of s okay so these are some formulas fourth formula out of s is equal to union of in of successor of s okay and you can combine all these formulas so finally can you combine these two then finally I can say live of s is equal to",
+      "avg_logprob": -0.11872438378021365,
+      "no_speech_prob": 0.09466552734375
+    },
+    {
+      "start": 7924.11,
+      "end": 7955.6,
+      "text": " Okay, union of in of successor of s successor of s minus def of s union use of s. So these are the some formulas. Okay, these are some observations. Okay, so this is the, this is our topic. Okay. So, okay, so the time is 32 33.",
+      "avg_logprob": -0.3114754059275643,
+      "no_speech_prob": 0.236083984375
+    },
+    {
+      "start": 7956.19,
+      "end": 7984.86,
+      "text": " how out of S1 is equal to out of S1 is equal to because this is super shed. See this, this is correct. Ananya, is this clear? This one, this is clear. In of S is always super shed of use of S. This is clear, right? Yes or no? If this is clear, then you can just take it out. This is clear. If this is clear, then you can just see that this is a super shed of this.",
+      "avg_logprob": -0.20637376473681762,
+      "no_speech_prob": 0.4560546875
+    },
+    {
+      "start": 7985.26,
+      "end": 8022,
+      "text": " Both this is actually in our fashion. This is actually in our fashion. Okay. So this is your live variable analysis. Okay. So we have done everything. And I promise you no question can be asked. Like they will not ask you any question outside our slides. Okay. These slides, these notes I have taken from Pullman book from Stanford University and from some other universities. Okay. So like this is the, like I have taken everything. Okay. In these slides.",
+      "avg_logprob": -0.21590909121012447,
+      "no_speech_prob": 0.50634765625
+    },
+    {
+      "start": 8022.44,
+      "end": 8048.86,
+      "text": " Okay. So both the great exam question we have done. Okay. We have seen how to find out live variables at any point at any statement. Okay. So whether you have context free grammar with loop, okay. Context free grammar with loop without loop, anything. Okay. So if anyone has any doubt in the library analysis, what we have seen so far, if anyone has any doubt in this, you can ask. Okay. So I will take one more class. Okay.",
+      "avg_logprob": -0.14226562947034835,
+      "no_speech_prob": 0.06988525390625
+    },
+    {
+      "start": 8049.84,
+      "end": 8078.96,
+      "text": " actually it is not needed you can read these these slides you can read actually okay no more class is needed but maybe i can take one class to move okay so one more class i will take tomorrow okay and in that class i will discuss the some more gate exam question i will discuss okay a very short class one hour class we will take okay only one or two hour class tomorrow i will take okay in this class we will take some more gate questions some more practice questions we will take in this in this class okay some like",
+      "avg_logprob": -0.09077380895614624,
+      "no_speech_prob": 0.71142578125
+    },
+    {
+      "start": 8079.72,
+      "end": 8122.54,
+      "text": " standard book questions also I will take. Okay, in this class. Okay, so if anyone has any doubt right now, you can ask and the class is over. So I will only take the doubts. Okay, thank you. What is your name? Okay, your username is O. Okay, anyone has any doubt you can ask? Yes, Astitva kindly raise your hand and kindly ask your doubt. Kindly raise your hand. Hello. Yes, Astitva.",
+      "avg_logprob": -0.21448863365433432,
+      "no_speech_prob": 0.4140625
+    },
+    {
+      "start": 8125.01,
+      "end": 8153.76,
+      "text": " So hello sir. Yes, hello. So actually I want to ask like, so I'm facing issues in, uh, undesirability and decidability too is like, these sometimes questions came. So I got confused in that, like, there is no such permanent statements, which I can decide life. So just for example, like, uh, I'm, uh, giving some theories and some questions. So one question came that, uh, there is a language, uh, for the tuning machine, which is regular. So I.",
+      "avg_logprob": -0.25900899826943335,
+      "no_speech_prob": 0.18017578125
+    },
+    {
+      "start": 8154.25,
+      "end": 8181.19,
+      "text": " thought that we can decide whether our language is regular or not. So I think that it is decidable, but it was undecidable after that. Like there is any such rule by which we can decide. So, okay, see, having any such rule that itself is undecidable. Okay, it's a first of all. Okay, and let me tell you actually, okay, I will take one class of decidability undecidability, a long class like today we have this six hour class like, right? Yes or no?",
+      "avg_logprob": -0.173949108714551,
+      "no_speech_prob": 0.1412353515625
+    },
+    {
+      "start": 8181.42,
+      "end": 8207.76,
+      "text": " In this six hour class, I have taken many doubts. Any doubt that students are asking, I took it. So this is the point. Let me tell you that I will take one question, sorry, one class I will take on this decidability and decidability. But in that class, I will cover every variation. I promise you that every single variation I will cover, like many questions, almost 100 questions I will take, all the gate exam questions and everything. So there will be a five or six hour class.",
+      "avg_logprob": -0.16854745825683629,
+      "no_speech_prob": 0.391845703125
+    },
+    {
+      "start": 8208.01,
+      "end": 8236.51,
+      "text": " you can join that class first of all okay but in that class actually because okay now great exam is coming okay and in that class I will not prove anything that's the point okay I will not prove anything but okay I will I will answer I will solve many questions many all the variances everything I will solve okay in that class if you want to prove okay if you want to study decidability and decidability okay for example if you have four days you can take the TOC course okay in the go classes TOC course you can take",
+      "avg_logprob": -0.10880160386409235,
+      "no_speech_prob": 0.335205078125
+    },
+    {
+      "start": 8237.16,
+      "end": 8267.46,
+      "text": " In Go classes, TOC course you can take. In this TOC course, you can ask all the Go classes, strengths, you can ask them. In this TOC course, actually, I have taught decidability for almost eight classes, with proof. This decidability chapter, with proof, I have taught, the proof of halting problem, reduction, everything. So with proof, see this I have taught, and I think there are seven or eight lectures.",
+      "avg_logprob": -0.24242911879549323,
+      "no_speech_prob": 0.6455078125
+    },
+    {
+      "start": 8268.48,
+      "end": 8296.98,
+      "text": " and each lecture has two or three hours. So basically, if you want to understand this, if you really, really, really want to understand this, okay, you want to understand, you want to solve the questions, okay, you want to master this, then you, okay, what you can do, you can take this TLC course and you can study the decidability, okay. So almost seven or eight lectures you will see there. There are the proof of halting problem, the proof of reductions, some reductions, okay, some three or four reductions are there, many variations are there, rise theorem, rise theorem, one rise theorem, two.",
+      "avg_logprob": -0.16498162137234912,
+      "no_speech_prob": 0.46337890625
+    },
+    {
+      "start": 8297.21,
+      "end": 8326.31,
+      "text": " okay so all the variations that are possible I have taken there okay so if you want to understand if you really want to understand but if you only want to solve the questions if you only want to solve the great questions okay many students actually they don't want to understand concepts they just want to solve questions okay if you want to solve questions then I will take one five or six hour session okay so there will be a five or six hour session on this topic okay in this session I will not cover any proof I will just cover how to",
+      "avg_logprob": -0.0713975722729056,
+      "no_speech_prob": 0.272705078125
+    },
+    {
+      "start": 8326.6,
+      "end": 8354.86,
+      "text": " like basically without proof I will cover everything okay in this session okay without proof I will I am going to cover everything okay so you can you can for understanding you can join the TOC course of go classes okay and for solving the gate exam question you can join this session okay so just tell me so one more like so it's it's a very like simple doubt like I have like",
+      "avg_logprob": -0.1662660225843772,
+      "no_speech_prob": 0.10821533203125
+    },
+    {
+      "start": 8355.14,
+      "end": 8375.12,
+      "text": " In computer networks, there are questions when the size will reach 16kb. So we are counting like 2, 4, 8, then it goes to 14. Then it goes to 12, then it goes to 14. So we just stopped before 16. Before 16, we just stopped a step before.",
+      "avg_logprob": -0.21788193829475888,
+      "no_speech_prob": 0.1397705078125
+    },
+    {
+      "start": 8376.61,
+      "end": 8394.35,
+      "text": " If you have doubts in CN, then you should ask Sachin. So you can send a message to Sachin and he will answer it. Because our Go classes CN faculty is Sachin, so he knows computer network very nicely. He will answer your doubt. So one last answer, it's a very...",
+      "avg_logprob": -0.27636718936264515,
+      "no_speech_prob": 0.20068359375
+    },
+    {
+      "start": 8397.4,
+      "end": 8426.86,
+      "text": " Foolish doubt, sir. Like while drawing automata, sir, like any type of automata came like, uh, once I was doing a question, a more 10 automata came for the binary numbers. So I was drawing, I used that, uh, some simple mathematical, but, uh, I got always like either less or one more or one less states. Like it was never like equivalent, sir. Any like short trick, any trick for that? Actually, uh, this automata, this DFA design also see many students, they would do.",
+      "avg_logprob": -0.214342941585769,
+      "no_speech_prob": 0.349365234375
+    },
+    {
+      "start": 8427.1,
+      "end": 8455.52,
+      "text": " they first create NFA then they create DFA then they minimize okay so then they minimize okay but this is very inefficient method okay this is very very very inefficient okay so this is the fullest method actually okay what you should do you should practice directly you can create minimal DFA in 99% of the cases okay like like sometimes very long cases came no in the gate exam they will not give you those dumb questions okay those those big big 10 10 states okay",
+      "avg_logprob": -0.1751018963430239,
+      "no_speech_prob": 0.59423828125
+    },
+    {
+      "start": 8455.8,
+      "end": 8474.58,
+      "text": " These type of dumb questions will not come in the gate exam. In the gate exam, you are confusing the gate exam questions with the test series questions. You might have seen many questions in the test series. But in the gate exam, they will not give you big B DFA. If you have to create a state DFA, if you have to create a state DFA, then it means it will not come in the gate exam.",
+      "avg_logprob": -0.15169986165486848,
+      "no_speech_prob": 0.1153564453125
+    },
+    {
+      "start": 8478.17,
+      "end": 8503.01,
+      "text": " either if you have to create the DFA, then it will have very less states, say four, five states, six states, okay. Or if the answer is like 20 state, 30 state, then definitely there is a trick, maybe Mahill Nehrod theorem, okay. You can watch on the Go classes YouTube channel, you can watch the Mahill Nehrod lecture, okay. This Mahill Nehrod lecture you want, okay. In this lecture, I have solved some questions.",
+      "avg_logprob": -0.2399338916517221,
+      "no_speech_prob": 0.131103515625
+    },
+    {
+      "start": 8503.6,
+      "end": 8532.12,
+      "text": " We are like without creating the DFA, you can find out the number of state in the DFA with proof. Okay. So this is the correct method. So this mile network lecture, you, you, you can find out on the YouTube. This is already uploaded. Okay. So this was this lecture and your doubt will be free. If any doubt. Okay. Afterwards, also, if there is any doubt, you can ask in the TOC class right now. I am teaching compiler design. Okay. So when we do the revision of TOC at that time, you can ask.",
+      "avg_logprob": -0.22103658051994757,
+      "no_speech_prob": 0.48095703125
+    },
+    {
+      "start": 8532.54,
+      "end": 8558.32,
+      "text": " okay so please right now please stick to you know compiler design okay you can join the go classes telegram group and in that group I will mention I will announce when the TOC revision class doubt classes will be will be available okay so at that time you can ask your TOC doubts. So sorry sir like in like in the algorithm sir like you have once told it I don't know the algorithm name like",
+      "avg_logprob": -0.15173193022429224,
+      "no_speech_prob": 0.10888671875
+    },
+    {
+      "start": 8558.49,
+      "end": 8588.03,
+      "text": " in which algorithm, preschools and primes like we don't check for the cycle. Yes, in the primes algorithm, cycle can never occur. Basically, this primes algorithm, if you see this primes algorithm, okay, in this primes algorithm, the idea of primes algorithm is like this, that in this algorithm, cycle can never occur. So you don't need any cycle checking algorithm. So basically, in this primes algorithm, inside this primes algorithm, you never have to never, never, never have to check for a cycle, because cycle can never occur.",
+      "avg_logprob": -0.2150358571136584,
+      "no_speech_prob": 0.822265625
+    },
+    {
+      "start": 8588.26,
+      "end": 8617.01,
+      "text": " okay in cross call cycle can occur so that is the reason you have to check for cycles okay in cross call okay in this cross call algorithm cycle can occur cycle may occur cycle may occur so you have to you need some cycle checking algorithm so basically need cycle checking algorithm okay correct cycle checking algorithm okay but in imprims algorithm cycle can never occur cycle can never never occur",
+      "avg_logprob": -0.14864582697550455,
+      "no_speech_prob": 0.728515625
+    },
+    {
+      "start": 8617.71,
+      "end": 8643.31,
+      "text": " So there is no need of cycle checking algorithm. And why is that? Okay, so no need of cycle checking algorithm. See, this is one misconception among many students. They think that, okay, cycle checking algorithm is needed, but no. In Prims algorithm, we don't need any cycle checking algorithm. Why? In Prims algorithm, why cycle can never work? Can anyone tell me?",
+      "avg_logprob": -0.1995481938482767,
+      "no_speech_prob": 0.109130859375
+    },
+    {
+      "start": 8643.55,
+      "end": 8671.59,
+      "text": " because we are adding one vertex okay just think about it okay see you have a vertex just think about you have a vertex okay you are starting from this vertex V1 okay now you have many vertex here okay you have many vertices here so now what you are doing you are adding one vertex to this okay now in the next step what you are doing you are adding new vertex to this just think about it if you have a graph if you have a if you have a graph let's assume you have a graph you have a graph in this tree",
+      "avg_logprob": -0.09504013679443149,
+      "no_speech_prob": 0.2462158203125
+    },
+    {
+      "start": 8671.97,
+      "end": 8700.78,
+      "text": " If you add one vertex, if you add a new vertex to this tree, then can cycle come? Can cycle come? If you add a new vertex to this tree, you have a tree, in this tree, you have a tree, in this tree, if you add new vertex, if you add new vertex, cycle can never come. So in Priv's algorithm, every time we are adding one vertex, okay, every time, every, in every lesson, this is what we are doing. This is the idea of, this is the idea or I can say proof of Priv's algorithm. This is the idea, idea is this.",
+      "avg_logprob": -0.15240204767949544,
+      "no_speech_prob": 0.60400390625
+    },
+    {
+      "start": 8701.31,
+      "end": 8729.49,
+      "text": " Initially you start with the vertex. Okay. So this is your initial sheet from here you are starting. Okay. And these, these are the remaining vertices like B, C, okay. D, these are the remaining vertices. Now what will happen? Now you will find the, the, I can say, okay, the closest vertex. Okay. Then you will add it. Now in the next, this is the, okay, this is the step one. Now what is the step two? Okay. In the step two, this will happen in the step two. Let us assume you are adding A and you have added B.",
+      "avg_logprob": -0.22103364834418662,
+      "no_speech_prob": 0.320068359375
+    },
+    {
+      "start": 8729.69,
+      "end": 8756.87,
+      "text": " Now you will notice that here you have C, here you have D, here you have. So every time you are adding one vertex, this is your step 2. This is your step 2. And in the next step, what we will do, you will add new vertex. So every time you are adding new vertex to a tree, okay. So in a tree, if you add a new vertex every time, then a cycle can never come. Yes or no? Yes, sir. So that is the point. In crystal, why cycle can come? In crystal, cycle can come. Why?",
+      "avg_logprob": -0.14755545063845574,
+      "no_speech_prob": 0.123779296875
+    },
+    {
+      "start": 8757.24,
+      "end": 8785.96,
+      "text": " because in cross call what is happening you are adding as just think about it and tell me okay the in frames algorithm this is what you are in frames you are adding one vertex to a tree okay in frames basically adding new vertex new vertex new vertex to a tree to a tree in cross call what we do in cross call what we do in cross call we add new as to that adding new as to a forest",
+      "avg_logprob": -0.1519201756959938,
+      "no_speech_prob": 0.374755859375
+    },
+    {
+      "start": 8786.77,
+      "end": 8817.37,
+      "text": " New age to a forest. So now what will happen? What can happen? For example, here you have this is your tree. Let's assume this is your tree. Okay. In this tree, if you add new vertex, then cycle can never come because the cycle can never come. Okay. So cycle never come. Never possible. Okay. Now here you can notice if you have a like, for example, let us assume this is your forest. Okay. This is your forest. This is your forest. And now you are adding this vertex.",
+      "avg_logprob": -0.16214364061230108,
+      "no_speech_prob": 0.6484375
+    },
+    {
+      "start": 8817.9,
+      "end": 8853.3,
+      "text": " this vertex A you are adding then sorry this age you are adding sorry this age you are adding now if you are adding this age the cycle can come so cycle is possible because you are adding new age to the forest so cycle is possible so cycle possible may occur so you have to remove this cycle basically okay okay sir can we score full marks in compiler design definitely 100% compiler design is very scoring subjective okay and from this code optimization I guarantee",
+      "avg_logprob": -0.14676966292134833,
+      "no_speech_prob": 0.642578125
+    },
+    {
+      "start": 8853.62,
+      "end": 8886.54,
+      "text": " One question will come. Okay. Two or three marks will come from the code optimization because this code optimization was added last year. This is a newly added chapter. Okay. And last year from the code optimization in set to three marks M, three marks from code optimization. This year also I think two or three marks will come for dynamic programming class will be taken by Sachin. Okay. For algorithm data structure, these classes will be taken by Sachin. So yes.",
+      "avg_logprob": -0.16929768532821812,
+      "no_speech_prob": 0.4755859375
+    },
+    {
+      "start": 8888.28,
+      "end": 8913.08,
+      "text": " So one last, this is the last one. So like in cash while solving, I note questions, like it asks answers and sometimes in MB. So you give, like you give the answer in MB. So I used to calculate it with the calculator and it came like 1.0 something. You are asking all the doubts which are not related to that compiler design. Okay. So right now this lecture will go in the compiler design playlist.",
+      "avg_logprob": -0.22115385139381494,
+      "no_speech_prob": 0.1495361328125
+    },
+    {
+      "start": 8913.45,
+      "end": 8939.75,
+      "text": " so okay okay just message me here okay this is my whatsapp number 946 this is my whatsapp number you can just send me a message if anyone anyone has any doubt you can send me a message here okay 946 at 930964 okay so actually this inode we have taught in the operating system in a way there we have taught this inode and this concept we have already taught in the operating system so okay so there you can understand this very easily",
+      "avg_logprob": -0.12623354541627985,
+      "no_speech_prob": 0.08544921875
+    },
+    {
+      "start": 8939.97,
+      "end": 8966.56,
+      "text": " But if you have any doubt, you can say any doubt regarding anything at any point of time regarding the gate exam or any technical doubt, you can send me a basis on this. This is my WhatsApp number. OK, so thank you. If you want to join the future revision classes, the future doubt classes, if you want to join, then you can join the telegram group of go classes. OK, so on the telegram group of go classes, all the future announcements.",
+      "avg_logprob": -0.12445313170552254,
+      "no_speech_prob": 0.0304412841796875
+    },
+    {
+      "start": 8966.89,
+      "end": 9000.45,
+      "text": " all the announcements and all the study material is supported on this telegram group. Okay, offer go up classes. The link you can if you want link then you can send me a message on this number. Okay, the send me a message I will send you the link of the telegram group. Okay, on this group we will do the announcement we will put the study material everything. Okay, anyone has any doubt? Any other technical doubt? Any technical doubt? Mr. Oh, can you send me your doubt on WhatsApp? Okay, because I have to click this.",
+      "avg_logprob": -0.19743113876399349,
+      "no_speech_prob": 0.63037109375
+    },
+    {
+      "start": 9001.12,
+      "end": 9022.04,
+      "text": " and this link I have to click and I have to check it out. So you can send me your doubt on the WhatsApp. Study material, this slide, these slides will be available on the Telegram group today. I will upload these slides there. Thank you everyone. Bye.",
+      "avg_logprob": -0.19612068837058955,
+      "no_speech_prob": 0.24609375
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"049_Lecture_5B_Liveness_Analysis_&_Dead_Code_Elimination.mp4\",\"language\":\"en\",\"probability\":0.958984375,\"processing_seconds\":421.1566915512085,\"device\":\"cuda\"}"
+}

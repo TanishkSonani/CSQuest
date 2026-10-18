@@ -104,7 +104,7 @@ export function lessonJourney(lesson,subject){
  const priority=entry=>Number(entry[1].test(primary))*10+Number(entry[3]?.includes(subject))*2;
  const selected=entries.filter(([term,pattern,,subjects])=>(allowed[subject]?.includes(term)||subjects?.includes(subject))&&pattern.test(text)).sort((a,b)=>priority(b)-priority(a));
  const basics=entries.filter(([term])=>(defaults[subject]||[]).includes(term)),direct=basics.filter(([,pattern])=>pattern.test(primary));
- const terms=[...new Map([...direct,...selected,...(selected.length<2?basics:[])].map(([term,,meaning])=>[term,{term,meaning}])).values()].slice(0,7);
+ const terms=['toc','cd'].includes(subject)?guide.terms.map(text=>{const at=text.indexOf(':');return {term:text.slice(0,at),meaning:text.slice(at+1).trim()};}):[...new Map([...direct,...selected,...(selected.length<2?basics:[])].map(([term,,meaning])=>[term,{term,meaning}])).values()].slice(0,7);
  const steps=(lesson.teachingSteps?.length?lesson.teachingSteps:[guide.idea,guide.example,lesson.concept]).filter(Boolean);
  return {version:1,title:lesson.title,idea:guide.idea,example:guide.example,terms,steps,focus:Math.floor(lesson.id%3),outcome:lesson.questions[lesson.id%lesson.questions.length].explanation};
 }

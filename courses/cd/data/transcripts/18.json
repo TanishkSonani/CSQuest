@@ -1,0 +1,891 @@
+{
+  "id": 18,
+  "title": "018. Lecture 7a. Predictive Parsers.mp4",
+  "file": "018. Lecture 7a. Predictive Parsers.mp4",
+  "seconds": 3716.214422,
+  "segments": [
+    {
+      "start": 2.58,
+      "end": 30.42,
+      "text": " Hi everyone. So now that we know about first and follow and we know about like what is context feed grammar and what is what is parser, what is recursive descent parser with backtracking, like we know these terms. So I think it's a good time to start predictive parsing. So as I already told you that like this slide I have already shown you that there are backtracking algorithms and there are predictive algorithms, right?",
+      "avg_logprob": -0.1596102156946736,
+      "no_speech_prob": 0.2354736328125
+    },
+    {
+      "start": 31.59,
+      "end": 58.77,
+      "text": " and this is what already we have seen that in the backtracking algorithms you will be trying each productions but in the predictive algorithms you will be trying only one production if it fails, parser fails, if it is written true then parser turns true. So based on the current input symbol we will be trying only one production. So that's the major difference. Here I am trying both productions, here I am trying only one production. That's the major difference. And that's the only difference.",
+      "avg_logprob": -0.1928094605219017,
+      "no_speech_prob": 0.3359375
+    },
+    {
+      "start": 60.96,
+      "end": 90.07,
+      "text": " Let's see more details about the predictive parsers and let's see how to build one, okay? Not just theory, let's see how to build one. So predictive parsers, as you know, are the top-down parsers that look at next few tokens and predicts based on those few tokens, right? That which production to use. So in top-down parsing, I always have one question to ask. Do you remember what is that question? In top-down parsing, in top-down parsing, we always have one question to ask. And what is that question? That which protection to use?",
+      "avg_logprob": -0.10388835582114359,
+      "no_speech_prob": 0.4794921875
+    },
+    {
+      "start": 91.13,
+      "end": 113.29,
+      "text": " which production to use which means which means you have couple of options always let's suppose you have something like this e gives e plus t gives t and and you want to ask like you want to generate let's suppose id plus id plus id something like that right and here here t gives id something like that",
+      "avg_logprob": -0.12859122407051823,
+      "no_speech_prob": 0.1552734375
+    },
+    {
+      "start": 113.47,
+      "end": 136.69,
+      "text": " and you want to ask you want to basically parse this so you will be having two options if you start with like efficiency i start symbol so you have to start with e so you have two options either to use this or to use this now backtrack backtracking parsing will do what it will try each each of the production one by one but predictive parser will choose only one production so that's the question to ask that which production to use",
+      "avg_logprob": -0.12628777341528252,
+      "no_speech_prob": 0.0833740234375
+    },
+    {
+      "start": 137.19,
+      "end": 159.74,
+      "text": " Now based on the next simple symbol, I will be deciding which protection to use. If I am able to decide, my parser can parse it. If I am not able to decide my next one symbol, then my parser can't parse it. So that's like I am only looking at one symbol. So if I look at two symbols, then I will make the decision based on the two symbols. So predictive parsers make the decision.",
+      "avg_logprob": -0.1234038956062768,
+      "no_speech_prob": 0.037750244140625
+    },
+    {
+      "start": 160.47,
+      "end": 189.41,
+      "text": " by looking next few tokens if I am looking at one token or two tokens that depends on me so one token if I am looking only at one token then these parsers are called ll1 parsers ll1 parsers okay so these parsers are efficient there is no need to backtrack and the parsing time is linear because at every time I am moving moving my input pointer further right at every time I am moving my input pointer further so parsing time is linear now predictive parsers except llk grammars so what is llk?",
+      "avg_logprob": -0.1388494299216704,
+      "no_speech_prob": 0.55078125
+    },
+    {
+      "start": 189.72,
+      "end": 202.9,
+      "text": " If I am looking at only one token, it is called LL1. If I am looking at two tokens, it is called LL2. So what does this LL mean? L means that left to right scan. This L means left to right. This L means left most derivation.",
+      "avg_logprob": -0.16096230206035433,
+      "no_speech_prob": 0.1015625
+    },
+    {
+      "start": 203.37,
+      "end": 228.83,
+      "text": " So left to right, like most of the parsers does left to right only. So that's why you will be seeing either L R or L L, like L R or bottom of parsers. So we will be we will be seeing it later. But yeah, most of the parsers go left to right in the input. So if some input is given to you, then you will be going left to right. First, you will be encountering is then counter this, then counter this. So you will be going left to right. So that is why this is L L, like this L is for left to right, this L is for left most derivation, right.",
+      "avg_logprob": -0.16079343591176026,
+      "no_speech_prob": 0.175048828125
+    },
+    {
+      "start": 229.13,
+      "end": 254.21,
+      "text": " so if you have let's suppose this tree to grow then you will be you will be basically always doing the leftmost derivation suppose you choose this production then again you will be let's suppose choosing some production which is again e plus t so you what you are doing you are if you are having two options then you are you are basically choosing the leftmost derivation right you're always choosing the leftmost derivation so if you are always choosing the leftmost derivation then these parsers are called llk parsers",
+      "avg_logprob": -0.10384728569748267,
+      "no_speech_prob": 0.0293121337890625
+    },
+    {
+      "start": 254.58,
+      "end": 285.01,
+      "text": " And K means you are deciding which production to choose based on next input, next K input symbols, next K lookaheads, okay? So let's take one example. Suppose, suppose I want to parse BC, okay? I'm taking simple example to make my point clear. Suppose I want to parse BC and I'm starting with a star symbol, then obviously like here, here I have two options, like either to go for AA or to go for BC or to go for BC.",
+      "avg_logprob": -0.1799938696272233,
+      "no_speech_prob": 0.11956787109375
+    },
+    {
+      "start": 285.51,
+      "end": 310.95,
+      "text": " Then then based on this is my input, right? This is my input then based on based on this input symbol B What you will be saying based on this input symbol B what you will be saying that which is better based on this input symbol B So you will say that okay if you go with this option then you will be producing a first if you go with this option Then then you will producing BC. So this is better, right? This is better based on just one input symbol, okay?",
+      "avg_logprob": -0.15019914580910815,
+      "no_speech_prob": 0.2464599609375
+    },
+    {
+      "start": 311.18,
+      "end": 346.45,
+      "text": " So, these parsers are called ll1 parsers, ll1 parsers, why? Because they do the leftmost derivation, ok, they does the leftmost derivation and based on just one symbol, based on just one symbol you are deciding. Now, suppose suppose suppose this is your grammar and you want to you want to check whether this string is accepted or not. So, this is your input, this is your input, ok. So, let us take this example, let us take this is an input, suppose this is your input.",
+      "avg_logprob": -0.12554347204125446,
+      "no_speech_prob": 0.0149078369140625
+    },
+    {
+      "start": 346.7,
+      "end": 374.08,
+      "text": " Now, now, suppose, suppose like you want to parse this input using top-down parsing, which means you will be having two options. Then I will, as, as, as my parser is predictive parser, so I will just go with the one, one of the option. So either I will go with this option or this option. Now tell me based on just one input symbol, based on just one input symbol, can you decide which is better? Just think about it. So based on just one input symbol, can you decide which is better? Is this better or this better?",
+      "avg_logprob": -0.10681249976158141,
+      "no_speech_prob": 0.1507568359375
+    },
+    {
+      "start": 375.34,
+      "end": 401.82,
+      "text": " So I think you can't decide because this is also producing a this is also producing a at the first so you can't decide So sometimes based on one input like one look ahead you can decide sometimes you can't decide So can you decide based on two here? Can you decide based on two? So let's just see suppose if I have access to two look heads if I have access to two look heads So two look heads is AB then I think I can decide based on two right then I think I can decide",
+      "avg_logprob": -0.1274553526015509,
+      "no_speech_prob": 0.1441650390625
+    },
+    {
+      "start": 402.08,
+      "end": 429.99,
+      "text": " So, if I have access to two look heads then I can say yes AV I need then AV it is producing it is not producing AV. So, I will go with this right. So, based on two look heads you are able to decide, but based on just one look heads you are not able to decide that is why that is why basically this grammar is not LL1 and this grammar is LL2, this grammar is LL2. Why? Because based on two input symbols you are able to decide by but by the by the one you are not able to decide ok. So, we will see these things only in this lecture in the detail.",
+      "avg_logprob": -0.12990419708029197,
+      "no_speech_prob": 0.1522216796875
+    },
+    {
+      "start": 430.61,
+      "end": 457.83,
+      "text": " Like how to identify the grammar is LL1 or not. But the point that I want to make is that based on one input symbol you need to decide what to choose and you are going left to right and the input you are going left to right and whenever whenever you have the choices then you are always doing the left most left most protection left most derivation, okay So this L means left to right this again this L means left most derivation. This one means one symbol looking. This is what LL1 means Okay",
+      "avg_logprob": -0.1997974501163871,
+      "no_speech_prob": 0.2027587890625
+    },
+    {
+      "start": 460.88,
+      "end": 484.92,
+      "text": " So, let's see our first parser, first predictive parser, which name is LL1. So, let's see LL1 parser. So, it is a very simple predictive parser. So, you can make a predictive parser for LL1 or LL2 or anything like any LL grammar. So, I am showing you the predictive parser for LL1 because that's in the syllabus and if you understand that, then you will get the idea about the predictive parsers.",
+      "avg_logprob": -0.12601273686245637,
+      "no_speech_prob": 0.11083984375
+    },
+    {
+      "start": 485.48,
+      "end": 513.56,
+      "text": " So let's first talk about the theory, which means like how to build one parser and then we will see the implementation, which is like how to implement it recursively or non-recursively. Okay. So let's just see how to make a parser. Now, just to read out this point, then when expanding a non-terminal, we predict the production to use by looking at the next token of input and that decision is forced, which means once you decide it, it is forced. You can't change it.",
+      "avg_logprob": -0.1399274624085852,
+      "no_speech_prob": 0.039947509765625
+    },
+    {
+      "start": 513.71,
+      "end": 540.41,
+      "text": " okay you can change it and neither you can backtrack okay so let's see how to construct a table l11 parsing table this is important how to construct l11 parsing tables so what i will be doing for each protection for each protection a gives alpha a gives alpha what i will be doing i will take the first of this i will take the first of this and i will put this protection i will put this protection this a gives alpha",
+      "avg_logprob": -0.12083333399560717,
+      "no_speech_prob": 0.0298919677734375
+    },
+    {
+      "start": 540.7,
+      "end": 571.46,
+      "text": " in the table where the row is determined by this non-terminal and column is determined by the first of this. Okay, let's just see. Let me let me just tell you how to do it. So let's just see that how to build the parser for this. So suppose I want to I want to build the parser for this, then let's suppose for simplicity, currently I'm just taking instead of epsilon, I'm just taking it some terminal, let's suppose this is C. Okay, for simplicity, I'm taking C. So to construct LL1 parsing table, what I'm going to do",
+      "avg_logprob": -0.13692748569350205,
+      "no_speech_prob": 0.2408447265625
+    },
+    {
+      "start": 571.79,
+      "end": 603.71,
+      "text": " I am basically going to make columns as my as my terminals. So, there are three terminals A, B and C. So, I am going to make these columns as my terminals and also dollar ok, do not forget about dollar, do not forget about dollar. So, you will get to know where I am using the dollar later, but yes here on the columns you will be writing terminals and dollar. On the rows like here you will be writing all non-terminals ok. So, non-terminals are here, non-terminals are here and terminals are here.",
+      "avg_logprob": -0.1138671894868215,
+      "no_speech_prob": 0.11822509765625
+    },
+    {
+      "start": 606.65,
+      "end": 635.85,
+      "text": " Now let's see how to build the how to fill these entries so there are one two three four entries to fill like you may not need to like you you You may not be ended up filling all the entries, but let's just see that how to fill the entries that is required for the predictive parser Okay, so it is very easy for each production what I will be doing I will take the first of this what is first of AS First of AS is I think I think just a right so this production as gives AS this as gives AS",
+      "avg_logprob": -0.19003377975644292,
+      "no_speech_prob": 0.73193359375
+    },
+    {
+      "start": 636.2,
+      "end": 665.11,
+      "text": " will will be going to the row of s okay row will be given by this row of s and column of first of a so row of s and column of first of a s which is a so this s gives a s will go here okay what about this s bis b s as s gives b s so it will be determined by the first of b s which is just b it just which is just b so column is b and row is s only so it will be s gives b s and whatever this s gives c it will be determined by",
+      "avg_logprob": -0.15948761556599592,
+      "no_speech_prob": 0.50048828125
+    },
+    {
+      "start": 665.77,
+      "end": 696.24,
+      "text": " First of this which is just C, C and row of S which is S. So here you will be in S, C. And you are done. So this is called LL1 parsing table. This is called LL1 parsing table. Okay. And you are done with the parsing table. I hope you got it. So if there is any doubt you can comment your doubt below the video. Okay. Otherwise it is very simple. What I am doing here?",
+      "avg_logprob": -0.1817759900990099,
+      "no_speech_prob": 0.192138671875
+    },
+    {
+      "start": 696.45,
+      "end": 726.41,
+      "text": " I am taking the first of every right hand side, for every production I am taking the first for right hand side and then what I am doing? I am putting this production, I am putting in this production in the row of this A and the column of this A and row of this non-terminal S. Okay? Your parsing table is ready. I hope you got it. Now, once you get the parsing table, once you get the parsing table, next question will be like why I am making this parsing table, right? So what is the use of this parsing table?",
+      "avg_logprob": -0.1687499942779541,
+      "no_speech_prob": 0.18994140625
+    },
+    {
+      "start": 726.69,
+      "end": 761.24,
+      "text": " or maybe the next question I can say that how to how to make use make use of this parsing table how to make use of this parsing table two two parts obviously two parts strings so let's just see how to make use of this parsing table so let me let me do one thing let me copy this grammar and the table in the next page and then I will show you and how to use the parsing table let's see",
+      "avg_logprob": -0.12630208084980646,
+      "no_speech_prob": 0.029998779296875
+    },
+    {
+      "start": 761.4,
+      "end": 792.31,
+      "text": " okay so now suppose there is some string which is which is maybe anything let's suppose a a b a b a c okay a b a b a b a c good i mean like let's take a shorter string only a b a c okay does a b a c belongs to this grammar just quickly check you can you can do a gives a s then s this s gives maybe b",
+      "avg_logprob": -0.12780448507804137,
+      "no_speech_prob": 0.2890625
+    },
+    {
+      "start": 793.23,
+      "end": 819.53,
+      "text": " BS and then this S gives AS this S gives AS and then this S gives C So AVAC belongs to the grammar definitely belongs to the grammar, but let's see if my parser can parse it So I have I have my parsing table here. I have my parsing table here So parsing table works like a map. I mean just like a Google map Okay, it's just like a Google map, which means you want to go from S to you want to go",
+      "avg_logprob": -0.1857638925012916,
+      "no_speech_prob": 0.331787109375
+    },
+    {
+      "start": 819.86,
+      "end": 844.74,
+      "text": " to a b c right to a to a b ac you want to go here right so it will just tell you which way is better i mean if you if you just take let's suppose if you like here here you have a couple of options maybe you can take this way maybe you can take this way maybe you can take this way right so if you if you go this way then this way this way this way will finally lead to a b ac but if you go this way then maybe like you will you will never never ever be getting this a b ac right",
+      "avg_logprob": -0.09553179471639164,
+      "no_speech_prob": 0.199951171875
+    },
+    {
+      "start": 845.09,
+      "end": 873.23,
+      "text": " so this parsing table will just tell you that which way out of these three way which way is better then then you will you will be again having three choices right you will again having three choices either AS or maybe BS or maybe C then it will tell you that okay out of these three choices this is like this is better this time BS is better this time then then again you will be having three choices maybe AS BS and C then it will tell you okay this time AS is better right this time AS is better then you will be having three options AS BS and then C then it will tell you that this time C is better",
+      "avg_logprob": -0.07707923392611225,
+      "no_speech_prob": 0.51318359375
+    },
+    {
+      "start": 873.44,
+      "end": 903.65,
+      "text": " so it will tell you that see if you have these many ways these many ways to go I mean these many ways then only one of the way is leading to A, B, A, C which is this okay which is this so it's just like a Google map so how to use the Google map or how to use this map let's just see okay so there are multiple ways to go to like I mean there are multiple options then which way is leading to A, B, A, C that's what I want to see using this map or using this table so what I need to do I will be starting with S I will be starting with S",
+      "avg_logprob": -0.09786184120895271,
+      "no_speech_prob": 0.2327880859375
+    },
+    {
+      "start": 903.98,
+      "end": 930.5,
+      "text": " as usual and I will take the help of table so let's just see how I will be starting this and then I have three options here right either I can I can choose AS or I can choose BS or I can choose C or I can choose C so this is my input this is my input now I will take I will take help of the table table says that if you have multiple options like don't worry about the multiple options basically so table will just give you the one option only",
+      "avg_logprob": -0.08664772652014337,
+      "no_speech_prob": 0.2412109375
+    },
+    {
+      "start": 930.73,
+      "end": 959.63,
+      "text": " So table says that if you if you have as as in your hand, so let me just say in hand, in hand if you have as and you want to you want to predict a or you want to generate a. So you have as in your hand, this is basically like you can say this is these are the non-dominants that you can have in your hand. And this is your input in input. If you have a in hand you have as then what to do? Use this production. It is saying in hand if you have as in input you have a then it is it is it is guiding you that use this production.",
+      "avg_logprob": -0.19877819817765316,
+      "no_speech_prob": 0.190673828125
+    },
+    {
+      "start": 959.89,
+      "end": 985.61,
+      "text": " which means it is saying use this production okay now move to the next input now in hand you have what in hand you have what you have s and in the input you have b so in hand you have s and in the input you have b so it just tells you that see use this use this which means use this bc use this right in the hand if you have s and in the input you have b then it is telling you use this",
+      "avg_logprob": -0.06666380707379226,
+      "no_speech_prob": 0.11993408203125
+    },
+    {
+      "start": 986.72,
+      "end": 1018.08,
+      "text": " In the hand this is in hand and this is input right this this this is input so in input we have be either either we can have so it still ends with dollar either we can have A B C or dollar okay now now let's just see so now BS now now in hand you have S now in hand you have S and in input you have A so it is saying you that in hand you have S in input you have A so use this AS",
+      "avg_logprob": -0.25352822708827194,
+      "no_speech_prob": 0.71728515625
+    },
+    {
+      "start": 1019.26,
+      "end": 1047.98,
+      "text": " Now in hand in hand again you have S and in input you have C in input you have C in hand you have S in input you have C So this thing you use this Right use this now now you are like now not this and that's the end of input which means like You do not have any non-terminal to left with if you do not have any non-terminal to left with so you won't be able to use the passing David Then just see like you can you can add the algorithm like that that at the end just see whether whether dollar is remaining or not, right?",
+      "avg_logprob": -0.20083842093382426,
+      "no_speech_prob": 0.5185546875
+    },
+    {
+      "start": 1048.54,
+      "end": 1077.9,
+      "text": " So, this is how you are parsing, right? This is how you are parsing. And this is how you are making use of your table. This is how you are making use of this table. You got the idea? How we are making use of the table? See here, you are generating this A, B, A, C and how we decided which production to choose using the table or using the map. This is how we will be using the map. So, I hope you got the idea that how to build one, how to build one table and once you build the table, how to use that table. Okay?",
+      "avg_logprob": -0.1339962070412708,
+      "no_speech_prob": 0.5380859375
+    },
+    {
+      "start": 1078.11,
+      "end": 1109.81,
+      "text": " Let's let's let's do more examples. So let's just build the table because using the table like I will be telling you in the next class but but using the table is is very straightforward. Basically, like you just need to check what is the non-terminal what that you have in the hand and which is the terminal that you want to generate. So based on that you will take your call. Right. Okay, let's just construct a 11% table for this grammar. So if you want to construct 11% table. So what's the idea? You just write",
+      "avg_logprob": -0.15598959065973758,
+      "no_speech_prob": 0.7197265625
+    },
+    {
+      "start": 1110.28,
+      "end": 1140.11,
+      "text": " all the terminals here which is I think A, B, C, dollar don't forget about the dollar and then write all the non-terminals here S and A. Now, this is very easy just for each production just do one thing just take first of this what is first of this? So, oh this is A this is A. So, what is first of this? First of this will be first of S first of S",
+      "avg_logprob": -0.17682291318972906,
+      "no_speech_prob": 0.1617431640625
+    },
+    {
+      "start": 1140.35,
+      "end": 1168.81,
+      "text": " is if s is going to null if s is going to null then first of a so first of s first of a since s is going to null and then a then a because a is also going to null so that's what first of this right so first of s a alpha is first of s first of s first of union basically first of a union so and and epsilon also okay and",
+      "avg_logprob": -0.10324366749087467,
+      "no_speech_prob": 0.3994140625
+    },
+    {
+      "start": 1169.33,
+      "end": 1198.05,
+      "text": " no sorry not epsilon this is a not epsilon but yeah that's what we have in the first of s a s a a so what is first of s let's just find out first of s first what is first of s it will be since since it is nullable so null will be there since it is nullable so null will be there and then first of s will be first of s will be first of this thing first of this thing only right first of s will be first of this whole thing so what is this first of whole thing this is just this",
+      "avg_logprob": -0.11485745790496207,
+      "no_speech_prob": 0.3251953125
+    },
+    {
+      "start": 1198.41,
+      "end": 1228.74,
+      "text": " this is just this okay so this is this is just first of s first of a and a so let me just write a first of s is as it is so let me also write first of a first of a okay yeah and what is first of a let me also calculate first of a what is first of a first of a will be first of sb first of a if a goes to null then c because of that if a goes to null since it is going to null then c",
+      "avg_logprob": -0.06281565611410622,
+      "no_speech_prob": 0.1256103515625
+    },
+    {
+      "start": 1229.05,
+      "end": 1257.59,
+      "text": " and first of s if s goes to null since it is going then b and first of s first of s so here you have epsilon a first of a and here you have epsilon c b so i think you will be having b because because both both first should be same and first of s in first of s also you will be having a so you will be having a in first of a epsilon a b c here also epsilon a b c you will be having epsilon a b c",
+      "avg_logprob": -0.11146907462287195,
+      "no_speech_prob": 0.056427001953125
+    },
+    {
+      "start": 1258.96,
+      "end": 1287.32,
+      "text": " Now let's find out this first of s and first of a are same so let's not worry about it so it will be so see whenever you're calculating first always first determine the epsilon okay so I'm writing it loosely basically I should be writing first of s minus epsilon but I'm writing these things usually like I'm I will be not writing epsilon based on this criteria I will be writing epsilon explicitly okay once I write the epsilon then I will I will do all the things okay so this is basically first of s which means without epsilon which is abc",
+      "avg_logprob": -0.10045630425478505,
+      "no_speech_prob": 0.314697265625
+    },
+    {
+      "start": 1287.8,
+      "end": 1320.17,
+      "text": " ABC and first of age also ABC and then this age so this this first is coming up to be ABC this first is coming up to ABC and Then you have epsilon here So this is this is important that if you have epsilon on the right hand side then then This production this production goes to goes to follow face Okay, see here see here. I think yeah, so",
+      "avg_logprob": -0.17333333293596903,
+      "no_speech_prob": 0.64306640625
+    },
+    {
+      "start": 1320.46,
+      "end": 1349.18,
+      "text": " if epsilon belongs to the first of this first of this if epsilon belongs to first of this then then this this protection which is a gives alpha this protection goes to follow t t is basically follow of a goes to follow of a so basically if you have let's suppose a gives alpha then then this protection will go to this protection will go to in the row of a and in the column of alpha column of follow of a okay so here",
+      "avg_logprob": -0.10973011541434309,
+      "no_speech_prob": 0.144775390625
+    },
+    {
+      "start": 1349.52,
+      "end": 1379.81,
+      "text": " here it will go to it will go to in the in the column of column of s in the row of s and column of follow of s. So, these are the first these are the first of a and s and let us just find out the follow of a and s also. So, let us first find out the follow and then we will be making the table. Let us first find out the follow and then I will again show you how to make the table. So, what is follow of s? What is follow of s? Follow of s will be",
+      "avg_logprob": -0.07495959000340824,
+      "no_speech_prob": 0.33154296875
+    },
+    {
+      "start": 1380.38,
+      "end": 1406.18,
+      "text": " like this will be dollar and this will be first of this remaining quantity which is capital A is small a. So what is first of this? So since first of A is A is ABC so I will be writing ABC here and then and then epsilon also. So if the first is having epsilon then you will be putting the epsilon then you will go to that and they will be getting A only. So from this you will be getting dollar ABC.",
+      "avg_logprob": -0.2103365319115775,
+      "no_speech_prob": 0.14892578125
+    },
+    {
+      "start": 1407.01,
+      "end": 1437.87,
+      "text": " And from this you will get in B. So follow of S is dollar ABC. What is follow of A? What is follow of A? A is coming here, A is coming here. So follow of A is just AC. Okay. So let me go to the next page. That first, like for S and A, first is coming up to B. First is coming up to B. This is follow. Epsilon, Epsilon ABC, Epsilon ABC.",
+      "avg_logprob": -0.19346005646223874,
+      "no_speech_prob": 0.373291015625
+    },
+    {
+      "start": 1438.42,
+      "end": 1468.74,
+      "text": " and then follows coming up to be dollar ABC here BC right here AC here AC here AC okay these are the first 10 follows now let's make the parsing to it let's make the parsing to it so let's do the parsing again so what does this say it says that if you have if you have any production any production like this like any production which is let's say this then",
+      "avg_logprob": -0.180169756029859,
+      "no_speech_prob": 0.183349609375
+    },
+    {
+      "start": 1469.06,
+      "end": 1499.05,
+      "text": " this production this production will go to this production will go to first of this first of this if first of this contains alpha then it will go to the follow-up as also but currently it is not containing so let's not worry about it so here i have s and a here i have a b c and dollar okay so this production will go to this production will go to first of this so what is first of s a a it will be basically abc obviously abc because this is the first of s",
+      "avg_logprob": -0.14972694435165923,
+      "no_speech_prob": 0.53955078125
+    },
+    {
+      "start": 1499.37,
+      "end": 1529.01,
+      "text": " And if this is epsilon, you will go to A. So first of A is just ABC. If this is the epsilon, you will go to this and this is A. So this string is having first as ABC. So it will go to A, B and C in three places, which means here you will be writing as Gibbs as AA, like that. Here also you will be writing as Gibbs as AA, like that you will be writing at three places. So instead of writing this whole production, let me do one thing. Let me name the productions, which means let's say this is production number one. This is production number two.",
+      "avg_logprob": -0.18103852756041333,
+      "no_speech_prob": 0.51171875
+    },
+    {
+      "start": 1529.32,
+      "end": 1557.83,
+      "text": " this is production number three this is production number four this is production number five so there would be like one will be at three positions right abc because this is production number one now let's take production number two which is s gives epsilon now tell me where this will go it will go in the row of s row of s that is okay but what is the column what is the column what is the column it will go in the so row of s is okay in the",
+      "avg_logprob": -0.09268092152319457,
+      "no_speech_prob": 0.1317138671875
+    },
+    {
+      "start": 1558.24,
+      "end": 1586.78,
+      "text": " follow of S. So, see, see here, if this is, if this is containing, if this is containing epsilon, if the first of this is containing epsilon, then, then it will go to the follow of S, follow of S. And what is follow of S? Follow of S is dollar ABC. So, second number production will go to dollar ABC at all the places. So, let's see where this third number production is going, where this third number production is going. Third number production is A Gibbs SB. It will go to first of this.",
+      "avg_logprob": -0.1444650402261039,
+      "no_speech_prob": 0.06341552734375
+    },
+    {
+      "start": 1587.43,
+      "end": 1617.53,
+      "text": " So first of this is what ABC right ABC just ABC now as is going to epsilon it will be it will be like you will be taking the first of B Which is just be so let's not worry about it. So you have ABC now this three will go to ABC Okay, what about this production a gives AC this will go to first of this right? So everything goes to first of right hand side if first of right hand side contains epsilon then it will go to the follow-up left-hand side That's all so let's see",
+      "avg_logprob": -0.21100788100345716,
+      "no_speech_prob": 0.39404296875
+    },
+    {
+      "start": 1617.9,
+      "end": 1647.2,
+      "text": " where it will go it will go to first of ac so first of ac is just abc right abc so it will go to abc which means fourth protection will go here fourth protection will go here and then where will this a gives epsilon will go it will go to it will go to follow of a follow of a because first of this contains epsilon right first of this contains epsilon that's why it will go to follow of a and what is follow of a follow of a is follow of a is ac so the fifth protection will go to ac right",
+      "avg_logprob": -0.09723772248253226,
+      "no_speech_prob": 0.552734375
+    },
+    {
+      "start": 1647.82,
+      "end": 1678.23,
+      "text": " I hope you got it. So let's do more example. So that's how we are we are basically constructing the parsing table. So if the parsing table contains multiple entries, then this is called conflict and and we do not like if there is a conflict, then we say that the grammar is not 11. So this grammar is not 11. Why? Because if there is at least one conflict, like the moment you see at least one conflict, you can say the grammar is not 11. Okay. So let's solve more examples.",
+      "avg_logprob": -0.10902623007340091,
+      "no_speech_prob": 0.055419921875
+    },
+    {
+      "start": 1678.61,
+      "end": 1708.38,
+      "text": " let's try to try to make the ll1 parsing table for this grammar so how to do it you need to you just need to write non terminals here and terminals here what are the terminals int this plus and stop these are the terminals okay now now let's just make the parsing table so let's just decide where this production will go it will go to the first of this first of this let's suppose this is production number one two three four",
+      "avg_logprob": -0.10563858987196632,
+      "no_speech_prob": 0.14794921875
+    },
+    {
+      "start": 1708.65,
+      "end": 1737.27,
+      "text": " first of this is just int, so it will go to here and dollar also here, so it will go to this place. Now, let us just decide where it will go, it will go to first of this, what is first of this? It is just opening parenthesis, it will go here and let us just decide where it will go, it will go to first of plus, what is first of plus? It is just plus, so it will go to plus, but in the row of OP, row is decided by this. Similarly, this will go to star, but the row of OP, so this is the passing table.",
+      "avg_logprob": -0.13110901583406262,
+      "no_speech_prob": 0.07879638671875
+    },
+    {
+      "start": 1738.44,
+      "end": 1770.32,
+      "text": " Right. Okay. Let's solve more examples. Let's try to make one passing table for this. So you need to write e t x y here and what are the terminals you have? What are the terminals you have? I think you have you have the same terminals, which is int, open parenthesis and then plus star and then dollar. Okay. So you have these many terminals.",
+      "avg_logprob": -0.204089512059718,
+      "no_speech_prob": 0.427734375
+    },
+    {
+      "start": 1770.98,
+      "end": 1803.49,
+      "text": " Now let's just fill the entries basically. So what do you need to do? You need to check what is first of tx. So I think let me quickly find out the first, at least the first of everything. So let me find out the first of etxy. First of these things. I think we have done it, like we have done this for this grammar one time already in the last lecture, but let's just quickly do it. What is first of x? It is epsilon and",
+      "avg_logprob": -0.1618088879264318,
+      "no_speech_prob": 0.1302490234375
+    },
+    {
+      "start": 1803.79,
+      "end": 1829.95,
+      "text": " like basically epsilon will be at these two places and nowhere else epsilon will be right because these are the only production which are nullable okay now let's find out the first of x it is it will be plus and here you will be having star here you will be having opening parenthesis here you will be having int again opening parenthesis int okay these are the first of this let's see if I need follow like based on that we will be calculating the follow okay so this will this production let's suppose production number one two",
+      "avg_logprob": -0.1151238185054851,
+      "no_speech_prob": 0.11773681640625
+    },
+    {
+      "start": 1830.25,
+      "end": 1857.63,
+      "text": " 3, 4. So, this production will go to, this production will go to which place? First of this, first of Tx, what is first of Tx? It is just first of T which is int and open parenthesis. So, one will go to these two places, in the row of E and first of this. Now, 2, let us suppose this is 2 and I suppose this is 3 and this is 4, this is 5, this is 6, this is 7. So, where will this 2 go?",
+      "avg_logprob": -0.13351005182734557,
+      "no_speech_prob": 0.057373046875
+    },
+    {
+      "start": 1858.13,
+      "end": 1887.02,
+      "text": " in the row of t and first of this which is just opening parenthesis. So, sorry this is just 1, this is just 1, this is just 1 and where will this 2 go? This 2 will go to row of t and column of this, column of first of this. So, which means 2 will go here, row of t and column of 2 will go here and row of t, row of t and column of this int y, first of int y which is just int so it will go here.",
+      "avg_logprob": -0.1344762803227813,
+      "no_speech_prob": 0.0174102783203125
+    },
+    {
+      "start": 1887.65,
+      "end": 1913.71,
+      "text": " Now where will this fourth production will go this fourth production row of x and first of plus e which is plus row of x and first of plus e which is plus Where will this x gives epsilon will go? This is this is important here If you have if you have epsilon the first of this then it will go to the fall of x. What is the fall of x? Okay, follow. I am not calculated So let me complete follow. Okay, let me just calculate for fall of x only. Let's not worry about other follows",
+      "avg_logprob": -0.19019886566834016,
+      "no_speech_prob": 0.06719970703125
+    },
+    {
+      "start": 1914.07,
+      "end": 1945.85,
+      "text": " So, fall of X is actually fall of E, okay, so fall of E is dollar, like at least it has dollar and closing parenthesis, closing parenthesis is also coming here. So, it is just fall of X, okay, okay, fall of X, fall of X. And what is fall of X? Fall of X is, fall of X is fall of E, fall of E only, which means it will be also dollar closing parenthesis. So, these two are in the fall of X, right. What about the fall of Y?",
+      "avg_logprob": -0.1411591905813951,
+      "no_speech_prob": 0.1395263671875
+    },
+    {
+      "start": 1946.25,
+      "end": 1975.45,
+      "text": " follow of y will be where is y coming y is coming here so follow where will be follow of t so what is follow of t follow of t will be first of x first of x which is basically plus plus if it contains if it contains epsilon then follow of t will be follow of e also follow of e also and follow of e is dollar closing branches right follow of t will be first of x which is int sorry which is plus",
+      "avg_logprob": -0.12113763911000798,
+      "no_speech_prob": 0.1883544921875
+    },
+    {
+      "start": 1975.82,
+      "end": 2005.69,
+      "text": " and if this contains if this contains epsilon then like fall of t will be fall of e also so this is what fall of t from here now you need to find out fall of t from here also which is fall of y right fall of y so what is fall of y fall of y will be fall of t only fall of t only which means plus and follow that's that's what follows are okay yeah so I was talking about this fourth production I think fourth production is done I was talking about this fifth production where will this fifth production will go",
+      "avg_logprob": -0.12873029923653817,
+      "no_speech_prob": 0.50146484375
+    },
+    {
+      "start": 2005.99,
+      "end": 2035.85,
+      "text": " it will go to the fall of x what is fall of x is a dollar and collaging parenthesis so dollar and collaging parenthesis is the fall of x dollar range and okay i forward to write collaging parenthesis so we need to write collaging parenthesis okay so this is five okay now where will this production go this is six number production it will go to the row of y and column of first of this which is star so six production will go here and where will this production will go seventh production",
+      "avg_logprob": -0.1340144265156526,
+      "no_speech_prob": 0.06829833984375
+    },
+    {
+      "start": 2036.13,
+      "end": 2067.41,
+      "text": " it will go to row of y and follow of y. Columns are determined by follow of y, which is plus and dollar. So, 6th production will go here. Sorry, 7th. This is 7th. 7th production will go here. So, I hope you got the idea how to make this. So, actually I have the answers here. So, this is Tx means like this is production number 1, this is production number 2, this is 3, this is 4, this is 5, this is 6, this is 7.",
+      "avg_logprob": -0.16359508343231985,
+      "no_speech_prob": 0.2130126953125
+    },
+    {
+      "start": 2067.71,
+      "end": 2098.11,
+      "text": " 50x means production number one and then production number one so int and opening parenthesis int and opening parenthesis right and then then you have i think production number four here and this is basically five and five so four is coming out to be in plus and five five is coming out to be closing parenthesis in dollar four is coming out to be four four x okay four x four is coming out to be in plus five is coming out to be in dollar and closing parenthesis",
+      "avg_logprob": -0.1119791700815161,
+      "no_speech_prob": 0.305908203125
+    },
+    {
+      "start": 2098.4,
+      "end": 2127.19,
+      "text": " So you can check the remaining entries. So basically these are the answers. How to make the parsing table? I think till now things are clear that we need to basically determine the row and column. So how to determine row which is very easy, row is just this. How to determine column? Obviously this is tough. How to determine it? We will be just going with the first of right hand side. If first of right hand side contains, contains epsilon then I will go to the fall of, fall of E. Which means",
+      "avg_logprob": -0.1661931808699261,
+      "no_speech_prob": 0.093017578125
+    },
+    {
+      "start": 2127.56,
+      "end": 2158.42,
+      "text": " if I need to put this production this production then I will let me just take the actually grammar only let's say this is a a epsilon this is b epsilon okay and let's just say this is basically ac okay let's just say that this is the grammar okay so here tell me where will this a b c will go okay so you have a b c",
+      "avg_logprob": -0.12221746248741673,
+      "no_speech_prob": 0.100341796875
+    },
+    {
+      "start": 2158.74,
+      "end": 2188.73,
+      "text": " and you also have all the terminals here which are a, b, c and all that. Now, tell me where will this protection go? a gives b, c. a gives b, c. It will go to first of this. What is first of b? First of b is basically a, first of b is a and epsilon. What is first of c? First of c is b and epsilon. First of b is a and epsilon, first of c is b and epsilon. Now, tell me what is first of this? This is a,",
+      "avg_logprob": -0.1163043473077857,
+      "no_speech_prob": 0.04266357421875
+    },
+    {
+      "start": 2189.08,
+      "end": 2216.35,
+      "text": " and if b is epsilon then this is b and since c is also also epsilon then then it is actually epsilon it is epsilon right but epsilon i do not have here so basically this this entry this let's suppose this is production number one this will go to first of this and what is first of this first of this a b so it will go to a it will go to b but what about this epsilon corresponding to this epsilon because of this epsilon this entry this this production will also go to go to the fall of a and what is fall of a",
+      "avg_logprob": -0.08650056547946758,
+      "no_speech_prob": 0.2088623046875
+    },
+    {
+      "start": 2216.62,
+      "end": 2246.53,
+      "text": " Since A is the star symbol, so follow of A will be at least dollar and then you have C. So in dollar and C, this first production will go dollar and C. So the first production will go at the four places. You got the idea? How we are calculating? So you need to calculate first of BC. First of BC is AB epsilon. Because of AB, you can write okay, first production will go here. But because of the epsilon, you need to take the follow of A, which is dollar and C.",
+      "avg_logprob": -0.15737612370972162,
+      "no_speech_prob": 0.041961669921875
+    },
+    {
+      "start": 2246.78,
+      "end": 2277.49,
+      "text": " so you will you will say that okay the first production will go in donor and c also okay okay now let's check if the given grammar is ll1 or not if this given grammar is ll1 or not so how to check it i will make the pass table okay i will make the pass table and if there are multiple entries in the passing table then i will say that this grammar is not 11 a grammar is not relevant if there are multiple entries in the passing table okay let's just do it so",
+      "avg_logprob": -0.09941789296035673,
+      "no_speech_prob": 0.09576416015625
+    },
+    {
+      "start": 2279.75,
+      "end": 2313.24,
+      "text": " Let's write down x, y, z here and what are the terminals? What are the terminals that we have? I think terminals we have a, b, small z. This is small z or this is capital Z. I think this is capital Z. So let's just take it as capital Z. So we have a and b and we have dollar. Now tell me where will this production go? This will go to first of y, z.",
+      "avg_logprob": -0.18051862177696634,
+      "no_speech_prob": 0.78173828125
+    },
+    {
+      "start": 2313.63,
+      "end": 2339.64,
+      "text": " what is first of yz? it is basically b b and since it is it is epsilon you will you will go to first of z first of z is just epsilon so it is basically b and epsilon now now just focus here because of this b this first protection because of this b will go here but because of this epsilon it will go to the fall of x also so what is fall of x? x is like since x is x is start symbol so it must contain dollar",
+      "avg_logprob": -0.15737757240374065,
+      "no_speech_prob": 0.060791015625
+    },
+    {
+      "start": 2339.95,
+      "end": 2368.89,
+      "text": " Now, wherever x is coming on the right hand side, you will decide the following that. So, where is x is coming on the right hand side? Nowhere. So, you will just say dollar only. So, fall of x is just dollar. So, basically, because of this epsilon, it will also go to the fall of x, which is just dollar. So, it will also go to at this place. Why? Why at this place? Because of epsilon. Why at this place? Because of this v. Because of this epsilon, it is going to the fall of x.",
+      "avg_logprob": -0.12506301040130277,
+      "no_speech_prob": 0.375732421875
+    },
+    {
+      "start": 2373.07,
+      "end": 2392.57,
+      "text": " Now, tell me where will this production go? I think this is easy, this will just go to, like this is production number 2, this will just go to x gives a, like this will just go to a, so this is production number 2. Now, just observe here that is there any chance that I will be getting multiple entries, multiple entries",
+      "avg_logprob": -0.14991554195010984,
+      "no_speech_prob": 0.056243896484375
+    },
+    {
+      "start": 2394.36,
+      "end": 2421.39,
+      "text": " because of this x and y separately which means like if x is only having only having one production y only having one production z is only having one production is there any chance that I can have I can have multiple entries let's think about it so here this production will go to row of row of this row of this and columns will be determined by this right so this production let's have suppose let's let's say go to go to all the columns let's suppose therefore columns it goes to all the columns right but row will be x row will be x",
+      "avg_logprob": -0.14160156116953918,
+      "no_speech_prob": 0.251220703125
+    },
+    {
+      "start": 2421.66,
+      "end": 2450.28,
+      "text": " it will go to all the columns 1 1 1 1 all the columns let's suppose now this time rows y rows y this time rows y and then let's suppose even if it goes it also goes to all the columns doesn't matter right so if we are having just 1 1 1 production the grammar is always all alone you can you can never ever have the conflict right you can never ever have the conflict if you have only 1 1 productions right but generally we have multiple productions but I have just shown you that what if we have just 1 1 productions so you can directly say the grammar is",
+      "avg_logprob": -0.11167279687248358,
+      "no_speech_prob": 0.447509765625
+    },
+    {
+      "start": 2450.97,
+      "end": 2480.61,
+      "text": " l element, if you have just random productions, it can never be the case that you can have multiple entries. This is done, this a is also done, now tell me what about this y gives bz, this will go to first of bz which is just b, so I think this is production number 3, 3 will go here, what about this y gives epsilon which is production number 4, it will go to fall of y, what is fall of y? Fall of y is first of z, first of z and what is first of z? First of z is",
+      "avg_logprob": -0.16419270870586236,
+      "no_speech_prob": 0.385986328125
+    },
+    {
+      "start": 2480.97,
+      "end": 2511.55,
+      "text": " I think it is just epsilon so follow of y will be follow of y will be follow of x you are getting follow of y will be follow of x and what is follow of x it is just dollar so this is also dollar now where it will go it will go to the dollar right this is production number 4 now let's see where it will go it will go to the first of this since first of this is containing epsilon then it will go to the follow of z and what is follow of z follow of z is just follow of y which is dollar",
+      "avg_logprob": -0.1024612800209923,
+      "no_speech_prob": 0.266845703125
+    },
+    {
+      "start": 2511.85,
+      "end": 2550.93,
+      "text": " and fall of x which is a dollar so it is also dollar so here fifth production will go this is the parsing table of this right okay now tell me is this grammar LL1 since since there is no multiple entries so you will directly say yes yes this grammar is LL1 why because there is no multiple entries that is why you will say this grammar is LL1 okay now check if this grammar is LL1 or not check if this grammar is LL1 or not what to do you will be making the parsing table you will be making the parsing table like this",
+      "avg_logprob": -0.12383781188775685,
+      "no_speech_prob": 0.423583984375
+    },
+    {
+      "start": 2551.24,
+      "end": 2579.77,
+      "text": " you will be having as a b and then you will say this is a this is b and then this is dollar okay let's see if this grammar is a little or not so where let me just mark is 1 2 3 4 5 6 where this first production will go as gives a b this will go to the first of a b which means first of first of a b means like a only right so the first production will go here what about this as gives b a first of b",
+      "avg_logprob": -0.15369898506573268,
+      "no_speech_prob": 0.406005859375
+    },
+    {
+      "start": 2580.37,
+      "end": 2612.96,
+      "text": " first of b which is just b what about this s gives epsilon this will go to the follow of s right because the first of this is containing epsilon so it will go to the follow of s so let's just see let's just see what is follow of s follow of s so follow of s will be follow of a right so I think we need to find out the first and follow of everything so let's just quickly do it so as a b what are the first and follows first and follow okay",
+      "avg_logprob": -0.1484374935720481,
+      "no_speech_prob": 0.462890625
+    },
+    {
+      "start": 2613.29,
+      "end": 2642.6,
+      "text": " So, what is the first of S? I think this is AB epsilon. So, epsilon wherever like you can write epsilon just write it. I think only at one place this will be epsilon, otherwise either you will be having AB or B. Okay. So, what about first of A? I think this is AB, first of B is just B. What about follow of follow of S? It will be at least dollar and then S is coming here. So, it will be follow of A. So, follow of A basically. And then, so this follow okay, this is follow of A.",
+      "avg_logprob": -0.1778749966621399,
+      "no_speech_prob": 0.328125
+    },
+    {
+      "start": 2643.19,
+      "end": 2672.48,
+      "text": " and then S is coming nowhere, okay. And wherever A is coming, let's just write it. So what is the fall of A? Fall of A from this right hand side, you can say fall of S, fall of S, fall of S. And here it is coming, which means first of A, first of A is AB, which means first of A. And because of this A, it will be fall of A, but it does not matter. You can write it two times, but it does not matter. And what is fall of B? Fall of B will be fall of S.",
+      "avg_logprob": -0.11532738183935483,
+      "no_speech_prob": 0.15966796875
+    },
+    {
+      "start": 2672.8,
+      "end": 2701.42,
+      "text": " follow face right so let's just merge them like wherever we can this is follow of a follow of a means like ab doll ab and follow face so it will just give you ab and this is follow face which means like this will just give you dollar extra dollar okay so dollar ab dollar ab and this is also dollar ab okay these are the follows now let's just do it i was at third production i think yeah so where it will go it will go to it will go to",
+      "avg_logprob": -0.11340206431359359,
+      "no_speech_prob": 0.3720703125
+    },
+    {
+      "start": 2701.76,
+      "end": 2728.2,
+      "text": " Row s and column of falloff s falloff s is AB dollar. So this third production will go third production go here Not tell me by looking at this tell me can you tell can you answer this question that check if the grammar is 11 or not I think we can answer this question and we can directly say that this grammar is not 11 This grammar is not 11. Why this grammar is not 11 because because",
+      "avg_logprob": -0.21335565014964059,
+      "no_speech_prob": 0.1563720703125
+    },
+    {
+      "start": 2729.53,
+      "end": 2759.79,
+      "text": " Because there are multiple entries, right? Because there are multiple entries here. That's why this grammar is not LLV. You do not need to fill all the entries. You can just say, like, whenever you are getting multiple entries, at least one multiple entry in any of the cells, then you can say the grammar is not LLV. So, I hope you got it. Like, how to check the grammar is LLV or not? We need to make the parts stable and then we need to see if we are getting multiple entries or not. So, there is a quicker way. There is a quicker way.",
+      "avg_logprob": -0.15518465322075467,
+      "no_speech_prob": 0.1494140625
+    },
+    {
+      "start": 2760.01,
+      "end": 2789.35,
+      "text": " without without making the table to check if the grammar is LL1 or not. So what does this say that suppose you have you have some productions like this A gives alpha 1, alpha 2, alpha 3. Now tell me is if A gives alpha 1 and A also gives alpha 2 or alpha 3 then tell me what does this mean? So where will this production let's suppose this is production number 1 but this is production number 2 production number 3 this will like everything will go to the row of A but we need to decide the columns.",
+      "avg_logprob": -0.14224379986256092,
+      "no_speech_prob": 0.0701904296875
+    },
+    {
+      "start": 2789.7,
+      "end": 2819.56,
+      "text": " So, where will this production go? This production will go to the first of alpha 1, this production will go to first of alpha 2, this production will go to first of alpha 3, but if any of the first is containing epsilon, then it will go to the fall of A also. So, anyway this will go to the first of alpha 1 at least, first of alpha 2 at least, first of alpha 3 at least. If this is containing epsilon, then it will go to the A, ok, fall of A. Since this is going to the first of alpha 1, this is also going to like first of alpha 2, this is going to first of alpha 3.",
+      "avg_logprob": -0.07491134582681859,
+      "no_speech_prob": 0.0897216796875
+    },
+    {
+      "start": 2819.82,
+      "end": 2846.85,
+      "text": " Now, suppose there is something common in every first, suppose A is common in every first, which means this production number will go to here, this production number will also go here, production number 3 will also go here. So, production number 1, 2, 3 will all will like all of these production will go to the same place, if something is common. So, in those cases, there will always be a conflict. So, how we can check whether there will be a conflict or not quickly?",
+      "avg_logprob": -0.1236478343176154,
+      "no_speech_prob": 0.0970458984375
+    },
+    {
+      "start": 2847.16,
+      "end": 2875.34,
+      "text": " what we can do we can check like this if first off we will check we will check the pair wise first of alpha intersection alpha j is phi then I can say f and or leaf it is f and or leaf then ground 1 is l l 1 and like these two condition are satisfying then I can say the ground 1 is l l 1 so I will check this I will check this if this is not phi which means which means this is let's suppose a b this is maybe c d this is maybe e f this is maybe e f if this is not fine then it means it will go to a b it will go to a b 1 1",
+      "avg_logprob": -0.18702290440333708,
+      "no_speech_prob": 0.128173828125
+    },
+    {
+      "start": 2875.51,
+      "end": 2908.08,
+      "text": " So, in AB you will be having 1 1, in AB you will be having 1 1, in CD you will be having 2 2, in EF in say here, in EF you will be having, in EF you will be having 3 3, right. So, this is AB, CD, in AB you will be having 1 1 1, here 2 2, here 3 3, right. So, this production will go to first of alpha 1 which is AB, first of alpha 2 which is CD, first of alpha 3 which is here. Now, suppose, suppose this alpha 1 has epsilon also, then also nothing is commented.",
+      "avg_logprob": -0.13281249621910834,
+      "no_speech_prob": 0.13427734375
+    },
+    {
+      "start": 2908.68,
+      "end": 2937.37,
+      "text": " So, just by looking at this, this thing won't be suffice, won't suffice us. So, suppose there is one of them, one of them need not to be alpha 1, but for example, I am saying alpha 1, alpha 1 is nullable, which means in one or more production. So, star means one or more production, ok, star means one or more production. So, in one or more production that suppose it is going to epsilon, then, then because see here, see here, if first of alpha 1 is AB epsilon, then because of this AB, because of this AB, the one is going to AB that is ok, that is ok.",
+      "avg_logprob": -0.16171328254512973,
+      "no_speech_prob": 0.173095703125
+    },
+    {
+      "start": 2937.68,
+      "end": 2966.52,
+      "text": " but because of this epsilon because of this epsilon this one will go to the fall of A and and suppose suppose fall of A is coming out to be AC coming out to be AC then this first production will go to A which is already there will also go to C will also go to C which means this and then there will be a conflict right so if alpha 1 alpha 1 is going to epsilon then",
+      "avg_logprob": -0.12239583480505296,
+      "no_speech_prob": 0.0312042236328125
+    },
+    {
+      "start": 2966.88,
+      "end": 2995.31,
+      "text": " then this production will go to, this production will not only go to the first of AB basically, will not only go to the first of AB, it will also go to the, it will also go to the follow of A. This production will go to basically, let us take a simpler case, let us say that A gives, A gives epsilon alpha 2 alpha 3. Let us take this case. Now, tell me where will this production go? This will go to follow, this will go to follow of A, where will this go? This will go to first of alpha 2.",
+      "avg_logprob": -0.12215908893868943,
+      "no_speech_prob": 0.116943359375
+    },
+    {
+      "start": 2996.73,
+      "end": 3025.16,
+      "text": " Where will this go? This will go to first of, first of alpha 3, right? Now, suppose, like, see here, row is common, right? Row is common, columns are changing, columns are changing. This will go to these columns, this will go to these columns, this will go to these columns. Now, suppose, suppose, here you have something common, here you have something common, okay? You have A here, you have A here. Then, this first production will go to A because of this, this second production also will go to A because of this, right? So, there will be a conflict.",
+      "avg_logprob": -0.15249059657405192,
+      "no_speech_prob": 0.5146484375
+    },
+    {
+      "start": 3025.71,
+      "end": 3056.09,
+      "text": " So, this is epsilon, then you need to check whether fall of A is intersecting with first of alpha 2 and first of alpha 3 should be fine, which means there should nothing be common in the first of alpha 2 and first of alpha 3. So, if this alpha 1 is going to epsilon, then this production will also go to the fall of A. And in this case, you need to check that fall of A is intersecting with first of alpha 2 should be fine. If it is not fine, then this is not LL1.",
+      "avg_logprob": -0.09560032960092812,
+      "no_speech_prob": 0.10260009765625
+    },
+    {
+      "start": 3057.53,
+      "end": 3085.73,
+      "text": " I hope you got the idea like why why why this is making sense right so this is just this is just a way to check quickly without making the table so I will just check whether the first are intersecting like first are disjoint if disjoint first I have then this is very good but if I have epsilon also in the in any of the first then I also need to check that okay whether the follow of this follow of this like sorry first of this intersecting follow of a first of this intersecting follow of a is 5 or not",
+      "avg_logprob": -0.10944601940837774,
+      "no_speech_prob": 0.7236328125
+    },
+    {
+      "start": 3086.82,
+      "end": 3117.84,
+      "text": " Let us take some examples. So, let us check whether this grammar is LL 1 or not. So, one way is that we can make table. Another way is that we can just check where will this production go? Tell me, this production will go to D. Where will this production go? This production will go to A. Since this is going to D, that row is same, row is same, row is A. So, this is A, this is may be B, this is D, this is C, this is D, this is dollar.",
+      "avg_logprob": -0.15664723919609846,
+      "no_speech_prob": 0.0938720703125
+    },
+    {
+      "start": 3118.75,
+      "end": 3150.39,
+      "text": " I will say that first production will go to D and second production is going to A. So, there is no conflict like since these are different. So, there will never be a conflict. So, this production will go to A, this production will go to D, this production will go to first of F. What is first of F? It is A and D. Now, tell me whether there will be a conflict or not. There will be a conflict or not. Just think about it. See, this production will go to A, this production will go to D and this production will go to A and D. So, in the B row, in the B row,",
+      "avg_logprob": -0.10401786012308938,
+      "no_speech_prob": 0.5654296875
+    },
+    {
+      "start": 3150.78,
+      "end": 3180.3,
+      "text": " things are not disjoint actually here in the b row there are a b like in the b row there is a b c d so this production like third production will go to a fourth production will go to d and fifth production will go to a and d both a and d both so fifth production will go here will go here also so that is why there will be a conflict since these things are not disjoint these things are not disjoint this is a and you have something common so there will be a conflict that is why this grammar is not a little one okay",
+      "avg_logprob": -0.11800987057779964,
+      "no_speech_prob": 0.48583984375
+    },
+    {
+      "start": 3181.03,
+      "end": 3213.26,
+      "text": " Let us take one more example. Now, tell me where will this production go? This production will go to first of SA. So, first of A is A, what is first of SA? First of S, let me first find out first of S and first of A, first of A is A, first of A is A, what about first of S? It will be first of S which is just redundant to say and then first of A which is just A. So, both are having A as first. Now, tell me where will this production go?",
+      "avg_logprob": -0.12259615359143314,
+      "no_speech_prob": 0.221923828125
+    },
+    {
+      "start": 3213.5,
+      "end": 3244.93,
+      "text": " first of I say which means a where will this production go first of this quantity which is just a so this is also a right now tell me is this is this conflict yes why this production will go to a since rho is same this will be rho like rho is same which is s and then then first and second both the production will go to a so there will be a conflict that's why this is not ll1 okay and in fact in fact in fact left recursive grammar can never be ll1",
+      "avg_logprob": -0.1331881032540248,
+      "no_speech_prob": 0.177001953125
+    },
+    {
+      "start": 3246.04,
+      "end": 3274.88,
+      "text": " Why why left recursive grammar can never be 11 because in left recursion case Let's suppose this is the left recursion this this will always go to first of a right This will always go to first of a and you're determining first of when this this is just a this is just a like this will go to a This will this will always go to first of a and first of a will always be having always be having something from this Right, so left recursive grammar can never we can never ever be 11 but anyway you can check in general",
+      "avg_logprob": -0.156389509859894,
+      "no_speech_prob": 0.76220703125
+    },
+    {
+      "start": 3275.22,
+      "end": 3303.45,
+      "text": " like you can you can check whether something is common or not, but in like if you if you have the left left recursive grammar then it can never be LL1. Tell me can left not left factored grammar not left factored grammar be LL1 can not let not left factored grammar be LL1 which means let us suppose this a",
+      "avg_logprob": -0.22466215773208723,
+      "no_speech_prob": 0.007106781005859375
+    },
+    {
+      "start": 3305.43,
+      "end": 3334.79,
+      "text": " AB and AAC, this grammar is not left factor. Why? Because some something is common, some prefix is common. Tell me can this be LL1? See this will go to first of AB which is A, this will go to first of AC which will again A. So, that is why this can also like can also never be LL1. So, left fact not left factor grammar also can never be LL1. So, not left factor grammar can be LL1, that answer is no, never basically.",
+      "avg_logprob": -0.18680244923702308,
+      "no_speech_prob": 0.74462890625
+    },
+    {
+      "start": 3335.1,
+      "end": 3368.55,
+      "text": " can never be relevant because this production will go to A, this production will also go to A, right? So I hope you got it. Now, now let's just check whether this grammar is LL1 or not. Tell me where, where will this production go? This production will go to first of T. This will also go to first of T plus E and row is same, row is same. So this is going to first of T, which is int and this bracket. And this is also going to first of T. So this is, this is actually not left factor actually. But yeah, this is not LL1 also.",
+      "avg_logprob": -0.15753265470266342,
+      "no_speech_prob": 0.7177734375
+    },
+    {
+      "start": 3368.89,
+      "end": 3404.63,
+      "text": " not LL1 right. So, if the grammar is left recursive or the grammar is left not left factor then then it can never be LL1. What about the ambiguous grammar? Can ambiguous grammar be LL1? Can ambiguous grammar be LL1? The answer is no. Why? Because in LL1 what we do? We do the leftmost recursion so leftmost derivation which means you start from some start symbol",
+      "avg_logprob": -0.14266304234447685,
+      "no_speech_prob": 0.093505859375
+    },
+    {
+      "start": 3404.92,
+      "end": 3435.5,
+      "text": " then you keep on, you keep on driving on the left side. So, suppose that this is your, this is your grammar A, A, B and like whatever is your grammar, okay? Grammar doesn't matter. So, you keep on exploring left side, right? So, in element we do the LMD. Now, if the grammar is ambiguous, then there will be two pastries, two pastries, right? Which means there will be two LMDs, two LMDs, definitely there will be two LMDs.",
+      "avg_logprob": -0.1705043795600272,
+      "no_speech_prob": 0.2568359375
+    },
+    {
+      "start": 3435.63,
+      "end": 3465.75,
+      "text": " it means it means let's suppose this is first lmd this is second lmd it means it means that i will always be having confusion like uh i mean let's suppose there are two lmds and and these two lmds are same are same till this point till this point let's suppose these two lmds lmds are same which means till this point whatever is happening what is happening now since these two lmds are the same at this point now at this point suppose they are differing since they have to differ at some point right",
+      "avg_logprob": -0.09199892042268967,
+      "no_speech_prob": 0.31689453125
+    },
+    {
+      "start": 3466.06,
+      "end": 3497.57,
+      "text": " Suppose they are differing at this point which means at this point I will be having the conflict whether to go via this way or to go via this way because there are two LMDs you are getting. So, at this point I will be having the confusion. So, because there are two LMDs that is why I will be always having the confusion. So, that is why ambiguous grammar can also can also not be 11. So, let us solve more questions. So, this is a gate question let us solve it. Consider the following grammar with terminal alphabets these",
+      "avg_logprob": -0.14023760626138734,
+      "no_speech_prob": 0.07110595703125
+    },
+    {
+      "start": 3497.9,
+      "end": 3528.62,
+      "text": " and star symbol E the production rules of the grammar are this compute first and follow and I think you can do it and then complete completely the ILL 1 part centrable. So, you can you can find out the first I think this is A first is A is opening parenthesis for E and for A this is plus star and epsilon right. So, let me just do it E and A. So, what are the first? First is I think very easy which is which is just A and this",
+      "avg_logprob": -0.1697716353317866,
+      "no_speech_prob": 0.07037353515625
+    },
+    {
+      "start": 3528.89,
+      "end": 3558.85,
+      "text": " here you have, here you have epsilon also. What is follow? In the follow, you must be having dollar and then follow of E is a closing parenthesis and follow of E is also the follow of A. So, let me write the follow of A. So, what is follow of A? Follow of A is follow of E. So, basically both are same, both are same. So, this is first and follow. Now, you can make the parsing table. So, I think I have the answer in the next slide. So, these are the basically follows, follows are same.",
+      "avg_logprob": -0.10224999856948852,
+      "no_speech_prob": 0.01824951171875
+    },
+    {
+      "start": 3559.07,
+      "end": 3589.23,
+      "text": " and first of first of is a opening parenthesis a opening parenthesis here you have plus star and and epsilon right. Now to make the parsing table what we are going to do we are just simply following one rule whether like where will this production come so I think you can do it easily let me just do it a opening parenthesis plus star and dollar so this is e and this is a now tell me this let's suppose this is production number 1 2 3 4 5",
+      "avg_logprob": -0.12822165440038308,
+      "no_speech_prob": 0.0911865234375
+    },
+    {
+      "start": 3589.5,
+      "end": 3619.3,
+      "text": " So, where will this production number 1 will come? This will come to the first of A which is just A, production number 2 will come here, production number 3 will come here, production number 4 will come here, production number 5 will come in the fall of A, fall of A is just dollar and closing parenthesis. So, in the dollar and closing parenthesis, closing parenthesis I have not written, but let me just write there is one more column which is closing parenthesis. So, there is one more column of closing parenthesis and",
+      "avg_logprob": -0.10663377395585964,
+      "no_speech_prob": 0.279541015625
+    },
+    {
+      "start": 3619.55,
+      "end": 3650.47,
+      "text": " this fifth will come here okay you can match with the answer okay now for the LL1 I can say if the grammar is ambiguous then it can never be LL1 if the grammar is left recursive then it is it is not LL1 either either it is not left factor then also it is not LL1 but it does not mean that there cannot be other case I mean if the grammar grammar may not be ambiguous may not be may not be left recursive and and the grammar is left factored",
+      "avg_logprob": -0.08839285487220401,
+      "no_speech_prob": 0.091796875
+    },
+    {
+      "start": 3650.71,
+      "end": 3671.18,
+      "text": " I mean these three condition are violating, it is not ambiguous, not left recursive and the grammar is good which is left factor, the grammar is left factor then also it may not be LL1. I mean there must be some of the examples here that we have already done. So, let me just show you. So, I think in this case, in this case this grammar",
+      "avg_logprob": -0.17011718414723873,
+      "no_speech_prob": 0.00951385498046875
+    },
+    {
+      "start": 3672.43,
+      "end": 3698.09,
+      "text": " is ambiguous or not let me I need to check it but yeah yeah there there will be the cases there will be cases where the grammar is grammar is unambiguous grammar is not left factored not left recursive grammar is left factored and still it is not relevant so how to check whether it is relevant or not I will be just checking using first and follow I can make the parsing table or I can I can check with the this condition right this condition where is the condition this this condition right",
+      "avg_logprob": -0.15257353189529158,
+      "no_speech_prob": 0.2259521484375
+    },
+    {
+      "start": 3699.88,
+      "end": 3712.8,
+      "text": " So, now we know how to check whether the given grammar is LL1 or not, how to make the parsing table, now we know many things about LL1. Now, we will see that how to implement LL1, that we will be seeing in the next lecture.",
+      "avg_logprob": -0.12961065671483024,
+      "no_speech_prob": 0.0204620361328125
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"018. Lecture 7a. Predictive Parsers.mp4\",\"language\":\"en\",\"probability\":0.98046875,\"processing_seconds\":145.99522304534912,\"device\":\"cuda\"}"
+}

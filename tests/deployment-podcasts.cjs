@@ -11,7 +11,7 @@ const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=requ
   assert.equal((await context.request.get(base+'/api/podcast-audio?subject=coa&unit=0')).status(),401);
   const registration=await context.request.post(base+'/api/account/register',{headers,data:{username,password,displayName:'Podcast Deployment Check',avatar:'chip'}});
   assert.equal(registration.status(),200);created=true;assert.match(registration.headers()['set-cookie'],/; Secure/);
-  const catalog=await(await context.request.get(base+'/api/podcasts')).json();assert.equal(catalog.episodes.length,90);assert.equal(catalog.episodes.filter(episode=>episode.ready).length,90);
+  const catalog=await(await context.request.get(base+'/api/podcasts')).json();assert.equal(catalog.episodes.length,109);assert.equal(catalog.episodes.filter(episode=>episode.ready).length,109);
   for(const episode of [catalog.episodes[0],catalog.episodes.at(-1)]){
    const detail=await(await context.request.get(`${base}/api/podcast?subject=${episode.subject}&unit=${episode.unit}`)).json();assert.ok(detail.ready&&detail.audioUrl);
    const head=await context.request.head(base+detail.audioUrl);assert.equal(head.status(),200);assert.equal(head.headers()['content-type'],'audio/mpeg');assert.equal(head.headers()['accept-ranges'],'bytes');assert.ok(Number(head.headers()['content-length'])>10000);
@@ -34,7 +34,7 @@ const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=requ
    await page.screenshot({path:`qa-results/podcasts/live/reader-${width}.png`});
   }
   await page.goto(base+'/#learn');await page.locator('.unit-banner').waitFor();assert.equal(await page.locator('.unit-banner [data-podcast-section]').count(),0);assert.equal(await page.locator('.unit-banner .guide-button').count(),1);
-  assert.deepEqual(errors,[]);console.log('Live podcasts passed: 90 ready, authenticated audio, real byte ranges/playback, automatic caption following, scrollable reader, mobile/desktop layouts and single banner guide.');
+  assert.deepEqual(errors,[]);console.log('Live podcasts passed: 109 ready, authenticated audio, real byte ranges/playback, automatic caption following, scrollable reader, mobile/desktop layouts and single banner guide.');
  }finally{
   if(created)assert.equal((await context.request.post(base+'/api/account/delete',{headers,data:{username,password}})).status(),200,'Remove disposable verification account');
   await browser.close();

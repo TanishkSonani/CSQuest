@@ -1,3 +1,5 @@
+import {tocLabCard} from './toc-labs.js';
+import {compilerLabCard} from './compiler-labs.js';
 import {icon,mascot} from './icons.js';
 import {available,escapeHtml as h} from '/shared/engine.js';
 import {codingLabCard} from './ds-coding.js';
@@ -25,7 +27,7 @@ export function learningPathView({unit,lessons,lecturePlans,progress,current}){
   return `<section class="path-topic ${topic%2?'bend-right':'bend-left'}" aria-label="${h(lecturePlans[lecture][0])}"><div class="path-divider"><span class="topic-number">${String(topic+1).padStart(2,'0')}</span><span>${h(lecturePlans[lecture][0])}</span><span class="topic-count ${done===3?'finished':''}">${done===3?icon('check'):`${done} / 3`}</span></div><div class="topic-path">${steps}<button type="button" class="path-sidekick" data-action="sidekick" data-message-index="${topic%messages.length}" aria-label="Byte says: ${h(messages[topic%messages.length])}. Tap for encouragement."><span class="buddy-spark spark-one" aria-hidden="true">✦</span><span class="buddy-spark spark-two" aria-hidden="true">✧</span><span class="path-sidekick-avatar">${mascot(expressions[topic%expressions.length])}</span><span class="path-sidekick-note">${h(messages[topic%messages.length])}</span></button></div>${topic<topics-1?`<div class="path-reward ${done===3?'earned':''}"><div class="chest-halo"><img class="chest-3d" src="/assets/chest-3d.svg" alt="${done===3?'Completed':'Upcoming'} topic treasure chest" width="128" height="116"></div><span>${done===3?'Topic complete. Look at you go!':'Three small wins. One big idea.'}</span></div>`:''}</section>`;
  }).join('');
  const done=progress.completed.filter(id=>id>=begin&&id<begin+topics*3).length;
- return `<div class="learning-path ${unit.color}">${groups}<div class="unit-finish">${icon('trophy')}<span class="page-eyebrow">YOUR NEXT MILESTONE</span><h3>${done===topics*3?'Foundation built!':'Keep your curiosity going.'}</h3><p>${h(unit.goal)}</p></div>${codingLabCard(unit,progress)}</div>${current&&!progress.completed.includes(current.id)?`<button type="button" class="jump-current btn primary" data-action="jump-current" aria-label="Scroll to your current lesson" hidden>${icon('arrow')} CURRENT LESSON</button>`:''}`;
+ return `<div class="learning-path ${unit.color}">${groups}<div class="unit-finish">${icon('trophy')}<span class="page-eyebrow">YOUR NEXT MILESTONE</span><h3>${done===topics*3?'Foundation built!':'Keep your curiosity going.'}</h3><p>${h(unit.goal)}</p></div>${codingLabCard(unit,progress)}${tocLabCard(unit)}${compilerLabCard(unit)}</div>${current&&!progress.completed.includes(current.id)?`<button type="button" class="jump-current btn primary" data-action="jump-current" aria-label="Scroll to your current lesson" hidden>${icon('arrow')} CURRENT LESSON</button>`:''}`;
 }
 
 export function clearLearningPath(){observer?.disconnect();visibilityController?.abort();cancelAnimationFrame(visibilityFrame);cancelAnimationFrame(frame);cancelAnimationFrame(jumpFrame);}

@@ -1,0 +1,1104 @@
+1
+00:02:59,890 --> 00:03:40,060
+hi everyone is the audio clear so now we will discuss live variable analysis but remember this live variable analysis or you can call it liveness analysis okay liveness analysis this we have already discussed in the last lecture okay so what we have already seen in the last lecture that I will not discuss I will quickly
+
+2
+00:03:40,500 --> 00:04:09,480
+give you overview of what we have seen in the last lecture. What is this liveness analysis? Okay. And this liveness analysis, basically this is what are the applications? Can anyone tell me what are the applications? What are the applications of this liveness analysis? One is dead code elimination. Okay. So one is dead code elimination. This is one application. And then another application is a register, register allocation. Okay.
+
+3
+00:04:09,910 --> 00:04:31,230
+I will tell you why. I will tell you why in Rajashtra allocation, we use this liveness analysis. Yes, this is very important. In the GATE 2021, this question came from this topic. So you can notice this topic is added in the last year. So last year, this topic got added.
+
+4
+00:04:32,060 --> 00:05:02,380
+so you can notice what is this liveness analysis the topic is the concept is extremely simple okay just think about it and tell me okay this concept is very very very simple what okay just think about it and tell me let us assume you have s equal to a plus b okay and then you have s equal to c plus d okay now uh then tell me okay and then we have some statements now just tell me this point is there any uh can i remove this which statement can i remove just tell me this point okay from this
+
+5
+00:05:02,640 --> 00:05:31,240
+Okay, tell me which statement can I remove? Can I remove something here? Yes, this statement I can remove, right? Yes or no, this statement can be removed. So this statement we call it dead. Okay, this statement is dead gold. Why? Because we are not using it. Okay, just think about it. We are not using it. Okay, because here we are assigning A plus B to S. And now in the next statement, we are assigning C plus D to S. So we are not using this assignment. So basically this assignment is not used.
+
+6
+00:05:31,850 --> 00:05:59,250
+or yes or no. So I can say this assignment not used. This assignment is dead. I can say this assignment is not used, is not used. So this assignment is not used. So we can just remove this assignment. Now, another example, let's see another example. So let's see another example. For example, if you have s equal to 1, s equal to 2, s equal to 3, s equal to 4.
+
+7
+00:06:00,360 --> 00:06:28,060
+Tell me which is dead gold. Tell me which of them is dead gold. Now, you can notice these are the dead golds. Yes or no, these are the dead golds. Okay, again, these assignments we are not using. Now, first of all, let me tell you very, very, very important thing. Okay, in compiler design, in the compiler design, this is very important. I want to tell you in compiler design, whenever I say definition, definition, okay, definition.
+
+8
+00:06:29,530 --> 00:07:01,660
+definition is same as assignment that is same as modification or I can say that is right operation that is right operation and you can notice use use is same as read operation read operation okay so remember whenever I say assignment that means definition whenever I say definition that means assignment okay so tell me if I give you this statement tell me
+
+9
+00:07:01,840 --> 00:07:30,100
+in this okay some statements I'm giving you and you tell me in these statements okay what I'm defining and what I'm using okay basically remember read operation means read read operation means use okay if you are using it use means read operation okay and write operation means assignment or I can say definition so tell me if I give you this statement a equal to b plus c then tell me what is the what is the use of use in as well
+
+10
+00:07:30,160 --> 00:07:58,910
+like what I'm using in S1 and what I'm defining in S1 tell me what I'm using in S1 and what I'm defining in S1 use another word of use is reference another word for use is a reference so either call it use or reference or you can call it read okay so tell me in this statement what I'm using and what I'm defining so in this statement I'm using b comma c I'm defining a
+
+11
+00:07:59,690 --> 00:08:29,910
+In this statement, tell me what I'm using, what I'm defining. In this statement, what I'm using and what I'm defining. I'm using A comma C and I'm defining A, okay? I'm defining A, correct? So is this clear to everyone? Okay, so for example, S3, okay. In S3, print, print F A comma B comma C. Tell me what I'm using and what I'm defining, what I'm using and what I'm defining.
+
+12
+00:08:30,840 --> 00:08:59,920
+I'm using. I'm reading these things. Okay. I'm reading these things. I'm reading these things and I'm not writing anything. So, okay. So this is empty and this is ABC. I'm not right. I'm not changing them. Yes or no. Is this great to everyone? Okay. So are you getting this point? So here I'm not defining anything. Okay. Use means reference. Okay. So for example, I can also say
+
+13
+00:09:00,200 --> 00:09:29,250
+okay both are same thing for example if i give you s3 if a is residency go to l then tell me what i'm defining and what i'm using what is that what i'm defining this is also called referencing okay what is this what i'm using and sorry uh sorry use use what i'm using and what i'm defining what i'm defining in s3
+
+14
+00:09:29,570 --> 00:10:02,560
+so in s3 i'm not defining anything i'm using a comma c i'm using a comma c correct yes or no is this clear to everyone what i'm using what i'm defining i hope this is clear correct so use means basically the from this okay from this point onwards read read simply means use use simply means reference okay and write write means defining okay define okay
+
+15
+00:10:03,010 --> 00:10:34,430
+so this is the assignment that means assignment okay now tell me okay so basically here in this actually these definitions are not used yes or no these definitions not used these definitions these definitions or I can say these assignments these definitions slash assignments not used not used anywhere correct
+
+16
+00:10:37,660 --> 00:11:05,820
+Is this clear to everyone? So this is dead gold. I hope this is clear to everyone. So basically, what I mean, what I mean is this, okay, you can notice. Are you using, are you going to use it? This is the point. Are you going to use it? Is the value needed? Will you use it anywhere? Okay, so will you use it? For example, if I have, okay, if I have this statement, okay, let's assume I have this statement a equal to b plus c. When will I call this statement live?
+
+17
+00:11:06,240 --> 00:11:38,570
+when can i say that this is live just tell me this one when can i say that this statement is live i will say this statement is live it means it means somewhere this a is used somewhere i'm using this a yes or no somewhere this a is used okay yes or no somewhere this definition is used here this is the definition of it you can notice here we are defining a we are defining a
+
+18
+00:11:39,100 --> 00:12:09,370
+We are using B, C or we are using B, C. Now this assignment, this definition is somewhere used. Then we say that this statement is live. When can I say this statement is dead? This statement I will call dead. This assignment, this definition is called dead. If we don't use it anywhere, if this A is not used anywhere, not used anywhere, not used.
+
+19
+00:12:10,050 --> 00:12:59,130
+anywhere. Okay, is this clear to everyone? Okay, so this is the point. Now, I was telling you that liveness analysis can be used in register allocation. Why? Can anyone tell me? This is my question. Why can I use? Okay, liveness analysis can be used in register allocation. Why? Okay, so this is the question. Why liveness analysis can be used in register allocation? Anyone? Yes, very good, very good, very good.
+
+20
+00:12:59,310 --> 00:13:28,650
+see okay let me tell you why okay just think about it if we have if we have done liveness analysis the answer is very simple okay let us assume you have done liveness analysis you have done liveness analysis what it means okay now what do you have liveness analysis what you have done okay you have done you did it liveness analysis now now what we have now we know at every point what is life what is
+
+21
+00:13:29,050 --> 00:14:00,090
+dead yes or no so okay so at every point at every statement at every statement we know which variable is live which variable is dead yes or no we know which variable live and which variable dead correct which variable is live comma which is dead yes or no now just think about it and tell me let us assume this is a point at this point let us assume
+
+22
+00:14:00,350 --> 00:14:26,450
+This is a statement. Okay. In this statement, let us assume that these variables are live. Let us assume these variables are live. Okay. A, B, C, D, E. These variables are live. What it means, just tell me this point. At this statement, these variables are live. What it means? It means they are used somewhere. It means somewhere you are using A, somewhere you are using the value of A.
+
+23
+00:14:26,830 --> 00:14:57,280
+you are using the value of A somewhere you are using the value of B somewhere you are using the value of D yes or no correct correct yes or no D comma E okay so this is the point now tell me if you know that these are the okay so now tell me can I put them in the same resistance can I put them in the same resistance okay see at this point of time at this point of time you know they are live
+
+24
+00:14:57,500 --> 00:15:26,380
+you know they are live okay now my question is because all are live so i have to give them different register yes or no because this value will be used somewhere this value will be used this value will be used okay all these values are going to be used okay in the future program in the future in the future they are going to be used okay so it means these variables must be given different these variables must be given different register these variables should be in the current register
+
+25
+00:15:26,650 --> 00:15:57,510
+so they should be in different register yes or no they should be allocated different register I can say allocated different register okay correct or not now just tell me this point very important tell me if you know that variable a comma c are never live together okay at okay there is no point there is no point okay so okay I can say no statement where
+
+26
+00:16:04,400 --> 00:16:30,430
+then what can I do then then what can I do then I can give then I can allocate them same resistance yes or no then they can be given same resistance they can be allocated same resistance yes or no allocated same resistance okay so this is the idea okay so you can notice one thing you can notice that okay just tell me this point when you are writing three address code
+
+27
+00:16:30,980 --> 00:17:00,600
+Do you worry about how many registers are there in the machine during 3 address code? Do we worry about how many registers we have in the machine? We don't worry about yes or no. This is the intermediate code. We don't know how many registers are there in the machine. How many registers are there in the machine?
+
+28
+00:17:00,800 --> 00:17:31,760
+Yes or no? In the target machine, correct or not? Correct. So how many registers we have in the target machine? This we don't know. So actually during this TSE, back to back you are using temporary registers. Yes or no? Yes or no? Temporary variables. During TSE, we are using temporary variables. Temporary variables you are using.
+
+29
+00:17:32,220 --> 00:17:56,220
+correct and we are just using it for example like this okay t1 is allocated a plus b then t2 is allocated t1 plus c and then t3 is allocated t plus e something like this and then t4 is allocated t2 plus t3 and so on correct yes agree so you can notice when you are writing three address code and this three address code is an intermediate code this is an intermediate code
+
+30
+00:17:56,550 --> 00:18:21,850
+and because this is an intermediate code, so you don't have information about actually how many registers are there in the target machine. So you can notice that we are using these temporary variables and we do not worry about how many registers we have. So we are just using these temporary variables in the three address code. The compiler is using. So these temporary variables are going to be created by compiler, created by compiler.
+
+31
+00:18:23,790 --> 00:18:50,380
+Now just think about it and tell me, let us assume in your target machine, you have 30 registers. Okay. So 32, let us assume you have 30 available registers in your target machine. Okay. So 30 available registers you have in the target machine. And then tell me, okay. Okay. And also how do we, and let's assume these two statements. Okay. So total 30 registers we have in the target machine and let's assume
+
+32
+00:18:50,710 --> 00:19:20,800
+if the maximum number of variables that are used at a time okay that are live at a time that is less than equal to 30 then can I fit them all in the registers yes I can do that okay if okay maximum number of variables that are live at the same time okay that are used at the same time if that is less than equal to 30 then I can give them different different registers but now you can notice here in this example just think about it in this example let us assume
+
+33
+00:19:21,140 --> 00:19:54,380
+that when you look at the program then these variables okay so you can notice let us assume we have we have only three registers in the program okay in the program we have three registers then what should we do let us assume assume we have three registers in the machine port assume in a machine we have three registers then what should you do then what should we do we have only three registers
+
+34
+00:19:54,730 --> 00:20:24,850
+So this we can give to R1, this we can give to R2, this we can give to R3. Where should I store D comma E? Can anyone tell me? Where should I store D comma E? Then two variables are stored in memory. Yes or no? Two variables stored in memory, stored in memory, main memory. And this is called spilling. This is called spilling. Spilling means basically you are storing in the main memory.
+
+35
+00:20:26,240 --> 00:20:56,060
+So this is the point. So you can notice that this liveness analysis, this liveness analysis is useful in the register allocation. So how liveness analysis can be used in the register allocation? Is this clear to everyone? So from the liveness analysis, you can very easily find out, okay? Basically, whether you need a spelling or not. Is this clear? Anyone has any doubt? So liveness analysis can be used in register allocation.
+
+36
+00:20:56,500 --> 00:21:25,130
+okay so this is another application of liveness analysis okay so now let's go to the next point in this in this program can anyone tell me in this basic blog if this is your basic blog in this basic blog this is your basic blog can you tell me is there any any dead code is the is there any dead code here do we have any dead code yes you can notice okay so let let us assume okay just focus on the
+
+37
+00:21:25,340 --> 00:21:57,190
+Just focus on this. Okay, let us assume this is like, okay, this is the whole program. Let us assume this is the whole program. Okay, let's assume this is the whole program. Okay, so let's assume this is the whole program. Then tell me, do we have dead code? Do we have dead code? And let's assume here you return g, here you return g. Okay, let's assume you are returning g. No, because you are returning g, okay, so you can notice because you are returning g, so this is not a dead code. So this is definitely live.
+
+38
+00:21:58,020 --> 00:22:28,970
+And you are using this app here. This is use. So this is definition. This is definition and this is use. This is use. So you can notice this is definition and this is use. Okay. So this is statement is definitely live. This is statement is also live. But these statements are dead. We are not using them. This definition is also live. This definition is also live. And this definition is also live. Yes or no?
+
+39
+00:22:29,340 --> 00:22:56,420
+is this clear to everyone so you can very easily you can notice so you can remove them okay so this is the whole point okay which statement is dead see this example is already present in the last lecture just quickly tell me which statement can be removed from this so we can remove this state you can notice this statement we can remove because you can notice this definition we are not using anywhere so this is statement we can remove this also we can remove okay
+
+40
+00:22:56,700 --> 00:23:26,030
+this also we can see you are using this you are using this but this is not used this is not used so i can remove these two this i can remove this i can remove okay so these two i can remove correct okay so this example is already present in the last lecture so what is statement can be removed so you can very easily see that okay this can be removed and this can be removed these two statements can be removed okay remember this x is used this x is used
+
+41
+00:23:26,250 --> 00:23:57,070
+So don't remove this. Don't remove this. Okay. Don't remove this. This cannot be removed. And let us assume this is a basic blog. Let us assume this is a basic blog. Let's assume this is the basic blog. If this is the basic blog, can I, if this is one of the basic blog, can I remove this? This is used. This is used. So I cannot remove this. So basically these two statements can be removed. Okay. Here. Can I remove something? Can I remove something here? Tell me this is statement. Can I remove?
+
+42
+00:24:00,650 --> 00:24:29,890
+okay so very easily you can notice that this definition see just think about it and tell me can I remove x equal to y plus 1 so make the control flow graph so that you can know okay so here actually you can very easily see if you make the control flow graph for this then see if this d if this d is true then you will not use x but if d is false then you will use x yes or no so it's like this x equal to y plus 1
+
+43
+00:24:30,450 --> 00:25:05,490
+y equal to 2 into z. And then you can notice that if d, okay, if d is true, if d is true, and if d is false, if d is true, then you will define x again. And if d is false, okay, if d is true, then you will do this. Okay. Then you, then basically you will do this. And let's assume, okay. And if else, what will happen?
+
+44
+00:25:10,900 --> 00:25:39,040
+z equal to 1, z equal to x. So you can notice that if D is false, then you will use x. Okay, if D is false, then you will use x. So this is not dead code. This is not dead code because if D is false, then you can use x. Definitely this can be removed. You can remove this. There is no problem. Okay, you can very easily, you can remove this. This cannot be removed because if D is false, then you can use this, then there is a use.
+
+45
+00:25:39,900 --> 00:26:04,530
+Okay. And if these two, then there is a use here. So this is the point. So only you can remove this z equal to one. This can be removed. Nothing else can be removed. Okay. So only this can be removed. I hope this is clear. Okay. Now in this point, in this graph, what can we remove? So, okay. These examples are already present in the last lecture. So you can check there. Okay. So you can just check that. Okay. Here we cannot remove anything.
+
+46
+00:26:05,240 --> 00:26:36,740
+okay because you can notice if D is true see if these you can notice here okay what I'm saying if D is false then you are using X you are using X if D is false okay so if D is false you are using X and if D is true then you are using Y and you can notice that you if what else I can say here can I remove this Z equal to 1 can anyone tell me can I remove Z equal to 1
+
+47
+00:26:37,120 --> 00:27:09,380
+this z equal to one can I remove this I cannot remove because you are using this z here you are using this z here because this loop is running you are running this loop okay this loop is running running running so because this loop is running so you are using this z here you are using this z okay so anyway this is your dead code okay so now okay let us see very important point okay so you can notice here in the last lecture also I told you
+
+48
+00:27:09,630 --> 00:27:39,630
+Okay, for example, if you have a statement like this, let us assume A equal to P plus C. Okay, can you tell me, okay, let us assume here, okay, at this, okay, so this is your statement. Okay, let's assume here live, here, let's assume E comma F is live. Then can anyone tell me, what can I say? At this point of time, what is live? Another statement you have here, another statement you have here, let's assume here you are using E plus F. So you can notice that, okay, so
+
+49
+00:27:40,210 --> 00:28:09,690
+see okay you can notice that you are using e plus f okay here if you are standing here then you are using e plus f you are using e you are using f so i can say that e comma f is live yes or no here okay here e plus f is live correct so these are the live these are the live variables correct or not why these are the live variables why these are the live variables because tell me why these are the live variables here here when you are standing here
+
+50
+00:28:10,060 --> 00:28:40,500
+then okay when you are standing here this is your control flow this is your control flow okay then at this point of time you can notice here you have a equal to a plus f so you can notice here at this here at this point of time you are using e plus f here so i can say these are live and what can i say here what is live what can i say here live see here e plus f is live okay now here what is live definitely here b is live
+
+51
+00:28:40,800 --> 00:29:13,090
+c is live because you are using b comma c e is live f is live okay so here here these are the live these are the live because you are using b you are using c you are using e you are using f so these are live can anyone tell me what is live here what is live here here what is live here you are using a see if you are standing here if you are standing here just before this statement then you can see that you are using a
+
+52
+00:29:13,520 --> 00:29:45,220
+you are using all these things, so you are using B C E F. Is this clear? These are mine. Tell me, is this part clear to everyone? Anyone has any doubt in this? So let me give you another program. Okay, let's consider this basic block. Just consider this basic block and tell me, okay, so some statements I'm giving you. Okay, so let us assume this statement you have A equal to A plus C, F equal to D plus D.
+
+53
+00:29:48,680 --> 00:30:14,700
+Let us assume these are the statements. Okay, so tell me, okay, let us assume initially, as I told you, liveness analysis we do in the, in the, in the bottom of fashion, okay, back in the reverse order. So tell me what is life? Let us assume here, this is the life, this is given. Okay, now find what is life here, find what is life here, what is life here, find what is life here and find what is life here.
+
+54
+00:30:16,590 --> 00:30:51,970
+tell me what is the answer so tell me what is the answer so you can notice we are using a comma d right we are using a comma d so here i can say a comma d are live yes or no let us do this is given this is already given that this is live this is already given that here nothing is live okay now tell me if you okay because you are using a comma d you are using a comma d so these are live what about this okay let us assume this is a comma f okay let us do return a comma f let us
+
+55
+00:30:52,450 --> 00:31:22,010
+Let us assume I return a comma f. Let us assume this is f. Now tell me. Okay, so here a comma f are live because you are using them. Since you are using them, so a comma f are live. Tell me what is live here at this point. Okay, okay, before this. So now you can notice you are not using f. Okay, just think about it. If you are standing here, if you are standing here, you are not using f because you are defining f. So I can say b comma d comma a.
+
+56
+00:31:22,350 --> 00:31:50,020
+and what about this you are using a right you are using a so i can say a comma c comma b comma d is this clear no see you are using see at this point you are using a right you are using a live means what you are using in the future okay just think about it if you are standing here okay if you are standing here if you are using something here if you are using something here
+
+57
+00:31:50,380 --> 00:32:21,620
+if you are using okay if you are using p comma c then i will say then i will say then i will say that here life is equal to b comma c if you are using in the future okay is this clear you are standing here if you are using you are using a in the future see you are using a in the future so that is there is an a c b d these are the life is this clear to everyone i hope this is clear okay so
+
+58
+00:32:22,110 --> 00:32:51,190
+at each instruction we see whether each variable is live ordered remember at each instruction we will see and very important thing actually I want to tell you here okay this many students they do not understand this so that is the reason I am telling you just look at this live at an instruction means live just before that instruction so this is a very very very important one see so far what we have done did you notice so far what we have done so far we were doing this
+
+59
+00:32:51,390 --> 00:33:24,500
+this is a statement we were calculating what is live here see this is statement this is a statement as we have we were calculating what is live here and what is live here and let us assume this is a statement as yes or no and let us assume this is statement as zero are you understanding what I'm saying I'm saying so far we have done we have done that these are the statement we were checking what is live here what is live here between the statements we were taking
+
+60
+00:33:24,940 --> 00:33:53,340
+between the statements we were checking what is life means before this statement what is life and after this statement what is life before this statement what is life after this statement what is life so this is what we have done so far yes or no before this statement what is life and after this statement what is life agree agree so far this is what we have done each year you can notice you can just check here okay before this statement this is your statement
+
+61
+00:33:53,720 --> 00:34:22,220
+before this statement what is live and after this statement what is live so this is the point correct now very important that this terminology live at an instruction means live just before that instruction okay so now this is what we are going to do basically basically what what is this this you can put here basically this is what i want to say if i give you a program let us assume this is the program a plus c
+
+62
+00:34:22,650 --> 00:34:53,090
+and let's assume f is equal to a plus b and let's assume a is equal to okay d plus f okay and then let's assume return okay return a comma d okay so let's assume this is your program now okay in this program now my question is this okay my question is this this is s1 a statement this is s2 a statement this is s3 statement
+
+63
+00:34:53,500 --> 00:35:22,090
+This is error 4. My question is, this is my question. So let's see the question. The question is this, what is live variables at S1? What are the live variables at S1? What are the live variables at S2? What are the live variables at S3? And what are the live variables at S4? Tell me, what is the answer? Live variables at S1. Remember this point.
+
+64
+00:35:22,820 --> 00:35:47,980
+live variable at an instruction means live just before that instruction just before that instruction so live at s1 means what that means see live at s1 means this this okay this is live at s1 okay what you are what you write here this is called live at s1 this is known as live at s1 this is known as live at s3
+
+65
+00:35:53,980 --> 00:36:27,480
+here what is live this is known as live at S okay so tell me what is live at S1 can anyone tell me what is live at S1 what is live at S2 what is live at S3 so very simple live at S4 so okay what is live at S4 so live of S4 I can say what is live at S4 live at S4 means what you are using here just before this live at S4 means A, D see remember
+
+66
+00:36:28,190 --> 00:36:57,520
+basically this now we are writing with with this statement this is the only point okay so a comma d okay now tell me what is live at s s3 what is live at s3 means means what is live here means what is live here so what is live at s3 so now a is not live okay here a is not live here here here here here here a is not live because you are assigning a because we are redefining a
+
+67
+00:36:57,790 --> 00:37:29,970
+So A is not live. I can say df. Only df are live. Okay. What is live at h2? What is live variables at h2? Now, f is not live. Here, here, here, here. Here, f is not live. So what is live? a, b, a, b, d. a, b, d are the live. a, b, d are live. Correct? And what is live at s1? What is live at s1? Live at s1 means what is live here? What is live here?
+
+68
+00:37:30,270 --> 00:38:15,720
+that is acbd that is acbd is this clear all these points are they clear live at instruction means live just before that instruction okay clear is this clear now some rules okay what are the rules so actually remember liveness is checked at every statement first of all okay first of all you already know that liveness we check what are the variables live at each statement
+
+69
+00:38:16,160 --> 00:38:46,590
+this this you can see at each instruction at each instruction we see what are the variables live and what are the variables dead yes or no at each instruction we will see what are the variables which are live what are the variables which are dead okay so if you have this type of statement okay then what what are live at this okay can you see at this statement and what are the live what are the live variables at this statement and at this statement means basically here what is live here
+
+70
+00:38:46,910 --> 00:39:14,060
+see what is live here so what is live here that is x y s t that is x y s t correct yes or no x y s t so this is the point okay so this is important point now some rules we are going to see okay some rules let us assume that you already know that what is live here okay so let us assume this is a statement okay so the rule one let's assume this is your statement
+
+71
+00:39:14,830 --> 00:39:43,800
+Okay. And in this statement, you have a equal to B plus. Okay. And let us assume you already know what is live before. Okay. This is out live. Actually, this is known as outline live out, or you can say outline means what is live at here. Okay. Means after this, just after this statement, what is live that is called outline means out live off and let's call this a statement and so what is out live off and means just outside this statement.
+
+72
+00:39:44,030 --> 00:40:15,830
+Just after this statement, what is life? Let us assume that x comma y are life. Then tell me, what can I say about life at n? What will be life at n? Tell me. What will be life at n? Tell me. If you know x comma y is life, then here answer will be x comma y comma b comma c. x comma y comma b comma c. Click. So this is the rule one. Very simple.
+
+73
+00:40:17,120 --> 00:40:50,630
+So from this, can you make generalize this? Can you make some generalize this? Why not a because we are not using a as I told you use means these are we are using again very important B, C we are using. We are not using a we are defining a this is definition. This is use. Okay. Is this clear? Is this clear? Is this clear to everyone?
+
+74
+00:40:53,090 --> 00:41:22,670
+is that we will see that we will see just wait okay we will see all these things don't worry so first let me tell me okay just tell me this point if I have this statement okay this rule one let me continue this rule one okay we will create a rule one basic okay this is what we are going to create so we are going to create a rule one formally we are going to create a rule one let us assume that this is your outline okay let us assume you know something is out live here
+
+75
+00:41:23,050 --> 00:41:55,540
+This is your out live off end. Okay. This is, this is something. Okay. You already out. No, this is given. Let us assume something is already known to you. See, this is your statement and this is the statement and this is already known to you. Let us assume something is known to you that what are the variables that are live here. This is already known to you. Is this clear? Let us assume this is already known to you. Now, let us assume that you are defining. Okay.
+
+76
+00:41:55,900 --> 00:42:26,930
+This is your defining in n, what you are defining in n, and what you are using in n. These things are more. So these three things are given to you. Can you calculate live at n? If these three things are given to you, then can you calculate these are given? Remember, these are given. Okay, these are given to you. This is given, this is given, and this is given. If these are given to you, can you calculate live of n? Can you calculate live of n?
+
+77
+00:42:30,830 --> 00:43:01,940
+Let's see who will calculate live of n correct. Some students are saying use plus, okay, so that is wrong. You can take example. Can I say which statement is correct? Okay. Or let me give you some options. Okay, let's see some options. Live at n, that is equal to out live, what is out live of n? Union use of n. Is this correct? Is this correct? Which is correct?
+
+78
+00:43:10,380 --> 00:43:43,300
+Let me give you some options for the options. Let me give you some options. First option, let me give you use at end union out at end. Out live at end. Out at end. Second option, let me give you. Let me give you second option. Use at end union out at end minus depth of third option. Let me give you depth of end.
+
+79
+00:43:45,230 --> 00:44:23,840
+minus out of and union use of and let me give you option P out of and minus depth of and union use of and which option is correct. Which option is correct? Which option is going to be correct? Okay, see, okay, just okay, let's let's play a game. Okay, I'm giving you a statement and you tell me whether your answer that you are thinking is correct or not for this statement.
+
+80
+00:44:24,060 --> 00:44:53,640
+let us assume your statement is this f is equal to a plus b and let us assume this is your statement let's assume this is your statement and let's assume out of n out of n is f comma b f comma b then tell me what will be can you can can you tell me what will be live of n remember live of n means what is live here that is live of n what is live here can you tell me what will be live of n
+
+81
+00:44:54,820 --> 00:45:26,330
+That will be AD only. That will not include F. That will not include F. Can you see? Is this clear? See, just think about it. You are defining it. You are redefining it. You are only using. So, okay. So, is the, okay. Is your answer correct from this scenario? From this scenario, is your answer correct? So, in this statement, you can notice. In this statement, you can notice what I'm using. What I'm using. I'm using A, D. So, use is A, D.
+
+82
+00:45:27,070 --> 00:46:09,550
+I'm using a comma D and I'm defining what? I'm defining F. So tell me from this now tell me what is the answer? What should be the answer from these four options? What should be the answer? These four options, which option you can remove? Which option you can eliminate from this scenario? Which option you can eliminate? Definitely option A is gone. Okay. Option A is definitely gone. Okay. And what option is gone?
+
+83
+00:46:10,660 --> 00:46:42,180
+B is also gone. B is also gone. Can you see B is also gone or not? No, B is not gone, right? So far, B is not gone. From this example, B is not gone, correct? From this example, B is not gone. Yes or no? B is not gone. A is gone, but B is not gone. C is gone. Can you see C is gone? C is also not gone, okay? Okay, C is also not gone, I think. Def minus this. C is also not gone.
+
+84
+00:46:42,410 --> 00:47:18,130
+Okay, let me give you another example. Consider this statement. Is node n is this? Okay, a equal to a plus b. And let us assume out of n is this. I'm giving you out of n. Out of n is a comma f. Now tell me what is live of n. I won't correct answer. Tell me what is live of n. You can very easily see. Okay, what is live of n? So you can very easily see live of n will be what means what is live here?
+
+85
+00:47:18,610 --> 00:47:48,880
+Live of N means what is live here? So A is live, B is live and F is live. ABF, correct? I think every, okay, everyone has given correct answer. So live of N is ABF. Okay. So you can very easily notice that, okay, here, what is, what is, what is death of N? Can anyone tell me what is death of N? What is death of N? That is only A. And what is use of N? What is use of N? That is A comma B.
+
+86
+00:47:51,590 --> 00:48:17,180
+So now tell me what should be the correct definition now tell me the answer okay I hope you okay now can you give me the answer here what is the answer answer is option D option D is correct here option D is correct why option D is correct let me tell you okay let me explain this why option D is correct now you can very easily see option D is correct why option D is correct
+
+87
+00:48:17,990 --> 00:48:48,860
+because this is what you do see this is what you will do so this is a rule I can say this is a rule if you have a statement let's assume this is a state this is a statement and let us assume that use of n is given to you okay and out of n you already know so out of n is given so these are given these are known to you let us assume these are known to you out of n what we are defining in n and what we are using in n
+
+88
+00:48:49,000 --> 00:49:26,130
+what we are using in n now just tell me this point so now i can calculate live of n very easily what i will do very simply first of all from out of n i will remove the def of n yes or no from the out of n i will remove the def of n and then i will take union with use of n then i will take union with use of n is this clear to everyone union with use of n is this clear so you can notice here
+
+89
+00:49:26,380 --> 00:50:01,730
+from out of n first I will remove this definition of n so from this a comma f I will remove this a then I will take union with a comma b so actually what I'm doing I'm doing this from this a comma f I am removing a and then I'm taking union then I'm taking union with a comma b to how many students this is clear this rule is clear to how many students now can you very easily see
+
+90
+00:50:02,040 --> 00:50:33,530
+if you know what is live after a statement then can you tell me what is live at a statement anyone has any doubt in this if you know what is live after a statement then can you tell me what is live at a statement any statement I give you you can do that correct yes or no so finally this is the this is the final point okay statement and so you can very easily calculate live of n so this is our this is our rule so this is a rule that live of n
+
+91
+00:50:33,980 --> 00:51:13,280
+is equal to out of n minus def of n union use of n. Okay. I hope this rule is clear. I hope this rule is clear. Okay. So this is the rule. So let's see. So you can handle one statement, individual statement you can handle. Okay.
+
+92
+00:51:14,250 --> 00:51:43,090
+So we will complete this course. Okay. We will complete the topic. Then we will stop. Okay. If you, if you need to go see, if anyone needs to go, you, you can go because the lecture will be uploaded on the YouTube. Okay. So you can post the lecture on the YouTube also on the go classes, YouTube channel, you can post it. Okay. And if you can stay, you can stay. Okay. So that we can discuss. Okay. So that you can ask your doubts because many new things, many good things are coming and then we will solve the gate yourself. Okay. So this is the point.
+
+93
+00:51:43,470 --> 00:52:24,050
+Now, let's see, okay, for this, for this, give me, okay, find at each instruction, what is live? At each instruction, what is live? Tell me, tell me, find live variables at each instruction. Find live variables at each instruction. Find live variables at each instruction. So tell me, let's call S1, let's call S2, let's call S3, let's call S4, let's call S5.
+
+94
+00:52:24,610 --> 00:52:52,940
+Let's go as six. These are the statements. Okay. So find live variables at each instruction. So the answer is very, very, very simple. Just tell me, okay, I'm asking you, you tell me the answer. Okay. So tell me what are the live variables here? What are the right variables at this statement? What do I mean at this statement? What do I mean by at this statement? I mean, I mean, what I'm using here or in future, what I'm using here or in future.
+
+95
+00:52:53,260 --> 00:53:26,150
+so live at an statement means remember this point remember live at an state live at a statement live at a statement and live at a statement and means means live just before live just before statement and okay means means okay means live
+
+96
+00:53:28,090 --> 00:53:58,760
+add or in future live at n or in future live at used at n or in future means used at n or in the future. Okay. So these are the points. Okay. So you can notice here live at S six. What are the live at S six? You are using by three because at S six, we are using by three here. What are we using?
+
+97
+00:54:00,620 --> 00:54:29,490
+Now you can notice, okay, just remove, okay, apply the algorithm, please, apply the rule. Are you applying the rule? Apply the rule so that you can handle the complicated questions. Apply this rule, out minus def union use. So now this is the out. Yes or no, this is the out of S5. Out of S5 is, yes or no, out of S5 is by three. You can notice here. Now this is the out of S5.
+
+98
+00:54:31,010 --> 00:55:00,260
+means what is here, what is live here, that is this Y3. So from Y3 you remove Y3 and then you union with Y2X3. So finally you will get Y2X3. Are you applying the rule or not? See, are you getting the rule? So you can notice what is, if I ask you what is out of S5, what is out of S5, tell me. Out of S5 is in off S6, I can say. Out of S5 is this.
+
+99
+00:55:01,010 --> 00:55:32,000
+and this is actually in of s6 okay at any statement means this is your statement this is your statement okay what is what is live here that is called in of n and what is live here that is called out of n in of n is same as what tell me tell me in of n is same as live of n this is same as this is same as live at n
+
+100
+00:55:33,440 --> 00:56:05,960
+Is this point clear? Anyone has any doubt? Very simple. So what I can see here, here you can notice, if I ask you, if I ask you what is in of S6, so that is in of S6 means what is here, in of S6 means here. Okay. So tell me what is, what is live at S4? Live at S4 means out of S4 minus definition of S4 union X1, union X2.
+
+101
+00:56:06,160 --> 00:56:45,790
+so that will be x1, x2, x3 and what is life here? okay remove x3 and then x1 union x2 and here what is life? x1 and here what is life? tell me here what is life? nothing here what is life? nothing is this clear? anyone has any doubt? is this clear to everyone or anyone has any doubt? so remember okay if you have some statements let's take one for more example we will take okay
+
+102
+00:56:46,190 --> 00:57:17,790
+So how are you calculating so fast by this rule by this rule see this rule you have this rule you have a statement this rule I am using nothing else this rule we have already seen the proof we have already seen the proof of this rule we have already seen a statement of N if this is the statement and now what is live here that is outline what is live here okay that is outline this is called out of N.
+
+103
+00:57:18,800 --> 00:57:49,670
+This is called in-of-n and here we call live-of-n. Live-of-n is same as in-of-n, both are same. Live-of-n is equal to in-of-n and you already know live-of-n that is equal to what? This formula we have already seen. What is that? Out-of-n minus def-of-n union use-of-n. This formula I'm using.
+
+104
+00:57:55,220 --> 00:58:28,930
+so this is the point why we go backwards I will explain okay why we go backwards can we go forward can anyone tell me can we go forward I told you in the last class live variable analysis is backward analysis this live variable analysis this is backward analysis we are going for backward can you notice we are going backward yes or no in this example also we are going backward we are going backward right yes or no we are going backward can we go forward I will explain to you
+
+105
+00:58:29,260 --> 00:59:02,780
+Yes, we can go forward also, but it will take more time. Okay, let me explain. It will take more time. In this example, let me explain that it will take more time. It will take many sessions, actually. Okay, if you go forward, okay, see, okay, this question, let me ask. This is the question. Okay. In liveness analysis, we are going backward. In liveness analysis, we go backwards. We go backwards, correct?
+
+106
+00:59:03,530 --> 00:59:41,930
+Or I can say lameness analysis is backward analysis. We go backwards. But can we go forward? First of all, why? Why we go backward and can we go forward? Why not go forward? Let me explain. Yes, you can go forward, but the answer is efficiency. The answer is efficiency. So the answer is this. Yes, you can go forward.
+
+107
+00:59:42,300 --> 01:00:30,560
+Yes, we can do liveness analysis in forward manner. In any mirror, we can go forward. We can go forward in liveness analysis. But it is inefficient. It is very inefficient. Backward analysis is efficient. Let me answer why. So it's the same example I will take. Let me take the same example that is here. So you can notice this is the same example. Let me take.
+
+108
+01:00:32,640 --> 01:01:28,580
+Okay, so this is the same example I wrote. Okay, so the same example I'm going to take. So can you tell me? Okay, initially, initially nothing is live, right? Yes or no? Initially nothing is live. So now you notice what is going to happen. Okay, so initially nothing is live. Okay, let's assume you are going forward. Let's assume you are going forward. Initially nothing is live. Initially nothing is live. Nothing, nothing, nothing, nothing is live. Okay, now let's go forward. Okay.
+
+109
+01:01:28,940 --> 01:01:56,350
+here can you tell me at this point of time can you tell me at this point of time at s1 can you tell me something is something can you tell me can i can i say something okay don't go at s2 s3 don't look at s2 s3 okay just tell me okay by looking at s1 can you tell me something some can something become live can some variable become live just by looking at s1 just look at s1 can you say no no variable will become live okay so this is okay now
+
+110
+01:01:57,830 --> 01:02:30,410
+can I say something will become live can I say something will become live yes x1 will become live x1 will become live so okay so let me tell you this is the initial setup so this is a initially okay so let me let me say this is initial okay now let's see now let's see this is the initially now what will happen first iteration now I'm telling you first iteration first iteration
+
+111
+01:02:31,780 --> 01:03:01,040
+Okay. So here you can say that X1 is live. Now you have this information that X1 is live. Now you have this information that X1 is live. What can you say about, what can I say about S3? What can I say about S3? I can say X1, X2 are live. X1, X2, I can say they are live. Okay. And what can I say about S4? What can I say about S4? X1, X2 are live, again X1, X2 are live. What can I say about
+
+112
+01:03:02,190 --> 01:03:30,510
+S5. What can I say about S5? Y2, X3 are live. And what can I say about S6? S6. Y3 is live. This is the first iteration. Do you agree? This is the first iteration. Okay. This is the first iteration. Agree? Now let's... Okay. Is this the final answer? Just tell me this point. Is this the final answer? Is this your final answer? No. So let's do the second iteration. Okay. Let's...
+
+113
+01:03:30,520 --> 01:04:00,350
+do the second iteration so let me do the second iteration now what will happen second iteration let's do second iteration again go forward again go forward tell me now now can you notice something is something interesting will happen tell me what can you say about live at s1 what can you say about live at s1 live at s1 means more see live at s1 live at s1 means
+
+114
+01:04:01,080 --> 01:04:32,420
+out of S1 minus def of S1 union use of S1. So what is out of S1? Tell me what is out of S1 that is X1 minus def of S1 that is X1 union use of X1 that is pi. So finally, pi. So in the second iteration also this will be pi. Is it clear? In the second iteration also this will be pi. Okay, tell me.
+
+115
+01:04:32,770 --> 01:05:07,080
+tell me what about life of h2 what about life of h2 what about life of h2 that means out of h2 minus death of h2 union use of h2 okay so let's see so you can notice out of h2 minus death of h2 union use of h2 okay so tell me what is out of h2 what is out of h2 just tell me this point what is out of h2
+
+116
+01:05:07,490 --> 01:05:36,620
+Out of H2 is X1, X2. Out of H2 is X1, X2. Out of H2, out of H2 means what is here. Out of H2 means what is here, what is here, what is live here. Live here is X1, X2. Live here is X1, X2. So out of H2 is X1, X2. X1, X2. Minus, therefore, X1. Minus, sorry, therefore, X2. Minus, therefore, X2 means X2. Therefore, X2 means X2.
+
+117
+01:05:38,620 --> 01:06:08,920
+union use of h2 use of h2 is x1 so finally what you will get finally what you will get that is x1 so finally in the second iteration here you will get x1 okay x1 again again you will only get x1 same now similarly can you do what can I say about s3 what can I say about s3 now s3 will be what that will be x1
+
+118
+01:06:09,600 --> 01:06:40,900
+union x2 that will be your x1 union h2 what can you say about s4 what can you say about s4 s4 tell me what can you say about s4 s4 means y2 x3 minus y2 so this will be x1 x2 x3 this will be now x1 x2 x3 okay now tell me what can you say about s5 what can you say about s5 what can you say so again you can notice
+
+119
+01:06:41,280 --> 01:07:10,530
+what can you say y3 y3 cancel so this will be y2 x3 this will be y2 x3 so okay so in the second iteration this will be your answer okay in the second iteration is it different from the first iteration this answer is it different from the first iteration is it different from the first iteration yes this is different you can notice the difference you can notice the difference this additional thing is coming this additional thing was not here here we did not have
+
+120
+01:07:10,830 --> 01:07:41,960
+so the second iteration is different if i do the third iteration will the answer change can i do the third iteration in the third iteration will answer change let's do the third iteration in the third iteration again you can check okay so this will be same okay so you can notice and this will be same because you can notice okay x1 x2 okay so this will be same next again you can notice that x3 okay so x1 x2 so now it will not change so second iteration is equal to third iteration so now you can stop
+
+121
+01:07:42,610 --> 01:08:37,930
+Second iteration is same as third iteration. Now you can stop. So you cannot a second iteration. Second iteration result is same as third iteration reason. So stop. So fine. You have final answer. So your answer is so, so, so you can see, can you see forward analysis is inefficient? Yes or no? So forward analysis is inefficient, but you can do. So.
+
+122
+01:08:39,170 --> 01:09:10,970
+If you got everything so far, then you can do anything. All the questions you can do. Tell me. All the concepts, everything is over from this liveness analysis. Tell me. Anyone has any doubt or is it clear? Can you tell me? Is it clear or not? Anyone has any doubt? Small doubt, big doubt doesn't matter. Anyone has any doubt? Yes, we will take. Astitva, don't worry. We will take loop question. What if we have loop? I will take. First, so far, is it clear?
+
+123
+01:09:11,240 --> 01:09:42,190
+So this is the liveness analysis. So can you understand this image? Can you understand this image? So you can notice here we are referencing f. So can you notice this image? Can you understand? So here f comma e will be there and then f comma a comma b comma c. I will explain. Don't worry. It is coming. It is coming in the future. One by one, slide by slide, just understand all these things that you are asking are coming in the future.
+
+124
+01:09:43,080 --> 01:10:11,460
+loop out how to calculate out all these things are coming so is this is this picture clear to everyone this picture can you understand okay now let's see is this picture clear just just look at these pictures and tell me are they clear to everyone so abc this is live here now here you are defining so this will be removed now ab now okay so this this picture is also clear very very easy because you are defining a so now here this is not live
+
+125
+01:10:11,750 --> 01:10:44,270
+here at this point of time, a is not right. So what we are referencing, use means reference, see some authors use, use means reference, use also means reference. So for example, what are you referencing here? Are you referencing or defining? For example, in x plus, so tell me in this statement, x equal to 3, in this statement, tell me what is the use
+
+126
+01:10:44,760 --> 01:11:15,820
+what are the variables that you are using and what are the variables you are defining tell me use means read and death means write so here we are not using anything but here we are defining x okay use means reference okay so like this you can okay so you can check in this we are not defining anything in this we are defining also and reading also so i hope these points are okay so
+
+127
+01:11:19,940 --> 01:11:50,720
+So like this you can do. Okay, so this formula, this formula we have already seen, correct? Yes or no? Live of n. Live of n is equal to in life. In life means live of n because see if you have this statement, okay, if this is your statement, if this is your statement and then remember in in life means at okay, here what is live? Okay, here what is live? This is called in life. Okay, this is called in life.
+
+128
+01:11:52,430 --> 01:12:23,600
+and here what is okay just after this this is called outline and and what is this live of n again because this is important many students they make mistake here so that is the reason I'm asking again what is live of n what is live of n live of n simply means what is in live correct because live at a statement it automatically means just before yes or no just before correct
+
+129
+01:12:24,140 --> 01:13:00,540
+means just before it what is life and just after it what is life. So this formula we have already seen the proof we have already seen. Okay. No. Okay. So all these things you can just take it out. Okay. So how to calculate out? Okay. This is an interesting point. Someone is asking. So we have now seen, okay, you can very easily calculate. Okay. This you can calculate by looking at the statement. If you look at the statement, you can do this, you can find this, these, these things you can find. Okay. If you know this,
+
+130
+01:13:00,860 --> 01:13:31,560
+then you can find this if you know this then you can find this but how can you find out like this is the question how can you find out like can anyone tell me can anyone tell me how can you find out like means it's like this if you have some statement then how can you find what is live just after this so for example if you have a statement let's assume this is a statement as my question is my question is
+
+131
+01:13:31,740 --> 01:14:04,730
+let us assume these are given to you now these are known to you okay now these are known to you these are known to you in of every statement okay you know in of in live of every statement every statement you know in live of every statement let's assume you know this every statement okay you know in live of every statement there is a statement as to there is a statement as three and so okay
+
+132
+01:14:05,020 --> 01:14:34,970
+and let's assume this is a basic block this is a basic block let's assume this is a basic block okay so tell me if this is a basic block okay what it means this is a basic block what it means i'm saying this is a basic block what it means it means how many successor of s1 how many successor of s1 tell me this is a basic block how many successor of s1 s1 has only one successor how many successor of h2
+
+133
+01:14:36,510 --> 01:15:05,110
+How many successor of S2? How many successor of S3? How many successor of S3? Not known. Very good. Not known. Anything. Okay. How many? Because basic block you already know. See, this is a basic block. If this is a basic block, okay. If this is a basic block, I told you in basic block, if this is your statement S1, this is your statement S2, S3, S4. Now you can notice here the control can come from anywhere.
+
+134
+01:15:05,870 --> 01:15:39,070
+the control can come from anywhere here the control can go to anywhere so remember successor of S2 will be only S3 remember successor of S2 will be only S3 but successor of S4 can be many yes or no can be many successor of S4 can be many character or not can be many okay successor of S1 will be only S2
+
+135
+01:15:39,290 --> 01:16:11,210
+you can notice successor of s1 will be only s2 is this point clear now my question is this if you know in off okay can you find out okay what is out of s1 what is out of s1 you know these are these you know so this is what i what i want to find okay just find what is out of what is out live off s1 what is the answer tell me tell me what will be the answer what will be out live off s1
+
+136
+01:16:13,960 --> 01:16:44,960
+Outlive of S1 means in of S2. Yes or no? Outlive of S1 means in of S2, very simple. So the answer is very simple. Outlive means, see, okay, this is very simple. Okay, what is outlive of S1? What is here? This is in of S2. Yes or no? This is in of S2. So in of S2 is basically outlive of S1. Is this clear? Okay, is this clear? Now, okay, interesting thing, interesting thing.
+
+137
+01:16:45,130 --> 01:17:21,690
+What is outlive of S4? What is out here? Okay, what is outlive here? What is outlive of S3? Basically, this is my question. What is outlive of S3? So this is a basic block. In this basic block, you have S1, you have S2, you have S3. My question is, what is outlive of S3? If you know, in of everything you know, in of everything you know.
+
+138
+01:17:22,570 --> 01:17:52,670
+in of everything known okay what is known in of everything you know let me tell you okay so remember this is a basic block this is a basic block so there can be another basic block there can be another basic block there can be something like this okay there can be something like this correct there can be something like this so what is outlive of s3 anyone want to try anyone want to try like can you give me some idea i just want your idea
+
+139
+01:17:53,050 --> 01:18:24,430
+In live of S3, no, no, no, no. Intersection of in. Union of in, actually, okay, take this example, take this example, see, okay, consider this example. Let us assume that you have this graph, okay, A equal to B plus C, okay, and let's assume here you have if, okay, here A is greater than B, okay, if, then, then if A is greater than B, then basically if this is true, then you will go here.
+
+140
+01:18:24,660 --> 01:18:52,900
+okay what you will do you will do b equal to a plus d and if this is false then you will go here and what you will do you will do a equal to b plus c okay now this is interesting now now tell me okay now tell me okay so this is the exit block let's assume this is the exit block okay now on this course on this on this let's try so tell me here you have nothing okay five five okay nothing is live here
+
+141
+01:18:53,140 --> 01:19:22,640
+can anyone tell me what is live here at this point what is live okay so this is the what is live here tell me what is live here what is live here so you can very easily notice here what is live here live is a comma d so here a comma d is live and here live is b comma c b comma c is live now tell me what is out live often
+
+142
+01:19:23,150 --> 01:19:54,220
+This statement, let's call it as one, let's call it as two, let's call it as three, let's call it as four. What is outlive of S2? Just tell me this one. This is my question. What is outlive of S2? What is outlive of S2? What is outlive of S2? Means what is outlive here? Here, here, what is live? Here, what is live? Here, what is live? What is outlive of S2? Tell me. Quickly tell me. The answer is A, B, C, D. Yes or no? A, B, C, D.
+
+143
+01:19:54,570 --> 01:20:23,620
+because you can notice what is live here tell me if you are standing here if you are standing here okay just think about it and tell me okay just think about it this is a very simple point if you are standing here what is live for you what is being used what is being used if you are standing here what is being used see here a comma d is being used here b comma c is being used if you are standing here then what is live a comma d is live
+
+144
+01:20:24,020 --> 01:20:55,740
+B, C is live. So finally I can say outlive of h2 is equal to abcd. Do you agree or not? Anyone? Very, very intuitive. Very intuitive. If you are standing here, then what is live? If you are standing here, then what is live? So here a, a, d is live. Here b, c is live. So finally I can say if you are standing here, then you are using a variable here, d variable here, b variable here, c variable here. So if you are standing here, then you are using
+
+145
+01:20:56,060 --> 01:21:36,620
+you are using you are using correct correct so if you are standing here then you are using okay okay so i hope this point is clear so now can you tell me what is the answer what should be the answer here what should be the answer here what should be the outlive of s3 let's assume this statement is s4 let's assume this statement is s5 let's assume this statement is s6 now tell me what is outlive of s3
+
+146
+01:21:37,530 --> 01:22:09,790
+Tell me what is out live of S3. Tell me what is that? That is union of in yes or no. So that is in of S4 union, in of S5 union, in of S6. Correct? Correct. What I can say, what I can say, what I can say. The same thing I can say that in means, in means what is live at S4, basically I can say.
+
+147
+01:22:10,150 --> 01:22:41,430
+then what is live at s4 union what is live at s5 union what is live at s6 isn't it correct to how many people this concept is clear everyone has given correct answer so that is the reason i am asking is this clear to everyone so now can you find out okay so now you can find everything out live of h2 you can find okay what is out live of s1 tell me find out what is out live of s1
+
+148
+01:22:44,650 --> 01:23:13,940
+You have what is outline of S1. First you find, okay, outline of S1 is simply in off S2. That is simply in off S2. And what is in off S2? How will you find, can you tell me, how will you find in off S2? Do we have formula? Do we have formula? How will you find in off S2? How will you find in off S2? Very simple.
+
+149
+01:23:14,360 --> 01:23:47,220
+From out of S2, what is in of S2? See, in of S2, that is simply out of S2 minus def of S2 minus def of S2. What else? What else? Tell me what else? Quickly tell me what else? Union use of S2. Isn't it correct? So finally, I can say ABCD minus what is your defining and then union use. So again, ABCD.
+
+150
+01:23:47,380 --> 01:24:31,760
+so finally here also answer will be a b c yes or no yes or no no one is giving answer now tell me got it and what is in off s1 what is in off s1 give me the answer in off s1 in off s1 what is that that is out of s1 minus okay so that is out of s1 minus what you are defining on s1
+
+151
+01:24:31,930 --> 01:25:05,230
+union use of s okay so out of s1 you already know out of s1 abcd minus a so okay bcd so the answer will be bcd okay so here answer will be bcd okay so this will be answer will be bcd okay is this clear the answer will be bcd correct rasi yes or no so like this you can do so finally how can you find out
+
+152
+01:25:05,710 --> 01:25:37,390
+Okay, so this was our topic. Our topic was how to find out life. Okay, so how to find out life. Now, can you give me the formula for out life? Can you give me the formula for out life? So finally, what formula can you find out for out life? So I can say out live off any statement. What is that out live off any statement? What is that? That is union of that is union of in line of successor of and successor of and yes or no.
+
+153
+01:25:37,700 --> 01:26:17,780
+So find all the successor of n. Okay, so that is union of basically this is union of in live all the successors of. Okay, in a straight line code what you can say in a straight line code this this statement we have but if you have a basic block then what can you say if you have like this s1 s2 s3 s4 if you have this then what can you say.
+
+154
+01:26:18,640 --> 01:26:47,590
+If you have this straight line port, means if you have this straight line port, then what can you say? Now, out of S1 will be because only one successor. If you see how many successor of S1, so that will be only S2. This is the successor of S1. What is the successor of S2? The successor of S2 will be S3. So out of S1 will be what? Out of S1 will be what? Tell me, out of S1 will be what?
+
+155
+01:26:48,040 --> 01:27:17,310
+that will be in off S1. That means live off S1, sorry, S2, S2, S2, live off S2. Similarly, out of S2 will be in off S3, means live at S3. Similarly, out of S3 will be in off S4, means
+
+156
+01:27:17,780 --> 01:27:51,650
+live of S4. What is out of S4? That is union of successor of S4. That is union of successor of S4. Okay, so this is the formal analysis. Okay, I hope this is clear. I hope. Okay, hopefully this is clear. Anyone? How many people can say that everything is clear to you?
+
+157
+01:27:52,250 --> 01:28:23,420
+So, okay, backward analysis we do mostly, okay, as I told you, so we do the backward analysis, okay. So, okay, this program is already given in the last lecture, okay, so I am going quickly, okay, you just, you just check it out. This is given, let us assume this is given. This is given, okay, so these are live here. So tell me here, what will be live? Here, what will be live? Quickly tell me, quickly, okay, quickly tell me, what will be live here? Quickly, that will be BDE, that will be BDE.
+
+158
+01:28:23,820 --> 01:28:53,390
+So tell me quickly what will be live here? Okay, quickly tell me what will be live here? What will be live here? Okay, that will be, okay, see, okay, that will be, okay, what will be live here? Very simply, you can find out. Okay, all you have to do BDE minus D union, union A. Okay, so finally, what will be live here? That will be, okay, BDE minus D. So that will be BEA, correct?
+
+159
+01:28:53,790 --> 01:29:23,230
+Yes or no? B, E, A. Correct or not? Agree? Yes. Very good. Everyone has given correct answer. Very good. Very good. What will be live here? Means what will be live here? I can say what will be live here? What will be live here? Because what is live here? That automatically means what is live here? So what is live here? E will be removed and A, B, D. Again A, B, D. Okay. So next again A, B, D. Okay. Next, what is live here? That will be A, B, D minus D. Okay. So A, B. So that will be A, B. Okay.
+
+160
+01:29:23,640 --> 01:29:51,760
+next what is live here means basically what is live at this statement live at second statement what is live at second statement that will be only b that will be ab that will be ab okay that will be ab next what will be live at the first statement what is live at the first statement that is b that is okay so this is how you can do liveness analysis in the backward only one pass you need yes or no can you notice in the backward we only need okay if you do backwards
+
+161
+01:29:52,150 --> 01:30:21,990
+then how many, how many iteration you need? Backwards, how many iteration you need? Tell me. Backwards, how many iteration, only one iteration is needed. So in this liveness analysis, liveness analysis, on a basic block, on a basic block, okay, basically, okay, on a basic block, I can say that backwards, if you go backwards, then only one iteration, you only need one iteration.
+
+162
+01:30:23,000 --> 01:30:57,260
+Okay, and forward if you go, if you go forward, then, okay, more than, okay, then many, maybe, maybe, may, may need, many, may need, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many, many
+
+163
+01:30:57,370 --> 01:31:25,270
+Okay, what this tells you, what this tells you, now you can eliminate the dead call. See, this tells you that after this statement, F is not live. After this statement, F is not live. See, this what this tells you, just think about it. What this tells you, this tells you that after this statement, after this statement, F is not live. Means after this statement, F is not used. After this statement, F is not used. So I can remove this statement.
+
+164
+01:31:25,720 --> 01:31:55,890
+so this is called dead code elimination so you can remove this statement this statement is gone okay now this this tells you okay what this tells you tell me what this this means that this d is used this d is definitely used so don't remove it okay now similarly here you can notice this this means what this means this means that c is not live this means c is not live here c is not live here what it means it means
+
+165
+01:31:56,310 --> 01:32:28,860
+This C is not used anywhere. This C is not used anywhere. So you can remove it. Okay, like this you can do. C, okay. Now you can notice one thing in the last lecture also I told you. If you do like this, okay, first you do liveness analysis, then you do dead quad elimination, then you will have to do multiple times. Again, you do liveness analysis. Again, on this program, finally on this program, again you do liveness analysis, then you will get this. Okay, liveness analysis.
+
+166
+01:32:29,220 --> 01:32:55,950
+we are doing liveness analysis finally you will get this then again you do dead code elimination then you will get this you will get this again you do liveness analysis okay again you do liveness analysis then you will get this this is what you are going to get okay then again you do dead code elimination then finally you will get this so can you notice that okay just tell me this point just tell me this point if you do liveness analysis first you do liveness analysis
+
+167
+01:32:56,750 --> 01:33:27,860
+Okay. And then you do dead code elimination. Is this efficient? Is this efficient? This is liveness analysis. Okay. Is this efficient? This is not efficient. This is not efficient. So what is efficient? Efficient is simply there is a combined algorithm. There is a combined algorithm. There is a combined algorithm. Basically do together, do simultaneously. This liveness analysis, this liveness analysis,
+
+168
+01:33:28,520 --> 01:33:56,800
+okay plus dead code elimination simultaneously do them simultaneous do them simultaneous okay so if you do them simultaneously this is what is going to happen okay you can notice simultaneously i'm doing okay so here b comma d is live okay so what it means it means f is not live it means i can remove this okay so simultaneously i'm doing okay just remove just remove it okay so this is gone
+
+169
+01:33:57,120 --> 01:34:25,220
+now again what okay so tell me what will be like okay so this d is used okay this d is a used okay now you can notice that finally i will have echo again it means this is also gone it means this e is not used okay so this is also gone okay this is also gone now again what you have so this d is also gone because this d is not like this means d is not like here d is not like it means this d is not used okay so this d is also gone then again this c is also gone
+
+170
+01:34:25,460 --> 01:34:59,610
+can you see this combined algorithm is very simple this is more efficient this combined algorithm can you see yes or no so we have a combined algorithm where liveness analysis and dead code elimination both of them we do together if we do them together then you can very easily do this okay now loops how to handle loops okay so this is the question how to handle loops okay so this is what we are going to see now so first of all this this formula we have seen anyone has any doubt in this formula
+
+171
+01:35:00,130 --> 01:35:29,780
+this we have already seen this out live out live is equal to union of in live of successor okay yes or no this formula we have already seen so there is any doubt in this formula anyone has any doubt in this formula so this we have already seen correct so okay so now let's see so finally we have these two formula okay finally we have these two formula now in these two formula actually you can merge can you see that can you replace this value with this value yes or no
+
+172
+01:35:30,570 --> 01:36:01,920
+You can replace this outlive of n. You can replace this value with this. Okay. So finally you can write like this also. Remember this means this automatically means in live of n. So you can merge them basically instead of this instead of this, you can directly use this. You can directly use this. Okay. So just put this value here. Then what you will get, then you will get this formula. This formula you are going to. Okay. Now let's see. Let's see how can we handle.
+
+173
+01:36:02,240 --> 01:36:30,240
+So if you have a basic growth, if you have, okay, without loop, what you need to, okay, so far what we have seen, this is what we have seen. So far, liveness analysis on without loops, liveness analysis on CFG without loops, yes or no, on CFG without loops, so far we did not have loops, okay. So we have seen so far liveness analysis on CFG without loops, okay.
+
+174
+01:36:31,650 --> 01:36:59,580
+For this without loop actually when you have CFG without loops on this what you can do you can okay one backward one backward pass One backward iteration or pass is enough Okay, remember one backward pass is enough if there is no loop then only one backward pass is enough Okay, just go backward and one passes in one iteration is enough this we have already seen now what will happen if you have
+
+175
+01:37:00,330 --> 01:37:35,820
+Let us assume you have this type of loop. So this is loop. Yes or no? This is a loop. Can you see this is a loop? This is a loop. Yes or no? Can you see this is a loop? Now tell me, is this analysis correct? Are they correct? Are these answers correct? Just think about it and tell me, are these answers correct? Let's see how to handle loops. Okay. How to handle loops. This is what we are going to see now. Okay. So tell me, first of all, okay, just apply your intuition. Apply your intuition and tell me, is this answer correct?
+
+176
+01:37:37,070 --> 01:38:30,000
+Okay. Don't worry about the algorithm. Don't worry about anything. Just tell me, is this answer correct? It seems correct, right? It seems correct, but is there any mistake or is it correct? Do we have any mistake here or is it correct? It looks like this is correct, but I don't like, okay. You tell me, is there any mistake here? Let me tell you there is mistake here. What is the mistake? Let's see whether you can find it out. Okay. What is the mistake? Just think about it and tell me.
+
+177
+01:38:30,910 --> 01:39:00,840
+see here z that is fine right this is correct right just okay tell me one by one okay step by step I'm asking is this correct is this correct yes this is correct right yes or no this is correct okay so there is no problem here so this is correct okay no don't tell me okay at this statement at this statement can I say y comma z this is also correct right yes or no this is also correct so there is no problem here this is also correct correct yes or no because you are using z see this is
+
+178
+01:39:01,160 --> 01:39:29,720
+okay you can notice you y union z okay just apply the formula just apply the formula this is also correct okay is this correct is this correct x y z see you are referencing x so x is coming and y z so this is also correct this is also correct okay oh and can you see this is also correct x comma here if you are standing here if you are standing here what are we using if you are standing here if you are standing here
+
+179
+01:39:30,040 --> 01:39:59,840
+then we are defining z but we are using x y if you are standing here then we are defining z but we are using x y so this is also correct and here we are defining x y so this is so seems like correct is there any mistake let me tell you there is a mistake but can you find it out there is a mistake here and the mistake is because of this loop you are not considering this loop you are not considering this loop just consider this loop there is a mistake because of this loop some some issue is coming
+
+180
+01:40:00,120 --> 01:40:36,900
+yes very good x is missing here here x is missing see just think about it if you are standing here if you are standing here can you see that you are using x can you see you are using x if you are standing here can you see you are using x you are using x so if you are standing here can you see x is missing x is missing can you see is this point correct is this clear to everyone there is a mistake this is not correct
+
+181
+01:40:37,140 --> 01:41:08,180
+because x is missing so x is missing the correct answer is this this x was missing this x was missing so how to handle these loops now let me tell you very easy extremely easy okay all you have to do can anyone tell me what we have to do how to handle looks very easy just multiple iterations okay basically multiple iterations that's it this is the answer multiple iterations just keep iterating
+
+182
+01:41:08,810 --> 01:41:59,880
+See, I told you, if you don't have loops, then single pass is enough. If there is no loop, okay. If there is without loops, if there is no loop, then single pass is enough. If you have loop, then multiple iterations, then keep doing the iterations. Now, for the example, this, okay, let's take this example. The same question we will take. Okay. Let me take the same question and let me try. Okay. So, okay. So this question, let me take. Yeah. So taking this question. Okay. So let me take.
+
+183
+01:42:00,090 --> 01:42:33,440
+initially this is the initial setup okay this is the initial setup just see this okay very simple very simple initially this is the initial setup correct yes or no so this is the initial setup now let me write this is initially okay so this is initially initially this is this is happening okay now we are going to go one by one we are going to go okay but go in backwards okay go backwards see okay multiple iterations but going backwards
+
+184
+01:42:33,840 --> 01:43:16,590
+always do backward because that that will okay so but okay but go backwards but go backwards why can anyone tell me why do we have to go backwards or we are doing this for efficiency but okay multiple iterations but go backwards so that less number of iterations you have to do so that less less number of iterations you have to do okay so this is the point okay let's do this on on this question we will do
+
+185
+01:43:17,200 --> 01:43:50,810
+So this is the question. So this is the initial setup. Initially, this is the point. Now go backwards. Tell me in the first iteration, what will happen in the first iteration? Just apply these formulas. Okay. All you have to do apply these formulas that you have seen. Okay. Just apply these formulas for which formula? For example, out live off end. This is union offer in a live off successor off. Okay. This formula you have to use. And also
+
+186
+01:43:51,290 --> 01:44:25,240
+in live of n what is that that is equal to in live of n is equal to what that is equal to out live of n out live of n minus depth of n union use of n just apply these formulas nothing else very simple extremely simple let me promise you okay just try this okay so here go backwards okay always go backwards so first impression okay so this will be z correct go backwards i am going back
+
+187
+01:44:25,660 --> 01:44:54,350
+okay go back okay so this is z okay tell me in the first iteration I'm going in the first iteration so what what should I write here tell me what should I write here okay I'm going backwards I am going backwards what should I write here what should I write here I should write y comma z correct I should write y comma z very good okay what should I write here what should I write here I should write x comma y comma z correct yes or no very good very good okay very good okay what should I write here
+
+188
+01:44:54,700 --> 01:45:26,370
+what should i write here i am going in backward direction what should i write here see okay x comma y x comma y i should write correct yes very good very good okay what should i write here this is also correct so this is the first iteration this is the result of first iteration this is the result of faster iteration okay let's see the second iteration now we will do the second iteration okay let's do the second iteration so in the second iteration
+
+189
+01:45:26,670 --> 01:45:53,900
+okay at this statement is anyone changing let's call it as one let's call it as two let's call it as three let's call it as four let's call it as five here is anything changing here okay go backwards go backwards is anything changing here no nothing is changing okay nothing okay okay tell me about s4 tell me about s4 now okay is anything changing here is anything changing here is anything changing here
+
+190
+01:45:56,540 --> 01:46:24,630
+Yes, because what are the successor of S4? Apply the formula, please apply the formula. These formulas we have already seen, we have already proven. These formulas you apply, why are you not applying these formulas? Okay, what are the successor of S4? Just tell me this point. What are the successor of S4? So successor of S4, what is that? That is S5, S2, S5.
+
+191
+01:46:25,070 --> 01:46:55,540
+So what is out, what is out live off S4? Out live off S4 is union, okay, out live off S4 is in off S2 or I can say, okay, I can say live off S2 union live off S5. What is live off S2? Live off S2 is X comma Y union live off S5, which is Z. So finally X, Y, Z. Isn't it simple?
+
+192
+01:46:56,590 --> 01:47:29,760
+Is there anyone who can tell me is this simple or not? Isn't it simple? I hope you are finding this interesting. Like this chapter, this core optimization chapter is very interesting. If you understand it, see many students, they don't understand it. Okay. They just like by heart. Okay. Most of the things they don't understand the basics of it. They don't understand it. Okay. But if you understand it with basics, without by hearting, okay, then you can, you can find it very interesting. Like this seems like very interesting topic.
+
+193
+01:47:30,320 --> 01:48:02,100
+Okay. Is there anyone who is enjoying this? Like, okay, all these one by one, we are handling all these things. First, we handled statements. First, we saw how to handle a statement. Then we saw how to handle basic block. Then we saw how to handle control flow graph without loop. Now we are looking at control flow graph with loops. Are you finding it interesting or not? Is anyone here who is understanding all the points that I'm teaching? Okay.
+
+194
+01:48:02,380 --> 01:48:31,450
+so okay so tell me here okay so this is also very simple so this will be x y z okay is anything will change here will anything change here okay here okay s s 3 at s 3 anything will change no nothing will change okay nothing will change at s 4 at s 2 nothing will change okay so you can notice this is the point okay so this is the second iteration in the third iteration also nothing will change let me tell you in the third iteration you can you can try the third iteration nothing will change in the third iteration
+
+195
+01:48:31,790 --> 01:49:07,060
+nothing will change correct so the third iteration is also same if you do the third iteration then also answer is same so finally i can say that third iteration and second iteration result are same yes or no yes or no second iteration result is same as third iteration result so stop so this is your answer so final answer is yes or no if you do this can you see there is no scope of mistake you will not do any mistake okay yes or no
+
+196
+01:49:07,400 --> 01:49:37,980
+we are not doing any mistake there is no mistake because what is the successor of S4 look at the successor of S4 the successor of S4 is S2, S5 just apply the formula nothing else okay so this is the algorithm that we have done basically this algorithm means basically do iterative okay backward analysis do iterative backward backward go backward okay remember go backward analysis go backward backward analysis multiple iterations multiple
+
+197
+01:49:38,480 --> 01:50:11,620
+it raises as long as now okay until nothing changes until nothing changes this is your algorithm yes or no isn't it simple this algorithm okay so this is we have already done so this is the point okay this is your gate exam question let's solve it okay and let me tell you one more thing so far most of the students they know the answer of this question but they don't they have not done it
+
+198
+01:50:12,130 --> 01:50:40,650
+the way it should be happened. Okay, now we are going to do it. Okay, now we are going to solve it and very, very, very easy. Okay, just look at this gate 2015 question. Okay, this has a loop. Does it have a loop? This control flow graph, does it have a loop? Yes, there is a loop here. There is a loop here. Because of this loop, we might, we may need multiple addresses. There is a loop here. If there is no loop, then what will be the answer? Okay, see, if there is no loop, then this question is very easy.
+
+199
+01:50:40,860 --> 01:51:12,580
+okay let's solve this question without loop okay let's solve okay let's change this question let me change this question let me just remove this loop okay this this possibility of loop let me remove and let's solve this question now if there is no loop okay if this loop is not given if this loop is not given now let's solve this question okay let's remove all these things okay let's remove all these things um yes okay tell me so this is the definition this is nothing but the definition that we have seen
+
+200
+01:51:12,960 --> 01:51:43,760
+This is the definition that we have already seen. This is just a definition. Okay. Can anyone solve it? Okay. Tell me. Now go backwards. How many iterations we need? Tell me how many iterations we need? There is no loop. Okay. Because there is no loop. So you can see there is no loop because there is no loop. One backward iteration is enough. One backward pass is enough. One backward pass enough. One backward pass enough. Okay. So tell me what is live here?
+
+201
+01:51:44,580 --> 01:52:16,600
+What is live at 4? What is live at 4? That is V, R. What is live at 3? What is live at 3? Tell me, tell me, tell me. S, U, V, R. S, U, V, R. Correct? S, U, V, R. Correct or no? What is live 2? Live of 2. Tell me live of 2. Live of 2. Okay. So you can notice that is VR minus V.
+
+202
+01:52:17,100 --> 01:52:44,930
+so basically vr-v and ru, ru, yes or no? ru, correct? yes or no? live of two, is this correct? live of two, live of two is ru, because with this v will be removed, this v will be removed, okay? ru, okay, now tell me, okay, okay, this statement, okay, so this statement, what is the live of this statement? just tell me the live of this statement, live of
+
+203
+01:52:45,570 --> 01:53:15,490
+means live at this statement that will be what okay let me let me call this okay let me give names let me give names here let me call this s1 let me call this s2 let me call this s3 okay let's handle s1 here okay so let's handle s3 here so tell me what is live of s3 the what is the formula what is live of s3 what is the formula the formula is out live out live is what
+
+204
+01:53:16,080 --> 01:53:44,550
+Okay, see out live, the formula is this out live of S3 minus def of S3, okay, out live of S3 minus def of S3 union use of S3, union use of S3. What is out live of S3? Okay, what is out live of S3? This is a union of successor. This is a union of, this is actually, okay, what is this?
+
+205
+01:53:45,490 --> 01:54:16,350
+Outlive of S3, can anyone tell me that is in of 2, in of 3. That means in of 2 union in of 3. Minus def of S3, correct? Agented correct? And union use of S3. Actually, you don't have to write these formulas in the gate exam. Can you notice in the gate exam, you can very easily do, okay? How can you do very easily? See, SURV, okay?
+
+206
+01:54:16,630 --> 01:54:45,940
+So this is s u rb s u rb minus u okay so s u rb minus u so this will be okay so final answer will be what so the final answer will be what s u rb minus u s u rb minus u so this will be the answer correct yes or no s rb many students have given correct answer s rb what is live of s2 tell me what is live of s2 live of s2
+
+207
+01:54:46,320 --> 01:55:20,880
+what is that SRV is already there SRV minus s pq so rv pq pq rv pq rv pq rv okay so that will be pq rv and what is live of s1 what is live of s1 live of s1 so remove p okay so q rv so that will be q rv okay so everyone has given correct answer so far so can you notice this is very easy so if there is no loop
+
+208
+01:55:21,130 --> 01:55:52,650
+one backward pass is enough isn't it simple this question if this comes in the gate exam without loop then this is very simple right now you will see that this question is also very simple okay this multiple pass we have okay basically we need multiple pass nothing else okay this question is very simple but we need multiple pass okay so let's make multiple pass here okay because of okay let's make multiple pass here we need multiple pass basically okay because you have loop okay since you have a loop
+
+209
+01:55:52,880 --> 01:56:20,690
+so multiple paths are needed okay so let's start okay so again let's start from the bottom okay from the bottom what is the okay so tell me what is again this is s1, s2, s3 you already know this is s1, s2, s3 okay so let's call this statement s1 let's call this statement s2 let's call this statement s3 okay so tell me okay backward pass okay first hit listen initially everything is fine yes or no initially
+
+210
+01:56:21,350 --> 01:56:52,040
+you can notice okay initially at every node at every statement you have at every statement okay live is equal to five okay now tell me now fetch iteration what will happen in the fetch iteration go backwards go backwards so tell me what is live or for to quickly tell me what is live or for live or for okay means what is live here so what is live here live offer for
+
+211
+01:56:52,360 --> 01:57:21,460
+so here live of four is v comma r this is the live of four okay vr okay now you already know vr now tell me what is the live of two what is live of two what is live of two you already know vr is live of four then what is v of two live of two so that will be we will be removed so this will be r u are you are you yes or no and what will be live of okay
+
+212
+01:57:21,710 --> 01:57:53,020
+so what will be live of three what will be live of three what will be live of three what will be live of three that will be what okay so that will be vr vrsu correct okay very good okay now tell me what is live of s1 what is live of s1 live of
+
+213
+01:57:54,230 --> 01:58:21,390
+or you can say live of s3 actually okay just calculate live of s3 live of s3 because go backwards go backwards so live of s3 what is that okay so what is the live of s3 so you can notice that okay this is s u r v minus u so that will be s u r v minus u so that will be s r v this will be sr what is h2 what is live of h2
+
+214
+01:58:21,960 --> 01:58:52,960
+Live of S2 that will be PQRB and what is live of S1? Live of S1 what is that? Live of S1 what is that? That is P will be removed basically P will be removed so QRB okay QRB correct okay so this is the first iteration now let's make second iteration now what will happen in the second iteration just tell me this one okay can anyone tell me where the changes will happen in the second iteration?
+
+215
+01:58:53,220 --> 01:59:22,900
+okay which is the part where you should look at in the second iteration where you should look at where you should look at in the second iteration where you should look at you should look at this this four because four is a multiple successor you should look at four why you should look at four because four has multiple successor actually you should look at everything okay but four is important because four is a multiple successor what are the successor of four
+
+216
+01:59:24,070 --> 01:59:57,880
+What are the successor of four? Successor of four is s1 comma. Successor of four is s1. Sorry, sorry, four has, okay, sorry, sorry, sorry. So four has only one successor. Four only has one successor, which has more than one successor. Is there anything which has more than one successor? Do we have more than one successor anywhere? One, yes, one has more than one successor, yes. Okay, so one has more than, yes, so successor offer.
+
+217
+01:59:58,280 --> 02:00:26,940
+one that will be 2,3. Okay. Anyway, okay, so let's let's do one more address. Tell me what will be for tell me is will there be any changes here? Okay, in the second address, just tell me if will there be any changes here? Answer is very simple. Out means, okay, what is s1? You know what is okay. So q rv, q rv minus q. Okay, so basically rv, there will be no changes. Yes or no?
+
+218
+02:00:29,010 --> 02:00:57,150
+There will be no changes. Yes or no? Oh, Mr. Oh, see, Mr. Oh, Mr. Oh, Mr. Oh, see, this is like this. So successor O4 is actually S1. Successor O4 is actually S1, S1. Is this clear? So there will be no changes here. Okay. So here there will be no changes. Okay. Is there any changes in three? Will there be any changes in three? Okay. So you can notice in three, will there be any changes? Okay. So do you have RV?
+
+219
+02:00:57,750 --> 02:01:27,380
+okay so there will be again no changes is there any changes in two is there any changes into no there is no change is there any changes anywhere okay looks like do we have any changes anywhere okay let's see make okay will there be any changes anywhere right it looks like there will be no changes it looks like there will be no changes from one to four okay so let's let us check it out
+
+220
+02:01:27,600 --> 02:01:57,920
+Okay, so let's check it out. S3. What can you say about S3? S3 again will be VRSU, VRSU minus U. So that is also no changes. There is no changes actually. Yes or no? In the second iteration also there is no changes. So the first iteration is same as second iteration. You can just check it out. The first iteration is same as second iteration. Okay, because you have VR and here S1 has QRV.
+
+221
+02:01:58,340 --> 02:02:28,040
+so okay so you are removing q okay and rv okay so there is no change here because there is no change here so there is no change here there is no change here and so there is no change so there is no change anywhere actually let me tell you if there was any change at four then there would have been changes because there is no change at four so that is the reason there is no changes so second iteration is same as fourth iteration so it's a first iteration second iteration and first iteration both are same so what I can say tell me
+
+222
+02:02:28,260 --> 02:03:03,290
+What I can say? So you can notice the first iteration, second iteration result are same result, same as second iteration result. So now the answer you can give. So what the question is saying? The question is saying the variables which are live at basic block 3 and in this statement, in this statement, in this statement, 2 comma 3, what are the basically what is the intersection of 2 comma 3? So finally, what is the answer?
+
+223
+02:03:04,300 --> 02:03:31,900
+Live at 2 comma 3. Live at 2 and 3. Live at 2 and 3. What are the variables which are live at 2 and 3 that are R comma U. R comma U. So these are the variables which are live at R comma U. So answer will be option C. Is this clear? You can notice here there is only one iteration is needed. Only one iteration is needed. Only one iteration is needed.
+
+224
+02:03:32,600 --> 02:04:01,470
+Tell me one more thing. Very interesting thing I want to ask you. Okay. If you don't do second iteration. Okay. For this question, there is backward as from one to four. From one to four, there is no, from four to one, there is age. From four to one, there is age. We have taken it, we have taken it in the consideration. You can just check it. So we took union between S2 and S3.
+
+225
+02:04:03,010 --> 02:04:42,320
+No, we did not take union. We applied the formula. We applied the formula. We removed S. From this, we removed this S and then we took union with P comma Q. For the answer, we took intersection because the question is saying, what are the state live at both here, here and here? What are the variables which are live here and here? So the answer will be R comma U. We took intersection R comma U. Anyone has any doubt?
+
+226
+02:04:42,890 --> 02:05:11,900
+Is this question clear? This gate exam question, is this clear? The complete analysis we have done, we have solved this question in the correct manner. Many students, they solve it wrongly actually. Okay, they solve it, but they solve it wrongly. Okay, tell me one interesting thing. If you have this question and these are the options, can I stop without doing second iteration? Like, okay, don't do second iteration. Can I stop without doing second iteration? Can I stop?
+
+227
+02:05:12,340 --> 02:05:42,760
+without doing second iteration. Actually, actually, I can't, but, but, but, but after the first iteration, I can remove option A, option D. After the first iteration, I can remove option A, option D. Why? Tell me why? Because this is a very important note. This will help you. This is a big note. Once you, okay, in any iteration, once you find out that something is live at some point,
+
+228
+02:05:43,190 --> 02:06:20,900
+In the next iteration, will it go away? Tell me, will it go away? No, it will never go away. So this is the very interesting point that, okay, it stays, okay. As soon as, as soon as you find out that variable X is live at a statement as then in future iterations in
+
+229
+02:06:22,150 --> 02:06:55,320
+future iterations, in future iterations, X will remain live. X will remain live at S. Is this point clear? So for example, after the first iteration, you know that here RU is live. Here RUSB is live. It means this RU will always remain live here. These four will always remain live here. So they will remain live here.
+
+230
+02:06:55,730 --> 02:07:30,130
+they will remain live here so definitely after the first iteration you can easily say that definitely are you will be live here and here but maybe something more so whenever you do iteration what okay the live variables are added they are not removed yes or no so basically in every iteration in every iteration live variables at a statement at a statement
+
+231
+02:07:31,920 --> 02:08:10,990
+Okay, in every iteration, live variables at a straight line may increase, may added, never removed. Okay. May, may, may be added, may be added, but never removed or stay same. Okay. Or stay as it is, may be added. Okay. So this is the point. Okay. I hope all these concepts are. This is a gate 2021 question. This is a, okay. Just tell me the answer. Can anyone tell me the answer?
+
+232
+02:08:12,090 --> 02:08:41,850
+This is a gate 2021 question. The question is saying that you have basic block in which you have S1 followed by S1. You have a basic block in which you have S1 followed by S1. The question is asking, what is out of S1? The question is asking, what is out of S1? Can anyone tell you what is the answer? Okay, option A. Yes or no? Isn't it simple? Option A, out of S1 will be, out of S1 will be, okay, will be in off S2. So the answer will be option.
+
+233
+02:08:42,150 --> 02:09:18,390
+a answer will be option a because because here see how many successor of s1 because this is the basic block see okay if if they ask you okay remember this this point you already know that out of out live of s that is nothing but union of union of in live of successors of s i i don't know maybe i don't know one more tomorrow i don't but
+
+234
+02:09:18,670 --> 02:09:48,890
+this is the gate 2021 question so we have done gate 2021 question we have done gate 2015 question okay this gate 2015 question also we have done okay so this question also we have done both these gate exam questions you can just check it out okay can we do some variations okay let's do some variations okay let me make some variation here in this question let me make some variation let me give you some more options okay some more options let me give you so let us assume can i okay if you have this option
+
+235
+02:09:49,180 --> 02:10:23,510
+would it be correct if i write like this out of s1 is equal to in of s2 union use of s2 is this correct in of s2 union use of s2 is this correct yes this is also correct why this is also correct why this is also correct because in of s2 already includes use of s2 yes or no in of s2 in of s2
+
+236
+02:10:23,880 --> 02:10:57,290
+is a superset of use of as to isn't it okay so these these are some some observations okay some observations can you make some observations let me make some observation first observation okay the first observation can you see that in of s this will always be superset of use of s in of s will always be superset of use of s correct or not yes or no yes
+
+237
+02:10:58,490 --> 02:11:33,080
+correct that's it so this is first observation second observation you can notice okay i think like like this you can make some observations okay and this is not observation but this okay in off s is same as live off s live at x okay this you already know so these are some these are not observations but actually uh these are the final final conclusion i can say okay final conclusion third uh in off s that is equal to what
+
+238
+02:11:33,330 --> 02:12:03,280
+that is out of s minus def of s union use of s okay so these are some formulas fourth formula out of s is equal to union of in of successor of s okay and you can combine all these formulas so finally can you combine these two then finally I can say live of s is equal to
+
+239
+02:12:04,110 --> 02:12:35,600
+Okay, union of in of successor of s successor of s minus def of s union use of s. So these are the some formulas. Okay, these are some observations. Okay, so this is the, this is our topic. Okay. So, okay, so the time is 32 33.
+
+240
+02:12:36,190 --> 02:13:04,860
+how out of S1 is equal to out of S1 is equal to because this is super shed. See this, this is correct. Ananya, is this clear? This one, this is clear. In of S is always super shed of use of S. This is clear, right? Yes or no? If this is clear, then you can just take it out. This is clear. If this is clear, then you can just see that this is a super shed of this.
+
+241
+02:13:05,260 --> 02:13:42,000
+Both this is actually in our fashion. This is actually in our fashion. Okay. So this is your live variable analysis. Okay. So we have done everything. And I promise you no question can be asked. Like they will not ask you any question outside our slides. Okay. These slides, these notes I have taken from Pullman book from Stanford University and from some other universities. Okay. So like this is the, like I have taken everything. Okay. In these slides.
+
+242
+02:13:42,440 --> 02:14:08,860
+Okay. So both the great exam question we have done. Okay. We have seen how to find out live variables at any point at any statement. Okay. So whether you have context free grammar with loop, okay. Context free grammar with loop without loop, anything. Okay. So if anyone has any doubt in the library analysis, what we have seen so far, if anyone has any doubt in this, you can ask. Okay. So I will take one more class. Okay.
+
+243
+02:14:09,840 --> 02:14:38,960
+actually it is not needed you can read these these slides you can read actually okay no more class is needed but maybe i can take one class to move okay so one more class i will take tomorrow okay and in that class i will discuss the some more gate exam question i will discuss okay a very short class one hour class we will take okay only one or two hour class tomorrow i will take okay in this class we will take some more gate questions some more practice questions we will take in this in this class okay some like
+
+244
+02:14:39,720 --> 02:15:22,540
+standard book questions also I will take. Okay, in this class. Okay, so if anyone has any doubt right now, you can ask and the class is over. So I will only take the doubts. Okay, thank you. What is your name? Okay, your username is O. Okay, anyone has any doubt you can ask? Yes, Astitva kindly raise your hand and kindly ask your doubt. Kindly raise your hand. Hello. Yes, Astitva.
+
+245
+02:15:25,010 --> 02:15:53,760
+So hello sir. Yes, hello. So actually I want to ask like, so I'm facing issues in, uh, undesirability and decidability too is like, these sometimes questions came. So I got confused in that, like, there is no such permanent statements, which I can decide life. So just for example, like, uh, I'm, uh, giving some theories and some questions. So one question came that, uh, there is a language, uh, for the tuning machine, which is regular. So I.
+
+246
+02:15:54,250 --> 02:16:21,190
+thought that we can decide whether our language is regular or not. So I think that it is decidable, but it was undecidable after that. Like there is any such rule by which we can decide. So, okay, see, having any such rule that itself is undecidable. Okay, it's a first of all. Okay, and let me tell you actually, okay, I will take one class of decidability undecidability, a long class like today we have this six hour class like, right? Yes or no?
+
+247
+02:16:21,420 --> 02:16:47,760
+In this six hour class, I have taken many doubts. Any doubt that students are asking, I took it. So this is the point. Let me tell you that I will take one question, sorry, one class I will take on this decidability and decidability. But in that class, I will cover every variation. I promise you that every single variation I will cover, like many questions, almost 100 questions I will take, all the gate exam questions and everything. So there will be a five or six hour class.
+
+248
+02:16:48,010 --> 02:17:16,510
+you can join that class first of all okay but in that class actually because okay now great exam is coming okay and in that class I will not prove anything that's the point okay I will not prove anything but okay I will I will answer I will solve many questions many all the variances everything I will solve okay in that class if you want to prove okay if you want to study decidability and decidability okay for example if you have four days you can take the TOC course okay in the go classes TOC course you can take
+
+249
+02:17:17,160 --> 02:17:47,460
+In Go classes, TOC course you can take. In this TOC course, you can ask all the Go classes, strengths, you can ask them. In this TOC course, actually, I have taught decidability for almost eight classes, with proof. This decidability chapter, with proof, I have taught, the proof of halting problem, reduction, everything. So with proof, see this I have taught, and I think there are seven or eight lectures.
+
+250
+02:17:48,480 --> 02:18:16,980
+and each lecture has two or three hours. So basically, if you want to understand this, if you really, really, really want to understand this, okay, you want to understand, you want to solve the questions, okay, you want to master this, then you, okay, what you can do, you can take this TLC course and you can study the decidability, okay. So almost seven or eight lectures you will see there. There are the proof of halting problem, the proof of reductions, some reductions, okay, some three or four reductions are there, many variations are there, rise theorem, rise theorem, one rise theorem, two.
+
+251
+02:18:17,210 --> 02:18:46,310
+okay so all the variations that are possible I have taken there okay so if you want to understand if you really want to understand but if you only want to solve the questions if you only want to solve the great questions okay many students actually they don't want to understand concepts they just want to solve questions okay if you want to solve questions then I will take one five or six hour session okay so there will be a five or six hour session on this topic okay in this session I will not cover any proof I will just cover how to
+
+252
+02:18:46,600 --> 02:19:14,860
+like basically without proof I will cover everything okay in this session okay without proof I will I am going to cover everything okay so you can you can for understanding you can join the TOC course of go classes okay and for solving the gate exam question you can join this session okay so just tell me so one more like so it's it's a very like simple doubt like I have like
+
+253
+02:19:15,140 --> 02:19:35,120
+In computer networks, there are questions when the size will reach 16kb. So we are counting like 2, 4, 8, then it goes to 14. Then it goes to 12, then it goes to 14. So we just stopped before 16. Before 16, we just stopped a step before.
+
+254
+02:19:36,610 --> 02:19:54,350
+If you have doubts in CN, then you should ask Sachin. So you can send a message to Sachin and he will answer it. Because our Go classes CN faculty is Sachin, so he knows computer network very nicely. He will answer your doubt. So one last answer, it's a very...
+
+255
+02:19:57,400 --> 02:20:26,860
+Foolish doubt, sir. Like while drawing automata, sir, like any type of automata came like, uh, once I was doing a question, a more 10 automata came for the binary numbers. So I was drawing, I used that, uh, some simple mathematical, but, uh, I got always like either less or one more or one less states. Like it was never like equivalent, sir. Any like short trick, any trick for that? Actually, uh, this automata, this DFA design also see many students, they would do.
+
+256
+02:20:27,100 --> 02:20:55,520
+they first create NFA then they create DFA then they minimize okay so then they minimize okay but this is very inefficient method okay this is very very very inefficient okay so this is the fullest method actually okay what you should do you should practice directly you can create minimal DFA in 99% of the cases okay like like sometimes very long cases came no in the gate exam they will not give you those dumb questions okay those those big big 10 10 states okay
+
+257
+02:20:55,800 --> 02:21:14,580
+These type of dumb questions will not come in the gate exam. In the gate exam, you are confusing the gate exam questions with the test series questions. You might have seen many questions in the test series. But in the gate exam, they will not give you big B DFA. If you have to create a state DFA, if you have to create a state DFA, then it means it will not come in the gate exam.
+
+258
+02:21:18,170 --> 02:21:43,010
+either if you have to create the DFA, then it will have very less states, say four, five states, six states, okay. Or if the answer is like 20 state, 30 state, then definitely there is a trick, maybe Mahill Nehrod theorem, okay. You can watch on the Go classes YouTube channel, you can watch the Mahill Nehrod lecture, okay. This Mahill Nehrod lecture you want, okay. In this lecture, I have solved some questions.
+
+259
+02:21:43,600 --> 02:22:12,120
+We are like without creating the DFA, you can find out the number of state in the DFA with proof. Okay. So this is the correct method. So this mile network lecture, you, you, you can find out on the YouTube. This is already uploaded. Okay. So this was this lecture and your doubt will be free. If any doubt. Okay. Afterwards, also, if there is any doubt, you can ask in the TOC class right now. I am teaching compiler design. Okay. So when we do the revision of TOC at that time, you can ask.
+
+260
+02:22:12,540 --> 02:22:38,320
+okay so please right now please stick to you know compiler design okay you can join the go classes telegram group and in that group I will mention I will announce when the TOC revision class doubt classes will be will be available okay so at that time you can ask your TOC doubts. So sorry sir like in like in the algorithm sir like you have once told it I don't know the algorithm name like
+
+261
+02:22:38,490 --> 02:23:08,030
+in which algorithm, preschools and primes like we don't check for the cycle. Yes, in the primes algorithm, cycle can never occur. Basically, this primes algorithm, if you see this primes algorithm, okay, in this primes algorithm, the idea of primes algorithm is like this, that in this algorithm, cycle can never occur. So you don't need any cycle checking algorithm. So basically, in this primes algorithm, inside this primes algorithm, you never have to never, never, never have to check for a cycle, because cycle can never occur.
+
+262
+02:23:08,260 --> 02:23:37,010
+okay in cross call cycle can occur so that is the reason you have to check for cycles okay in cross call okay in this cross call algorithm cycle can occur cycle may occur cycle may occur so you have to you need some cycle checking algorithm so basically need cycle checking algorithm okay correct cycle checking algorithm okay but in imprims algorithm cycle can never occur cycle can never never occur
+
+263
+02:23:37,710 --> 02:24:03,310
+So there is no need of cycle checking algorithm. And why is that? Okay, so no need of cycle checking algorithm. See, this is one misconception among many students. They think that, okay, cycle checking algorithm is needed, but no. In Prims algorithm, we don't need any cycle checking algorithm. Why? In Prims algorithm, why cycle can never work? Can anyone tell me?
+
+264
+02:24:03,550 --> 02:24:31,590
+because we are adding one vertex okay just think about it okay see you have a vertex just think about you have a vertex okay you are starting from this vertex V1 okay now you have many vertex here okay you have many vertices here so now what you are doing you are adding one vertex to this okay now in the next step what you are doing you are adding new vertex to this just think about it if you have a graph if you have a if you have a graph let's assume you have a graph you have a graph in this tree
+
+265
+02:24:31,970 --> 02:25:00,780
+If you add one vertex, if you add a new vertex to this tree, then can cycle come? Can cycle come? If you add a new vertex to this tree, you have a tree, in this tree, you have a tree, in this tree, if you add new vertex, if you add new vertex, cycle can never come. So in Priv's algorithm, every time we are adding one vertex, okay, every time, every, in every lesson, this is what we are doing. This is the idea of, this is the idea or I can say proof of Priv's algorithm. This is the idea, idea is this.
+
+266
+02:25:01,310 --> 02:25:29,490
+Initially you start with the vertex. Okay. So this is your initial sheet from here you are starting. Okay. And these, these are the remaining vertices like B, C, okay. D, these are the remaining vertices. Now what will happen? Now you will find the, the, I can say, okay, the closest vertex. Okay. Then you will add it. Now in the next, this is the, okay, this is the step one. Now what is the step two? Okay. In the step two, this will happen in the step two. Let us assume you are adding A and you have added B.
+
+267
+02:25:29,690 --> 02:25:56,870
+Now you will notice that here you have C, here you have D, here you have. So every time you are adding one vertex, this is your step 2. This is your step 2. And in the next step, what we will do, you will add new vertex. So every time you are adding new vertex to a tree, okay. So in a tree, if you add a new vertex every time, then a cycle can never come. Yes or no? Yes, sir. So that is the point. In crystal, why cycle can come? In crystal, cycle can come. Why?
+
+268
+02:25:57,240 --> 02:26:25,960
+because in cross call what is happening you are adding as just think about it and tell me okay the in frames algorithm this is what you are in frames you are adding one vertex to a tree okay in frames basically adding new vertex new vertex new vertex to a tree to a tree in cross call what we do in cross call what we do in cross call we add new as to that adding new as to a forest
+
+269
+02:26:26,770 --> 02:26:57,370
+New age to a forest. So now what will happen? What can happen? For example, here you have this is your tree. Let's assume this is your tree. Okay. In this tree, if you add new vertex, then cycle can never come because the cycle can never come. Okay. So cycle never come. Never possible. Okay. Now here you can notice if you have a like, for example, let us assume this is your forest. Okay. This is your forest. This is your forest. And now you are adding this vertex.
+
+270
+02:26:57,900 --> 02:27:33,300
+this vertex A you are adding then sorry this age you are adding sorry this age you are adding now if you are adding this age the cycle can come so cycle is possible because you are adding new age to the forest so cycle is possible so cycle possible may occur so you have to remove this cycle basically okay okay sir can we score full marks in compiler design definitely 100% compiler design is very scoring subjective okay and from this code optimization I guarantee
+
+271
+02:27:33,620 --> 02:28:06,540
+One question will come. Okay. Two or three marks will come from the code optimization because this code optimization was added last year. This is a newly added chapter. Okay. And last year from the code optimization in set to three marks M, three marks from code optimization. This year also I think two or three marks will come for dynamic programming class will be taken by Sachin. Okay. For algorithm data structure, these classes will be taken by Sachin. So yes.
+
+272
+02:28:08,280 --> 02:28:33,080
+So one last, this is the last one. So like in cash while solving, I note questions, like it asks answers and sometimes in MB. So you give, like you give the answer in MB. So I used to calculate it with the calculator and it came like 1.0 something. You are asking all the doubts which are not related to that compiler design. Okay. So right now this lecture will go in the compiler design playlist.
+
+273
+02:28:33,450 --> 02:28:59,750
+so okay okay just message me here okay this is my whatsapp number 946 this is my whatsapp number you can just send me a message if anyone anyone has any doubt you can send me a message here okay 946 at 930964 okay so actually this inode we have taught in the operating system in a way there we have taught this inode and this concept we have already taught in the operating system so okay so there you can understand this very easily
+
+274
+02:28:59,970 --> 02:29:26,560
+But if you have any doubt, you can say any doubt regarding anything at any point of time regarding the gate exam or any technical doubt, you can send me a basis on this. This is my WhatsApp number. OK, so thank you. If you want to join the future revision classes, the future doubt classes, if you want to join, then you can join the telegram group of go classes. OK, so on the telegram group of go classes, all the future announcements.
+
+275
+02:29:26,890 --> 02:30:00,450
+all the announcements and all the study material is supported on this telegram group. Okay, offer go up classes. The link you can if you want link then you can send me a message on this number. Okay, the send me a message I will send you the link of the telegram group. Okay, on this group we will do the announcement we will put the study material everything. Okay, anyone has any doubt? Any other technical doubt? Any technical doubt? Mr. Oh, can you send me your doubt on WhatsApp? Okay, because I have to click this.
+
+276
+02:30:01,120 --> 02:30:22,040
+and this link I have to click and I have to check it out. So you can send me your doubt on the WhatsApp. Study material, this slide, these slides will be available on the Telegram group today. I will upload these slides there. Thank you everyone. Bye.
+

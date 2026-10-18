@@ -1,0 +1,172 @@
+1
+00:00:00,270 --> 00:00:28,500
+Now let's talk about limitations of SLR1 which means why sometimes SLR does not work and what we can do to make use of our DFA and to parse some of the more grammars that SLR1 is not able to parse. So consider a scenario where in the stack you have something like alpha beta and on the input tape this is the remaining input that you have and on the input tape let's suppose there is some something A.
+
+2
+00:00:29,200 --> 00:00:57,270
+and like this could be anything but I'm not writing it okay which means that in the stack you have alpha beta and in the input you have a now let me just write it input and this is a stack now if it is if it is SLR parser then what it does it will reduce this beta let's suppose there is some production that says a gives beta so it will reduce this beta to a based on the thing whether this a small a
+
+3
+00:00:57,530 --> 00:01:32,280
+is in the fall of capital A or not. So, if small a is in fall of capital A, then SLR 1 parser will reduce beta to A. This is what SLR 1 does. But it is not necessarily always true, which means that if I always reduce this beta to A, then maybe like I may fail. Why? Because
+
+4
+00:01:32,790 --> 00:02:02,600
+Suppose if I reduce this beta to a then my stack will look like this alpha and capital A my stack will look like this and then in this case If I have a as an input then this a is maybe like this a may not be appearing just after alpha i Which means this a small a is in the follow of a but but if this a small a is not in if this a small a is not in follow of Follow of alpha i then my reduction that I did from beta to a
+
+5
+00:02:02,800 --> 00:02:32,350
+is invalid which means like there is no right sentential form that that appears like this which means if you have any configuration like alpha capital A small a then this will never lead to your start symbol right this will never lead to start symbol although see what is happening here although this small a was in the fall of the capital A but if this small a is not in the fall of fall of alpha then
+
+6
+00:02:34,710 --> 00:03:09,940
+Reduction, beta to A, this reduction is invalid. That's the catch. So just to take an example, let me take a grammar and by that you will be able to understand more. Let's take the same example that we have did in lecture 11, which is this. B gives maybe C capital A small a and then C small a small b and then B A B and then let's suppose A gives A.
+
+7
+00:03:10,790 --> 00:03:39,750
+and suppose I have some string that is C A B A and I want to pass this string. So what's going to happen? Once C comes, I will just check whether I can reduce or not. So if C comes, so there is no production, I won't be able to reduce. Now I will just shift again. So if C A comes, now check whether you can reduce this C A to something. No, but you can reduce this A to something, which is capital A. Now if you reduce, which means if you do this reduction,
+
+8
+00:03:40,210 --> 00:04:09,880
+if you do this reduction based on the thing that if the next symbol B is in the fall of capital A or not yes next symbol B this is the next symbol see my ish tag is this this is my ish tag and my remaining input is this my remaining input is this right this is my remaining input and my ish tag is this now just check after reduction which means before reduction it was it was small a and after reduction it will become capital A right
+
+9
+00:04:10,090 --> 00:04:37,230
+Now after reduction, is this B in the fall of capital A or not? Yes, B is in the fall of capital A. That is true. In fact, fall of capital A is smaller in small b. And b is in the fall of capital A. But if you do this reduction, then it will become C capital A. And then let's suppose you are shifting B. And then there is nothing like C, A, B. I don't think you can reduce it to something. So you will again shift A, small a.
+
+10
+00:04:37,490 --> 00:05:05,460
+and then I don't think there is a way to reach two star symbol so there is no way to reach two star symbol if you reduce this smaller to capital A right you're getting the point so if I reduce based on the SLR strategy which says that reduce whenever whenever you see something which is in the fall of capital A or fall of non-terminal then you can reduce if you are following this strategy then you are failing in this grammar why you are failing because this B is in is in follow of
+
+11
+00:05:06,470 --> 00:05:24,540
+capital A that I agree but this B is not in follow-off follow-off small c capital A right if in that case I should not reduce so this is the limitation of SLR1 and that limitation is being overcome by LR1 parcel
+
+12
+00:05:24,890 --> 00:05:53,710
+which does not only consider the capital symbol the fall of capital symbol it takes the entire left context so I'm calling it left context of the stack like whatever you like to say so this is the stack configuration or you can call it left context which means like if your bar is here then this is like like left context right left context or you can even say stack or something so if if b is in the if b is in the fall of left context then only I will reduce otherwise I will not reduce
+
+13
+00:05:54,760 --> 00:06:25,190
+So that's the strategy that we will be using in LR1. So SLR parser cannot remember the whole left context. What I mean by that? It means that you have some state, then it may happen that you may go to this state via this path or via this path. So SLR1 does not remember that from which path you are coming. If I move to CLR1, then what it will do? It will split this state into two parts.
+
+14
+00:06:25,830 --> 00:06:54,750
+Okay, if that is relevant which means like if these two paths are different different in the sense like if these two paths are leading to some different look ahead So I will talk about look ahead later, but like consider like this that these two paths may may lead to some conflict Let's suppose if I if I do not split then these two paths may lead to some conflict Which means that this is representing you some some step configuration. This is other representing you some other stack configuration So to make it clear
+
+15
+00:06:55,290 --> 00:07:25,710
+Let's take one example Let's take this example and I think after that it will be better. So Let's let's take this example Dot a and then a gives dot a a and dot b right now suppose I Say that on capital a it goes to s gives a dot a a gives dot a a and dot b right
+
+16
+00:07:26,880 --> 00:07:54,920
+and on B, it goes to A gives B dot. Now, on B, it will go to this state, right? On B, it will go to this state. On B, it will go to this state. So, I'm not making the whole DFA, but I'm just making part of it. Now, if I ask you that if you are in this state, if you are in this state, then what could have been the stack configuration? So, if you remember, then like we were re-running the DFA, right? We were re-running the DFA every day.
+
+17
+00:07:55,180 --> 00:08:21,170
+which means if you are if you are if you are ending up in this state then the hashtag configuration must have been capital A. Similarly if I ask you that if you are in this state then what could have been the hashtag configuration then you will say that in this state you may come by this path or by this path which means maybe B or maybe capital A capital B. So you may say maybe B maybe capital A capital B. You are not sure like
+
+18
+00:08:21,430 --> 00:08:51,940
+you're not sure if you are in this state then then if i ask you that what is the hashtag configuration then you will say i'm not sure whether it is b or or maybe capital capital d right that is the problem which means i'm not remembering the whole whole path i'm not remembering the whole hashtag configuration this is the problem or limitation limitation in slr1 parsing this is the limitation in slr1 parsing which means it does not remember the whole configuration and this
+
+19
+00:08:52,150 --> 00:09:20,830
+this limitation is being overcome by lr1 parsing which will split this state into two parts based on something called look ahead okay just to reiterate everything that what we are doing we wanted to see the limitations of slr1 so it says that you will like slr1 says that you will reduce whenever a like this next input symbol is in the fall of capital A but this may not be always true
+
+20
+00:09:22,210 --> 00:09:51,090
+that's what we have seen in this grammar like if you are reducing this small a to capital A then you will end up being C capital A small b small a and then you will shift it and then there is no reduction possible then you will again shift it and there is no reduction possible and you will stuck right so if you are reducing this small a to capital A based on just that B is in the fall of A or not then you are stuck why because this B is in the fall of A that I agree but this B is not in the fall of entire left context
+
+21
+00:09:51,540 --> 00:10:20,800
+Which means that this B is not appearing in this left context with this law less called left context this B is small b is not appearing Okay, so this small b is not appearing with this law left context. Yes, this is the fall of a but this is not appearing with the left context of This C capital A That is why this reduction is not possible and this reduction is invalid that is where SNR SNR 1 parcel will fail on this grammar
+
+22
+00:10:22,020 --> 00:10:53,750
+Okay, let me take one more example s gives a r a let's say and R B B a and then R gives B Suppose this is the example and I need to pass us in BA Now this example is quite important. Just try to understand if you pass the system BA Then you will say earlier like there is nothing then you will you will just shift it which means this BA Now you will check whether if you reduce this B to capital R which like reduction is possible if you do it
+
+23
+00:10:53,930 --> 00:11:21,530
+if you reduce this b to capital R then you will end up being this capital R in small a and like if you proceed this further there is like there is no no reduction further possible which means you you cannot reach to strass symbol because this capital R small a there is no reduction possible right now SLR study says that you can reduce if this small a is in the fall of our capital R node just check whether the small a is in the fall of capital R or not
+
+24
+00:11:23,150 --> 00:11:50,710
+What is full of capital R is it is a small a and a small b a small a and a small b Yes, this is small is in the fall of capital R that that's why the SLR study says that you can reduce But this reduction is not possible because because just try to understand it because this small a is not appearing with the whole left context See the left context is just capital R. This is small a is not appearing with the whole left context, which means there is there is no
+
+25
+00:11:51,390 --> 00:12:17,260
+no bible prefix I mean like okay let's not go to the bible prefix but there is a no rat sentential form of which this capital R small a is a part of which means you cannot add something and you cannot like I mean in future there may be something right so you cannot add something and then you cannot go to the start symbol s which means this capital R small a is not a valid valid bible prefix
+
+26
+00:12:18,820 --> 00:12:49,210
+Anyway, we will talk about why we will prefix more in future lectures, but here I just want to convert the idea of LR1 parsing and limitations of SLR. Now, let me remove this. I hope you got the idea that if you are converting this small v to capital R, then this is wrong. Why? Because this small a is in not a context of this capital R. See, in the hashtag, I have b, right? In the input, I have a. Now, if you reduce this b to capital R,
+
+27
+00:12:49,340 --> 00:13:16,820
+if you release this B to capital R, then then you will check whether this A is in the follow far or not. So SLR1 says that yes, they're in the follow far. So SLR1, SLR1 says that this reduction is possible. But is this really possible? Which means if you reduce, then you are, you are going to get this capital R. Now take the fall of entire thing, not just capital R. Now you may say that this entire thing and capital are the same.
+
+28
+00:13:17,800 --> 00:13:47,580
+See just listen here carefully. It is very important point So basically if you take the fall of the this the whole thing then you will notice this this small a this small a is Basically not not in the fall of capital R whenever capital R is appearing at the beginning of the stack In fact, it is in the this small a is in the fall of capital R only when this capital R is appearing with a small a right so basically this
+
+29
+00:13:48,120 --> 00:14:16,290
+Next symbol has to be has to be With the whole left context. I mean this next symbol cannot be just arbitrarily next symbol Which is just matching with the top of the thing or or some of the thing it has to be consistent with the whole left symbol left left context So here left context is capital R and I have a small a in the next input But this small a is in is basically not appearing with the context of capital R
+
+30
+00:14:16,690 --> 00:14:46,920
+In fact, this is appearing with the context of AA capital R. So to be very precise, this LR1 parser, LR1 parser, make use of one thing. It says that you can reduce if the next symbol is appearing with the whole left context. That's the idea. If the next symbol is appearing with the whole left context. So if you want to understand that with the follow-up of the whole thing, there also it is okay.
+
+31
+00:14:47,290 --> 00:15:15,040
+so basically see here the follow of whole thing like this is r and follow of r is yes i agree this is a and b and now you may get confused that this small a is in the follow of the whole thing then why we are not reducing but that's not the case this small a is not in precisely follow of the whole thing this small a is in the is in the follow of small a capital r right this small a is in the follow of small a capital r and here this small a
+
+32
+00:15:15,270 --> 00:15:45,660
+small a is not precisely precisely in the fall of capital r it is in the fall of small a capital small a capital r there's the difference see earlier earlier this b this b was this b was not in follow of small c capital a right this this b was not in follow of small c capital a that i agree like you you have taken the fall of whole thing now also take the fall of whole thing fall of whole thing which are if this small a is in the fall of whole thing
+
+33
+00:15:46,270 --> 00:16:14,110
+This small a you need to be very precise this small a has to be in follow-off only capital R That's the problem like this is small a has to be in the follow-off capital R only But this is this is small a is in the follow-off smaller capital R. That's the thing so This idea will get clear when we take more examples and when we will do actual passing that how it is happening It basically keep check keep checks of the look ahead which means
+
+34
+00:16:14,380 --> 00:16:42,910
+that at every direction at every state it keep track of the look ahead that we will talk about in few next few slides. But here the idea is that this small a is not in precisely fall of capital R. It is in the fall of small a capital R. That's the idea. Similarly here this small b has to be in the fall of small c capital A. Similarly here this small a has to be precisely in the fall of capital R only.
+
+35
+00:16:44,210 --> 00:17:15,580
+not with capital R and some more context. So here this capital R is appearing alone. Now if capital R appears alone, then this small a has to be in the follow of capital R alone. But small a is in the follow of not just capital R, it is having some more context, which means small a capital R. So basically S11 parts are does not remember the left context. This is what we have seen, which means like it does not remember from where we are coming. So if you are taking
+
+36
+00:17:16,010 --> 00:17:46,600
+if you are taking this state then you do not remember that you are coming by this way or by this way but we will split this state into two parts in sr1 in lr1 parsing right there is one point to ponder that water information is being captured by state in bottom of parser which means if you are in this state then what can you say in bottom of parser then you can you can say about the left context maybe the left context is capital x is small b or maybe the left context is small b only so
+
+37
+00:17:46,890 --> 00:18:19,850
+every state every state captures what it captures left context you can say about the left context if you know the state I mean sometimes sometimes you are not 100% sure but sometimes you are 100% sure so in this case in this case you are 100% sure that the left context has no layer only if you end up being in this state right so the information that is captured by the state is the left context or the or or the stack configuration now what we want
+
+38
+00:18:20,070 --> 00:18:49,520
+We want to remember the whole left context. This is the important point. We don't want to just remember that in which state we are. We want to remember the whole left context. That how we have appeared in this state. Okay? And how we can achieve this goal? We will be using look ahead. And what is look ahead? Look ahead is just a follow set. But that is specific to every state. Which means for every state I will be calculating the follow. Not just a universal follow. And that is called LR1 item.
+
+39
+00:18:51,780 --> 00:19:20,330
+So if I tell you more about lr1 item it will look like this that x gives alpha dot beta is small a and it says that You are looking for x to reduce The parser is looking to reduce to x if the next input simple is small a like Till now it is not ready to reduce But if it sees beta if it sees beta then it will go to this state this state And then it will reduce it will reduce only when the next symbol is a that is important
+
+40
+00:19:21,070 --> 00:19:51,880
+Earlier it used to reduce when the next symbol was follow of x. Now it will reduce only if the next symbol is smaller. And what does this alpha mean? It has already seen alpha. Or you can also say that alpha is on the top of the stack. And it expects to see the string derived from beta in the next input. In fact, it is expecting to see beta i. Which means it will see something which will reduce to beta.
+
+41
+00:19:52,190 --> 00:20:21,460
+and then it is expecting to see if you do not see a then you can't reduce basically so with the example it will be more clear but here i just want to convey one point that it will reduce like till now it is not ready to reduce if it sees beta or something which will reduce to beta if it sees something like that then it is ready to reduce but it will reduce only when only when the next input symbol is this morning so with the example it will be more clear now if i just compare lr0 slr1 and lr1
+
+42
+00:20:21,640 --> 00:20:51,010
+Now, LR0 does not care about anything, which means it always reduce. Whenever it sees the reduction, it always reduce. SLR1 cares about the non-terminal, which means if the non-terminal is A and you have some production like this, then this reduction will happen only in the fallout of non-terminal, capital A. And LR1 cares about both. And what are those both things? One is the non-terminal and second one is the DFA state, which means LR1 cares not only about the non-terminal.
+
+43
+00:20:51,210 --> 00:21:08,400
+not only about this A, it also keeps track of how we have reached this state and based on that it will take the decision. So it takes care of non-terminal and the DFA state in which state you are. This LR1 that is why LR1 is more powerful.
+

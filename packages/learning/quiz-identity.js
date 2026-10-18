@@ -7,6 +7,6 @@ export function questionIdentity(question){
  value.prompt=prompt;if(value.unit==='')delete value.unit;
  if(question.type==='match')value.pairs=[...question.pairs].sort((a,b)=>a[0].localeCompare(b[0]));
  const ordered=value=>Array.isArray(value)?value.map(ordered):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,ordered(value[key])])):value;
- if(question.type==='choice')return JSON.stringify(ordered({type:'choice',prompt,options:[...question.options].sort(),answer:question.options[question.answer]}));
+ if(question.type==='choice')return JSON.stringify(ordered({type:'choice',prompt,options:[...question.options].sort(),answer:question.options[question.answer],...(question.tocGiven?{tocGiven:question.tocGiven}:{})}));
  return JSON.stringify(ordered(value));
 }

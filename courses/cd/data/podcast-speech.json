@@ -1,0 +1,2197 @@
+{
+  "version": 3,
+  "episodes": [
+    {
+      "id": "cd:0",
+      "scriptHash": "998ca0674162b4519f815cc6b604587fc01d85f4e312696be8f1f49456e830ce",
+      "speechVersion": 3,
+      "digest": "50c13dd9b9fdc61d738673544955566a838163ad3648344b8afa107d7a76db5c",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is Characters into tokens.",
+          "spoken": "Maya and Leo here. Our section today is Characters into tokens.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: separate spelling, token categories and lexical boundaries.",
+          "spoken": "Here's what we're working toward: separate spelling, token categories and lexical boundaries.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with how a compiler translates a program and work our way to locate the boundary of lexical analysis.",
+          "spoken": "We'll begin with how a compiler translates a program and work our way to locate the boundary of lexical analysis.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "Can you walk me through how a compiler translates a program?",
+          "spoken": "Can you walk me through how a compiler translates a program?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "A compiler translates a source program into another representation while preserving the behavior required by the source language. Lexing finds tokens, parsing finds structure, and semantic analysis checks meaning before target code is produced.",
+          "spoken": "A compiler translates a source program into another representation while preserving the behavior required by the source language. Lexing finds tokens, parsing finds structure, and semantic analysis checks meaning before target code is produced.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Source means the program representation being translated.",
+          "spoken": "Source means the program representation being translated.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "The characters total = count + 2; become tokens, then an assignment tree, then lower-level operations.",
+          "spoken": "The characters total equals count plus two; become tokens, then an assignment tree, then lower-level operations.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "A valid token sequence alone does not guarantee a valid assignment.",
+          "spoken": "A valid token sequence alone does not guarantee a valid assignment.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "That takes us to lexemes, token kinds and attributes. Where does it fit?",
+          "spoken": "That takes us to lexemes, token kinds and attributes. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "A lexeme is the exact source substring. Its token kind names a category such as identifier or integer. An attribute can point to a symbol-table entry or hold the interpreted numeric value.",
+          "spoken": "A lexeme is the exact source substring. Its token kind names a category such as identifier or integer. An attribute can point to a symbol-table entry or hold the interpreted numeric value.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Lexeme means the exact source substring recognized as one token.",
+          "spoken": "Lexeme means the exact source substring recognized as one token.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "maya",
+          "text": "In sum = sum + 12;, the two occurrences of sum share an identifier spelling, while 12 is an integer lexeme whose value is twelve.",
+          "spoken": "In sum equals sum plus twelve;, the two occurrences of sum share an identifier spelling, while twelve is an integer lexeme whose value is twelve.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "Counting distinct names is different from counting token occurrences.",
+          "spoken": "Counting distinct names is different from counting token occurrences.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "At the current character position, choose the longest prefix that is a valid token. If equally long token rules match, use the language-defined rule priority. Then restart at the first unread character.",
+          "spoken": "At the current character position, choose the longest prefix that is a valid token. If equally long token rules match, use the language-defined rule priority. Then restart at the first unread character.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Token kind means a category such as identifier, integer or operator.",
+          "spoken": "Token kind means a category such as identifier, integer or operator.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "In count >= 10, >= is one supported operator rather than > followed by =.",
+          "spoken": "In count at least ten, at least is one supported operator rather than greater than followed by equals .",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "An identifier such as total2 stays together.",
+          "spoken": "An identifier such as total two stays together.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Longest match does not search past invalid characters or decide whether an expression is grammatically valid.",
+          "spoken": "Longest match does not search past invalid characters or decide whether an expression is grammatically valid.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "Move through source text one lexeme at a time and record each occurrence, kind and character span. Treat an identifier containing digits as one identifier when its first character is a letter or underscore.",
+          "spoken": "Move through source text one lexeme at a time and record each occurrence, kind and character span. Treat an identifier containing digits as one identifier when its first character is a letter or underscore.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Span means source positions from the first character up to, but excluding, the end position.",
+          "spoken": "Span means source positions from the first character up to, but excluding, the end position.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "In item12 = item12 + 5;, item12 occupies one token each time, not an identifier followed by a number.",
+          "spoken": "In item twelve equals item twelve plus five;, item twelve occupies one token each time, not an identifier followed by a number.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "leo",
+          "text": "How would you explain locate the boundary of lexical analysis to someone meeting it for the first time?",
+          "spoken": "How would you explain locate the boundary of lexical analysis to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "maya",
+          "text": "Lexical analysis recognizes tokens; parsing decides whether their arrangement follows a grammar. Semantic checks then ask whether names and operations make sense in context.",
+          "spoken": "Lexical analysis recognizes tokens; parsing decides whether their arrangement follows a grammar. Semantic checks then ask whether names and operations make sense in context.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "x + * 3 contains individually recognizable tokens, but the expression grammar rejects the adjacent + and * in this position.",
+          "spoken": "x plus star three contains individually recognizable tokens, but the expression grammar rejects the adjacent plus and times in this position.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Before we leave characters into tokens, let's connect the pieces.",
+          "spoken": "Before we leave characters into tokens, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "A compiler translates a source program into another representation while preserving the behavior required by the source language. Lexing finds tokens, parsing finds structure, and semantic analysis checks meaning before target code is produced.",
+          "spoken": "A compiler translates a source program into another representation while preserving the behavior required by the source language. Lexing finds tokens, parsing finds structure, and semantic analysis checks meaning before target code is produced.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "Lexical analysis recognizes tokens; parsing decides whether their arrangement follows a grammar. Semantic checks then ask whether names and operations make sense in context.",
+          "spoken": "Lexical analysis recognizes tokens; parsing decides whether their arrangement follows a grammar. Semantic checks then ask whether names and operations make sense in context.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "You can pause here and try the Characters into tokens activities. Pick one idea and see whether you can explain it without the notes.",
+          "spoken": "You can pause here and try the Characters into tokens activities. Pick one idea and see whether you can explain it without the notes.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:1",
+      "scriptHash": "4ef31479a801de3fd2167a4667cb7ee48c39da52285647326d22891128136b57",
+      "speechVersion": 3,
+      "digest": "b1a783cf96c66e0d841117f4f3d533364d405c4b776c1c5ddf7118f91924d432",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Hi, it's Maya. I've got Leo with me for Grammar structure and ambiguity.",
+          "spoken": "Hi, it's Maya. I primeve got Leo with me for Grammar structure and ambiguity.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: use explicit trees and language conventions to resolve interpretation.",
+          "spoken": "Here's what we're working toward: use explicit trees and language conventions to resolve interpretation.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with prove ambiguity with two trees and work our way to give balanced parentheses a unique decomposition.",
+          "spoken": "We'll begin with prove ambiguity with two trees and work our way to give balanced parentheses a unique decomposition.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "That takes us to prove ambiguity with two trees. Where does it fit?",
+          "spoken": "That takes us to prove ambiguity with two trees. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "A grammar is ambiguous when at least one complete token sequence has two different parse trees. A single witness is sufficient; merely having several alternatives is not.",
+          "spoken": "A grammar is ambiguous when at least one complete token sequence has two different parse trees. A single witness is sufficient; merely having several alternatives is not.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "spoken": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "maya",
+          "text": "For E → E - E | num, 8 - 3 - 2 can mean (8 - 3) - 2 or 8 - (3 - 2), giving different values.",
+          "spoken": "For E produces E minus E or num, eight minus three minus two can mean open parenthesis eight minus three close parenthesis minus two or eight minus open parenthesis three minus two close parenthesis, giving different values.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "leo",
+          "text": "Trying a finite sample cannot prove an arbitrary grammar unambiguous; deciding arbitrary CFG ambiguity is undecidable.",
+          "spoken": "Trying a finite sample cannot prove an arbitrary grammar unambiguous; deciding arbitrary C F G ambiguity is undecidable.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "There's another piece to this: encode precedence and associativity.",
+          "spoken": "There's another piece to this: encode precedence and associativity.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "A grammar can separate expression levels so multiplication groups before addition, and can make repeated operators group left or right according to the language. This is a language-specific design choice.",
+          "spoken": "A grammar can separate expression levels so multiplication groups before addition, and can make repeated operators group left or right according to the language. This is a language-specific design choice.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Operator means a symbol such as + that combines operand values.",
+          "spoken": "Operator means a symbol such as plus that combines operand values.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "For 2 + 3 * 4, multiplication produces 12 before addition produces 14.",
+          "spoken": "For two plus three times four, multiplication produces twelve before addition produces fourteen.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "For 9 - 4 - 1, left association gives 4.",
+          "spoken": "For nine minus four minus one, left association gives four.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "An else can match two different if statements in an ambiguous nested-if grammar. A common language convention attaches it to the nearest unmatched if. A matched/unmatched grammar can express that convention.",
+          "spoken": "An else can match two different if statements in an ambiguous nested-if grammar. A common language convention attaches it to the nearest unmatched if. A matched and unmatched grammar can express that convention.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Terminal means an input token used literally by a production.",
+          "spoken": "Terminal means an input token used literally by a production.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "maya",
+          "text": "In if c1 then if c2 then action1 else action2, choosing the inner or outer owner changes when action2 runs.",
+          "spoken": "In if c one then if c two then action one else action two, choosing the inner or outer owner changes when action two runs.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "Use the stated precedence and associativity rules to construct one expression tree, then evaluate children before their parent. In this independent practice, check the grouping before performing the arithmetic.",
+          "spoken": "Use the stated precedence and associativity rules to construct one expression tree, then evaluate children before their parent. In this independent practice, check the grouping before performing the arithmetic.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Precedence means the rule that determines which operator groups more tightly.",
+          "spoken": "Precedence means the rule that determines which operator groups more tightly.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "For 12 - 5 - 2, the usual left-associative rule selects (12 - 5) - 2 = 5; the other grouping gives 9.",
+          "spoken": "For twelve minus five minus two, the usual left-associative rule selects open parenthesis twelve minus five close parenthesis minus two equals five; the other grouping gives nine.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "maya",
+          "text": "Subtraction is not associative: changing the grouping can change the result.",
+          "spoken": "Subtraction is not associative: changing the grouping can change the result.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "I want to unpack give balanced parentheses a unique decomposition next.",
+          "spoken": "I want to unpack give balanced parentheses a unique decomposition next.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "The grammar S → S S | ( S ) | ε allows different concatenation groupings of one balanced word. The replacement S → ( S ) S | ε uses the first matching close to select one interior and one remaining suffix.",
+          "spoken": "The grammar S produces S S or left parenthesis S right parenthesis or the empty word allows different concatenation groupings of one balanced word. The replacement S produces left parenthesis S right parenthesis S or the empty word uses the first matching close to select one interior and one remaining suffix.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "Nonterminal means a grammar name expanded using production rules.",
+          "spoken": "Nonterminal means a grammar name expanded using production rules.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "leo",
+          "text": "For ()()(), the ambiguous grammar can group the first two pairs together or the last two pairs together.",
+          "spoken": "For ()()(), the ambiguous grammar can group the first two pairs together or the last two pairs together.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "maya",
+          "text": "The replacement always selects the first complete pair before recursing on the suffix.",
+          "spoken": "The replacement always selects the first complete pair before recursing on the suffix.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "leo",
+          "text": "Before we leave grammar structure and ambiguity, let's connect the pieces.",
+          "spoken": "Before we leave grammar structure and ambiguity, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "maya",
+          "text": "A grammar is ambiguous when at least one complete token sequence has two different parse trees. A single witness is sufficient; merely having several alternatives is not.",
+          "spoken": "A grammar is ambiguous when at least one complete token sequence has two different parse trees. A single witness is sufficient; merely having several alternatives is not.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "leo",
+          "text": "The grammar S → S S | ( S ) | ε allows different concatenation groupings of one balanced word. The replacement S → ( S ) S | ε uses the first matching close to select one interior and one remaining suffix.",
+          "spoken": "The grammar S produces S S or left parenthesis S right parenthesis or the empty word allows different concatenation groupings of one balanced word. The replacement S produces left parenthesis S right parenthesis S or the empty word uses the first matching close to select one interior and one remaining suffix.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "A useful next step is to revisit give balanced parentheses a unique decomposition with an example of your own. Keep it small enough to check by hand.",
+          "spoken": "A useful next step is to revisit give balanced parentheses a unique decomposition with an example of your own. Keep it small enough to check by hand.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:2",
+      "scriptHash": "24bde57e199bcdf400a8f2f3515cbd412815002788bd363df3d145c7ac9f55c1",
+      "speechVersion": 3,
+      "digest": "275191302a50d891b745ae5bfef649f5f12b083b969ec404d92d216ea1075abd",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called Prepare and trace top-down parsers.",
+          "spoken": "Welcome to C S Quest Audio. I primem Maya, here with Leo. This section is called Prepare and trace top-down parsers.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: transform productions and follow pending parsing obligations.",
+          "spoken": "Here's what we're working toward: transform productions and follow pending parsing obligations.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with eliminate direct left recursion and work our way to trace acceptance and syntax errors.",
+          "spoken": "We'll begin with eliminate direct left recursion and work our way to trace acceptance and syntax errors.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "There's another piece to this: eliminate direct left recursion.",
+          "spoken": "There's another piece to this: eliminate direct left recursion.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "If A → A α | β and β does not start with A, replace it with A → β R and R → α R | ε. The new tail repeats α without immediately calling A again.",
+          "spoken": "If A produces A alpha or beta and beta does not start with A, replace it with A produces beta R and R produces alpha R or the empty word . The new tail repeats alpha without immediately calling A again.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "spoken": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "E → E + T | T becomes E → T R and R → + T R | ε.",
+          "spoken": "E produces E plus T or T becomes E produces T R and R produces plus T R or the empty word .",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "A recursive-descent function can now consume a T before following the tail.",
+          "spoken": "A recursive-descent function can now consume a T before following the tail.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Direct-recursion elimination does not automatically remove indirect recursion, ambiguity, or every LL(1) conflict.",
+          "spoken": "Direct-recursion elimination does not automatically remove indirect recursion, ambiguity, or every L L one conflict.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "Let's spend a moment on factor a common production prefix.",
+          "spoken": "Let's spend a moment on factor a common production prefix.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "When alternatives share a prefix, consume that prefix once and move the remaining alternatives into a new nonterminal. This postpones the choice until more input is available.",
+          "spoken": "When alternatives share a prefix, consume that prefix once and move the remaining alternatives into a new nonterminal. This postpones the choice until more input is available.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Terminal means an input token used literally by a production.",
+          "spoken": "Terminal means an input token used literally by a production.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "S → a b c | a b d becomes S → a b R and R → c | d.",
+          "spoken": "S produces a b c or a b d becomes S produces a b R and R produces c or d.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "The parser can decide at c versus d.",
+          "spoken": "The parser can decide at c versus d.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "Top-down parsing starts with the start symbol and expands toward the input. Bottom-up parsing starts with the input and reduces handles toward the start symbol, reversing a rightmost derivation.",
+          "spoken": "Top-down parsing starts with the start symbol and expands toward the input. Bottom-up parsing starts with the input and reduces handles toward the start symbol, reversing a rightmost derivation.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Nonterminal means a grammar name expanded using production rules.",
+          "spoken": "Nonterminal means a grammar name expanded using production rules.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "For S → a B and B → b, top-down gives S ⇒ a B ⇒ a b; bottom-up gives a b ⇒ a B ⇒ S.",
+          "spoken": "For S produces a B and B produces b, top-down gives S derives a B derives a b; bottom-up gives a b derives a B derives S.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "The parser context must justify reversing that derivation step.",
+          "spoken": "The parser context must justify reversing that derivation step.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A backtracking top-down parser may try one production and restore its input position when that attempt fails. A predictive parser uses lookahead and a conflict-free table to select a production without retrying.",
+          "spoken": "A backtracking top-down parser may try one production and restore its input position when that attempt fails. A predictive parser uses lookahead and a conflict-free table to select a production without retrying.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Lookahead means upcoming input token information used to choose a parser action.",
+          "spoken": "Lookahead means upcoming input token information used to choose a parser action.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "If both S → a A and S → a B begin with a, one lookahead cannot select between them in the unfactored grammar.",
+          "spoken": "If both S produces a A and S produces a B begin with a, one lookahead cannot select between them in the unfactored grammar.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Greedily choosing the first listed alternative is not a proof that the grammar is LL(1).",
+          "spoken": "Greedily choosing the first listed alternative is not a proof that the grammar is L L one.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "Now for read a recursive-descent parser as a stack. What's the key distinction?",
+          "spoken": "Now for read a recursive-descent parser as a stack. What's the key distinction?",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "Each nonterminal can be a parsing function. Choosing a production creates calls or terminal matches, and an ε production returns without consuming input. A predictive stack makes these obligations visible.",
+          "spoken": "Each nonterminal can be a parsing function. Choosing a production creates calls or terminal matches, and an empty production returns without consuming input. A predictive stack makes these obligations visible.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Empty word (ε) means a sequence containing zero tokens.",
+          "spoken": "empty word means a sequence containing zero tokens.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "With E → T R, T → id and R → + T R | ε, id + id expands E, matches an id, then processes the tail.",
+          "spoken": "With E produces T R, T produces id and R produces plus T R or the empty word , id plus id expands E, matches an id, then processes the tail.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "An ε production is permitted only for the appropriate lookahead; it is not an unconditional escape from errors.",
+          "spoken": "An the empty word production is permitted only for the appropriate lookahead; it is not an unconditional escape from errors.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "A parser accepts only when the whole input has been matched and its pending obligations are exhausted. A mismatch or an empty table cell identifies the first point the current parse cannot continue.",
+          "spoken": "A parser accepts only when the whole input has been matched and its pending obligations are exhausted. A mismatch or an empty table cell identifies the first point the current parse cannot continue.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "The expression grammar rejects id + + id because the second + arrives where a T beginning with id is required.",
+          "spoken": "The expression grammar rejects id plus plus id because the second plus arrives where a T beginning with id is required.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "leo",
+          "text": "Before we leave prepare and trace top-down parsers, let's connect the pieces.",
+          "spoken": "Before we leave prepare and trace top-down parsers, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "If A → A α | β and β does not start with A, replace it with A → β R and R → α R | ε. The new tail repeats α without immediately calling A again.",
+          "spoken": "If A produces A alpha or beta and beta does not start with A, replace it with A produces beta R and R produces alpha R or the empty word . The new tail repeats alpha without immediately calling A again.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "leo",
+          "text": "A parser accepts only when the whole input has been matched and its pending obligations are exhausted. A mismatch or an empty table cell identifies the first point the current parse cannot continue.",
+          "spoken": "A parser accepts only when the whole input has been matched and its pending obligations are exhausted. A mismatch or an empty table cell identifies the first point the current parse cannot continue.",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "maya",
+          "text": "We've covered a lot in prepare and trace top-down parsers. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "spoken": "We've covered a lot in prepare and trace top-down parsers. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:3",
+      "scriptHash": "dc221dd4d299b832b4e9770d6206f4853bae6011cad4b2b9aa6ac85ddf6827ac",
+      "speechVersion": 3,
+      "digest": "19c530aa812716fb699d41d37569c6bcb446371e3ad24eaccf8fda942e7a0c6b",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called FIRST, FOLLOW and predictive tables.",
+          "spoken": "Hi, I primem Maya. Leo's with me, and today's section is called FIRST, FOLLOW and predictive tables.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: compute fixed-point facts and choose LL(1) productions.",
+          "spoken": "Here's what we're working toward: compute fixed-point facts and choose L L one productions.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with compute FIRST to a fixed point and work our way to test grammar claims with table evidence.",
+          "spoken": "We'll begin with compute FIRST to a fixed point and work our way to test grammar claims with table evidence.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "Let's spend a moment on compute FIRST to a fixed point.",
+          "spoken": "Let's spend a moment on compute FIRST to a fixed point.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "FIRST(X) contains terminals that can begin a word derived from X, and ε if X can derive the empty word. For a sequence, continue past a symbol only when that symbol is nullable.",
+          "spoken": "FIRST of X contains terminals that can begin a word derived from X, and the empty word if X can derive the empty word. For a sequence, continue past a symbol only when that symbol is nullable.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "spoken": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "maya",
+          "text": "For S → A B, A → a A | ε and B → b B | ε, FIRST(S) contains a, b and ε.",
+          "spoken": "For S produces A B, A produces a A or the empty word and B produces b B or the empty word , FIRST of S contains a, b and the empty word .",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "leo",
+          "text": "Do not stop at a nullable first nonterminal or copy ε into the result before every symbol in the sequence is nullable.",
+          "spoken": "Do not stop at a nullable first nonterminal or copy the empty word into the result before every symbol in the sequence is nullable.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "How would you explain compute FOLLOW using suffixes to someone meeting it for the first time?",
+          "spoken": "How would you explain compute FOLLOW using suffixes to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "FOLLOW(A) contains terminals that can immediately follow A in a sentential form; $ marks the end after the start symbol. Copy FIRST of the suffix without ε, and copy FOLLOW of the left side if that suffix is nullable.",
+          "spoken": "FOLLOW of A contains terminals that can immediately follow A in a sentential form; the end marker marks the end after the start symbol. Copy FIRST of the suffix without the empty word , and copy FOLLOW of the left side if that suffix is nullable.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Terminal means an input token used literally by a production.",
+          "spoken": "Terminal means an input token used literally by a production.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "For S → A B with nullable B, b can follow A and so can $.",
+          "spoken": "For S produces A B with nullable B, b can follow A and so can the end marker .",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "FOLLOW never contains ε.",
+          "spoken": "FOLLOW never contains the empty word .",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "FOLLOW describes context after a nonterminal, not characters inside its name or the start of its own expansion.",
+          "spoken": "FOLLOW describes context after a nonterminal, not characters inside its name or the start of its own expansion.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "For A → α, enter the production under terminals in FIRST(α) except ε. If α is nullable, also enter it under FOLLOW(A). More than one production in a cell is an LL(1) conflict.",
+          "spoken": "For A produces alpha , enter the production under terminals in FIRST of alpha except the empty word . If alpha is nullable, also enter it under FOLLOW of A. More than one production in a cell is an L L one conflict.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Nonterminal means a grammar name expanded using production rules.",
+          "spoken": "Nonterminal means a grammar name expanded using production rules.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "The R → ε production in the expression grammar belongs in the R,$ cell; R → + T R belongs under +.",
+          "spoken": "The R produces the empty word production in the expression grammar belongs in the R, the end marker cell; R produces plus T R belongs under plus .",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "A grammar being unambiguous is necessary but not sufficient for its particular production form to be LL(1).",
+          "spoken": "A grammar being unambiguous is necessary but not sufficient for its particular production form to be L L one.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "Keep a stack with $ at the bottom and the start symbol on top. Match a terminal, or use the pair of top nonterminal and one lookahead token to choose a production. Push its right-hand side in reverse order.",
+          "spoken": "Keep a stack with the end marker at the bottom and the start symbol on top. Match a terminal, or use the pair of top nonterminal and one lookahead token to choose a production. Push its right-hand side in reverse order.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Lookahead means upcoming input token information used to choose a parser action.",
+          "spoken": "Lookahead means upcoming input token information used to choose a parser action.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "For id + id, the top-of-stack symbol must be processed before the symbols beneath it.",
+          "spoken": "For id plus id, the top-of-stack symbol must be processed before the symbols beneath it.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Expanding ε pushes nothing.",
+          "spoken": "Expanding the empty word pushes nothing.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "We also need to talk about test grammar claims with table evidence.",
+          "spoken": "We also need to talk about test grammar claims with table evidence.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "Use fixed-point sets and concrete conflicting table cells to check claims about FIRST, FOLLOW and LL(1). Removing common prefixes and direct recursion is useful preparation, but it is not a guarantee.",
+          "spoken": "Use fixed-point sets and concrete conflicting table cells to check claims about FIRST, FOLLOW and L L one. Removing common prefixes and direct recursion is useful preparation, but it is not a guarantee.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Empty word (ε) means a sequence containing zero tokens.",
+          "spoken": "empty word means a sequence containing zero tokens.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "For S → a A | a B, A → b and B → c, the S,a cell contains two alternatives even though the two complete words differ.",
+          "spoken": "For S produces a A or a B, A produces b and B produces c, the S,a cell contains two alternatives even though the two complete words differ.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "A language may have another predictive grammar even when this particular grammar is not LL(1).",
+          "spoken": "A language may have another predictive grammar even when this particular grammar is not L L one.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "leo",
+          "text": "Before we leave FIRST, FOLLOW and predictive tables, let's connect the pieces.",
+          "spoken": "Before we leave FIRST, FOLLOW and predictive tables, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "FIRST(X) contains terminals that can begin a word derived from X, and ε if X can derive the empty word. For a sequence, continue past a symbol only when that symbol is nullable.",
+          "spoken": "FIRST of X contains terminals that can begin a word derived from X, and the empty word if X can derive the empty word. For a sequence, continue past a symbol only when that symbol is nullable.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "leo",
+          "text": "Use fixed-point sets and concrete conflicting table cells to check claims about FIRST, FOLLOW and LL(1). Removing common prefixes and direct recursion is useful preparation, but it is not a guarantee.",
+          "spoken": "Use fixed-point sets and concrete conflicting table cells to check claims about FIRST, FOLLOW and L L one. Removing common prefixes and direct recursion is useful preparation, but it is not a guarantee.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "Try explaining test grammar claims with table evidence in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "spoken": "Try explaining test grammar claims with table evidence in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:4",
+      "scriptHash": "6db9db9a99f1de96d1d26d67ae84ce7f90a2b2fc3dee3009e62efa2c28758d64",
+      "speechVersion": 3,
+      "digest": "8863c3c03ac6b183eeab04848dc290c31bd1f807f89afc45f9394a83e6c583ca",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Welcome back. Maya here, with Leo. We've reached the section called Bottom-up parsing and SLR.",
+          "spoken": "Welcome back. Maya here, with Leo. We've reached the section called Bottom-up parsing and S L R.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: build item states and justify each shift or reduction.",
+          "spoken": "Here's what we're working toward: build item states and justify each shift or reduction.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with shift, reduce and recognize handles and work our way to check reductions with empty productions.",
+          "spoken": "We'll begin with shift, reduce and recognize handles and work our way to check reductions with empty productions.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "How would you explain shift, reduce and recognize handles to someone meeting it for the first time?",
+          "spoken": "How would you explain shift, reduce and recognize handles to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "A shift moves the next terminal onto the parser stack. A reduction replaces a handle by its left-hand-side nonterminal, using the current state and lookahead to justify the choice.",
+          "spoken": "A shift moves the next terminal onto the parser stack. A reduction replaces a handle by its left-hand-side nonterminal, using the current state and lookahead to justify the choice.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "spoken": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "maya",
+          "text": "For S → C C and C → c C | d, c d d reduces the inner d to C, then c C to C, then the final d to C and C C to S.",
+          "spoken": "For S produces C C and C produces c C or d, c d d reduces the inner d to C, then c C to C, then the final d to C and C C to S.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "leo",
+          "text": "I want to unpack construct LR(0) item states next.",
+          "spoken": "I want to unpack construct L R zero item states next.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "maya",
+          "text": "An LR item places a dot in a production to mark recognized versus expected symbols. Closure adds productions for a nonterminal after the dot; GOTO advances over one symbol then closes the destination.",
+          "spoken": "An L R item places a dot in a production to mark recognized versus expected symbols. Closure adds productions for a nonterminal after the dot; GOTO advances over one symbol then closes the destination.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "Terminal means an input token used literally by a production.",
+          "spoken": "Terminal means an input token used literally by a production.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "From C → c • C, closure adds C → • c C and C → • d.",
+          "spoken": "From C produces c dot C, closure adds C produces dot c C and C produces dot d.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "maya",
+          "text": "These are alternatives within one state, not consumed input.",
+          "spoken": "These are alternatives within one state, not consumed input.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "Moving the dot is not itself a grammar derivation step; the dot describes parser progress.",
+          "spoken": "Moving the dot is not itself a grammar derivation step; the dot describes parser progress.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "SLR uses LR(0) item states but adds a reduction A → α only under FOLLOW(A). This removes some overly broad LR(0) reductions without changing the item automaton.",
+          "spoken": "S L R uses L R zero item states but adds a reduction A produces alpha only under FOLLOW of A. This removes some overly broad L R zero reductions without changing the item automaton.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Nonterminal means a grammar name expanded using production rules.",
+          "spoken": "Nonterminal means a grammar name expanded using production rules.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "maya",
+          "text": "An LR(0) shift/reduce conflict can disappear under SLR when the shift token is absent from the completed production left side FOLLOW set.",
+          "spoken": "An L R zero shift or reduce conflict can disappear under S L R when the shift token is absent from the completed production left side FOLLOW set.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "leo",
+          "text": "SLR still uses a global FOLLOW set and can introduce a reduction in an inappropriate local context.",
+          "spoken": "S L R still uses a global FOLLOW set and can introduce a reduction in an inappropriate local context.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "maya",
+          "text": "Closure predicts productions that could be needed next. It expands the set of possible items until no new item is added, while GOTO represents a transition on an actual grammar symbol.",
+          "spoken": "Closure predicts productions that could be needed next. It expands the set of possible items until no new item is added, while GOTO represents a transition on an actual grammar symbol.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "leo",
+          "text": "Lookahead means upcoming input token information used to choose a parser action.",
+          "spoken": "Lookahead means upcoming input token information used to choose a parser action.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "maya",
+          "text": "The initial item S′ → • S brings in S productions and then any nonterminal productions needed at their first position.",
+          "spoken": "The initial item S prime produces dot S brings in S productions and then any nonterminal productions needed at their first position.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "Closure does not advance the input pointer or move the dot in existing items.",
+          "spoken": "Closure does not advance the input pointer or move the dot in existing items.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "leo",
+          "text": "Let's start with read an LR ACTION cell. What do we need to know?",
+          "spoken": "Let's start with read an L R ACTION cell. What do we need to know?",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "maya",
+          "text": "A table cell can shift to a state, reduce by a production, accept, or be empty for error. A conflicting cell contains incompatible actions for the same state and lookahead.",
+          "spoken": "A table cell can shift to a state, reduce by a production, accept, or be empty for error. A conflicting cell contains incompatible actions for the same state and lookahead.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "leo",
+          "text": "Empty word (ε) means a sequence containing zero tokens.",
+          "spoken": "empty word means a sequence containing zero tokens.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "maya",
+          "text": "A reduction pops one symbol/state pair per right-hand-side symbol, then consults GOTO for the left-hand-side nonterminal.",
+          "spoken": "A reduction pops one symbol divided by state pair per right-hand-side symbol, then consults GOTO for the left-hand-side nonterminal.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "leo",
+          "text": "An ε reduction pops zero pairs.",
+          "spoken": "An the empty word reduction pops zero pairs.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "It still pushes the reduced nonterminal and a GOTO state.",
+          "spoken": "It still pushes the reduced nonterminal and a GOTO state.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "Construct the LR(0) states and restrict completed-item reductions to FOLLOW. The grammar is SLR(1) exactly when the resulting ACTION cells have no conflicts.",
+          "spoken": "Construct the L R zero states and restrict completed-item reductions to FOLLOW. The grammar is S L R one exactly when the resulting ACTION cells have no conflicts.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "For S → C C and C → c C | d, inspect every ACTION cell rather than inferring the result from the number of states.",
+          "spoken": "For S produces C C and C produces c C or d, inspect every ACTION cell rather than inferring the result from the number of states.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "maya",
+          "text": "LL predicts a production before its right side is consumed. LR recognizes a right side before reducing. SLR retains LR(0) states while consulting one lookahead through FOLLOW sets.",
+          "spoken": "L L predicts a production before its right side is consumed. L R recognizes a right side before reducing. S L R retains L R zero states while consulting one lookahead through FOLLOW sets.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "The left-recursive expression grammar E → E + T | T is unsuitable for direct predictive recursion, yet can be handled by a suitable bottom-up construction.",
+          "spoken": "The left-recursive expression grammar E produces E plus T or T is unsuitable for direct predictive recursion, yet can be handled by a suitable bottom-up construction.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "leo",
+          "text": "Parser-family claims concern a grammar construction; a language can have multiple equivalent grammars with different properties.",
+          "spoken": "Parser-family claims concern a grammar construction; a language can have multiple equivalent grammars with different properties.",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "leo",
+          "text": "Let's spend a moment on check reductions with empty productions.",
+          "spoken": "Let's spend a moment on check reductions with empty productions.",
+          "hints": {}
+        },
+        {
+          "index": 33,
+          "speaker": "maya",
+          "text": "An empty right-hand side completes without consuming a terminal. Its reduction depends on the current state and permitted lookahead, then follows GOTO just like a nonempty reduction.",
+          "spoken": "An empty right-hand side completes without consuming a terminal. Its reduction depends on the current state and permitted lookahead, then follows GOTO just like a nonempty reduction.",
+          "hints": {}
+        },
+        {
+          "index": 34,
+          "speaker": "maya",
+          "text": "For S → A b and A → a A | ε, the parser for a b must reduce A → ε before reducing a A.",
+          "spoken": "For S produces A b and A produces a A or the empty word , the parser for a b must reduce A produces the empty word before reducing a A.",
+          "hints": {}
+        },
+        {
+          "index": 35,
+          "speaker": "maya",
+          "text": "Nullable does not mean skippable at every input position; an incorrect empty reduction can conceal a syntax error.",
+          "spoken": "Nullable does not mean skippable at every input position; an incorrect empty reduction can conceal a syntax error.",
+          "hints": {}
+        },
+        {
+          "index": 36,
+          "speaker": "leo",
+          "text": "Before we leave bottom-up parsing and SLR, let's connect the pieces.",
+          "spoken": "Before we leave bottom-up parsing and S L R, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 37,
+          "speaker": "maya",
+          "text": "A shift moves the next terminal onto the parser stack. A reduction replaces a handle by its left-hand-side nonterminal, using the current state and lookahead to justify the choice.",
+          "spoken": "A shift moves the next terminal onto the parser stack. A reduction replaces a handle by its left-hand-side nonterminal, using the current state and lookahead to justify the choice.",
+          "hints": {}
+        },
+        {
+          "index": 38,
+          "speaker": "leo",
+          "text": "An empty right-hand side completes without consuming a terminal. Its reduction depends on the current state and permitted lookahead, then follows GOTO just like a nonempty reduction.",
+          "spoken": "An empty right-hand side completes without consuming a terminal. Its reduction depends on the current state and permitted lookahead, then follows GOTO just like a nonempty reduction.",
+          "hints": {}
+        },
+        {
+          "index": 39,
+          "speaker": "maya",
+          "text": "When you try a problem on check reductions with empty productions, talk through why each step works. That's a useful check on what has clicked.",
+          "spoken": "When you try a problem on check reductions with empty productions, talk through why each step works. That's a useful check on what has clicked.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:5",
+      "scriptHash": "945216b24de9c3d8acc192691662c541ea661b8744e4076eb0ada94576c8ba43",
+      "speechVersion": 3,
+      "digest": "f0b519948a0736339a38247205326dfd7f2a7112511e15fda6a755dbff075eb5",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "I'm Maya, and this is CSQuest Audio. Today, Leo and I are taking on Canonical LR, LALR and lookahead.",
+          "spoken": "I primem Maya, and this is C S Quest Audio. Today, Leo and I are taking on Canonical L R, L A L R and lookahead.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: preserve context, inspect merging and diagnose conflicts.",
+          "spoken": "Here's what we're working toward: preserve context, inspect merging and diagnose conflicts.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with find the limitation of global FOLLOW and work our way to separate parser conflicts from ambiguity.",
+          "spoken": "We'll begin with find the limitation of global FOLLOW and work our way to separate parser conflicts from ambiguity.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "I want to unpack find the limitation of global FOLLOW next.",
+          "spoken": "I want to unpack find the limitation of global FOLLOW next.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "SLR adds a completed A production under every token in FOLLOW(A), even when some of those tokens cannot follow this item in its actual context. This approximation can create a conflict.",
+          "spoken": "S L R adds a completed A production under every token in FOLLOW of A, even when some of those tokens cannot follow this item in its actual context. This approximation can create a conflict.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "spoken": "Grammar means a finite collection of production rules describing permitted token sequences.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "maya",
+          "text": "The assignment grammar S → L = R | R, L → * R | id, R → L has an SLR conflict involving =; canonical LR(1) distinguishes the contexts.",
+          "spoken": "The assignment grammar S produces L equals R or R, L produces times R or id, R produces L has an S L R conflict involving equals ; canonical L R one distinguishes the contexts.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "leo",
+          "text": "An SLR conflict does not prove the grammar ambiguous.",
+          "spoken": "An S L R conflict does not prove the grammar ambiguous.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Now for attach lookahead to each LR(1) item. What's the key distinction?",
+          "spoken": "Now for attach lookahead to each L R one item. What's the key distinction?",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "An LR(1) item [A → α • β, a] says that a may follow the completed A in that item context. Closure derives lookahead using FIRST(β a).",
+          "spoken": "An L R one item [A produces alpha dot beta , a] says that a may follow the completed A in that item context. Closure derives lookahead using FIRST of beta a.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Terminal means an input token used literally by a production.",
+          "spoken": "Terminal means an input token used literally by a production.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "maya",
+          "text": "For an item expecting B followed by a terminal, the B items receive that terminal as lookahead even if FOLLOW(B) is larger globally.",
+          "spoken": "For an item expecting B followed by a terminal, the B items receive that terminal as lookahead even if FOLLOW of B is larger globally.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "The lookahead is after the completed production, not necessarily the next symbol after the dot.",
+          "spoken": "The lookahead is after the completed production, not necessarily the next symbol after the dot.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Canonical LR(1) preserves item-specific lookahead through closure and transitions. A completed item reduces only under its attached lookahead, retaining distinctions that SLR loses.",
+          "spoken": "Canonical L R one preserves item-specific lookahead through closure and transitions. A completed item reduces only under its attached lookahead, retaining distinctions that S L R loses.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Nonterminal means a grammar name expanded using production rules.",
+          "spoken": "Nonterminal means a grammar name expanded using production rules.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "maya",
+          "text": "The assignment grammar can shift = after recognizing an L in one context and reduce R → L in another without the SLR conflict.",
+          "spoken": "The assignment grammar can shift equals after recognizing an L in one context and reduce R produces L in another without the S L R conflict.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "LALR merges canonical LR(1) states having the identical LR(0) item core, unioning the lookaheads for corresponding items. This saves states but may create new reduce/reduce conflicts.",
+          "spoken": "L A L R merges canonical L R one states having the identical L R zero item core, unioning the lookaheads for corresponding items. This saves states but may create new reduce or reduce conflicts.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Lookahead means upcoming input token information used to choose a parser action.",
+          "spoken": "Lookahead means upcoming input token information used to choose a parser action.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A merge must match the full set of production-and-dot pairs, not just a shared completed production or a similar state name.",
+          "spoken": "A merge must match the full set of production-and-dot pairs, not just a shared completed production or a similar state name.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "maya",
+          "text": "Merging lookaheads preserves no blanket guarantee that every LR(1) grammar remains conflict-free.",
+          "spoken": "Merging lookaheads preserves no blanket guarantee that every L R one grammar remains conflict-free.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "That takes us to trace a conflict-free LALR parse. Where does it fit?",
+          "spoken": "That takes us to trace a conflict-free L A L R parse. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "When equal-core merging leaves every ACTION cell unambiguous, the resulting LALR parser can shift and reduce using its compact state table.",
+          "spoken": "When equal-core merging leaves every ACTION cell unambiguous, the resulting L A L R parser can shift and reduce using its compact state table.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "Empty word (ε) means a sequence containing zero tokens.",
+          "spoken": "empty word means a sequence containing zero tokens.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "For S → C C and C → c C | d, compare canonical and merged state counts, then parse c d d using the merged table.",
+          "spoken": "For S produces C C and C produces c C or d, compare canonical and merged state counts, then parse c d d using the merged table.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Never hide a conflict by taking the first action; the parse must stop when a unique action is unavailable.",
+          "spoken": "Never hide a conflict by taking the first action; the parse must stop when a unique action is unavailable.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "Two LR(1) states may separately distinguish when A or B can reduce. Merging their equal cores unions lookaheads, so formerly separated reductions may compete on the same token.",
+          "spoken": "Two L R one states may separately distinguish when A or B can reduce. Merging their equal cores unions lookaheads, so formerly separated reductions may compete on the same token.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "maya",
+          "text": "For S → a A d | b A e | a B e | b B d, A → c and B → c, canonical LR(1) succeeds while equal-core LALR merging creates reduce/reduce cells.",
+          "spoken": "For S produces a A d or b A e or a B e or b B d, A produces c and B produces c, canonical L R one succeeds while equal-core L A L R merging creates reduce or reduce cells.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "It does not prove that the generated language lacks a different LALR grammar.",
+          "spoken": "It does not prove that the generated language lacks a different L A L R grammar.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "A decision can require seeing a pair of future tokens when the first token alone is compatible with two actions. Demonstrate this with one explicit grammar before making broader LR(k) claims.",
+          "spoken": "A decision can require seeing a pair of future tokens when the first token alone is compatible with two actions. Demonstrate this with one explicit grammar before making broader L R(k) claims.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "maya",
+          "text": "For S → a A a b and A → a | ε, after the first a, lookahead a b selects the empty A, while a a selects A → a.",
+          "spoken": "For S produces a A a b and A produces a or the empty word , after the first a, lookahead a b selects the empty A, while a a selects A produces a.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "leo",
+          "text": "This dedicated witness is not a general LR(2) table generator or a proof about every grammar.",
+          "spoken": "This dedicated witness is not a general L R two table generator or a proof about every grammar.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "leo",
+          "text": "How would you explain compare canonical and merged state evidence to someone meeting it for the first time?",
+          "spoken": "How would you explain compare canonical and merged state evidence to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "maya",
+          "text": "Count canonical states, group them by complete LR(0) core, and inspect the resulting lookahead unions. State numbering has no semantic meaning by itself.",
+          "spoken": "Count canonical states, group them by complete L R zero core, and inspect the resulting lookahead unions. State numbering has no semantic meaning by itself.",
+          "hints": {}
+        },
+        {
+          "index": 33,
+          "speaker": "maya",
+          "text": "The C C grammar has canonical states that can be merged without introducing conflicts; the crossed A/B grammar shows why checking the resulting cells matters.",
+          "spoken": "The C C grammar has canonical states that can be merged without introducing conflicts; the crossed A divided by B grammar shows why checking the resulting cells matters.",
+          "hints": {}
+        },
+        {
+          "index": 34,
+          "speaker": "maya",
+          "text": "A shift/reduce or reduce/reduce conflict says that the chosen parser construction cannot decide an action in that cell. An ambiguity claim additionally needs two parse trees for one complete word.",
+          "spoken": "A shift or reduce or reduce or reduce conflict says that the chosen parser construction cannot decide an action in that cell. An ambiguity claim additionally needs two parse trees for one complete word.",
+          "hints": {}
+        },
+        {
+          "index": 35,
+          "speaker": "maya",
+          "text": "The assignment grammar has an SLR conflict but a conflict-free canonical LR(1) construction, so the SLR conflict alone was insufficient evidence of ambiguity.",
+          "spoken": "The assignment grammar has an S L R conflict but a conflict-free canonical L R one construction, so the S L R conflict alone was insufficient evidence of ambiguity.",
+          "hints": {}
+        },
+        {
+          "index": 36,
+          "speaker": "leo",
+          "text": "Do not confuse one parser failure with a proof that no deterministic grammar for the language exists.",
+          "spoken": "Do not confuse one parser failure with a proof that no deterministic grammar for the language exists.",
+          "hints": {}
+        },
+        {
+          "index": 37,
+          "speaker": "leo",
+          "text": "Before we leave canonical LR, LALR and lookahead, let's connect the pieces.",
+          "spoken": "Before we leave canonical L R, L A L R and lookahead, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 38,
+          "speaker": "maya",
+          "text": "SLR adds a completed A production under every token in FOLLOW(A), even when some of those tokens cannot follow this item in its actual context. This approximation can create a conflict.",
+          "spoken": "S L R adds a completed A production under every token in FOLLOW of A, even when some of those tokens cannot follow this item in its actual context. This approximation can create a conflict.",
+          "hints": {}
+        },
+        {
+          "index": 39,
+          "speaker": "leo",
+          "text": "A shift/reduce or reduce/reduce conflict says that the chosen parser construction cannot decide an action in that cell. An ambiguity claim additionally needs two parse trees for one complete word.",
+          "spoken": "A shift or reduce or reduce or reduce conflict says that the chosen parser construction cannot decide an action in that cell. An ambiguity claim additionally needs two parse trees for one complete word.",
+          "hints": {}
+        },
+        {
+          "index": 40,
+          "speaker": "maya",
+          "text": "Take a small example of find the limitation of global FOLLOW and work it out before looking at the explanation. Then compare your reasoning.",
+          "spoken": "Take a small example of find the limitation of global FOLLOW and work it out before looking at the explanation. Then compare your reasoning.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:6",
+      "scriptHash": "73c91335d7db5dba10a1110765e738d6ab706181562818ace0ff33c3b8148df8",
+      "speechVersion": 3,
+      "digest": "6d2e560ac6e0a34f30a1ef3cce665750780d538e4f4023a6c7df471d88da68c8",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is Attributes and syntax-directed translation.",
+          "spoken": "Maya and Leo here. Our section today is Attributes and syntax-directed translation.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: evaluate dependencies and pass declaration context.",
+          "spoken": "Here's what we're working toward: evaluate dependencies and pass declaration context.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with compute values with synthesized attributes and work our way to pass inherited context through a declaration.",
+          "spoken": "We'll begin with compute values with synthesized attributes and work our way to pass inherited context through a declaration.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "Now for compute values with synthesized attributes. What's the key distinction?",
+          "spoken": "Now for compute values with synthesized attributes. What's the key distinction?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "A syntax-directed definition attaches attributes and equations to grammar productions. A synthesized attribute flows from children to their parent, so child values must be available first.",
+          "spoken": "A syntax-directed definition attaches attributes and equations to grammar productions. A synthesized attribute flows from children to their parent, so child values must be available first.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Attribute means information associated with a grammar-symbol occurrence.",
+          "spoken": "Attribute means information associated with a grammar-symbol occurrence.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "For 2 + 3 * 4, the multiplication node synthesizes 12, then the addition node synthesizes 14.",
+          "spoken": "For two plus three times four, the multiplication node synthesizes twelve, then the addition node synthesizes fourteen.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "The tree determines the dependencies.",
+          "spoken": "The tree determines the dependencies.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "We also need to talk about evaluate position and value attributes.",
+          "spoken": "We also need to talk about evaluate position and value attributes.",
+          "hints": {
+            "binaryLiterals": []
+          }
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "Give each binary digit a position inherited from its context, then synthesize its contribution as bit × 2^position. Sum the child contributions and apply the sign at the root only after the magnitude is known.",
+          "spoken": "Give each binary digit a position inherited from its context, then synthesize its contribution as bit times two to the power of position. Sum the child contributions and apply the sign at the root only after the magnitude is known.",
+          "hints": {
+            "binaryLiterals": []
+          }
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Inherited position means a digit’s context giving its power of two.",
+          "spoken": "Inherited position means a digit’s context giving its power of two.",
+          "hints": {
+            "binaryLiterals": []
+          }
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "For -1011, the digit positions are 3, 2, 1 and 0; contributions are 8, 0, 2 and 1.",
+          "spoken": "For minus one zero one one, the digit positions are three, two, one and zero; contributions are eight, zero, two and one.",
+          "hints": {
+            "binaryLiterals": [
+              "1011"
+            ]
+          }
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "Their magnitude is 11 and the signed value is -11.",
+          "spoken": "Their magnitude is eleven and the signed value is minus eleven.",
+          "hints": {
+            "binaryLiterals": []
+          }
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "An inherited attribute supplies information from a parent or permitted sibling context. A declaration type can flow down to every identifier, while synthesized information flows back upward.",
+          "spoken": "An inherited attribute supplies information from a parent or permitted sibling context. A declaration type can flow down to every identifier, while synthesized information flows back upward.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Inherited means information supplied from parent or permitted sibling context.",
+          "spoken": "Inherited means information supplied from parent or permitted sibling context.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "maya",
+          "text": "In float alpha, beta;, the declaration supplies float to both identifiers before their symbol entries are recorded.",
+          "spoken": "In float alpha, beta;, the declaration supplies float to both identifiers before their symbol entries are recorded.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "leo",
+          "text": "An arbitrary attribute dependency can be cyclic.",
+          "spoken": "An arbitrary attribute dependency can be cyclic.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Before we leave attributes and syntax-directed translation, let's connect the pieces.",
+          "spoken": "Before we leave attributes and syntax-directed translation, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A syntax-directed definition attaches attributes and equations to grammar productions. A synthesized attribute flows from children to their parent, so child values must be available first.",
+          "spoken": "A syntax-directed definition attaches attributes and equations to grammar productions. A synthesized attribute flows from children to their parent, so child values must be available first.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "An inherited attribute supplies information from a parent or permitted sibling context. A declaration type can flow down to every identifier, while synthesized information flows back upward.",
+          "spoken": "An inherited attribute supplies information from a parent or permitted sibling context. A declaration type can flow down to every identifier, while synthesized information flows back upward.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "You can pause here and try the Attributes and syntax-directed translation activities. Pick one idea and see whether you can explain it without the notes.",
+          "spoken": "You can pause here and try the Attributes and syntax-directed translation activities. Pick one idea and see whether you can explain it without the notes.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:7",
+      "scriptHash": "52679cd726013344c7b23a8d64150fa69ea6f7d8175fc39176cb5d88c6d1e422",
+      "speechVersion": 3,
+      "digest": "0ebe5464fa0570c3b005f4ac69a381d1889754563953270d2e8e9e8ba4aa5bf8",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Hi, it's Maya. I've got Leo with me for Compiler pipeline and intermediate forms.",
+          "spoken": "Hi, it's Maya. I primeve got Leo with me for Compiler pipeline and intermediate forms.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: connect source meaning to explicit intermediate operations.",
+          "spoken": "Here's what we're working toward: connect source meaning to explicit intermediate operations.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with source, assembly, object and machine code and work our way to build three-address instructions.",
+          "spoken": "We'll begin with source, assembly, object and machine code and work our way to build three-address instructions.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We also need to talk about source, assembly, object and machine code.",
+          "spoken": "We also need to talk about source, assembly, object and machine code.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "A source language describes the program for people and tools. Assembly names target operations symbolically; an assembler encodes them. A linker resolves references across object files and libraries.",
+          "spoken": "A source language describes the program for people and tools. Assembly names target operations symbolically; an assembler encodes them. A linker resolves references across object files and libraries.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Source means the program representation being translated.",
+          "spoken": "Source means the program representation being translated.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "A compiler may emit assembly or object code.",
+          "spoken": "A compiler may emit assembly or object code.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "The object can still contain unresolved external references that linking must fix.",
+          "spoken": "The object can still contain unresolved external references that linking must fix.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Let's start with front end, intermediate form and back end. What do we need to know?",
+          "spoken": "Let's start with front end, intermediate form and back end. What do we need to know?",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "The front end analyzes source rules and produces an intermediate representation. The back end lowers that representation for a target machine. Optimization can occur at several intermediate levels.",
+          "spoken": "The front end analyzes source rules and produces an intermediate representation. The back end lowers that representation for a target machine. Optimization can occur at several intermediate levels.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Intermediate representation means a structured form used between source analysis and target generation.",
+          "spoken": "Intermediate representation means a structured form used between source analysis and target generation.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "maya",
+          "text": "A new source language can reuse a target back end if both agree on a suitable intermediate form and its semantics.",
+          "spoken": "A new source language can reuse a target back end if both agree on a suitable intermediate form and its semantics.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "Machine-independent does not mean semantics-free: types, side effects and evaluation rules still constrain transformations.",
+          "spoken": "Machine-independent does not mean semantics-free: types, side effects and evaluation rules still constrain transformations.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "An expression tree records operator nesting. A DAG can share equivalent pure subexpressions when operands are unchanged. Linear IR names intermediate results so later passes can analyze dependencies.",
+          "spoken": "An expression tree records operator nesting. A DAG can share equivalent pure subexpressions when operands are unchanged. Linear I R names intermediate results so later passes can analyze dependencies.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Temporary means an intermediate result name, independent of a physical register.",
+          "spoken": "Temporary means an intermediate result name, independent of a physical register.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "For (2 + 3) * (2 + 3), a tree has two addition nodes; a DAG may share that pure sum.",
+          "spoken": "For open parenthesis two plus three close parenthesis times open parenthesis two plus three close parenthesis, a tree has two addition nodes; a DAG may share that pure sum.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "The basic TAC emitter intentionally emits both before optimization.",
+          "spoken": "The basic T A C emitter intentionally emits both before optimization.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Sharing is unsafe when repeated operations have observable side effects or changed operands.",
+          "spoken": "Sharing is unsafe when repeated operations have observable side effects or changed operands.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A basic TAC operation assigns one operator result to a destination using at most two explicit operands. More complex expressions become a sequence whose temporary names expose dependencies.",
+          "spoken": "A basic T A C operation assigns one operator result to a destination using at most two explicit operands. More complex expressions become a sequence whose temporary names expose dependencies.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Postfix means an operand-first representation with an operator after its arguments.",
+          "spoken": "Postfix means an operand-first representation with an operator after its arguments.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "For 2 + 3 * 4, write t1 = 3 * 4 followed by t2 = 2 + t1.",
+          "spoken": "For two plus three times four, write t one equals three times four followed by t two equals two plus t one.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "The temporary is an abstract name, not necessarily a physical register.",
+          "spoken": "The temporary is an abstract name, not necessarily a physical register.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "maya",
+          "text": "Three-address code does not mean every instruction literally has three operands; copies, branches and unary operations have different shapes.",
+          "spoken": "Three-address code does not mean every instruction literally has three operands; copies, branches and unary operations have different shapes.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "leo",
+          "text": "Before we leave compiler pipeline and intermediate forms, let's connect the pieces.",
+          "spoken": "Before we leave compiler pipeline and intermediate forms, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "maya",
+          "text": "A source language describes the program for people and tools. Assembly names target operations symbolically; an assembler encodes them. A linker resolves references across object files and libraries.",
+          "spoken": "A source language describes the program for people and tools. Assembly names target operations symbolically; an assembler encodes them. A linker resolves references across object files and libraries.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "leo",
+          "text": "A basic TAC operation assigns one operator result to a destination using at most two explicit operands. More complex expressions become a sequence whose temporary names expose dependencies.",
+          "spoken": "A basic T A C operation assigns one operator result to a destination using at most two explicit operands. More complex expressions become a sequence whose temporary names expose dependencies.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "maya",
+          "text": "A useful next step is to revisit build three-address instructions with an example of your own. Keep it small enough to check by hand.",
+          "spoken": "A useful next step is to revisit build three-address instructions with an example of your own. Keep it small enough to check by hand.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:8",
+      "scriptHash": "e2b445d03a5e30d0f88b0675fdfffbe339123222638ddb8db0c98d09b629892e",
+      "speechVersion": 3,
+      "digest": "4dad1bf566bc214aa6b67a5e3d5d632d3fb7fbec6b18782db11b14d448fb2e33",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called SSA and control flow.",
+          "spoken": "Welcome to C S Quest Audio. I primem Maya, here with Leo. This section is called S S A and control flow.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: follow definitions and edges through a program.",
+          "spoken": "Here's what we're working toward: follow definitions and edges through a program.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with rename definitions with SSA and φ and work our way to build basic blocks and a control-flow graph.",
+          "spoken": "We'll begin with rename definitions with S S A and phi and work our way to build basic blocks and a control-flow graph.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "Let's start with rename definitions with SSA and φ. What do we need to know?",
+          "spoken": "Let's start with rename definitions with S S A and phi . What do we need to know?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "Static single assignment gives each named version exactly one static definition. At a control-flow join, a φ instruction chooses the version from the edge actually taken.",
+          "spoken": "Static single assignment gives each named version exactly one static definition. At a control-flow join, a phi instruction chooses the version from the edge actually taken.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Definition means a point that assigns a value to a name.",
+          "spoken": "Definition means a point that assigns a value to a name.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "If B1 defines x1 = 2 and B2 defines x2 = 5, B3 can use x3 = φ(B1:x1, B2:x2).",
+          "spoken": "If B one defines x one equals two and B two defines x two equals five, B three can use x three equals phi (B one:x one, B two:x two).",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "It selects 2 or 5, never their sum.",
+          "spoken": "It selects two or five, never their sum.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Static single definition does not mean the instruction executes only once; a loop instruction can execute repeatedly at runtime.",
+          "spoken": "Static single definition does not mean the instruction executes only once; a loop instruction can execute repeatedly at runtime.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "That takes us to build basic blocks and a control-flow graph. Where does it fit?",
+          "spoken": "That takes us to build basic blocks and a control-flow graph. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "Leaders are the first instruction, every jump target, and an instruction following a control transfer. Each maximal basic block has one entry and transfers outside only at its end. CFG edges record possible successors.",
+          "spoken": "Leaders are the first instruction, every jump target, and an instruction following a control transfer. Each maximal basic block has one entry and transfers outside only at its end. C F G edges record possible successors.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Basic block means a maximal straight-line instruction sequence with one entry.",
+          "spoken": "Basic block means a maximal straight-line instruction sequence with one entry.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "A conditional branch has a target edge and a fall-through edge.",
+          "spoken": "A conditional branch has a target edge and a fall-through edge.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "An unconditional goto has only its target; return exits.",
+          "spoken": "An unconditional goto has only its target; return exits.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "CFG here means control-flow graph, distinct from context-free grammar in parsing discussions.",
+          "spoken": "C F G here means control-flow graph, distinct from context-free grammar in parsing discussions.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Before we leave SSA and control flow, let's connect the pieces.",
+          "spoken": "Before we leave S S A and control flow, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "Static single assignment gives each named version exactly one static definition. At a control-flow join, a φ instruction chooses the version from the edge actually taken.",
+          "spoken": "Static single assignment gives each named version exactly one static definition. At a control-flow join, a phi instruction chooses the version from the edge actually taken.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Leaders are the first instruction, every jump target, and an instruction following a control transfer. Each maximal basic block has one entry and transfers outside only at its end. CFG edges record possible successors.",
+          "spoken": "Leaders are the first instruction, every jump target, and an instruction following a control transfer. Each maximal basic block has one entry and transfers outside only at its end. C F G edges record possible successors.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "We've covered a lot in SSA and control flow. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "spoken": "We've covered a lot in S S A and control flow. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "cd:9",
+      "scriptHash": "ee52c438e3150e073db034c76bdaa34720a080db3eaf271357cedbb13af11b8b",
+      "speechVersion": 3,
+      "digest": "429f33ad6f21b4bcf441e23190d9a6389dc06ce31fa3407d280abc11acb91510",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called Optimization and data-flow analysis.",
+          "spoken": "Hi, I primem Maya. Leo's with me, and today's section is called Optimization and data-flow analysis.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: prove local changes safe with liveness and availability facts.",
+          "spoken": "Here's what we're working toward: prove local changes safe with liveness and availability facts.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "leo",
+          "text": "We'll begin with optimize only when behavior is preserved and work our way to find expressions available on every path.",
+          "spoken": "We'll begin with optimize only when behavior is preserved and work our way to find expressions available on every path.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "That takes us to optimize only when behavior is preserved. Where does it fit?",
+          "spoken": "That takes us to optimize only when behavior is preserved. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "maya",
+          "text": "An optimization needs a semantic justification: fold known pure constants, reuse a common expression only while its operands remain unchanged, or remove a write whose value is never observed.",
+          "spoken": "An optimization needs a semantic justification: fold known pure constants, reuse a common expression only while its operands remain unchanged, or remove a write whose value is never observed.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "leo",
+          "text": "Pure operation means a computation with no observable side effect under the stated model.",
+          "spoken": "Pure operation means a computation with no observable side effect under the stated model.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "If t = a + b and u = a + b have no intervening operand changes or side effects, u can reuse t.",
+          "spoken": "If t equals a plus b and u equals a plus b have no intervening operand changes or side effects, u can reuse t.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "An unused call cannot be removed merely because its return value is ignored.",
+          "spoken": "An unused call cannot be removed merely because its return value is ignored.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Side effects, aliasing, exceptions and floating-point behavior can invalidate arithmetic-looking rewrites.",
+          "spoken": "Side effects, aliasing, exceptions and floating-point behavior can invalidate arithmetic-looking rewrites.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "There's another piece to this: discover live variables before removing code.",
+          "spoken": "There's another piece to this: discover live variables before removing code.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "A value is live at a point when some continuation may use it before the next definition. Liveness is a backward may analysis: successor facts combine by union, then the current definition kills an older value.",
+          "spoken": "A value is live at a point when some continuation may use it before the next definition. Liveness is a backward may analysis: successor facts combine by union, then the current definition kills an older value.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "USE means names whose current values are read by the instruction.",
+          "spoken": "USE means names whose current values are read by the instruction.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "For y = x + 1, x is used before the statement, and the old y is overwritten.",
+          "spoken": "For y equals x plus one, x is used before the statement, and the old y is overwritten.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Return y makes the new y live afterward.",
+          "spoken": "Return y makes the new y live afterward.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "A loop back edge can send a future use back to an earlier point. Start with empty live sets and repeat backward transfer until no set changes, rather than assuming one pass suffices.",
+          "spoken": "A loop back edge can send a future use back to an earlier point. Start with empty live sets and repeat backward transfer until no set changes, rather than assuming one pass suffices.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "DEF means names written by the instruction.",
+          "spoken": "DEF means names written by the instruction.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "A branch back to y = x + 1 can make x live around the loop even though the source text appears to have moved beyond its first use.",
+          "spoken": "A branch back to y equals x plus one can make x live around the loop even though the source text appears to have moved beyond its first use.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Union is essential: a value needed on one possible path is live even if another path does not use it.",
+          "spoken": "Union is essential: a value needed on one possible path is live even if another path does not use it.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "USE contains values read before a local definition; DEF contains names assigned. OUT joins successor IN sets, and IN adds USE while removing killed incoming values. Keep the four sets distinct.",
+          "spoken": "USE contains values read before a local definition; DEF contains names assigned. OUT joins successor IN sets, and IN adds USE while removing killed incoming values. Keep the four sets distinct.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Live value means a value some continuation may read before it is redefined.",
+          "spoken": "Live value means a value some continuation may read before it is redefined.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "For x = x + 1, x belongs to both USE and DEF: its old value is read and a new value is written.",
+          "spoken": "For x equals x plus one, x belongs to both USE and DEF: its old value is read and a new value is written.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Removing DEF before adding USE prevents losing that read.",
+          "spoken": "Removing DEF before adding USE prevents losing that read.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "I want to unpack find expressions available on every path next.",
+          "spoken": "I want to unpack find expressions available on every path next.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "An expression is available when it has already been computed on every path to the point and none of its operands has been redefined. Availability is forward and combines predecessors with intersection.",
+          "spoken": "An expression is available when it has already been computed on every path to the point and none of its operands has been redefined. Availability is forward and combines predecessors with intersection.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "GEN means expressions computed and still valid at the end of a block.",
+          "spoken": "GEN means expressions computed and still valid at the end of a block.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "If one diamond branch rewrites a while the other preserves a + b, a + b is not available at the join; the two paths disagree.",
+          "spoken": "If one diamond branch rewrites a while the other preserves a plus b, a plus b is not available at the join; the two paths disagree.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "Replacing intersection with the liveness union rule makes common-subexpression elimination unsafe.",
+          "spoken": "Replacing intersection with the liveness union rule makes common-subexpression elimination unsafe.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "leo",
+          "text": "Before we leave optimization and data-flow analysis, let's connect the pieces.",
+          "spoken": "Before we leave optimization and data-flow analysis, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "An optimization needs a semantic justification: fold known pure constants, reuse a common expression only while its operands remain unchanged, or remove a write whose value is never observed.",
+          "spoken": "An optimization needs a semantic justification: fold known pure constants, reuse a common expression only while its operands remain unchanged, or remove a write whose value is never observed.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "leo",
+          "text": "An expression is available when it has already been computed on every path to the point and none of its operands has been redefined. Availability is forward and combines predecessors with intersection.",
+          "spoken": "An expression is available when it has already been computed on every path to the point and none of its operands has been redefined. Availability is forward and combines predecessors with intersection.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "Try explaining find expressions available on every path in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "spoken": "Try explaining find expressions available on every path in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "hints": {}
+        }
+      ]
+    }
+  ]
+}

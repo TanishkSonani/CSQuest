@@ -1,0 +1,840 @@
+1
+00:00:11,700 --> 00:00:41,210
+Hi everyone. Welcome to Go classes. In this lecture, we will study intermediate representations. In the last lecture, we have already seen what are the stages of a compiler. We have already seen the lexical analyzer, syntax analyzer, semantic analyzer. So these three stages we have already seen. Now, in this lecture, basically, we will study what is intermediate representation means that is the next stage of the compiler. So you can see intermediate code generator. Now, so.
+
+2
+00:00:41,670 --> 00:01:10,610
+This is basically your front end. We have already seen in the previous lecture what is front end of a compiler. These are the stages of a compiler. The compilation process that will go through these stages. Okay. Now you can easily see in the previous lecture also we have seen that lexical analyzer, syntax analyzer, semantic analyzer and this intermediate code code generator. Okay. These four, these four phases, these are basically your front end. These are your front end. Okay.
+
+3
+00:01:11,030 --> 00:01:37,170
+Or you can say front end, what this front end will do? This will do the analysis, right? Okay, this will do the analysis of the source program. So you can see these phases, lexical analyzer, syntax analyzer, semantic analyzer and intermediate code generator. These phases, what they do, they do the analysis of the source program. You have a source program and these phases will do the analysis of the source program. And what is the result of front end? What will be the output of front end?
+
+4
+00:01:37,370 --> 00:02:05,630
+that will be intermediate representation, right? Yes or no? So you can see the output of front end that is your intermediate code or you can say intermediate representation. Now this intermediate code, this is the input for the backend. This is the input for the backend. What is your backend? The backend is basically what are the tasks of the backend? The backend will generate the target machine code or you can say the target assembly code. So you can see the purpose of the backend. You can see these two stages. These are part of backend.
+
+5
+00:02:06,190 --> 00:02:33,910
+What are these two stages? One is code generator. This will generate the target assembly code or you can say target machine code. Similarly, machine dependent code optimizer. This will optimize the machine code. Okay, basically the machine code that you are getting or the assembly code that you are getting that will be optimized. So this backend, this is basically machine dependent. Okay, the processor, the CPU on which you are compiling your program. So this backend will depend on that.
+
+6
+00:02:34,280 --> 00:03:02,400
+And this front end, these initial stages, these initial four stages, they will depend on the source program. Okay. Now you can see there is something in between. What is that? One is intermediate representation. Another is machine independent code optimization. These are part of backend or front end. Tell me in the previous lecture we have already seen, you can see this front end, you can notice this front end, this will generate the intermediate code, right? The output of the front end.
+
+7
+00:03:02,620 --> 00:03:31,090
+you can see this is your front end this is the front end the output of the front end what is that that is a intermediate code right okay the output will be intermediate code so let me call it intermediate representation the output is intermediate representation okay now this intermediate representation this is a this is independent of the machine also this is independent of the source so remember this intermediate representation I can say the output of the front end
+
+8
+00:03:31,320 --> 00:04:03,180
+this is independent of machine also this is independent of source so remember this is source language this is a source language independent this does not depend on the source language and this does not depend on the machine also this does not depend on the machine okay so remember the output of front end that is that is an intermediate code that is an intermediate code which is a source language independent and machine independent so this is independent of both of them
+
+9
+00:04:03,450 --> 00:04:30,530
+Now this intermediate representation On this intermediate representation we can do some optimization On this intermediate representation we can do some optimization Now this optimization we will call it machine independent optimization Because this intermediate code itself is machine independent So you can see this intermediate code this is machine independent So this optimization that you are doing on this intermediate representation this is also machine independent
+
+10
+00:04:31,140 --> 00:05:00,140
+Okay, this optimization, this is machine independent. Okay, is this clear? Now this so after the optimization again, you will get the intermediate code. I can say that after the optimization, you will get optimized intermediate code. You will get optimized intermediate code. Okay, this optimized intermediate code. This will be the input for the back end. This will be the input for the back end. And finally this back end what it will do, it will generate your
+
+11
+00:05:00,390 --> 00:05:22,830
+finally machine code okay the target machine code that will be generated okay very simple so this is the point so very simple point this we have already seen in the previous lecture that what a compiler will do compiler has front end back end and this intermediate representation this is the interface between front end and back end you can see these are the front end stages
+
+12
+00:05:23,320 --> 00:05:49,540
+okay lexical analyzer syntax analyzer semantic analyzer and intermediate code generator these four stages these are front end they will do the analysis of the source program also these stages code generator and also machine dependent code optimizer so these are the back end these are back end what they will do they will generate the machine code they will generate the target machine code okay now in between these two back end and front end between them
+
+13
+00:05:49,900 --> 00:06:19,320
+okay between them there is something called intermediate code is this clear so the front end will generate the intermediate code and this intermediate code will be the input for the back end this this back end will convert your intermediate code into target machine code okay so this is the simple point that between front end and back end there is a interface that is a intermediate representation or intermediate code now this intermediate code what property this intermediate code has this this has this property that this is machine independent
+
+14
+00:06:19,820 --> 00:06:49,400
+Okay, this does not depend on your target machine. Okay, the machine, the CPU, the processor on which you are compiling your program. Okay, on on that on that, this does not depend. So this does not depend on the machine. So this is machine independent. Also, this is source language independent. Your source language, can we see language Java language, whatever C++ language. So this intermediate representation will not depend on that. So I can say this is a source language independent. This is a source language.
+
+15
+00:06:51,160 --> 00:07:21,330
+independent okay so these are the properties so I can say this is the interface between front end and back end this is the output of the front end and this is the input of the back end and remember one more thing on this intermediate representation we can do optimization okay and this optimization this optimization we can perform optimization means making a code better basically you can make your code better better means you can make your code smaller and faster the execution time will be low
+
+16
+00:07:21,550 --> 00:07:47,390
+and your code the size of your code that also will be smaller so optimization means making your code better so on this intermediate representation if you do some optimization that will be machine independent that will be machine independent okay so very simple these are the points now in this lecture we need to study what are the different type of intermediate representations okay how many intermediate representations are there means at this stage
+
+17
+00:07:47,820 --> 00:08:17,620
+for intermediate representations what are the different different representations you can use what are the different different data structures you can use what are the different different languages you can use okay so that is what we need to study in this lecture we need to study different type of intermediate representation okay so I hope this point is clear to everyone what is intermediate representation okay all these points we have already seen in the previous lecture so now let's move on so you can easily see that the intermediate code generator this is the last stage of the
+
+18
+00:08:17,810 --> 00:08:41,450
+frontend right this intermediate code generator this is the final stage of the frontend so far this is your frontend I can say I can say this is your frontend so far this is your frontend and the output of the frontend that is your intermediate code this is the output okay very simple so you can see frontend will analyze the source program that is the work of the frontend
+
+19
+00:08:41,690 --> 00:09:08,930
+So front end is going to analyze the source program and it will create the intermediate representation. Back end will analyze the intermediate representation and it will generate the target code. Okay, so this is the point, very simple point. Now let's move on. So you can see if this is your input program, this is your input statement, then this is how your intermediate code will look like. Okay, we will see. Don't worry. This is this is this is your intermediate code. This is how your intermediate code will look like.
+
+20
+00:09:09,230 --> 00:09:38,570
+remember this is one type of intermediate representation there are many different type of intermediate representation intermediate representation can be like a graph it can be like a tree or it can be like a sequence of instructions okay so remember intermediate representation can have different different forms you can use different different type of intermediate representations you can use it is not necessary that you have to use only this representation you can make a tree you can make a graph okay so all those things we will see
+
+21
+00:09:38,760 --> 00:10:08,010
+so you can see this is your high level language statement right this is statement you have written in your C language let's assume your source language is C language so this is your high level language statement okay high level language statement now this statement basically this will be converted this will be converted into this intermediate code okay so remember we will see don't worry we will see that this is called three address code
+
+22
+00:10:08,380 --> 00:10:37,980
+this is known as three address code okay three address code intermediate representation so actually intermediate representation has many different different types one of them is three address code okay so intermediate representation can be like a graph it can be like a tree it can be like a it can be like a sequence of instructions so remember your intermediate representation you can use many there is a variety of intermediate representations you can choose any one of them or you can choose multiple of them
+
+23
+00:10:38,170 --> 00:11:06,950
+we will see don't worry so you can see there are variety of intermediate representations that are available to us and you can use any of them okay so that is the that will depend on the compiler okay it will depend on the compiler which intermediate representation the compiler is using okay so you can see this this is your three address code intermediate representation okay now let's see the next for example this is your high level language program right okay this high level language this is the
+
+24
+00:11:07,140 --> 00:11:36,100
+high level language program, high level language while loop. Okay, so I can say this is construct or I can say this is the high level language code. Now this code will be converted into intermediate code. This is your intermediate code. So remember your intermediate code will look something like this. Don't worry, we will see how to how to create it. We will see from this how to generate this that we will see. Okay, don't worry about it. So this is your intermediate code.
+
+25
+00:11:36,430 --> 00:12:08,540
+okay very simple this is the intermediate code again this is your three address code remember again this is actually three address code because this is the most famous I can say this is the most popular intermediate code this three address code this is most popular intermediate code so that is the reason you can see in all the examples this three address code is given to you but we will see that control flow graph that is another intermediate code that is a that is like a graph okay there is something called control flow graph that looks like a graph so that is another
+
+26
+00:12:08,920 --> 00:12:36,620
+intermediate representation okay so that also we will study we will study some tree tree tree like intermediate structure also we will study so don't worry about it but anyway this is how your intermediate code will look like means this high level language code will be converted into a intermediate code and this intermediate code what property this intermediate code has tell me what are the property of this intermediate code this intermediate code is a machine independent okay
+
+27
+00:12:37,110 --> 00:13:10,270
+is a machine independent this is machine independent also this is source language independent right also this is source language independent okay so this is the property of your intermediate code okay now let's move on so you can see here we design the front end independent of the machine the front end depends on the source language the front end is independent of the machine back end is independent of the source language
+
+28
+00:13:10,750 --> 00:13:37,240
+backend is dependent on the machine and the intermediate code this intermediate representation or this intermediate code this is independent of both of them okay this is independent of both of them so very simple so this is the point now these are the properties of intermediate representation or I can say these are the properties of your intermediate code that is a abstract language okay you can see that is a abstract language means that is not your source language
+
+29
+00:13:37,610 --> 00:14:07,170
+that is not your target machine language that is a abstract language what that means that means that it is not specific to any particular machine it is not machine dependent it is not particular to any CPU every CPU has its own language right yes or no in the computer organization we study the language of the CPU that is your machine language the instruction set of the CPU every CPU has its own instruction set in the previous lecture also we have seen so you can see this intermediate representation this is a abstract language
+
+30
+00:14:07,470 --> 00:14:35,910
+this is abstract language means means means what it means it means that this is not specific to any particular machine also this is independent of the source language so these are the important properties again I am telling you these are the important properties so you can see your intermediate code that is abstract language abstract language means what this abstract this word what this word means this word means that your intermediate code that is not specific to any particular CPU
+
+31
+00:14:36,560 --> 00:15:06,170
+and that is independent of the source language. Okay. So these are the two properties of this intermediate code. So you, you can see, okay, abstract, this abstract means these two, these two things. Okay, let's move on now. So all these points, all these small, small points we have already seen in the previous lecture. So you can see here, the intermediate representation generated by the front end output of the front end, that is your intermediate code that is machine and language independent. Okay. Now,
+
+32
+00:15:06,590 --> 00:15:32,560
+Why we use intermediate code? Did you think about it? Is there anyone here who is thinking why do we need intermediate code? See one thing you notice in the compiler phases look at all the compiler phases. Every compiler phase is doing something meaningful. Okay is doing something meaningful means see what is your actual target? You just tell me your overall target. Let me know what is your overall target? What is a compiler? What do you think?
+
+33
+00:15:33,200 --> 00:16:01,810
+in one line if you want to explain what is a compiler then what you will say please tell me what is a compiler let me know in one line if you want to say what is a compiler what you will say you will say that compiler is basically like a translator it is just a translator yes or no it is nothing but translator it will translate one language into another language do you agree with me this compiler this is just a translator this will convert one language means your source language
+
+34
+00:16:02,250 --> 00:16:32,210
+will be converted into target language okay target machine language or you can say assembly language or assembly language yes or no in one line this is what you can say that this compiler this is just a translator okay it is translating one language to another language in real life also we have translator yes or no like there is a translator who will convert the Hindi language to Tamil language or maybe Tamil language to Hindi language
+
+35
+00:16:32,510 --> 00:17:00,920
+okay so translator so compiler is just a translator okay this is your overall target overall target is basically that you have your source language maybe C language or maybe C++ language or maybe any other language okay so let's assume these are your source languages you want to convert them to assembly language assembly language that is machine dependent you already know okay assembly language or you can say machine language the target machine language now
+
+36
+00:17:01,620 --> 00:17:31,360
+in this conversion in this conversion every stage will play a role but if you think about it the intermediate code does not really play a role see what I am trying to tell you look at every stage and think about it think about every stage tell me this stage is it important is it mandatory let me know just think about it this stage syntax analyzer this stage is this mandatory in a compiler is this mandatory yes this is mandatory because this will check
+
+37
+00:17:31,550 --> 00:17:58,650
+whether your syntax is correct or not your input is C language program okay if you have a C compiler the input C language program you must check is it a C language program or not yes or no your program the input is correct C language program or not right yes or no the syntax is correct or not so you can see this will check syntax of the program is the syntax correct or not this will check the semantic of the program like the type checking scope checking
+
+38
+00:17:59,040 --> 00:18:27,880
+Okay like every variable if you are using then it should be declared before you are using it. Yes or no. So basically this will check the semantic of the program. This will check the syntax of the program and this will read the program. Yes or no. You have a source program that source program this lexical analyzer will read. So you can easily see in one line I can say that lexical analyzer this will read the source program right. Yes or no. It will read the source program and it will divide your source program into logical units.
+
+39
+00:18:28,270 --> 00:18:57,510
+Okay. Yes or no. So you can see this will read the source program. It will divide the input program. It will divide your input source program into logical units. These logical units are called tokens. You already know now what the syntax analyzer will do. It will check syntax. Yes or no. It will check syntax. Is the syntax correct or not? What the semantic analyzer will do. It will do something like type checking. Okay. It will check the semantics. Okay. So it will do the type checking.
+
+40
+00:18:57,940 --> 00:19:27,970
+now what this stage will do let me know what this stage will do code generator this will generate the target code because you want to generate the target code right yes or no agree so this this code generation this stage this will generate the machine code this will generate machine code right or I can say assembly code and this will do some optimization on the machine code so every stage is doing something good this will optimize so that you can
+
+41
+00:19:28,380 --> 00:19:57,160
+minimize the execution time right okay now just tell me just tell me what are the purpose of this stage intermediate code generator means what are the purpose of this intermediate representation this does not look like this does this looks like something unnecessary do you agree with me like these stages are doing everything see this front end is doing the analysis right you can say these things are called analysis okay these things we call them analysis right agree
+
+42
+00:19:57,510 --> 00:20:31,730
+So these things are called analysis. These things are called analysis, analysis of the source program. And these things, what are they called? They are called synthesis. This is called synthesis. So, now you tell me, now you tell me, then why do we need this? This intermediate representation, why do we need your source program? You are converting into some intermediate representation. And then, then that, that intermediate representation, you are converting into machine code. Yes or no?
+
+43
+00:20:31,980 --> 00:21:00,890
+But I am asking why this intermediate person this mediator why do we need this mediator like like this is your source program and this is your target program then why do you want to convert into something intermediate what are the purpose of this intermediate person what are the reason we want this can we directly convert let me know without this intermediate person can these two people they directly communicate these two people can they directly communicate please tell me
+
+44
+00:21:01,190 --> 00:21:29,520
+can they directly communicate yes they can do yes they can do remember the intermediate code the intermediate representation that is not necessary that is not mandatory okay but that is useful intermediate code generator remember this stage intermediate code generation this intermediate representation this is not mandatory you can remove it you can directly convert means your source program basically from the semantic analyzer from the semantic analyzer
+
+45
+00:21:29,690 --> 00:21:57,870
+you can directly create the you can directly generate the machine code that is possible I'm telling you that is possible from the semantic analyzer you don't have to convert this source program into an intermediate code okay you don't have to do that what you can do you can directly you can directly create the machine code you can directly generate the machine code then what is the reason why we use this what is the reason to use this mediator remember this is possible please understand
+
+46
+00:21:58,290 --> 00:22:27,940
+This is possible. Then why we need this? Why we need this intermediate representation? That is the question. Did you understand my question? Let me know. I am asking why do we need intermediate code? Is this clear? Because your compiler that is just a translator, it will translate the source language into target machine language. So you can easily see, you can directly do that. This semantic analyzer, what it can do? This can directly create the
+
+47
+00:22:28,310 --> 00:22:57,970
+this can directly generate the machine code then what is the reason to generate something middleman like this is the middleman okay I can say this intermediate representation this is like a middleman what is the need of this middleman this is what I am asking did you understand the question let me know first to tell me did you understand the question okay so remember this intermediate representation this intermediate code generation this is not necessary okay this is not a mandatory phase of the compiler remember this point
+
+48
+00:22:58,220 --> 00:23:31,620
+this is not mandatory see lexical analysis analysis mandatory this is mandatory lexical analysis syntax analysis semantic analysis code generation all these stages are mandatory which stages are not mandatory what are optional stages of the of the compiler which stages are optional optional phases of the compiler let me know what are the optional phases of the compiler the optional phases of the compiler are intermediate code generator
+
+49
+00:23:32,220 --> 00:24:05,150
+Okay, one is intermediate representation generator or I can say intermediate code generator, intermediate code generator. What else? Can you tell me what else? Which other phase is optional phase? Intermediate code generator that is optional. The second is optimization. Don't do optimization. Yes or no? What is optimization doing? Optimization is simply just I can say bettering your program. Yes or no?
+
+50
+00:24:05,630 --> 00:24:33,230
+Optimization is basically making your program more efficient. Don't make it more efficient. Yes or no? Is this clear? Please tell me. So, optimization, whatever optimization, remember IR, both the type of optimization, whether it is machine dependent optimization or it is a machine independent optimization. Both are optional. Is this clear? Don't optimize. Yes or no? Agree with me? Do you agree with me? Without optimize, what will happen?
+
+51
+00:24:33,580 --> 00:25:02,500
+In worst case, what can happen? Tell me, if you do not optimize, then in worst case, what can happen? Some extra time it will take? Yes or no? The execution will take some extra time? Agree with me? Is this clear? Please tell me, slow execution? But that is fine? Yes or no? That is fine? So you can see, these are the optional phases of the compiler. Okay, one is Intermediate Code Generator, that is optional phase and optimization, that is also optional phase. But here, let me tell you, let me tell you, this is very useful.
+
+52
+00:25:03,280 --> 00:25:32,570
+This phase this is very useful and my question is why this is very useful Okay, let me tell you something interesting that this phase is a is a almost you almost mandatory almost mandatory not exactly mandatory like in the strict sense if you ask if you ask me true or false question that sir intermediate code generator is that Necessary then I will say no that is not necessary, right? Yes or no that is not mandatory, but if you ask me sir
+
+53
+00:25:33,000 --> 00:26:01,420
+is it like almost almost almost necessary yeah right because this is so useful this this stage this is so useful that almost every compiler will have it remember this stage this is so useful so I can say this is actually very useful very useful stage okay and let me tell you one more thing this optimization whether it is a machine dependent optimization or machine independent optimization they are actually heavy programs
+
+54
+00:26:02,000 --> 00:26:32,720
+they are the most complex stages let me tell you you have syntax analysis semantic analysis you have many different different stages in the compiler right let me tell you this optimization is the most complex stage okay most complex stage means means basically a lot of complex logic you have to put here anyway so don't worry about it now my question is Intermediate code generator why this is why this is useful what the reason so you can see here
+
+55
+00:26:33,200 --> 00:27:02,710
+Intermediate code generation is not necessary. What we can do? If we don't have intermediate code, then what we can do? Tell me. If I remove the intermediate code, then what I can do? Then the semantic analysis phase will directly generate the machine code. I told you that. Yes or no. So remove the intermediate code generator. Remove it. Then what can happen? Then the semantic analysis phase, this can directly generate the machine code. Okay. Then now let's see what the reason we need intermediate code.
+
+56
+00:27:02,970 --> 00:27:30,960
+Now, let me tell you the reason. Okay, with analogy, let me tell you the reason. The reason is something like this. Let's assume that these people, okay, let me give you one analogy, then we will see the actual point. So let's assume these are the countries, like let's assume this is India. Okay, and let's assume this is some Spain, maybe. Okay, some countries, please tell me some name of the countries, like maybe this is Korea. Okay, so like this, maybe these are the countries, some countries I'm taking maybe China.
+
+57
+00:27:31,570 --> 00:28:01,280
+Okay, so these are some countries and let's assume here you have these countries like Russia. Okay, so Maybe Israel. Yes. Okay, so you can see and Maybe you have some other country. Okay, maybe Maldives, Palestine, whatever. Okay, so maybe any country you just take. Okay, so maybe Uganda, okay, so maybe Okay, so anyway, yeah, so you can see these are the countries now
+
+58
+00:28:01,690 --> 00:28:32,900
+in this situation. Yeah, Wakanda. Okay, let me try to Wakanda. Yeah, that is good. Yes. Okay. So this is a hypothetical country in the movies. Anyway, so you can see let's assume these are the countries now. Now you tell me let's assume that these two they want to communicate means basically remember one thing I already told you that this what is a compiler? Tell me overall in in just simple words, what is a compiler? What is a compiler?
+
+59
+00:28:33,670 --> 00:29:03,650
+this analogy is very accurate the analogy that I will give you that is very accurate why because you already know that this compiler is just a translator yes or no this is just a translator it will convert one language to another language okay it will convert the source language the input is source language or I can say this one language will be converted to another language you can say this is your high level language okay this is the high level language and this is normally your assembly language
+
+60
+00:29:04,020 --> 00:29:33,370
+or maybe or maybe machine language okay so you can easily see that this is what your compiler will do compiler is just a translator remember okay it is just a translator now now let's assume that these two countries they want to communicate okay these two countries now you can see here okay so they don't know russian and they don't know maybe hindi or any indian language okay so in this situation what what do you need tell me
+
+61
+00:29:33,630 --> 00:30:01,380
+in this situation what they need they need something like this that basically this person they need okay they need this person who will convert what it will do it will convert it will convert let's assume this basically let's assume this want to communicate with this okay then in this situation what we need this Indian language what we need to do this Indian language we need to convert into Russian language yes or no agree with me yes is this clear
+
+62
+00:30:01,720 --> 00:30:31,390
+okay if there is no intermediate language if there is no intermediate language okay assume there is no intermediate language so assume no intermediate language we are not having any intermediate language okay so intermediate language so in this situation you can see you need a translator this translator you need basically what he will do this translator so he can translate Indian to russian okay do you need another translator for this
+
+63
+00:30:32,230 --> 00:31:00,510
+Do you need another translator for this? Let me know. Do you need another translator for this? Yes, another translator for this. Okay. So what this translator will do? This will convert the Indian to Israel. Okay. Yes or no? You need another translator for this? Okay. So are you getting? Tell me total how many translators you will need? Let me know. Like these countries, basically these countries want to communicate with these. Let's let's assume these are the like input.
+
+64
+00:31:01,260 --> 00:31:30,440
+This is the input language or maybe this is the source language Or maybe this is the source language You can say this is the source language and let's assume this is the these are the target machine languages Okay, these are the target machine languages Now you tell me in this situation how many translators you need so total 12 okay three here then Then three here. Yes or no. Okay. Here you need another translator another another Okay, so like this. So are you getting my point
+
+65
+00:31:30,710 --> 00:31:59,530
+total how many translators you need you just simply you tell me that okay another here another here another here so like that i hope you are getting my point so very quite simple point you can see so you need total 12 translators you need yes or no so if you have m source languages and let's assume you have n target languages then in this situation how many translators you need how many compilers you need in this situation how many compilers you need translators means compilers
+
+66
+00:32:01,620 --> 00:32:31,430
+translators how many translators are needed that is m into n yes or no these many translators will be needed you need to create these many compilers you need to create okay now you tell me if there is a intermediate if there is a intermediate person right okay so these are your source languages now consider this situation okay now and these are your target machine languages target machine languages okay so now you tell me let's assume
+
+67
+00:32:31,870 --> 00:33:02,540
+India okay now I'm changing the situation what I'm doing I'm making an intermediate language which is English language okay now what I'm doing I'm making an intermediate language intermediate language let's use intermediate language let's use English okay let me use English as an intermediate language now what will happen now how they will communicate so now what can happen see this one to communicate with this then what what here you can do let's assume basically just convert to
+
+68
+00:33:03,240 --> 00:33:33,100
+Just convert this Indian to English Okay, don't convert to Don't convert to Russian Yes or no Just convert Indian to English Is this clear? And here on this end You have something which will convert English to Russian Are you getting my point? Please tell me So you can see on this end Okay, this is your front end Okay, this is basically your front end What this front end will do? On this end means this is your front end On the front end what you will do?
+
+69
+00:33:33,340 --> 00:34:03,080
+you will convert into English language is this clear and what this back end on this back end what it you will do this is your back end on the back end what you will do let me know you will convert English to Russian very simple now you tell me if I want to communicate with Wakanda now tell me now tell me do you need another here on this end do you need another translator do you need another translator no no no no okay you need
+
+70
+00:34:03,320 --> 00:34:31,550
+On this end, you need someone who can translate English to Wakandan. Okay, Wakanda language. Yes or no? Is this clear? Okay. So, total, now you tell me. If you have total, Spain, Korea and China and here you have, okay, Israel. Now you tell me, now how many? Total, how many front end you need? So, you can see, very simple. On this front end, what you do, very simple, just convert into English.
+
+71
+00:34:32,090 --> 00:35:01,110
+Okay, just convert into English, Korean convert into English Yes or no? Okay, this Chinese convert into English And here what you do? Just convert English into Israeli Yes or no? Is this clear? So now you can notice If they want to communicate, they can do If they want to communicate, they can do If they want to communicate, they can do So total Basically four front end you need And three back end you need And you can You can do any communication you want Do you agree with me? Basically
+
+72
+00:35:01,610 --> 00:35:33,210
+Okay, so remember if if we have intermediate language if we have intermediate language Okay, let's assume English language So if we have intermediate language then then then what will happen notice what will happen then we need Okay, so here we need total m let's assume total m source languages are there m source languages are there and target languages are there
+
+73
+00:35:33,470 --> 00:36:01,750
+in this situation what we need we need m frontends okay just create m frontends and n backends okay just create n backends yes or no okay yes or no we just need m frontend and n backend total total how many m plus n only these things we need okay and we will be able to we will be able to make any communication
+
+74
+00:36:02,390 --> 00:36:34,860
+we will be able to make any communication make any communication communication so how many translators you need? so number of translators needed that will be M plus N is this clear? so number of translators number of translators needed how many translators you need? you just need these many M front end and back end did you understand this analogy? let me know this is very accurate analogy let me tell you
+
+75
+00:36:35,200 --> 00:37:04,140
+this is very accurate okay now the same thing will happen with the compilers also the same thing will happen let's assume these are your source languages the same thing will happen with your compiler you have some source languages and these are the machines these are the CPUs okay CPUs or you can say machines so let's assume these are the source languages like C language C++ language yes or no and there are many other maybe Java language and so on
+
+76
+00:37:04,330 --> 00:37:30,510
+okay you have let's assume how many source languages you have can you tell me in the real life how many source languages almost how many source languages are there there are thousands of source languages right yes or no there are thousands of source languages are there okay but anyway let me let me call it M these many source languages you have these are the source languages and how many CPUs are there how many CPUs are there there are many yes or no there are many CPUs
+
+77
+00:37:30,580 --> 00:38:01,560
+okay actually there are many different versions also like Pentium 3, Pentium 4 okay yes or no so there are many different versions also so you can easily see let's assume N CPUs are there okay there are total N CPUs maybe you can you can say different different versions are there okay maybe Pentium okay 3, Pentium 4 okay and so on okay i3 okay i5 okay and so on maybe so anyway the point is the point is that
+
+78
+00:38:02,010 --> 00:38:30,830
+tell me if you have no intermediate here if there is no intermediate person there is no intermediate person okay you have no intermediate language in this situation how many compilers you will have to write if no intermediate if no intermediate representation if no intermediate representation then how many compilers you need to write you need to write compiler for this for this for this for this yes or no you need to write compiler for this for this for this and so on
+
+79
+00:38:31,080 --> 00:39:02,820
+Okay, are you getting my point? Please tell me. Did you understand? So basically, how many compilers you need to write? Then total MN. These many compilers we need to write. Compilers, we need to write. We need to write. We need to write. Yes or no? These many compilers we need to write. Agree with me? The same example we have already seen here, you can see. If there is no intermediate person, like here you can see. If there is no intermediate language, if you are not using any intermediate language,
+
+80
+00:39:03,170 --> 00:39:31,750
+then how many translators you use you need MN translators you need yes or no okay if you want to communicate then total if you want to convert the source language to target language okay this conversion if you want to do then you need total MN translators you need yes or no now the same situation I'm asking if there is intermediate representation okay assume there is intermediate representation if intermediate representation with intermediate representation what will happen
+
+81
+00:39:33,720 --> 00:40:02,440
+with intermediate representation so let's assume there is an intermediate representation which does not depend on these which does not depend on these is this clear so there is an intermediate representation which does not depend on the CPU which does not depend on the source language there is an intermediate representation now what you need you just need just make sure that there is a front end okay now with intermediate representation remember you will write M front ends yes or no okay and
+
+82
+00:40:02,850 --> 00:40:32,230
+and you will write and backends is this clear and remember using these m front end also these n back end you can make any compiler see I am not saying that compiler these are m front end and back end now you can create any compiler for example how you will create compiler for this okay basically here you need a front end right okay let's call it front end for c language okay what is fc fc is front end for c language yes or no
+
+83
+00:40:32,520 --> 00:41:02,020
+so this is the front end this is the front end for C language okay now what this front end will do this front end will just generate intermediate representation right yes or no this will generate intermediate representation and what this back end will do what this back end will do here you have a back end okay you have a back end for Pentium for this Pentium 3 okay so let me write it B3 so you can see this is the back end what this back end will do this will
+
+84
+00:41:02,400 --> 00:41:28,840
+this will take this intermediate representation and it will convert into target language yes or no is this clear now you can easily see one thing you can easily see the same front end can you use with Pentium 4 please tell me the same front end the same front end can you use with Pentium 4 yes you can do that because what this front end will do this C language front end this will generate the intermediate representation
+
+85
+00:41:29,280 --> 00:41:57,600
+this intermediate representation does not depend on the machine this does not depend on the source language so remember the same front end you can use no problem yes or no so if you want to make a compiler here like for example this C language program if you want to compile on this CPU then what you can do you can use this front end and this back end very simple is this clear now similarly if you want to compile C++ program on this processor then what you will do
+
+86
+00:41:57,790 --> 00:42:25,770
+you will use this front end and this back end is this clear please tell me so you will take front end of c++ you will take back end of i3 and you will connect them yes or no front end of the c++ back end of the i3 connect them is this clear that is the benefit of intermediate representation i hope you are getting so basically we need only m front end means for every source language you write a front end for every cpu you write a back end and then
+
+87
+00:42:26,610 --> 00:42:54,970
+whatever CPU you are running means this source program if you are running on any CPU just take the front end of the source program take the back end of this machine and just connect them yes or no just connect them you go to your compiler if you connect them you go to your compiler is this clear please tell me let me know so remember very simple point so this is the overall idea like this is your source language this is your source language let me call it L
+
+88
+00:42:55,220 --> 00:43:25,110
+okay what the source language will do you what you will do for the source language you have the source language let me call it L what for the source language basically what you will do you will just create a front end yes or no for this what you do you create you create front end that you have to do okay so just create a front end just create front end for L okay is this clear this front end what it will do remember it will give you intermediate language
+
+89
+00:43:25,480 --> 00:43:55,160
+this intermediate language does not depend on the source language this does not depend on the CPU ok now if you want to run this this source program in the language L you are writing a program in this language L you want to run this program on a machine let's assume there is a CPU ok there is a CPU let me call it M there is a CPU M for this CPU M what you will do you will create a back end yes or no you will create a back end correct so you will create a back end
+
+90
+00:43:55,630 --> 00:44:27,810
+this backend you will create backend for m and very simple point that this backend what you will do now this will take this and it will generate the output it will generate the final output so very simple point that if you want to how to create now tell me how to create compiler how to create compiler for language l on machine m is this clear did you understand okay so tell me
+
+91
+00:44:28,150 --> 00:44:57,280
+Tell me how to create compiler for language L on machine M. How will you do that? Let me know. How you will do that? Very simple. Take the front end of L. Take the front end of L. Take this FL. Let's call it FL. This is the front end of L. Let's call it FL. And take this back end of M. Let's take let's call it just connect it. Just connect it to back end of M. Okay. And the reason you can do this, what are the reason you can do this?
+
+92
+00:44:57,480 --> 00:45:33,920
+because there is a intermediate language there is a intermediate language so just do this okay and you can create any compiler yes or no so this is the idea that with with just am front ends and and back ends what you can do we can generate we can generate m into n compilers yes or no is this clear you don't have to write the code for the compiler right
+
+93
+00:45:34,210 --> 00:46:03,750
+okay basically we don't have to write the compiler complete compiler from the beginning we don't have to write m into n compilers yes or no we don't have to write these many compilers there is no need to write these many compilers we don't have to do that okay what we need to do just connect the front end to back end okay we just we just connect front end with back end we just connect
+
+94
+00:46:04,230 --> 00:46:38,210
+this front end of L with back end of M so that is the benefit is this clear please tell me that is the benefit of intermediate representation okay so this everything will happen if intermediate representation is used so i hope you understood this point this point did you understand crystal clear way this is important point someday they can ask you some question on it actually there are already two three questions in the gate exam based on this
+
+95
+00:46:38,520 --> 00:47:08,490
+concept you should understand this concept but they can ask you some nice question also please tell me did you understand this point let me know so very simple you just have to write and front end and and back ends okay is this clear actually let me tell you one more thing this is actually very beneficial this intermediate representation this is very beneficial because just think about it how many source languages are there there are thousands of source languages yes or no there are thousands of source languages are there
+
+96
+00:47:09,690 --> 00:47:39,010
+Yes and there are thousands of machines are there even forget about the machine if there is some changes in the machine a new version of the machine will come then again you will have to write a compiler just think about it if you don't have intermediate representation let's assume there is no intermediate representation okay means for every source language and for machine for every combination you are writing a compiler okay you are right you are the compiler you are the programmer let's assume you are very intelligent and you are writing a compiler
+
+97
+00:47:39,340 --> 00:48:05,860
+okay this compiler you are writing is this clear so this compiler you are writing for LM okay now just think about it after a few months we make some changes in this CPU we make some changes in the CPU we are making some changes in the CPU or maybe we are making some changes in the language yes or no those things will happen right in every language some changes keep happening like in the C language also new standards they keep coming
+
+98
+00:48:06,140 --> 00:48:34,090
+okay so in the machine also new changes they keep happening yes or no so you can easily see maybe you are making some changes in this machine a new version is coming then tell me what you will need to do if there is no intermediate language then what you will need to do what you will need to do tell me you will need to write compiler for every source language and this new version let's assume a new version is coming let's assume a new version is coming okay a new version is coming now what you will need to do
+
+99
+00:48:34,840 --> 00:49:04,710
+for all these thousands just think about it for all these thousands source languages thousands of new compilers you will have to create a new version is coming if new version is coming then what you will have to do because of this new version because of this new version what you have to do thousands of new compilers you will have to write thousands of new compilers we have to write we have to write is this clear if there is no intermediate representation
+
+100
+00:49:05,210 --> 00:49:34,180
+but tell me if there is intermediate representation then how many what you will have to do okay what you will have to do see this is the situation when there is no intermediate representation when there is no intermediate representation when you have no intermediate representation then this is the situation that will happen okay this situation will happen if you have no intermediate representation this situation will happen if you have intermediate representation then tell me what new thing you have to do now
+
+101
+00:49:34,620 --> 00:50:03,160
+You don't have to write thousands of new program. Yes or no? You don't have to write thousands of new compiler. What you have to do? Just write the back end for M dash. Yes or no? Just write back end for M dash. Just write back end for M dash. Yes or no? Is this clear? Agree with me? So, there is benefit. Yes or no? If with intermediate representation this will happen.
+
+102
+00:50:03,850 --> 00:50:31,970
+with intermediate representation this is going to happen so I hope you understood this in a very crystal clear way ok shall I move on please tell me so you can see this is from the NPTEL this slide I have taken from the NPTEL you can see this problem did you understand MN versus M plus N problem let me know MN versus M plus N problem did you understand if you have no intermediate representation see this is the situation when when no intermediate representation
+
+103
+00:50:32,980 --> 00:51:02,480
+When there is no intermediate representation, then you will have to write MN new compilers. Okay, these are the source languages. These are the these are the machines. You have to write MN compilers. Now, if there is intermediate representation, this is a universal language. Okay, because this does not depend on source language, this does not depend on the machine. So you can see this is your universal language. Okay, this is a universal intermediate language. Now with this, you just have to write M front ends.
+
+104
+00:51:02,700 --> 00:51:27,500
+and backends okay just do this and that's it so this this is a very simple point i hope you understood okay so let's move on now so you can see okay if you have m front end you can see this line you look at this line with m front end and n backends we can create mn compilers we can create compiler for any combination for any language any machine
+
+105
+00:51:27,780 --> 00:51:48,100
+for any combination you can create a compiler you can create a compiler what you will do you will take front end of this language you will take back end of this machine and you will connect them okay so very simple so you just need to write M front end for every source language you write the front end for every CPU you write the back end and then then for any combination
+
+106
+00:51:48,620 --> 00:52:20,000
+for any combination of source language and CPU what you can do for any combination you can just connect the front end with the back end just connect them and that's it you got your compiler okay so this is the simple idea I hope you understood so you can see this same thing is here okay what to do plug in yeah okay so you can see plug in M front ends with N back ends and you will come up with MN compilers this is the IIT Kanpur slide IIT Kanpur slide okay so very
+
+107
+00:52:20,410 --> 00:52:50,900
+Nice, very beautifully statement is given here. Okay, let's move on now. Is this clear? Now, a student is asking, can we say the purpose of intermediate representation is to make front end and machine independent? Yes, because that is the reason we are making this intermediate representation independent of the machine, also independent of the source language. Yes or no? This intermediate language, this intermediate language, this should be independent of the
+
+108
+00:52:51,240 --> 00:53:20,130
+of the source language and this should be independent of the machine ok because of this intermediate representation you have separated the front end from the back end ok yes or no that is the point because of this intermediate representation because of this intermediate code you have separated the front end from the back end means you have separated the source language from the machine language you have separated your C language from the machine on which you are running your C language ok the separation you have done
+
+109
+00:53:20,460 --> 00:53:45,240
+your C language you can run on any machine you want okay yes or no so this is happening because of this intermediate representation this intermediate code this intermediate representation which is a universal language it does not depend on the source language it does not depend on your CPU yes or no so now what you can do your source language has become independent of your machine your machine has become independent of your source language I can say
+
+110
+00:53:45,580 --> 00:54:13,450
+Frontend has become independent of the machine. Backend has become independent of the source language. There is a middleman and this middleman is completely independent. It is independent of the source language. It is independent of the machine. Is this clear? The complete thing, did you understand? Can you visualize everything? Just remember that analogy I gave you. Russia, India, that language translation analogy I gave you. Just remember that analogy. Okay, just understand that analogy.
+
+111
+00:54:13,730 --> 00:54:42,750
+And this concept you can easily understand. Okay. I hope you understood this. Okay. So let's move on. So you can easily see. Okay. All these things you can easily see. This will happen without intermediate representation, right? Yes or no. Without intermediate representation, this will happen for every language and machine combination. You have to write a compiler. Okay. With the intermediate representation, this will happen. Just write front end for languages. Write back end for four machines. Okay. Back end for CPUs.
+
+112
+00:54:42,850 --> 00:55:11,670
+and just connect them so let's move on now so you can easily see if you have no intermediate representation these many compilers are necessary okay but if you have intermediate representation then these many front end these many back end that's it okay so you can read all these slides this is your NPTEL slides okay so you can easily see this now let's see the benefits and properties of the intermediate representation so tell me what are the benefits you already know the benefit
+
+113
+00:55:12,070 --> 00:55:41,680
+the benefit of intermediate representation what is that? that is reusability of front end also reusability of back end yes or no? so remember the benefit is reusability or I can say portability of front end also the portability of back end is this clear? basically you can reuse the front end you can reuse the back end okay let me explain this very simple point let's assume that this front end you have means you have a C language and for C language you have written the front end right?
+
+114
+00:55:42,020 --> 00:56:09,020
+okay this front end you have written this is the front end this is the front end of C language let me call it FC now whatever machine will come whatever CPU will come the same front end you can use agree with me whatever CPU will come whatever machine will come m1 m2 m3 whatever machine will come what you can do the same front end you can use with any of them agree with me because this front end will give you this front end output will be intermediate representation
+
+115
+00:56:09,780 --> 00:56:42,100
+yes or no output of front end will be intermediate representation so now what you can do now you can use it with this use it with this use it with this so very simple so you this is called reusability of the front end okay yes or no is this clear this is the reusability of the front end the front end you can use reusability or I can say portability or I can say portability you made it portable yes or no this front end you made it portable
+
+116
+00:56:42,650 --> 00:57:13,040
+or you can say this is retargeting retargeting this is called retargeting means first you are targeting on this machine then you are targeting on this machine then you are targeting on this machine so remember this is called reusability or you can say portability you are making it portable or this is called retargeting so retargeting of what retargeting of what retargeting of front end right yes or no so you can reuse the front end now tell me
+
+117
+00:57:13,440 --> 00:57:42,230
+Can you reuse the back-end also? Can you reuse the back-end also? Can you reuse the back-end also? Yes, you can reuse the back-end also. Let's assume there is a machine. This is your CPU, your favorite CPU, let's assume. Okay, some CPU you have. Now, what you can do, whatever language will come for this language you have written, for this CPU you have written the back-end. This is the back-end. Okay, let's call it BM. This is the back-end. Now, whatever language you take, it does not matter.
+
+118
+00:57:42,540 --> 00:58:12,990
+you take C language C++ language any other language you take what you can do very simple you can use this this backend this same backend you can use with any of them is this clear the same backend you can use with any of them so you can see this is your reusability of backend is this clear this is called reusability usability or portability of backend so this is the purpose I hope you understood so remember the benefit of
+
+119
+00:58:13,290 --> 00:58:43,000
+intermediate representation that is reusability of front end you can reuse the front end you can reuse the back end very simple okay so very simple you can see so this is the benefit it will facilitate the re-targeting means just attach the back end to for the new machine to the existing front end okay so very simple also you can do the code optimization that is another benefit you can do machine independent code optimization that is another benefit
+
+120
+00:58:43,350 --> 00:59:12,810
+your code optimization will not depend on the machine you can write a program for optimization this program you can write for code optimization and because this is machine independent so you only have to write it once yes or no you only have to write this code optimization program one time you don't have to write this optimization program for every CPU you just have to write this program only one time for which language for the intermediate language yes or no for the intermediate representation you write this optimization program
+
+121
+00:59:13,180 --> 00:59:42,220
+you just have to write it one time and you can use it on any machine yes or no very simple so you can use this on any machine you can use this with any source language so that is the purpose i hope you understood okay so let's move on so you can see this is another benefit this is the another benefit that is reusability of the code optimizer which code optimizer which code optimizer machine independent code optimizer yes or no which code optimizer machine independent code optimizer
+
+122
+00:59:44,850 --> 01:00:17,060
+independent code optimizer or you can say intermediate representation optimizer optimizer one thing I told you optimizer that is a very complex program yes or no that is not easy to write you will see this optimizer optimization that is the most complex phase in your compiler compiler has many phases syntax analysis lexical analysis semantic analysis there are many phases but the most complex phase the most complex program is written
+
+123
+01:00:17,420 --> 01:00:46,970
+for optimization okay that is the most complex phase so now you tell me if you have an intermediate representation and this is this intermediate representation does not depend on the source language this does not depend on the machine so now you tell me if you write an optimizer on this if you write an optimizer program on this let's assume this optimizer program you are writing okay is this clear this optimizer program you are writing for this intermediate representation then what you can do
+
+124
+01:00:47,290 --> 01:01:16,750
+you can reuse this for any source language also you can reuse this for any machine so one time you have to write it yes or no so this optimizer program write once and use everywhere write once and use everywhere is this clear please tell me so just write it once and use it everywhere so this is called portability or reusability of code optimizer so that is another benefit so you can see
+
+125
+01:01:17,100 --> 01:01:48,300
+Code optimizer, this program, this is the largest and complex program. Let me tell you, you can see this slide. This slide is from IISC. Okay. So you can see this that the code optimizer, this is the largest and very difficult to write component of a compiler. Okay. Now you can see by converting the source code to intermediate code, what you can do, you can write a machine independent code optimizer may be written. So that is a good thing. Yes or no?
+
+126
+01:01:48,560 --> 01:02:20,050
+Just, just write the code optimizer one time. So you can see. So on this intermediate representation, do the optimization. Okay. So you can see machine independent optimization you can do. Let's move on. This is Harvard slide. You can see. Okay. From Harvard. So I hope you understood all these things. So you can see these are the benefits. Read all these benefits. These are the benefits of intermediate code. Okay. These are the intermediate code generation benefits.
+
+127
+01:02:22,670 --> 01:02:52,110
+benefits. The first benefit I told you the reusability of front and back end. Yes or no, retargeting of front and back end portability of front and back end. The second point I told you machine independent code optimizer. The next thing intermediate code is this should be simple, right? Okay. So anyway, very simple that this is, this is actually not, this is just a property intermediate code should be simple so that you can convert it into the target code and it should be complex also so that you can cover
+
+128
+01:02:52,410 --> 01:03:21,850
+the high level language construct like in your high level language your C language C++ language in those languages you have many concepts array pointer structure classes yes or no class so you have many many complex concepts are there in the high level languages so your intermediate code should be able to capture all of them okay your intermediate code should be able to capture all of them yes or no so very simple so these are the points just remember this two and three these are important
+
+129
+01:03:22,410 --> 01:03:50,270
+We have already seen. Now let's move on. Tell me the answer for this question. This is gate 1994 question. Generation of intermediate code based on abstract machine model is useful in compilers because this intermediate code generation based on the abstract machine model. This is useful in the compilers. Why? What are the reason?
+
+130
+01:03:51,130 --> 01:04:21,120
+because it will enhance the portability of the front end of the compiler the answer will be option C yes or no it will enhance the portability the reusability of front end of the compiler okay now let's see the remaining options see this option is correct first of all you tell me what this abstract machine model means what this line means anyone want to tell me please tell me these three words what they mean magical three words these magical three words what they mean let me know abstract machine model
+
+131
+01:04:22,090 --> 01:04:53,830
+intermediate code generation based on based on abstract machine model abstract machine model means this is abstract this is independent of the source language this is independent of the of the machine right yes or no so very simple this is independent of machine this is independent of the architecture of the CPU also this is independent of source language okay so very simple now this is useful because this is not mandatory yes or no
+
+132
+01:04:54,020 --> 01:05:23,060
+Is this mandatory or is this useful? This intermediate code generation. Is this mandatory or is it useful? It is useful. It is not mandatory. It is useful. Yes or no? So it is useful. Now it is useful because it will enhance the portability of the front end of the compiler. The another reason is what is the another reason why this is useful? Another reason that is portability or reusability of the optimizer. Yes or no? Machine independent code optimizer. The reusability of machine independent code optimizer.
+
+133
+01:05:23,460 --> 01:05:53,260
+Okay, now let's see the remaining options. What do you think? What about the remaining options? See the last option. It is not possible to generate code for real machines directly from the high level languages. Is this correct statement? It is not possible to generate the machine code from the source language directly. This statement is false. I told you, I already told you because remember intermediate code generation is not mandatory.
+
+134
+01:05:53,730 --> 01:06:26,020
+actually this is possible yes or no this is actually possible the semantic analyzer semantic analyzer can do it semantic analyzer remember this semantic analyzer can do it semantic analyzer can generate can generate this assembly code directly this assembly code directly you don't need this intermediate code we have already seen this if you remember
+
+135
+01:06:26,490 --> 01:06:56,600
+do you remember I told you that intermediate representation code generation that is not necessary that is not necessary the semantic analysis phase it can generate the assembly code directly okay is this clear you don't need basically it is not mandatory it is useful it is not mandatory so this intermediate representation remember this intermediate representation this is useful this is very useful but not mandatory but not mandatory
+
+136
+01:06:58,870 --> 01:07:26,980
+Okay, so very simple. This point we have already seen. So this statement is actually false. I hope you understood this statement. We have already seen this is true. What about this statement option be syntax directed translation as DT can be written for intermediate code generation. This statement is actually true. But this does not this does not tell you the answer for the question. See, actually, this statement is true. See B is a true statement.
+
+137
+01:07:27,690 --> 01:07:57,650
+B is a true statement. True but it does not answer the question. Is this clear? It does not answer the question. See the question is asking importance of the code generation, intermediate code generation, right? The question is asking what the importance of intermediate code generation. This option B, this is a true statement. Means if you look at this option B separately, okay, remove everything. If you look at this option B separately,
+
+138
+01:07:58,150 --> 01:08:30,420
+Then this statement is actually true, but this does not answer the question. Is this clear? Okay. So remember, this statement does not answer the question. This HDT, you have already studied this. Yes or no? HDT, HDD. Okay. So all these things you have already seen. Now, let me tell you that this HDT, Syntax Directed Translation, this you can use. Okay. This you can use or I can say this you can write for intermediate code generation.
+
+139
+01:08:30,910 --> 01:08:58,920
+You can do that. Okay. So you can see this syntax directed translation into three address code. Three address code is one type of intermediate code. I already told you. Okay. Three address code. What are these three address code? This is a look at this three address code. This is a intermediate representation. This three address code. This is a intermediate representation. So you can easily see the syntax directed translation. They can be defined to generate the three address code.
+
+140
+01:08:59,320 --> 01:09:29,310
+Okay, anyway, so very simple point. You don't have to go into the detail. See, this is a complex thing. So you don't have to worry about it. I'm telling you, this is possible means you can write as DT. Okay, syntax directed translation. You can write to generate intermediary presentation. Is this clear? Three address code. This is your intermediary presentation. So this is possible. Is this clear? Let me know. You don't have to think about the details. Okay, don't worry about it.
+
+141
+01:09:29,470 --> 01:09:58,850
+No one will ask you these details, but I'm just telling you that syntax directed translation rules can be written to generate intermediate representation. Okay. So remember this option B look at this option B. This is a true statement, but this does not tell you the importance of the intermediate code. Is this clear? Let me know. What about the first statement that intermediate code makes implementation of lexical analysis and syntax analysis easy. This does not make any sense, right? Yes or no?
+
+142
+01:09:59,630 --> 01:10:28,390
+Yes or no, this does not make any sense. Is this clear? So you can see the intermediate code generation that has nothing to do with the lexical analysis. Okay. Yes or no, it cannot make the lexical analysis easy. So you can see it makes implementation of lexical analysis and syntax analysis easier. That is, that does not make much sense. Okay. So you can see. So this is the complete analysis of this question. Did you understand? Tell me all the options. Did you understand? Let me know.
+
+143
+01:10:30,700 --> 01:11:03,790
+okay let's move on now tell me the answer for this question this is gate 2014 question one of the purposes of intermediate code in compilers what is that one of the purposes actually there are two major purposes what are those the two major purposes are one is reusability reusability of one is reusability of front end and back end of front end comma back end
+
+144
+01:11:04,790 --> 01:11:39,630
+Yes or no? We have already seen this. So reusability of front end, back end and the second is reusability of machine independent code optimizer. Machine independent code optimizer. So this is the very simple point. So one of the purpose of intermediate code in the compiler that is increase the chances of reusing the machine independent code optimizer in other compilers. So the answer will be option C. Okay. Is this clear? Please tell me. So very easy.
+
+145
+01:11:39,900 --> 01:12:08,470
+What about the remaining options? The remaining option like this will improve the register allocation This register allocation actually this is done in the code generation phase Okay, this is done in code generation phase There is a code generation phase Yes or no? In the code generation phase this is done So this has nothing to do with the intermediate code Okay, this is this register allocation This actually is machine dependent, right? Yes or no? Register allocation
+
+146
+01:12:09,060 --> 01:12:39,050
+registers are in the CPU inside the CPU there are registers so register allocation this will be machine dependent or machine independent let me know register allocation that is machine dependent CPU dependent CPU on which you are compiling your program okay on that CPU it will depend so this is actually this is done in a code generation phase okay done in a code generation phase so what about the remaining options like improve error recovery and error reporting
+
+147
+01:12:39,700 --> 01:13:07,680
+okay this is also not much what about the remaining see most of the error messages they are actually given by which phases tell me the error messages most of the or I can say almost more than maybe 99% messages the most of the error messages they are given by semantic analyzer and syntax analyzer right okay lexical analyzer syntax analyzer and semantic analyzer the first three phases the first three phases will give you
+
+148
+01:13:08,010 --> 01:13:36,280
+majority of the error majority of the errors okay so anyway so you can see this is not a correct option making parsing and semantic analysis simpler this is also not much okay so you can see the answer will be option C is this clear the answer is option C let's move on now so this we have already seen if you remember because of this intermediate representation you can you can basically you this will allow machine independent code optimization
+
+149
+01:13:36,700 --> 01:14:04,910
+Okay. So that is your option. So you can see the answer will be option C, one of the purpose of intermediate code that is increase the chances of reusing the machine independent code optimizer in other compilers. Now let's see what are the types of intermediate code representations? What are the different, different type of representations? This intermediate code that you have. Okay. How many different, different representations you can use to create this intermediate code? Okay.
+
+150
+01:14:05,400 --> 01:14:34,580
+So that is what we need to study the type of intermediate representations. We need to study how many different type of intermediate representations are there. So actually there are many type of intermediate representations. Okay. There are many, many, many type of intermediate representations are there. For example, quadruple, triple indirect triple abstract syntax tree, static single assignment. Okay. Like your control flow graph. So basically there are many different, different type of intermediate representations. I made a list of some of them.
+
+151
+01:14:34,830 --> 01:15:03,730
+But actually there are many more. This is the list of some of the intermediate representations which are very famous. These are the famous intermediate representations, but there are many more. So you can see syntax tree, abstract syntax tree, your past tree, that is also a intermediate representation. Your past tree, you know, your past tree, the syntax analyzer will create the past tree. That is also your intermediate code representation. You have directed a cyclic graph DAG.
+
+152
+01:15:04,000 --> 01:15:34,330
+Postfix notation, 3 address code, quadruple, triple, indirect triples, all of them, these are intermediate code representations. SSA, static single assignment, control flow graph, CFG, byte code. Is there anyone here who knows what is a byte code? If you have studied Java, if anyone has studied Java, then you already know what is a byte code. Okay, so don't worry about it. No one will ask you in the gate exam. I'm just telling you that for Java like languages, Java is a language which will basically
+
+153
+01:15:34,740 --> 01:16:03,880
+the compiler of Java will generate byte code okay so you can see byte code that is another intermediate representation that is also intermediate representation for Java like languages anyway you don't have to remember this don't worry so you can see one address code two address code these also these are also intermediate representations and many more okay so I hope you understood there is C language also C language is also intermediate representation look at this look at the C language that is also
+
+154
+01:16:04,190 --> 01:16:32,490
+that also can be used as an intermediate representation you know this intermediate language between the source language and the machine this C language also you can use I will tell you how but anyway don't worry I will tell you how so anyway this can be used I am telling you this can be used so I hope you understood this that there are many more different representations are there intermediate representations are there these are some of them
+
+155
+01:16:33,740 --> 01:17:03,930
+now let me tell you is there anyone here who is thinking how pastry is an intermediate representation in which phase pastry is created tell me in which phase pastry is generated in the syntax analyzer yes or no in the syntax analyzer phase this pastry is generated this is also intermediate representation now let me tell you something interesting that your compiler when it is doing the compilation then compiler will generate
+
+156
+01:17:04,210 --> 01:17:32,750
+many intermediate representations. See, I have told you these are the types of intermediate representations, right? Yes or no? Now you tell me in a compiler, in a particular compiler, will you use one of them? Will you use one of them? Let me know in a particular compiler. What do you think? Will you use one of them? No, you can use many of them. A particular compiler will go through a sequence of intermediate representations. Remember this point.
+
+157
+01:17:33,060 --> 01:18:00,510
+a particular compiler remember a particular compiler will go like this this is your source language okay this is your source language this is the input program right this is your input this is the input program now your compiler will actually go through a sequence of intermediate representations a sequence okay some intermediate representations they are close to the source language this is your high level language right so you can see
+
+158
+01:18:00,930 --> 01:18:31,600
+the compilation process this complete if you look at the compilation process this will go through a sequence of intermediate representations the first intermediate representation then another intermediate representation then another intermediate representation then another intermediate representation okay and so on and finally finally you will get your target code finally you will get your target code so remember same compiler can go through a sequence of intermediate representations now let me tell you
+
+159
+01:18:31,790 --> 01:19:01,770
+that some of these intermediate representations they are they are source language dependent okay some of these they are source language dependent some of these intermediate representations they are close to the source language means they are generated in the front end these are generated in the front end means see i'm telling you that these let's assume these are generated in the front end these are generated in the front end if they are generated in the front end then can i say
+
+160
+01:19:02,120 --> 01:19:31,770
+can i call them high level intermediate representation tell me because they are close to the source language or i can say they are dependent on the source language okay so remember the in this front end also intermediate representations these are generated these are called high level these are called high level intermediate representations is this clear then you have middle level intermediate representations there is a middle level intermediate representations okay there are
+
+161
+01:19:32,040 --> 01:20:01,330
+middle level intermediate representations these are middle level middle level intermediate representations okay these are independent of source language and these are independent of the target code and let me tell you these are what we have seen so far yes or no in our lecture so far these are the intermediate codes that we have seen these are independent of the source language these are independent of the machine so you can call them that these are the by default or
+
+162
+01:20:01,580 --> 01:20:27,920
+true intermediate representations is this clear remember if someone asks you if someone is asking you properties of intermediate representation then they are always asking you about these intermediate representation the true the I can say the true intermediate representations see if I ask you what is the property of intermediate representation then what you will say let me know if I ask you give me the tell me the property of intermediate representation
+
+163
+01:20:28,180 --> 01:20:54,820
+then you will tell me that intermediate representation is machine independent and source language independent so which independent which representation are you talking about please tell me when you say that intermediate representation is source language independent machine independent then which intermediate representation are you talking about let me know you are talking about the middle level yes or no this middle level intermediate representation you are talking about
+
+164
+01:20:55,070 --> 01:21:19,950
+okay and these are called true intermediate representations okay there are some authors i will tell you the i will show you the screenshot there are some authors they call it true intermediate representation and remember one thing if no information is given to you then by default if i ask you some question about the intermediate representation if i'm asking you property of intermediate representation or or i can say
+
+165
+01:21:20,220 --> 01:21:50,100
+the importance of intermediate representation if I am asking you some question related to intermediate representation then by default I am asking you about these two intermediate representations because these intermediate representations are source language independent and machine independent actually there are some more after these also after these mid level also you can create low level after these also some low level intermediate representations are possible
+
+166
+01:21:51,220 --> 01:22:20,840
+okay intermediate representation 5, intermediate representation 6 so basically that will depend on the compiler okay basically it will depend on the compiler this is your machine finally this is your machine code so you can see these these intermediate representations these are low level okay what do you think what is the property of these low level intermediate representations what do you think please tell me what do you think
+
+167
+01:22:21,100 --> 01:22:50,750
+the property of low level intermediate representation see the high level intermediate representations they are generated in the front end they are generated in the front end okay so they are source language dependent similarly these low level intermediate representations they are generated in the back end they are generated in the back end they are generated in the back end so they are machine dependent they are machine dependent is this clear
+
+168
+01:22:51,100 --> 01:23:19,930
+they are machine dependent and these mid-level they are source language independent and machine independent i hope you understood okay this complete thing did you understand so actually the simple point that i'm telling you that is these are the types of intermediate code representation and i have seen many strengths what they think many strengths they think that one of them will be used in a compiler in a particular compiler one of them will be used
+
+169
+01:23:21,300 --> 01:23:50,240
+Did you think like this please tell me is there anyone here who thought that one of them will be used in a particular compiler like like a particular compiler will use this another compiler will use this another compiler will use this did you think like this no no no the same compiler can use many of them the same compiler let me tell you let me tell you that same compiler will actually most of the compiler what they will do you already know that this will be used
+
+170
+01:23:50,550 --> 01:24:18,370
+yes or no? okay all the compilers they will generate this parse tree parse tree will be generated by all the compilers yes or no these two we will see what are the difference but actually these will be generated by all the compilers okay in the syntax analyzer phase you already know yes or no in the parsing phase every compiler is going to generate these so these are your high level these are the high level intermediate representation
+
+171
+01:24:18,730 --> 01:24:50,030
+They are generated in the front end. So they are source language dependent. So these are the intermediate representations. Remember, these are intermediate representations which are generated in the front end and these are high level intermediate representation. So the same compiler will generate them. The same compiler will generate this. This is your mid level. This is your mid level. This is your mid level intermediate representation. Okay. This three address code. This is mid level intermediate representation.
+
+172
+01:24:50,520 --> 01:25:20,510
+Okay, this SSA and this control flow graph, these are all of them. Okay, this SSA also and this control flow graph also, they are mid level. Okay, is this clear? Low level, what is a low level intermediate representation? Low level is assembly language like, okay, so that is not here. Actually, all of them, these are either mid level or high level. Okay, all of them. These you can see on your screen, all of them either they are high level or they are mid level.
+
+173
+01:25:20,810 --> 01:25:49,860
+Okay, so these are not low level, low level intermediate representation is machine dependent. Okay, you can see the low level intermediate representation, they will be machine dependent. They will be machine dependent. These high level intermediate representation, they are source language dependent. And this middle level, they are independent of the machine, they are independent of the source language. So they are the true intermediate representations, you can call them true intermediate representations. Is this clear?
+
+174
+01:25:50,560 --> 01:26:19,310
+Okay, please tell me. Did you understand the simple point? Did you understand? Let me know. Okay, so you can see very easily. You can see this screenshot is from Ulman. Whatever I'm teaching you, I'm giving you a standard screenshot of everything so that you can feel confident. Okay, I'm telling you for everything, whatever I'm teaching you, I'm giving you, I'm teaching you from multiple standard resources. Okay, from multiple books, from multiple standard universities. Okay, so from many
+
+175
+01:26:19,660 --> 01:26:48,000
+from many resources, I'm teaching you all these concepts and I'm also giving you the screenshot so that you can feel confident. So you can see intermediate code generation. You can easily see in the process of translating a source program into target code, a compiler may generate one or more intermediate representations, which can have variety of forms. For example, for example, syntax tree, these are the form of intermediate representation and they are generated during the syntax and semantic analysis. Is this clear?
+
+176
+01:26:48,370 --> 01:27:17,910
+This is syntax tree, parse tree. These are the form of intermediate representations and they are used. They are commonly used. They are generated and used in the syntax analysis and semantic analysis phases. So you can see these, these are high level intermediate representations. Yes or no? Okay. These are high level intermediate representation. So if I ask you what is a high level intermediate representation, what you will say? Give me high level intermediate representation. You will say parse tree. You can say parse tree. You can say syntax tree.
+
+177
+01:27:18,130 --> 01:27:44,530
+Yes or no? You can say pass tree, syntax tree. Okay. We will see the difference. Don't worry. You might be thinking, sir, what are the difference between them? What are the difference between pass tree and syntax tree that we will see? Don't worry. There is a small difference. Okay. Very small difference between these two that we will see. Anyway, so you can see there are mid level also. Okay. There are mid level also. There are mid level intermediate representation. What are, what are mid level intermediate representations?
+
+178
+01:27:45,520 --> 01:28:11,580
+What are mid-level intermediate representation? These are three address code or you can use SSA or you can use SSA static single assignment or you can use control flow graph. Okay. These you can use here and there are low level. These are like assembly. These are very, very, very, very similar to assembly language. Okay. So you can see, I hope you understood. So you can see the compiler can generate.
+
+179
+01:28:11,940 --> 01:28:42,160
+one or more intermediate representations okay compiler will go through a sequence of intermediate representations it will go through okay so I hope you understood so very simple point okay let's move on now so you can see a compiler might go through a sequence of intermediate representations so you can see this so remember intermediate representation what is that that is any representation between source language and target language yes or no that is the best definition that is the best definition that
+
+180
+01:28:42,440 --> 01:29:11,520
+intermediate representation that is any representation of a program between source language and target language okay from source to target every representation is basically intermediate representation maybe this intermediate representation maybe this is your syntax tree okay this can be your syntax tree so this is your high level intermediate representation that you already know okay so let's call it high level intermediate representation okay let's call it high level intermediate representation now
+
+181
+01:29:11,770 --> 01:29:40,930
+this can be your mid-level intermediate representation maybe you are using 3 address code here after 3 address code maybe you are using another another that is maybe control flow graph okay remember you can use multiple mid-level you can use multiple high level you can use multiple low level okay is this clear so you can use multiple mid-level intermediate representation this is another mid-level okay so you can use 3 address code you can also use control flow graph
+
+182
+01:29:41,840 --> 01:30:11,150
+This is useful in the optimization. When we study code optimization, then we will use this control flow graph. This is very, very, very useful for optimization. Okay. There is another SSA static single assignment that is also very useful for optimization. Okay. So depending on the application, a compiler can decide the compiler can decide how many intermediate representations it will have. Yes or no. Is this clear? It will depend on the compiler. How many intermediate representations it will go through.
+
+183
+01:30:11,550 --> 01:30:41,620
+the compiler will go through intermediate representations now it will depend on the compiler how many intermediate representations it will go through is this clear so this can be your low level maybe this can be your low level intermediate representation so this will be like your assembly this assembly like okay intermediate representation so very simple I hope you understood okay so that's the simple point and what is a true intermediate representation what is a true intermediate representation what is that
+
+184
+01:30:42,070 --> 01:31:13,960
+What is a true intermediate representation? That is independent of the target and source. Yes or no? That is independent of target and source. I already told you. Okay. So you can see. Very simple. I hope you understood. So these are true. So you can see these are okay. These are basically your mid-level. These are basically your mid-level intermediate representation. And what are these? What are very commonly used mid-level intermediate representations?
+
+185
+01:31:15,760 --> 01:31:47,460
+mid-level intermediate representations what are very I can say commonly used what are commonly used Intermediate representations one is three address code three ac three address code. Okay, another is ssa another is control flow graph So these are okay. These are very commonly used actually. These are very famous. These are very commonly used. Okay, so let's move on now. Okay, so What the front end will generate tell me
+
+186
+01:31:47,830 --> 01:32:12,710
+this intermediate representation which is the output of front end this is your mid-level and this is independent of source and machine
+
+187
+01:32:17,800 --> 01:32:46,090
+Okay, so very simple. Some intermediate representations, they are used here and some intermediate representations are used here. Some intermediate representations are generated here and some intermediate representations are generated here. But these are your true intermediate representations. Okay, you can call them true intermediate representations because they are independent of source and machine. Okay, so let's move on. So you can see this example.
+
+188
+01:32:46,510 --> 01:33:17,300
+In this example, you can see that this is your original program. This is your high level language program. Okay, this is screenshot is taken from Stanford. So you can see this is your high level language program. This is your original program. You can say, let's call it high level language. Okay, now you can see this is high level intermediate representation. Okay, so this is used in the front end. Next, this is your three address code. Okay, this if you look at this, this is actually your three address code.
+
+189
+01:33:17,810 --> 01:33:50,550
+This is actually your three address code. Okay. And this, this is independent of, this is independent of, of source and machine. And this is low level. Why this is low level? Can anyone give me one reason? Can anyone give me one reason? Look at this and tell me why this is low level because this is machine dependent. You are using registers, registers. These are inside the CPU. You are using registers.
+
+190
+01:33:50,980 --> 01:34:35,240
+Yes or no, you are giving the register names addresses. So you are using the memory addresses. You are using the registers. These things you are using. So this is low level and this is a machine dependent. Yes or no. This is machine dependent. Okay. So I hope you understood. And this, this is machine independent, but this is a source dependent. Okay. I hope you understood. So let's move on now. So you can see these are some different, different type of intermediate representations. The syntax tree.
+
+191
+01:34:35,500 --> 01:35:02,800
+It will look like this. You already know. Okay. Your pastry, your syntax tree. So these are basically high level representations. These are suitable for high level representations. This is how it will look like. This is a tree tree tree like structure. You've already seen parsing in the parser. What it will do? It will generate it will generate the pastry. Okay. Pastry and syntax tree. They are very similar to each other. Let me tell you. You can say this is syntax tree. This is compact version of the pastry.
+
+192
+01:35:03,080 --> 01:35:31,500
+Okay, your pastry you have the compact version of the pastry that is your syntax tree. Anyway, don't worry. We will see the difference. So you can see syntax tree. This is used in the syntax analysis and semantic analysis phases in those front end phases. We use this syntax tree as an intermediate representation. You can see three address code. This is you. This is used in the, this is suitable for mid level. I can say, okay, this is suitable for mid level. So the good thing is basically between mid level and high level.
+
+193
+01:35:31,750 --> 01:36:02,470
+So I can simply say this is suitable for mid level. Okay. So you can see three address code. This is how it will look like. Three address code will look like this. There are other like two address code. This is another representation. One address code. This is another representation. Okay. In the computer organization, we have seen one address one address code. Do you remember in the computer organization subject and even here who remembers if you have already studied computer organization, then remember these one address code we have already seen there.
+
+194
+01:36:02,810 --> 01:36:31,010
+in the stack CPU in the stack CPU this we have already seen and this we have seen in the accumulator CPU if you remember okay so anyway don't worry we have seen all of them okay so very simple point that two address code one address code all these things we have already seen in the computer organization don't worry these are not important three address code is important and this we will study in a detailed way I will tell you don't worry these are not important and similarly what about C language
+
+195
+01:36:31,430 --> 01:37:01,250
+Is this an intermediate representation C language? Actually, let me tell you if you see the initial C compiler C++ compiler the initial C++ compiler what it did? Let me tell you the initial C earlier C++ compiler what they did earlier C++ compiler what they did? Let me tell you the earlier C++ compilers they did like this that you have a C this is your source C++ program
+
+196
+01:37:02,130 --> 01:37:32,270
+Yes or no? This is the source C++ program. Now what this compiler, this C++ compiler, what it did, if you give this to the C++ compiler, then basically what it will do, it will generate the C language. Okay. It will generate the C language. Is this clear? The C language will be generated as an intermediate representation. So basically the C language will be generated as an intermediate representation. Now C compiler was used.
+
+197
+01:37:32,630 --> 01:37:58,760
+Okay. Now you will use the C compiler. Now the C compiler you will use and then that will give you your target code. Okay. So like this, the initial C plus plus compiler, it used C language as an intermediate representation. Okay. So anyway, don't worry. No one will ask you this, but I'm just telling you that intermediate representation, you can use basically anything. Is this clear? Okay.
+
+198
+01:37:59,470 --> 01:38:27,870
+So basically many different type of representations are possible. This is what I'm telling you. I have given you a big list of intermediate representations. Yes or no? Many representations I told you. Okay, control flow graph, SSA, three address code, syntax tree, parse tree, okay, post fix notation. Yes or no? Many, many I already told you. But there are many more possible. Remember, intermediate representation, many more intermediate representations are possible. Okay. So don't worry about it.
+
+199
+01:38:28,080 --> 01:38:58,820
+Don't think about it. Don't worry about it. You can see the initial C++ compilers. They generated intermediate C code. Okay. So your source program, this is your C++ program. They will create the C code and then they will use the C compiler to generate the assembly to generate the final assembly code. Anyway, don't worry about it. No one will ask you just for curiosity. I told you. Okay. I hope you understood. Tell me the answer for this question in context of compilers.
+
+200
+01:38:59,320 --> 01:39:26,720
+which of the following is not an intermediate representation of the source program please tell me which of the following is not an intermediate representation of the source program so you can see three address code yes this is the intermediate representation this is also intermediate representation abstract syntax tree this is also intermediate representation of the source program symbol table symbol table is not a representation of source program right yes or no this is not a
+
+201
+01:39:26,960 --> 01:40:01,320
+representation of source program yes or no this is not a representation of source program this is actually a table which is used to store the information about the source program basically this is used to assist this is used to assist all the phases yes or no this is used to assist all phases all phases of compiler okay so you can see the remaining these are actually intermediate representations now tell me one more thing
+
+202
+01:40:01,800 --> 01:40:31,600
+Tell me one more thing. These are intermediate representations. Tell me one more thing. The same compiler, can it use all of them? The same compiler, a particular compiler, take a particular compiler, can it use all of them? All of them means this particular compiler you have, this will use three address code also, abstract syntax tree also, control flow graph also. Yes, all of them can be used. Is this clear? All of them can be used. Actually, what will happen? You already know what will happen. Tell me what will happen?
+
+203
+01:40:31,980 --> 01:41:00,780
+the same compiler remember a particular compiler what it will do a particular compiler what it can do a particular compiler it can first generate the this abstract syntax tree in the front end okay in the syntax analysis phase in the semantic analysis or syntax analysis phase this intermediate representation is can generate then it can generate the three address code then it can generate the control flow graph okay and so on so remember
+
+204
+01:41:01,080 --> 01:41:31,780
+The same compiler, a particular compiler can go through all of them. So these are intermediate representations, but symbol table is not an intermediate representation. So now what we need to study. Now we need to study all the different, different intermediate representations, right? Yes or no. All the different, different intermediate representations we will study. Let me tell you what are important for the gate exam. So three address code. This is important quadruple, triple indirect triple. These are also important. We will see basically.
+
+205
+01:41:32,190 --> 01:42:00,760
+quadruple triple indirect triple these are basically implementations of three address code okay we will see don't worry okay so these three these are implementations of three address code but remember if i ask you is this intermediate code yes this is also intermediate code okay so remember that these are actually implementations of three address code but they are also intermediate code this is also intermediate representation this is also intermediate representation this is also intermediate representation
+
+206
+01:42:01,020 --> 01:42:31,430
+okay ssa this is also important control flow graph is very important so these are important these are the important ones but we will also study syntax tree abstract syntax tree parse tree and directed acyclic graph okay here actually these are these you have already seen parse tree you have already seen right agree parse tree you have already you have already seen parse tree you have already studied you have already studied where studied in parsing
+
+207
+01:42:32,250 --> 01:43:04,610
+Okay. In the parsing you have already studied there. Now we just need to see what are the difference between these two syntax tree and pastry. What are the difference between these two that we will see. So this we will see. Okay. This we will see directed acyclic graph. This also we will see. This is this is also we will study and this postfic notation. This is already covered in the data structure. Yes or no in fix post fix prefix. These notations. These are used in the data structure.
+
+208
+01:43:04,850 --> 01:43:33,830
+Okay. So very simple. So this you can study from the data structure. This is already covered in the data structure. You can study from there. Okay. We will study these three and then we will study these three. So this is what we are going to do in the next lecture. We will study three address code. This is very important. And once you understand three address code, then all these will become very easy. All of them will become very, very, very easy. Okay. So we will study three address code intermediate representation in the next lecture.
+
+209
+01:43:34,320 --> 01:44:03,350
+Okay. Thank you, everyone. Anyone has any doubt? Let me know. In this lecture, did you understand everything? Everything that we have seen in this lecture, did you understand? Basically, we have seen what is intermediate code? How many representations are there for the intermediate code? And what is the importance of intermediate code? There are, let me tell you, there are, I think, three or four questions in the gate exam on importance of intermediate code. Okay. So we have already seen what are the importance.
+
+210
+01:44:03,920 --> 01:44:26,320
+of intermediate code intermediate code intermediate representation that is optional that is not mandatory but that is very useful we have seen what are the importance that we have seen yes or no then we have seen what are the types of intermediate representations there are many different type of intermediate intermediate representations and in the next lecture we will study three address code okay so thank you everyone see you tomorrow
+

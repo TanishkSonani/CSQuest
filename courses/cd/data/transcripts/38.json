@@ -1,0 +1,786 @@
+{
+  "id": 38,
+  "title": "038. Lecture 15_ Syntax Directed Definition and Translat.mp4",
+  "file": "038. Lecture 15_ Syntax Directed Definition and Translat.mp4",
+  "seconds": 3139.268231,
+  "segments": [
+    {
+      "start": 0,
+      "end": 34.01,
+      "text": " Hi everyone in this video we will be looking at semantic analysis which is next phase of compiler so after parsing semantic analysis comes now why we are doing semantic analysis is because there are something that parser cannot catch suppose i have some statement a equal to b plus c according to the parser b is one identifier c is also one identifier a is also one identifier so according to the parsing rule it may be correct",
+      "avg_logprob": -0.10537574351543472,
+      "no_speech_prob": 0.035491943359375
+    },
+    {
+      "start": 34.41,
+      "end": 58.98,
+      "text": " which means i can add two identifiers and then the final result i can store in some other identifier so according to parser this may be correct but according to the language it may not be correct which means suppose like b type is something so there is some b type and that could be some integer suppose and then c type is something",
+      "avg_logprob": -0.08051539023420703,
+      "no_speech_prob": 0.0162200927734375
+    },
+    {
+      "start": 59.38,
+      "end": 85.56,
+      "text": " let's suppose it is like there is some language which allows type of string okay in C language you do not have string as a type but I'm just taking one example that there is a language which allow type as string and in that language integer and string operation is not allowed then in that case we should be able to capture that see this type is it this type is string that is why this addition should not be allowed",
+      "avg_logprob": -0.15597426610834458,
+      "no_speech_prob": 0.056365966796875
+    },
+    {
+      "start": 86.14,
+      "end": 114.37,
+      "text": " So these kind of things are being done in semantic analysis phase and not only these type checking So this is one of them type checking is one of them and there are many other things that we do in semantic analysis phase So what what we are going to do? We will take examples of Grammars and I will show you that how how to do type checking and other things in the semantic analysis phase So there are a few definitions",
+      "avg_logprob": -0.1041666647826118,
+      "no_speech_prob": 0.0509033203125
+    },
+    {
+      "start": 114.97,
+      "end": 143.15,
+      "text": " Before I go to the details, there are two definitions in the semantic analysis. One is Syntax Directed Definition. One is called SST, which means Syntax Directed Definition, which says that you have a production and along with the production, you specify some semantic rules. What are those semantic rules? So, each production is having some variables. So, suppose this is E, I mean this is non-terminal and this non-terminal is having some attribute, something called attribute.",
+      "avg_logprob": -0.16807827687709131,
+      "no_speech_prob": 0.045745849609375
+    },
+    {
+      "start": 143.5,
+      "end": 173,
+      "text": " so this code is an attribute and yeah here here we only have one attribute so here code is one attribute and there could be other attribute also so suppose i have some production a gives bc then i can say that there are multiple attributes of a maybe a small a is one attribute maybe a small x is one attribute so there could be multiple attributes of one non-terminal so what does hdd or syntax directory definition says is that you have one production and",
+      "avg_logprob": -0.14574933052062988,
+      "no_speech_prob": 0.05316162109375
+    },
+    {
+      "start": 173.32,
+      "end": 194.74,
+      "text": " associated with one production there are some semantic rules so what are those semantic rules those are some computation over the attributes or those are some some print statement or something else so suppose that this is the production that you have then in that case i have let's suppose i have this is a semantic rule which means this is doing something so",
+      "avg_logprob": -0.12511836421309094,
+      "no_speech_prob": 0.07171630859375
+    },
+    {
+      "start": 195.13,
+      "end": 219.52,
+      "text": " it like it is doing some concatenation of two codes and then concatenating plus so that is okay like we do not need to worry about at this point in time that what it is doing all I want to convey is that there is some production and associated with the production there is some symmetric rule that is what syntax director definition says there is one other definition in this semantic analysis which is called syntax directed translation",
+      "avg_logprob": -0.12955729184406145,
+      "no_speech_prob": 0.01413726806640625
+    },
+    {
+      "start": 219.9,
+      "end": 243.96,
+      "text": " So, the only keyword which is differing is definition and translation. Here I have definition, here I have translation. So, in this case, we do not explicitly specify the cementer rules. What we do? In the production itself, we embed those cementer rules, which means, like, I am explicitly not saying that this is cementer rule. I am just saying that this is one syntax-directed translation scheme that I have.",
+      "avg_logprob": -0.18223506098856096,
+      "no_speech_prob": 0.0289459228515625
+    },
+    {
+      "start": 244.71,
+      "end": 263.05,
+      "text": " So, what is the benefit or what is what is the project cons of having syntax director translation over the syntax definition is that if you look at the syntax director definition, then generally it is easy to read. I mean you know that which one is production, which one are symmetric rules.",
+      "avg_logprob": -0.296610167471029,
+      "no_speech_prob": 0.0183563232421875
+    },
+    {
+      "start": 263.46,
+      "end": 288.53,
+      "text": " But here it is I mean compared to syntax that definition it is not that easy to read. So maybe this embedded semantic action maybe within the within the production itself. So we need not to be the end of production which means it could be like this plus print it could be like this. So basically this",
+      "avg_logprob": -0.1717489979440166,
+      "no_speech_prob": 0.0097808837890625
+    },
+    {
+      "start": 289.47,
+      "end": 315.86,
+      "text": " action could be anywhere in the production. Maybe at the beginning, maybe in the middle. So we will see that what are those importance like when to have in the middle, when to have at the end. So that is very important topic. We will see that like where to put those semantic actions. But for now, like what I'm saying is that these semantic actions could be present anywhere in the production. That is why it is compared to HDD, it is little difficult to read out.",
+      "avg_logprob": -0.15356923362203673,
+      "no_speech_prob": 0.185302734375
+    },
+    {
+      "start": 316.46,
+      "end": 334.2,
+      "text": " This is the one different one difference second one is that in the Semitic in the syntax tactic definition, which is this we do not specify any order Which means like we do not say that when we are going to execute the cement group right but here in syntax tactic translation",
+      "avg_logprob": -0.24005682414228266,
+      "no_speech_prob": 0.23193359375
+    },
+    {
+      "start": 334.6,
+      "end": 364.57,
+      "text": " we specify that once we reduce this E1 like once we have E1, E1 is nothing but the annular occurrence of E. So, just to differentiate between this E and this E, I have just put it E1, but this E, it is like E gives E plus T. Just to differentiate between these two E, I am just saying it is even. So, here the order of evolution is specified, which means once I reduce something to E, then to T, then only I can print this plus. So, here",
+      "avg_logprob": -0.15318079718521663,
+      "no_speech_prob": 0.10479736328125
+    },
+    {
+      "start": 365.01,
+      "end": 395,
+      "text": " here the order is specified here the order is not specified so that's the like these are the two difference now don't worry we will see many examples of syntax directory definition and syntax directory translation in fact in practice what we do we basically implement this syntax directory translation schemes okay so we will see that how to implement this syntax directory translation schemes and how to make use of the syntax directory definitions now like just to give you an example",
+      "avg_logprob": -0.10801235603731732,
+      "no_speech_prob": 0.0770263671875
+    },
+    {
+      "start": 395.31,
+      "end": 424.98,
+      "text": " Suppose this is your syntax directory definition, which means you have production and you have semantic rule as separate. Okay. These are two separate things. But what you can do, you can basically put the semantic rule between the production and this thing is called syntax directory translation as DD and this thing is called as DD. Right. So in the syntax directory translation, I basically put the semantic rule in between the production. Now I can put it at the end or maybe in the between.",
+      "avg_logprob": -0.15019132257724294,
+      "no_speech_prob": 0.10980224609375
+    },
+    {
+      "start": 425.65,
+      "end": 452.09,
+      "text": " So, where to put is very important topic, we will look at it in next few slides. So, currently I am putting at the end only, but it is not necessary that you need to put at the end always. In fact, if you put at the end always, then you may not be able to evaluate some of the STTs in bottom up or top down parsers. So, we will look at it. But for now, I just want to convey is that you can put the semantic rule.",
+      "avg_logprob": -0.12433668141657452,
+      "no_speech_prob": 0.0594482421875
+    },
+    {
+      "start": 452.43,
+      "end": 481.4,
+      "text": " in between the production, maybe at the end, maybe in the between to convert the HDD to HDD. I hope that it's clear. Okay. Now there is one more definition, which is attribute grammar. And attribute grammar is nothing but a HDD syntax type of definition in which the functions in the semantic rule cannot have the side effect. So what is side effect? Side effect means that like, if it is not having the side effect means it is only computing the value of attribute values, which means let's suppose",
+      "avg_logprob": -0.16536458885228192,
+      "no_speech_prob": 0.036163330078125
+    },
+    {
+      "start": 481.86,
+      "end": 504.86,
+      "text": " This is my production and I have something like this. There is some attribute of B which is the attribute name is A and which is basically dependent on some attribute of X. So this is some semantic group. Now is this grammar, is attribute grammar? Yes. Why? Because it is not having any side effect which means that it is only computing the values of attributes.",
+      "avg_logprob": -0.19006990386467232,
+      "no_speech_prob": 0.1602783203125
+    },
+    {
+      "start": 505.26,
+      "end": 532.02,
+      "text": " it is not printing anything it is not doing anything extra other than other than computing the values of attributes which means suppose if i have some production like this where along with this i also let's suppose i also say that print some fine or something so basically what i'm doing i'm having some side effects which means i'm along with the along with the computing the values of attribute i'm also",
+      "avg_logprob": -0.09434335386451287,
+      "no_speech_prob": 0.0211029052734375
+    },
+    {
+      "start": 532.5,
+      "end": 565.99,
+      "text": " printing some values or I am also doing something else which is not related to computing the attribute values. So that's why this is called side effect. And a HDD, this is an HDD, this is also an HDD. And HDD which is not having any side effect is called attribute grammar. So this is attribute grammar but this is not attribute grammar. So here you can say this is attribute grammar and this is not attribute grammar. Okay. Now this is just a paragraph that I have taken from Ulman.",
+      "avg_logprob": -0.12651909942980166,
+      "no_speech_prob": 0.031402587890625
+    },
+    {
+      "start": 566.31,
+      "end": 594.81,
+      "text": " so if you want you can read it out they have just defined the attribute grammar and hdd without side effect is sometimes called attribute grammar the rules in the attribute grammar define the value of an attribute purely in terms of value of other attributes and constants so that's the definition of attribute grammar anyway let me move to the next slide now as you as you are noticing that there are some attributes related to a grammar so what we are going to do we are going to classify those attributes into two types",
+      "avg_logprob": -0.07907197255678851,
+      "no_speech_prob": 0.11474609375
+    },
+    {
+      "start": 595.21,
+      "end": 624.13,
+      "text": " these two attributes, like the attributes fall into two classes, one is synthesized and another one is inherited. What is synthesized attribute? A value of synthesized attribute is computed from value of its children books. What do I mean by that? Suppose I have any production like this. So A may have synthesized attribute, A may have inherited attribute. If it is synthesized attribute, let me say dot A, let's suppose this is synthesized attribute. So it will depend on the attributes of the",
+      "avg_logprob": -0.15076622983010915,
+      "no_speech_prob": 0.1571044921875
+    },
+    {
+      "start": 625.26,
+      "end": 653.05,
+      "text": " So, which means like you can say I mean there could be any relation. So, in general it could be any function of attributes of B and attributes of C. So, let us suppose I am just adding. Now, here A is synthesized attribute. Why? Because the synthesized attribute is computed from the values of its children course. Am I not computing this synthesized attribute from the values of its children? Yes, I am computing. So, that is why this is a synthesized attribute.",
+      "avg_logprob": -0.13033353064495784,
+      "no_speech_prob": 0.299560546875
+    },
+    {
+      "start": 655.36,
+      "end": 680.74,
+      "text": " What about these attributes? I mean, are these attributes synthesized or inherited? Which means that for B, should I be having synthesized attribute? So for B, as far as the synthesized or inherited attribute of A is concerned, I do not care. Which means this could be synthesized attribute, this could be inherited attribute. So only thing that I care is that",
+      "avg_logprob": -0.18384740724192036,
+      "no_speech_prob": 0.04248046875
+    },
+    {
+      "start": 681.05,
+      "end": 710.68,
+      "text": " this attribute of A should be dependent on its children attribute okay value of synthesized attribute is computed from value of its children nodes so it does not matter so this is synthesized attribute A is synthesized attribute now these attributes could be synthesized could be inherited okay now let's see the inherited attribute definition value of an inherited attribute is computed from siblings and parent node so here here this A is a synthesized attribute now suppose",
+      "avg_logprob": -0.14761029061149147,
+      "no_speech_prob": 0.218017578125
+    },
+    {
+      "start": 710.99,
+      "end": 727.41,
+      "text": " I want to compute some attribute of B. Now, let us suppose this is some attribute of B. So, I can define this in terms of either attribute of C or in terms of either attribute of A and this is called inherited attribute. So, inherited attribute basically means let us suppose I am defining something like this.",
+      "avg_logprob": -0.1628787928458416,
+      "no_speech_prob": 0.0242156982421875
+    },
+    {
+      "start": 730.93,
+      "end": 759.64,
+      "text": " So, I am just defining it randomly which means like I am not taking care of you know the meaning of it how water is computing. I am just saying that there is some attribute of B which is dependent on some attribute of C and some attribute of A. So, that is why this attribute of B is an inherited attribute. So, basically if that kind of grammar is given to you then I can define and for any grammar I can define synthesis attribute or inherited attribute right.",
+      "avg_logprob": -0.12244897951581041,
+      "no_speech_prob": 0.136962890625
+    },
+    {
+      "start": 761.28,
+      "end": 789.53,
+      "text": " Now synthesize attribute depends on the values of children see synthesize attribute depends on the value of children which means in this production Can I compute can I compute the synthesize attribute of B? See I do not have the production of B, right? It is a production of A now if I need to compute the synthesize attributes of B, let's suppose Let me just write it like this. Let's suppose ABC these are three non-terminal and correspondingly",
+      "avg_logprob": -0.16620065789473684,
+      "no_speech_prob": 0.06829833984375
+    },
+    {
+      "start": 789.72,
+      "end": 820.31,
+      "text": " these are the synthesized attributes, these are the inherited attributes. Let me call it a, b, c and x, y, j. So, which means that a is a synthesized attribute of small a is a synthesized attribute of capital A and small x is a synthesized is a inherited attribute of capital A. Now, I want to compute these values. So, what values I can compute at max? This is my question. Can I compute synthesized attribute of A in this production?",
+      "avg_logprob": -0.12977851652404637,
+      "no_speech_prob": 0.06146240234375
+    },
+    {
+      "start": 820.81,
+      "end": 848.63,
+      "text": " Yes, I can compute because synthesized attribute of A depends on the attributes of its children. So attributes of children means now it could be the synthesized attribute or it could be the inherited attribute. So this attribute I have taken as a synthesized attribute, this attribute I have taken as an inherited attribute. So I can compute this A that is perfectly fine, which means that for this production I can compute the synthesized attribute of A.",
+      "avg_logprob": -0.14930554942952262,
+      "no_speech_prob": 0.1448974609375
+    },
+    {
+      "start": 848.91,
+      "end": 878.48,
+      "text": " Why? Because it depends on its children. So, I can take its children attribute and I can compute it, right? Now, can I compute synthesis attribute of B, which means can I compute this? See, this synthesis attribute, if I want to compute, see, I am just using it, I am not computing it in this production. If I want to compute using this production, then can I do it? Just tell me, can I compute B dot B? See, this B dot B has to depend on its children, right? But in this production, I do not have any child or children.",
+      "avg_logprob": -0.13964074756216815,
+      "no_speech_prob": 0.58154296875
+    },
+    {
+      "start": 879.35,
+      "end": 906.07,
+      "text": " That is why this B dot B, I cannot compute in this production. So in this production, only synthesis attribute I can compute is for A. I cannot compute B, I cannot compute small c. Why? Because this B dot B and C dot small c depends on children of B and children of C. But in this production, I do not have children of B and children of C. So that is why I cannot compute these two attributes in this production.",
+      "avg_logprob": -0.13503288877637762,
+      "no_speech_prob": 0.31298828125
+    },
+    {
+      "start": 906.38,
+      "end": 935.71,
+      "text": " So I can compute this but I cannot compute this. I cannot compute this. This is fine. Now let's go to the inherited attributes. Can I compute the inherited attributes of A? So this is the production that I have. Now what is the definition of inherited attribute? It says that it depends on its sibling and its parent. So here I do not have any parent neither I do have any sibling for A. That is why inherited attribute I cannot compute here.",
+      "avg_logprob": -0.11059570591896772,
+      "no_speech_prob": 0.1790771484375
+    },
+    {
+      "start": 936.01,
+      "end": 965.19,
+      "text": " right so I cannot compute inherited attribute here and now can I define the inherited attribute of B yes I can define so this inherited attribute of B I can compute similarly inherited attribute of C also I can compute so these two I can compute right I hope you got it like see here if you want to define the synthesized attribute then this synthesized attribute should be like if you want to define the synthesized attribute of A then this should be at A should be as a head",
+      "avg_logprob": -0.10353618154400274,
+      "no_speech_prob": 0.626953125
+    },
+    {
+      "start": 965.4,
+      "end": 996.75,
+      "text": " which means if you want to define the synthesized attribute then A should be ahead and if you want to define the inherited attribute of non-terminal suppose B then production must have B symbol in its body which means like in this production you can define the inherited attribute of B inherited attribute of C and synthesized attribute of A these kind of attributes you can define in this production I hope you got it now again I have written the same thing synthesized attribute the value depends on the attributes of the child",
+      "avg_logprob": -0.09390470562594952,
+      "no_speech_prob": 0.361572265625
+    },
+    {
+      "start": 997.15,
+      "end": 1026.8,
+      "text": " and this is important leave node or terminals have the synthesized attribute initialized by the lexical analysis which means that suppose there is some terminal like we will be doing the example but for now let's suppose there is some terminal id now what is what what is its attribute value it should be defined by the lexical analysis so these are defined by the lexical analysis and we cannot modify them and there is one attribute grammar that only has the synthesized attribute it's called as attributed grammar",
+      "avg_logprob": -0.14874690239972407,
+      "no_speech_prob": 0.2078857421875
+    },
+    {
+      "start": 1027.24,
+      "end": 1063.74,
+      "text": " So, suppose that in one grammar, you only have the synthesized attributes. Only the synthesized attributes you have and you do not have any inherited attribute, only the synthesized attributes you have. So, this is called let's suppose like I am not defining the synthesized attributes, but suppose you have only synthesized attribute you have, then this is called as attributed grammar. And as I said inherited attribute, the value of the node depend on the value of attribute of sibling and the parent node.",
+      "avg_logprob": -0.1513956377228487,
+      "no_speech_prob": 0.397705078125
+    },
+    {
+      "start": 1064.02,
+      "end": 1091.38,
+      "text": " So, if this is the production, then for this the inherited attribute of B and C can be defined in terms of attributes of A and attributes of C, right. In general like inherited attribute of B can be defined in that in terms of attributes of A and attributes of C, okay. Now, let us do one example. This is one syntax and syntax vector definition for the calculator example. So, this is the grammar that I have and correspondingly cement rules also I have.",
+      "avg_logprob": -0.16556186718170088,
+      "no_speech_prob": 0.0228729248046875
+    },
+    {
+      "start": 1092.27,
+      "end": 1116.05,
+      "text": " Now suppose that I want to I want to calculate some string which is there suppose 3 into 4 plus 5 So let me take it on the next slide 3 into 4 plus 5. I want to calculate this using this grammar So what will the first step? First thing I will be doing is making the parse tree. Okay, so let's make a parse tree",
+      "avg_logprob": -0.1869649005262819,
+      "no_speech_prob": 0.04437255859375
+    },
+    {
+      "start": 1116.33,
+      "end": 1146.05,
+      "text": " and let's see how to evaluate it so basically n is just n marker n is like n is just a dollar so you can treat it as a dollar which is just an n marker so let's let's try to build a parse tree of this string now if you see l l will give e and n and if you want to have this multiplication then I think this should go to this can go to e plus t I think okay e plus t",
+      "avg_logprob": -0.11667239305737255,
+      "no_speech_prob": 0.5595703125
+    },
+    {
+      "start": 1146.6,
+      "end": 1179.44,
+      "text": " and then this E will go to the multiplication which means E will go to T and T will go to T cross F and then this T will go to F and this F will go to digit and similarly here this this T will go to F and F will go to digit right which I already have on the next page so let's see it see L is going to E plus T and this E is going to T T and then this T is going to T cross F",
+      "avg_logprob": -0.08280436314331989,
+      "no_speech_prob": 0.04302978515625
+    },
+    {
+      "start": 1179.63,
+      "end": 1208.01,
+      "text": " and then this is how we are basically making the pass tree. Now what I need to do once we make the pass tree then we need to evaluate this string based on the semantic rules. So let me do what let me actually construct the pass tree on the next page so that I can show you the evolution. So this E is going to L is going to En okay L is going to En let me just erase this.",
+      "avg_logprob": -0.12966953577666446,
+      "no_speech_prob": 0.07672119140625
+    },
+    {
+      "start": 1218.22,
+      "end": 1256.73,
+      "text": " and then this E is going to E plus T E plus T then this E will produce capital T and then this is producing T cross F and then this T will produce F which will produce I D and then this T will produce F which will produce I D and then this F will directly produce I D. This is the partiality that we have made. Now how to evaluate this string based on the symmetric rules that we have?",
+      "avg_logprob": -0.18235085464336656,
+      "no_speech_prob": 0.24072265625
+    },
+    {
+      "start": 1256.89,
+      "end": 1285.62,
+      "text": " So, let me do one thing, let me just copy this grammar on the same page so that I can just show you everything in one slide. Now, this is the SDD that we have and I want to show you that how to evaluate this district. So, what we need to do, like either in general, either we will go top down fashion or we will go in bottom of fashion, okay? But here, I am showing you just a DFS way.",
+      "avg_logprob": -0.15911990191255296,
+      "no_speech_prob": 0.01425933837890625
+    },
+    {
+      "start": 1285.88,
+      "end": 1315.08,
+      "text": " okay we are going to do a depth first traversal either you top down or you do bottom up both will eventually lead to DFS so let me just show you and then I will tell you that how so what I'm going to do I'm just going to do the DFS manner which means I'm going to do the top down top down and then left to right this is how DFS work right so I will go top down and left to right and whenever there is a reduction I will correspondingly I will check what is the semantic action",
+      "avg_logprob": -0.10451858108108109,
+      "no_speech_prob": 0.20263671875
+    },
+    {
+      "start": 1315.34,
+      "end": 1341.46,
+      "text": " So, during this reduction, for this reduction, I have the semantic action which is f dot 12 equal to digit dot lexical value. So, this lexical value or id dot lexical value, this will be supplied by the lexical analyzer. So, this is 3, 4, 5. So, this will be supplied as 3. Now, you have the attribute which is f dot 12 is 5, sorry 3, right. Now, you go again, you go left to right.",
+      "avg_logprob": -0.11163843318680737,
+      "no_speech_prob": 0.1439208984375
+    },
+    {
+      "start": 1341.93,
+      "end": 1369.01,
+      "text": " and top to down so you went top to down then you keep on going like this then you see that okay you have one one more reduction which is t gives f now corresponding to this t gives f you have t dot well equal to f dot well which means here t dot well will be t dot well will be whatever f dot well which is three right now again you go left to right and top to down there is no reduction there is no reduction",
+      "avg_logprob": -0.12405563023064163,
+      "no_speech_prob": 0.583984375
+    },
+    {
+      "start": 1369.33,
+      "end": 1398.68,
+      "text": " so there is nobody now once again you encounter reduction now you will see that f dot well will be 4 right so at this point f dot well will be 4 and then you will keep on doing now again you find out one detection sorry here also you you found out one detection which is t gives t cross f now according to t gives t cross f t dot well will be multiplication of these two so here t dot well will be 12 now here e dot well will be just t dot well which is just 12",
+      "avg_logprob": -0.14547936256649424,
+      "no_speech_prob": 0.1605224609375
+    },
+    {
+      "start": 1399.99,
+      "end": 1429.48,
+      "text": " and you just keep on doing it so you found again one detection here now here you will say that f dot f dot value is 5 f dot value is 5 and you will keep on doing it now t dot value is also 5 now if you keep on doing it here also you found one detection which is e gives e plus t here e dot value plus t dot value which means e dot value will be 17 will be 17 and then",
+      "avg_logprob": -0.11922940552573312,
+      "no_speech_prob": 0.290283203125
+    },
+    {
+      "start": 1429.79,
+      "end": 1447.67,
+      "text": " you again found one direction now you are going to just print that E dot value which is 17 right now you have printed 17 this is how you are going to execute this string on these uh these this grammar and these semantic rules now is this bottom up or top down what we are doing see here",
+      "avg_logprob": -0.22174479017655055,
+      "no_speech_prob": 0.0252838134765625
+    },
+    {
+      "start": 1448.14,
+      "end": 1477.68,
+      "text": " What I'm doing I am basically first the first step that I did is basically I I have computed this fgif id right I mean I have reduced the id to f and then I have said f dot well equal to 3 So basically it is it is in that sense. It is a bottom up. So whenever I'm doing a DFS approach And which is basically going top to down and left to right. It is a bottom up approach Now can I do top down also?",
+      "avg_logprob": -0.21117423760770548,
+      "no_speech_prob": 0.1976318359375
+    },
+    {
+      "start": 1478.39,
+      "end": 1507.47,
+      "text": " that question I will answer little later that how to do top-down on this grammar like when you have a grammar and you have the semantic rule how to do top-down so that question I will answer little later but for now I want you to observe one thing like what kind of attributes that I have here so there is only one one at one type of attribute which is like for e I have well for t also I have well for f I have well so there are three attributes I mean there are three non-terminal and there are three attributes according to corresponding to every non-terminal",
+      "avg_logprob": -0.13455578610916769,
+      "no_speech_prob": 0.6552734375
+    },
+    {
+      "start": 1507.69,
+      "end": 1537.81,
+      "text": " now what kind of those attributes which means are these attributes synthesis or these attributes are inherited attributes so let's just check it so here this just to differentiate between this e and this e i'm just saying this is even and this is even okay now tell me this well if i'm computing it here then it means that this depends on its children right so this well e dot well is basically synthesis attribute synthesized attribute similarly these well are synthesized attribute for e that well is synthesized attribute",
+      "avg_logprob": -0.12683354287731405,
+      "no_speech_prob": 0.132568359375
+    },
+    {
+      "start": 1538.04,
+      "end": 1570.29,
+      "text": " for e the well is synthesized attribute now for for this t this well is depending on its children right again it's depending on its children so that is why for t also well is synthesized attribute and for this is depending on its children for f also this is depending on its children so for f well is synthesized attribute so these are synthesized attributes which means that these values so if I have some parse tree like this",
+      "avg_logprob": -0.1289970982213353,
+      "no_speech_prob": 0.5576171875
+    },
+    {
+      "start": 1571.5,
+      "end": 1598.85,
+      "text": " So if I want to compute some synthesizer attribute then these value depend on this children right the children now if I'm doing the bottom up Which means I'm going from from bottom to top Which is the DFS right if I'm doing a bottom up then this is very natural. I mean DFS order is very natural Sorry, the synthesizer attribute evaluation is very natural in the bottom up. Why see these synthesizer attributes Basically depends on the children, right?",
+      "avg_logprob": -0.2078947415477351,
+      "no_speech_prob": 0.164306640625
+    },
+    {
+      "start": 1600.84,
+      "end": 1627.24,
+      "text": " Now these synthesized attributes basically this will depend on children which means that if there are some synthesized attribute that I want to calculate that I first I like I will be like it will be depending on children Now if I am doing the bottom up then I have already evaluated these children's right Bottom up means that only that if I'm doing the bottom up then I have already evaluated these children So that is why that that comes very natural Which means that if you are if you are at this there suppose at this node and you want to calculate T dot y",
+      "avg_logprob": -0.20284598307417973,
+      "no_speech_prob": 0.1153564453125
+    },
+    {
+      "start": 1627.56,
+      "end": 1654.72,
+      "text": " then you must have already calculated this this t dot well this f dot well so that you can multiply so you must have already calculated its its children attribute values so synthesized attributes go very naturally with bottom up parcel right i hope you are getting see in the bottom up we are going from bottom to top and synthesized attribute basically if i want to compute any synthesized attribute let's suppose t gives t cross i f",
+      "avg_logprob": -0.13895089285714285,
+      "no_speech_prob": 0.051910400390625
+    },
+    {
+      "start": 1654.92,
+      "end": 1683.26,
+      "text": " if i want to compute any synthesis attribute at this point in time then it will depend on its children and since i'm coming from bottom then i have already computed its children which means the synthesis attribute can go very naturally with the bottom right suppose if i'm going the top down which means here i have something like this and maybe t gives a t cross f and this t gives f something like this right if i'm going the top down",
+      "avg_logprob": -0.08083273995329034,
+      "no_speech_prob": 0.259765625
+    },
+    {
+      "start": 1683.55,
+      "end": 1705.71,
+      "text": " Then I reduce this T to T cross F. Now if I want to compute the synthesized attribute in the top down fashion which means I am going top to down and I want to compute the synthesized attribute here. Here I want to compute the synthesized attribute. Then I am currently here only right. I am currently here only. I have not seen my children. This T has not seen its children which means that",
+      "avg_logprob": -0.17523619844469912,
+      "no_speech_prob": 0.1243896484375
+    },
+    {
+      "start": 1705.98,
+      "end": 1732.22,
+      "text": " this t currently do not know the attribute value of the children which means there will be t dot while here there will be m dot while here now this t doesn't know the value of this t dot well the value of this m dot m dot well so how to compute the synthesis attributes in case of top down right see if I am going the bottom up then I already know t dot well and f dot well so I can easily calculate t dot well here but if I am going the top top down then",
+      "avg_logprob": -0.16053921948460972,
+      "no_speech_prob": 0.023284912109375
+    },
+    {
+      "start": 1732.43,
+      "end": 1760.99,
+      "text": " at this point in time I do not know the value of 2.12 and f.12 so how to go bottom up in case of synthesized attribute how to go top down in case of synthesized attribute right this is one question that I have not answered yet so basically there are two type of parser one is bottom up another one is top down and there are two type of attributes synthesis attributes and inherited attributes",
+      "avg_logprob": -0.14769345309053147,
+      "no_speech_prob": 0.018890380859375
+    },
+    {
+      "start": 1761.46,
+      "end": 1785.14,
+      "text": " Now I have said like if you are going bottom up then the synthesis attributes are also flowing bottom up. So basically this is extremely easy. Similarly I will show you that this is also very easy. But here like suppose if I am only talking about the synthesis attribute currently then here I have a question mark. I have not shown you that how to do it. So I will show you little later.",
+      "avg_logprob": -0.1129954275561542,
+      "no_speech_prob": 0.0207061767578125
+    },
+    {
+      "start": 1785.48,
+      "end": 1807.1,
+      "text": " that how to compute the synthesizable attribute in case of TomTom. So, just a hint is that we will first convert this HDD to corresponding HDD ok. And then like we will not just say that that if you are coming to this node, then we will not just say that immediately, immediately compute the values synthesize attribute value which means",
+      "avg_logprob": -0.18229166832235125,
+      "no_speech_prob": 0.007671356201171875
+    },
+    {
+      "start": 1807.45,
+      "end": 1840.1,
+      "text": " if I am coming to this node from top to down then I will not immediately compute this value. I will just wait for some time so I will basically use the HDT which specify order of evolution. So I will answer this that how to use the synthesized attribute in top down. Let's wait for one like next video so you will get this answer. This is the",
+      "avg_logprob": -0.2390422077922078,
+      "no_speech_prob": 0.28662109375
+    },
+    {
+      "start": 1840.93,
+      "end": 1871.33,
+      "text": " Pastry for our previous example. Now let's take one more example. Here I will be using mix of synthesized and inherited attributes. But here I will not worry about going bottom up or top down. Which means that see why I am worrying about the bottom up or top down is that is basically because that I do not want to have multiple passes. Okay. I do not want to have multiple passes. Which means",
+      "avg_logprob": -0.17623547118070515,
+      "no_speech_prob": 0.3701171875
+    },
+    {
+      "start": 1872.01,
+      "end": 1901.37,
+      "text": " That if I am parsing if I'm parsing in the bottom of fashion on the top-down fashion in that parsing only like I should be able to evaluate my attribute in one pass only Okay, if that I can do if that I can do then it's great Right and we have seen that in case of synthesized attribute like if I'm doing the bottom of parsing Then I can easily do it in one pass which means I can do the bottom of parsing as well as I can I can In parallel I can compute the values of synthesized attribute, right? So this is the idea",
+      "avg_logprob": -0.16771673651472216,
+      "no_speech_prob": 0.634765625
+    },
+    {
+      "start": 1901.79,
+      "end": 1928.83,
+      "text": " but suppose for now I want to drop this idea and I am not much concerned like I want to have in one pass we will come to this point later that we will we want to have this things in one pass but for now I just want to tell you a few things so suppose let's take one grammar and I am not concerned about like I will take I will do this in one how how to do it in one pass I will just see that how to evaluate it may be multiple passes are needed that is fine okay",
+      "avg_logprob": -0.1099646253124723,
+      "no_speech_prob": 0.2042236328125
+    },
+    {
+      "start": 1929.52,
+      "end": 1958.84,
+      "text": " So one pass is just to evaluate maybe one attribute another pass I need maybe maybe one pass I need top down maybe one pass I need bottom up in the same example Maybe another pass I need top down like multiple passes may I may need so I'm not concerned about multiple passes I'm just concerned that how to evaluate the value So let's take this as a grammar and what I want to do this grammar describes the signed binary number So what I want to do I want to augment this grammar such that",
+      "avg_logprob": -0.1650680704872207,
+      "no_speech_prob": 0.475830078125
+    },
+    {
+      "start": 1959.14,
+      "end": 1988.48,
+      "text": " the semantic rules finally compute the decimal value of the binary string associated with this grammar which means let's suppose there is some binary string minus 101 now this minus sign I am taking as it is so basically this corresponds to minus 5 so this minus 101 can be produced by this grammar minus 101 I can produce by this grammar and then finally it should evaluate I want to have some semantic actions such that it's evaluated to minus 5",
+      "avg_logprob": -0.10487132107510286,
+      "no_speech_prob": 0.0260467529296875
+    },
+    {
+      "start": 1989.87,
+      "end": 2021.59,
+      "text": " I hope the ideas get here. So let me just recap what we have done till now. Till now we have first studied the definition of HDD, HDD, these things. Just a definition. Then I told you what are the synthesis attribute, what are the inherited attribute. Then now I am telling you that how to evaluate it. Now when it comes to the evaluation, then there is a natural question. Should we evaluate in bottom up or should we evaluate in top down?",
+      "avg_logprob": -0.18513257967101204,
+      "no_speech_prob": 0.462158203125
+    },
+    {
+      "start": 2021.94,
+      "end": 2053.55,
+      "text": " Now, currently, let's suppose I'm not worrying about this diagram, which means I'm not concerned that I'm doing a bottom up top down, I'm not concerned about these things. So currently, I'm only concerned about one thing that how to evaluate it. Maybe multiple passes, okay? So maybe multiple passes are needed. I'm only concerned about how to evaluate. So I'm not concerned about whether I want to evaluate it in top down fashion or I want to evaluate it in bottom fashion.",
+      "avg_logprob": -0.1544471109429231,
+      "no_speech_prob": 0.10894775390625
+    },
+    {
+      "start": 2053.85,
+      "end": 2080.41,
+      "text": " I just want to care that how to evaluate it. Maybe I will do combination of bottom up top down, maybe multiple passes, I may do. So we are currently here. Now we are talking about this grammar. In this grammar, I want to augment this grammar such that the correspondingly, like it evaluates the corresponding decimal value. So let's do it. Let's first draw a parse tree for this minus 101.",
+      "avg_logprob": -0.15767045810141347,
+      "no_speech_prob": 0.0384521484375
+    },
+    {
+      "start": 2081.41,
+      "end": 2112.33,
+      "text": " Let me just do one thing. Let me just copy the grammar on the same page. So this is the grammar that we have. And this is a parse tree for minus 101. And that's very easy, which means the number could be a sign and a list. And this list could be a list and followed by one bit. And then this list could be a list and followed by one bit. And then this list is finally a bit. And for sign, I have minus and for bit, I have 101. So this is a parse tree.",
+      "avg_logprob": -0.14295503980757898,
+      "no_speech_prob": 0.38916015625
+    },
+    {
+      "start": 2112.57,
+      "end": 2142.07,
+      "text": " now finally I want to evaluate some attribute of this number or I want to just print maybe like that we have done in earlier case see we have just printed the value right so like either I want to print or I want to evaluate it does not matter so finally I want some value which is minus 5 I want some value here now before I augmented let me just do it manually which means how I am going to convert this minus 1 0 1 2 minus 5 let's see so minus is as it is",
+      "avg_logprob": -0.12561881011075313,
+      "no_speech_prob": 0.143798828125
+    },
+    {
+      "start": 2142.32,
+      "end": 2170.48,
+      "text": " what i'm going to do i will multiply so there will be a position right so let's suppose this is position 0 this is position 1 this is position 2 so i will be i'm going to multiply with the position so this 2 is for position right position and into 1 plus 0 into or 2 power 1 into 0 2 power 1 into 0 and this one is again a position and plus 2 power 0 into",
+      "avg_logprob": -0.09817394416734397,
+      "no_speech_prob": 0.0673828125
+    },
+    {
+      "start": 2170.98,
+      "end": 2196.73,
+      "text": " one this zero zero position. So what I can do like I can define one attribute which is position and this position can take the value based on the like position on the business. So let me define one attribute which is position. So once I have the position then I need to calculate the value. Right. So let me first go step by step. Let me define the attribute position. So let's say that there are two attributes.",
+      "avg_logprob": -0.16792485687170136,
+      "no_speech_prob": 0.09521484375
+    },
+    {
+      "start": 2197.09,
+      "end": 2226.72,
+      "text": " and in fact there are three attributes one is let's suppose one attribute is negative or positive this could be true or false and there is one attribute value there is one attribute position right so initially i'm saying that this this is having the position zero which means this number is basically sign and the list and this list is having position zero now this list may expand to list and bit now what do you think like what is the position of this bit",
+      "avg_logprob": -0.11253511369898078,
+      "no_speech_prob": 0.19482421875
+    },
+    {
+      "start": 2227.86,
+      "end": 2254.25,
+      "text": " whatever like initially either this list is having position zero so whatever is the position of this list right so I will say that bit dot position it just let's say this is list one it just list dot position right and what is the position of this list one see this list one position like like list as such does not have any position I mean positions are basically for bits but this list one position will be propagated to",
+      "avg_logprob": -0.16620163974307833,
+      "no_speech_prob": 0.07562255859375
+    },
+    {
+      "start": 2255.27,
+      "end": 2286.89,
+      "text": " whatever it is extending. So this list may extend to again list and bit, right? So this bit basically, this bit position is basically dependent on this list position. So what do you think should be the position of this list? Let me just erase this. So since this list position, this bit position is just a list position. So this list one position list one dot position will be just one incremented by this list dot position, right?",
+      "avg_logprob": -0.0978260884952286,
+      "no_speech_prob": 0.1444091796875
+    },
+    {
+      "start": 2287.37,
+      "end": 2316.64,
+      "text": " List dot position plus one. I hope you got it So this is how we can we can calculate the position and initially I'm saying that list dot position is zero So see here initially I'm saying list dot position is zero and then I'm saying that this position Like this this bit will be bit will be having the position as as same as this list So this position is zero. This will be the position one. This is a position one This is position two and then again this is a position two",
+      "avg_logprob": -0.2101715613229602,
+      "no_speech_prob": 0.331298828125
+    },
+    {
+      "start": 2316.85,
+      "end": 2341.03,
+      "text": " So, that's how we are calculating the position using these rules. Now, there is some other attribute which is value. Now, once you have the position, now calculating value is very easy. How to calculate the value? Just for a bit. So, you just need to do one thing. You just need to do maybe 2 power position into bit value.",
+      "avg_logprob": -0.14864582697550455,
+      "no_speech_prob": 0.0140838623046875
+    },
+    {
+      "start": 2342.6,
+      "end": 2365.82,
+      "text": " like 2 power position into if it is 1 basically if bit is 1 then just a 2 power position if bit is 0 then just a 0 right. So based on that you can calculate the value. So if this is a position 2 then you will say that this is 4 right because 2 power 2 is 4 and if this is position 1 then this will be this will be",
+      "avg_logprob": -0.17208058975244822,
+      "no_speech_prob": 0.12451171875
+    },
+    {
+      "start": 2367.65,
+      "end": 2394.5,
+      "text": " Okay, this is zero because because the bit itself is zero. If this is a position zero, then this is one because bit is one. So I hope you got it, right? This is how we are calculating the values. Now we need to again calculate the again calculate these values. Now see this list is basically having list and bit. Now I have the value of this. Now, what do you think the value of this will be? Right? So",
+      "avg_logprob": -0.18388157361432125,
+      "no_speech_prob": 0.0251312255859375
+    },
+    {
+      "start": 2395.34,
+      "end": 2424.74,
+      "text": " let's suppose like just for a single example list gives bit for this single example list give bit if this position this value is 4 list give bit then this list value is also 4 right so this list value will also be 4 and what about this list value if this list is following while list and bits then this list value will be just a list value plus a bit value which means I will just sum up these two values now 4 plus 0 is just 4 so let me just show you",
+      "avg_logprob": -0.14469068679882555,
+      "no_speech_prob": 0.669921875
+    },
+    {
+      "start": 2425.02,
+      "end": 2449.98,
+      "text": " See, these are the force and then 4 plus 1 is 5. So, anyway like that is how we are calculating the bit, the position and value two attributes. Now, you do not need to worry about how to augment the grammar, how to write this grammar. I just wanted to drive some intuition that how to write the grammar, but in the exam you do not need to write the grammar, ok. The grammar will be given to you, you just need to analyze that grammar, ok or you just need to analyze those semantic actions.",
+      "avg_logprob": -0.10560826059164745,
+      "no_speech_prob": 0.0870361328125
+    },
+    {
+      "start": 2451.04,
+      "end": 2475.64,
+      "text": " or those are also called semantic rules. So you just need to analyze those semantic rules. Okay. I hope you got it. Now, these are the semantic rules associated with this grammar. And finally, I have a number. So number is followed by sign list. So you can say that if sign is negative, then it will be minus list value, whatever the value of this list. And this list value will be computed using the following semantic actions, right?",
+      "avg_logprob": -0.13799342764051337,
+      "no_speech_prob": 0.1561279296875
+    },
+    {
+      "start": 2477.18,
+      "end": 2504.06,
+      "text": " Now, let's just see that what are the attributes associated with each symbol. So these are the symbols I have, these are the attributes I have. Now for number I have value, for sign I have negative, for list I have position and well, and for this bit I have position and well. So these are the symbols and these are the attributes. Now, this well is of what type? Let's just check it. This number dot well is basically of what type?",
+      "avg_logprob": -0.12350063326984945,
+      "no_speech_prob": 0.086181640625
+    },
+    {
+      "start": 2504.31,
+      "end": 2534.34,
+      "text": " since it is since number is appearing as a head so it has to be a synthesized type so this is synthesized similarly this is also synthesized because i'm calculating it now this list position just check it list position i'm calculating the list position here right so list one position i'm calculating this list position so what do you think now in this production it should be inherited or synthesized if i'm calculating some attribute of this then it should be inherited right so this position is inherited",
+      "avg_logprob": -0.10594706480600397,
+      "no_speech_prob": 0.41455078125
+    },
+    {
+      "start": 2534.68,
+      "end": 2562.46,
+      "text": " this position and similarly this position is also inherited so since i'm calculating this value so these positions are inherited attributes these are inherited attributes and these are the synthesized values are synthesized attributes you can check it why because these values like i'm calculating the value of list 0 and list 0 is appearing as a head so that has to be a synthesized attribute so these are the synthesized attributes these are the inherited attributes now this is the first example that we have that we are seeing basically",
+      "avg_logprob": -0.11017219030431338,
+      "no_speech_prob": 0.06231689453125
+    },
+    {
+      "start": 2563.02,
+      "end": 2593.28,
+      "text": " which is having mix of synthesis engine and inherited attributes. Now let's do one thing. Suppose this grammar is given to you, then how to calculate some value which is let's suppose minus 101. Now first step is that you will draw a parse tree. So let me quickly draw it again. This is number. Number will be sign and list. List will be followed by list and bit. This bit, this list will be followed by again list.",
+      "avg_logprob": -0.18531585380595217,
+      "no_speech_prob": 0.427734375
+    },
+    {
+      "start": 2593.64,
+      "end": 2613.23,
+      "text": " and bit and then this list is just bit try now this is minus this is one this is zero this is one this is the parse tree that we have now what I want to do I want to compute the value of minus one zero one based on the semantic action that are given to me minus one zero so let's just do",
+      "avg_logprob": -0.1583488837106904,
+      "no_speech_prob": 0.04180908203125
+    },
+    {
+      "start": 2613.5,
+      "end": 2641.96,
+      "text": " like let's just follow the semantic actions now obviously the question will be that should we go top down should we go bottom up so let's not worry about it which means like whatever whatever you think is comfortable for you you may do multiple passes you may do three passes four passes whatever is comfortable for you so let's just see that how to do it I mean let's just try to do it bottom up first so I will go DFS manner so you can evaluate the value of sine dot negative which is true here",
+      "avg_logprob": -0.12755409040703222,
+      "no_speech_prob": 0.2047119140625
+    },
+    {
+      "start": 2642.22,
+      "end": 2671.54,
+      "text": " so sin dot negative is one attribute which is true you can do this way right so i'm doing a bottom up and then at this point in time you have you you see a reduction which is list gives a bit now since list gives give bit is this production and corresponding to that you have two actions so one action is saying bit dot position equal to list dot position another action is list dot value equal to bit dot value",
+      "avg_logprob": -0.13069853151545804,
+      "no_speech_prob": 0.0244903564453125
+    },
+    {
+      "start": 2671.71,
+      "end": 2705.09,
+      "text": " So there are two actions. Let me just copy those two actions in the next page. So these are the two actions that I have. Now one action is saying that bit dot position equal to list dot position. So can you add this point in time? Can you calculate bit dot position that depends on this list dot position? Obviously, you can't calculate, right? I mean, how can you calculate bit dot position that depends on this list dot position?",
+      "avg_logprob": -0.12217420355436649,
+      "no_speech_prob": 0.05572509765625
+    },
+    {
+      "start": 2705.37,
+      "end": 2727.07,
+      "text": " Since the position anyway the since the position is an inherited attribute so generally we can't calculate the inherited attribute in this way I mean if there is an inherited attribute and so using the bottom of parser we generally can't calculate there are some tricks using that we calculate I mean we first convert the inherited attribute to synthesized attribute and all so there are some tricks that I will tell you but generally we can't do it.",
+      "avg_logprob": -0.13381177862716276,
+      "no_speech_prob": 0.0186920166015625
+    },
+    {
+      "start": 2727.19,
+      "end": 2751.85,
+      "text": " So, anyway, like you do not need to know that theory, you just need to observe one thing that this bit dot position depends on the list dot position and you are currently here, right? So, you have not calculated the list dot position, right? So, you cannot calculate this bit dot position, right? So, at this, at this point in time, you cannot calculate the bit dot position. What about list dot value? List dot value also depends on bit dot value.",
+      "avg_logprob": -0.13799505068524048,
+      "no_speech_prob": 0.04541015625
+    },
+    {
+      "start": 2752.46,
+      "end": 2777.34,
+      "text": " and since you do not know the width dot well currently so that is why you also can't compute the list dot well so anyway like if you do it the bottom up first bottom up then you can only compute one value which is signed or negative which is true so then you need to check if you can do top down on all so you need to do it all of all of that but we can save a lot of time what what we can do we can just write down all the attributes that are there",
+      "avg_logprob": -0.12791053337209365,
+      "no_speech_prob": 0.03070068359375
+    },
+    {
+      "start": 2778.43,
+      "end": 2807.95,
+      "text": " and let's just check how those attributes are getting flowed which means the flow is downwards or upwards let's just check it so what I am going to do I am going to write all the attributes and then I am going to calculate the values of these attributes so here I have I think two attributes position for the list I have two attributes position and well for bit I have two attributes position and well so this is position and well this is position and well this is also position and well",
+      "avg_logprob": -0.10714285615451481,
+      "no_speech_prob": 0.10260009765625
+    },
+    {
+      "start": 2808.42,
+      "end": 2832.5,
+      "text": " This is also position and well. This is also position and well. This is also position and well. And for number, I have only one attribute which is well. For number, I have only one attribute which is well. Now, this is initialized to zero. This position is initialized to zero. Now, you know that position, if this position is zero, then this position will be one and this position will be zero.",
+      "avg_logprob": -0.1403645811809434,
+      "no_speech_prob": 0.022979736328125
+    },
+    {
+      "start": 2833.15,
+      "end": 2862.51,
+      "text": " so from the rules you know it I mean you need to do it top down but anyway like let's not worry about the top down and bottom up so we know it from the intuition that this position is inherited attribute and this is basically getting float downwards so this is 0 then this is 1 this is 0 and then this is again 2 then this is 1 and this is 2 this is 1 and then this is again 2 this is how we are calculating the position so once the position got calculated we can calculate the bit value so this is 2 power 2 which is 4",
+      "avg_logprob": -0.08388158071197961,
+      "no_speech_prob": 0.269287109375
+    },
+    {
+      "start": 2862.76,
+      "end": 2891.8,
+      "text": " and then this is 2 power 1 but this is 0 then this is 0 and then again this is 1 and 2 power 0 is 1 right. So, we have calculated the bit values and now let me calculate the list value. So, it will be just a addition of these two. So, list plus bit. So, first let me calculate this value which is just 4. So, this will be 4 plus 0 which is just 4 and then this will be 4 plus 1 which is just 5 and now you have the number which is basically minus of 5.",
+      "avg_logprob": -0.09646739260010097,
+      "no_speech_prob": 0.10760498046875
+    },
+    {
+      "start": 2891.96,
+      "end": 2916.76,
+      "text": " because of sin is minus. So, finally, you know the value of the number. So, here first you need to do top down to calculate the values of this position. So, the position initially 0, then this is 1, then that is how you calculate the value of this position and then you need to do bottom up to calculate the values of this value. In two passes, you can do it. So, once you need to do top down and then you need to do bottom up.",
+      "avg_logprob": -0.09390169758241153,
+      "no_speech_prob": 0.0236053466796875
+    },
+    {
+      "start": 2916.98,
+      "end": 2939.57,
+      "text": " But anyway, let us not worry about the evolution order, we are only concerned that how to get these values. So, we can find out the answer just by the intuition that this position is getting flowed downwards and this value is getting flowed upwards. So, once I calculate these leaf values, then I can calculate intermediate values. So, that is how we are calculating the final value which is minus 5.",
+      "avg_logprob": -0.10836396953638862,
+      "no_speech_prob": 0.004058837890625
+    },
+    {
+      "start": 2942.57,
+      "end": 2972.03,
+      "text": " Now you observe one thing that like there could be multiple flows which means that there could be multiple attribute one attribute is going like this one attribute is going like this like this there could be multiple dependencies but ultimately the dependencies must be acyclic this is very very important the dependencies must be acyclic so in general determining for any given grammar any given SDD basically SDD determining",
+      "avg_logprob": -0.15496439156653005,
+      "no_speech_prob": 0.1221923828125
+    },
+    {
+      "start": 2972.57,
+      "end": 3007.94,
+      "text": " that whether dependency is acyclic is exponential problem meaning dependency is acyclic is exponential okay so we can't do it in general so that is why we will restrict ourselves to some set of grammars so we will restrict ourselves to s attributed and l attributed grammars which always guarantees the acyclic property",
+      "avg_logprob": -0.12322443226973216,
+      "no_speech_prob": 0.05328369140625
+    },
+    {
+      "start": 3008.27,
+      "end": 3039.34,
+      "text": " okay so we will just look at the subclass of HDDs which is S attributed and L attributed right so just to reiterate attribute evolution study is just like this you can construct the pastry then see that what are the dependencies how the values are getting flowed okay position is getting flowed downwards value is getting flowed upwards like that I mean just see the see the dependencies",
+      "avg_logprob": -0.16416396723165141,
+      "no_speech_prob": 0.03741455078125
+    },
+    {
+      "start": 3039.89,
+      "end": 3055.03,
+      "text": " the values getting float upwards then perform the topological sort means like this is just a algorithm step but intuition wise you know that what is topological sort is that you can start from this position then you can go like this and then you can perform the values and evaluate the attribute according to this order.",
+      "avg_logprob": -0.10418801278364463,
+      "no_speech_prob": 0.049072265625
+    },
+    {
+      "start": 3055.38,
+      "end": 3081.08,
+      "text": " and the multiple attribute at the node in a parse tree may result in a node to widget multiple number of frames. So anyway, this step is crucial that we need to check the topological order. In what order we should go, we should go like this, then we should go like this, like that. So this topological order is important and this is not guaranteed for any given grammar. So in general, the dependencies could be cycling. Let's suppose there is one production I have and in this production, there are two rules.",
+      "avg_logprob": -0.17713067829608917,
+      "no_speech_prob": 0.01209259033203125
+    },
+    {
+      "start": 3081.46,
+      "end": 3109.22,
+      "text": " one is like this another one is like this this is let's suppose one attribute s which is a symmetric attribute which is a synthesized attribute which is depending on the inherited attribute of i of b and then this b is also dependent of s so there is a cyclic dependency right to determine whether there is a cyclic dependency it is an exponential problem so that is why we will restrict ourselves to a subclass of subclass of HDDs which are s attributed and l attributed",
+      "avg_logprob": -0.14473260309278352,
+      "no_speech_prob": 0.095947265625
+    },
+    {
+      "start": 3109.55,
+      "end": 3138.39,
+      "text": " So we will see these STDs in the next lecture. So in this lecture what we have seen we have just seen what is the definition of STD and then we have seen that how to evaluate. This may need multiple passes but that's okay. So in the next lecture we are going to see how like what is this S attributed and N attributed because these always determines a cyclic property.",
+      "avg_logprob": -0.12318978767569472,
+      "no_speech_prob": 0.0189666748046875
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"038. Lecture 15_ Syntax Directed Definition and Translat.mp4\",\"language\":\"en\",\"probability\":0.94140625,\"processing_seconds\":82.35021662712097,\"device\":\"cuda\"}"
+}

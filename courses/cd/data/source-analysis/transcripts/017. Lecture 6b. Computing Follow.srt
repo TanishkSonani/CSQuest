@@ -1,0 +1,388 @@
+1
+00:00:01,170 --> 00:00:31,600
+Now, let us see what is follow, ok. Follow of any non-terminal, let us say A. So, what does this mean and like how to calculate the follow. So, till now we have seen what is first and intuitively a first of any non-terminal A is the set of all terminals, set of all terminals, set of all terminals, terminals such that such that any string that A is producing.
+
+2
+00:00:32,210 --> 00:01:04,720
+is likely to start with one of the symbol right one of the symbol such that any string any string that A produces that A produces is likely to start it likely means like it will definitely start with one of the symbol so let me A produces is will be starting with one of the symbol from first of A produces will be
+
+3
+00:01:07,350 --> 00:01:36,500
+starting set of all non set of all terminals such that any string that A produces will will be starting with one of the symbol from first of from the set from the set ok. This is the definition of first of a intuitively.
+
+4
+00:01:38,050 --> 00:02:05,570
+Before I go to follow let me just quickly remind you that what was the idea in first so first is the set of all terminals that can be at the start of a string produces way A right and what was the idea that if there is any production then how to calculate the first so idea was that like the first step first step and that's what we will do in the follow also and this step is common that see nullable nullable symbols
+
+5
+00:02:09,710 --> 00:02:38,030
+So, first of like let us check how many symbols are going to epsilon, let us suppose these are the four symbols or four non-terminal A is going to epsilon, B is not going to epsilon, I mean now directly not going to epsilon, C is going to epsilon, D is not going to epsilon. Let us suppose these are out of these four, A and D are variable, which means they are going to epsilon in one or more step. Then to find the first of A,
+
+6
+00:02:41,060 --> 00:03:07,960
+suppose C and first of D to find the first, you first include the epsilon, first include the epsilon wherever you can, wherever you can. So, the epsilon will be here and epsilon will be here and then you will never ever include epsilon here, you will never ever include epsilon here, you will never ever include epsilon here. So, epsilon is to reach done. Now, start finding the first of A, first of B, first of C, first of D like that.
+
+7
+00:03:08,460 --> 00:03:29,380
+So, suppose any production a is like that a is x 1 is like that a is b 1 to b k let us suppose a is b 1 to b k some production is like that a is b 1 a is b 1 b 2 to b k ok. Then first of a will be first of b 1 definitely first of b 1
+
+8
+00:03:29,530 --> 00:03:56,440
+first of b1 you like I am not writing whether it will be epsilon not so I am not not worrying about the epsilon why because I have already included epsilon wherever I can okay and I am sure that I will never ever include epsilon in b and d so I am not worrying about the epsilon now it will be first of b1 comma first of b2 only if b1 is nullable okay if if b1 is not nullable then you will not be writing first of b2 if b1 is nullable then you will be writing also first of b2
+
+9
+00:03:56,720 --> 00:04:25,390
+Similarly, you will you will be also writing first of b3 if b2 is nullable, okay, otherwise you will not be writing. So what's the idea that keep processing b1, b2, till bk until you encounter a non-terminal that does not produce epsilon or let me just say you encounter a non-terminal that is that is not nullable, not nullable. Once you find once you find something that is not nullable, then you stop there, right. So that's how we are competing first. I hope you got the procedure.
+
+10
+00:04:25,640 --> 00:04:55,590
+So just keep on including b1, b2, b3. If b1 is nullable, if b1 is nullable, then go to first of b2. If b1 is nullable, nullable. If b2 is nullable, then go to first of b3. If b2 is nullable, let us suppose b3 is not nullable. Let us suppose b3 is not nullable. b3 is not nullable. Then
+
+11
+00:04:55,930 --> 00:05:24,560
+what to do just stop here just stop here b3 is not nullable just stop here that's that's how we will find the first okay now let's find the follow sets so follow follow is again we will be finding for any any given string or non-terminal or terminal so follow of any non-terminal is set of all terminals that might come after a given terminal which means let me just show you suppose
+
+12
+00:05:26,140 --> 00:05:55,520
+Suppose I have I have something like this a gives a gives a B a C B B Okay, something like this. I have some protection like this and if I if I ask you what is follow of a Then you will be saying follow of a will be Whatever symbol that is just after a so just after capital A. What is the symbol C? So it is C You're done. Okay, and and what is follow of B? What is follow of B?
+
+13
+00:05:55,850 --> 00:06:25,320
+follow b is whatever symbol that is that is just after this b. So, this is d then I am done. So, this is how I will be calculating follow. This is how I will be calculating follow. I hope you got the idea that follow is whatever symbol that is just after a follow of a whatever symbol that is just after d. So, like whatever symbol that a is following, a is following c and b is following d. So, that is how we will kind of we will be calculating follow of a and b.
+
+14
+00:06:26,610 --> 00:06:58,770
+Let's take one example. Let's find out follow of s here follow face Okay, so follow of s like if s is a star symbol if s is star symbol It's not symbol then follow of s follow of s will always contain some special symbol which is dollar Okay, why that is the case because we assume that After input after input
+
+15
+00:06:59,040 --> 00:07:20,140
+like let's suppose a b c a this is your input then we always have dollar and and in the in the top-down parsing we always assume that for the start symbol like if we are using stack then that will get to you will get to know if you are using stack then dollar is at the bottom of stack and then you have s so basically like this is important point that
+
+16
+00:07:20,370 --> 00:07:48,930
+after after string after a string we we assume that we have dollar as a end marker okay and then we will say that if s is producing that string s is producing that string so basically this s dollar is this s dollar is producing that string including the dollar okay so s always and always follow dollar this is our assumption so that you will get to know later like this is helpful in top-down parsing and also in the bottom-up parsing I will be adding the augmented production
+
+17
+00:07:49,230 --> 00:08:17,490
+So, there will be augmented production I will be adding something like this I will be adding it. So, you will get to know like what is this augmented production in bottom of parsing and we add this augmented production to detect like whether I have reached at the end or not. Similarly, we add this dollar after start symbol to check whether I have reached the input like whether I have reached the end of input or not. So, anyway this follow has if as a start symbol then it will always contain the dollar it will always contain the dollar.
+
+18
+00:08:18,870 --> 00:08:49,580
+if if s is start symbol then it will always contain the dollar now now now let me just write dollar and now let's just compute the follow okay so this has a this has b and then we're done right dollar a b why because s is following a s is following b and dollar is why because s is start symbol because s is start symbol that's why it has dollar right now now let me ask you one question can follow of any non-terminal let's say x or a
+
+19
+00:08:49,830 --> 00:09:16,970
+fall of a contain contain epsilon can fall of a ever contain epsilon which means can i can i ever like do i ever need to say that a is following epsilon let's suppose this is this is like this so a is following a that i agree but 2a which also following epsilon which means can i rewrite it like this like a epsilon av and a is also following epsilon so like this is this is not making any sense right
+
+20
+00:09:17,270 --> 00:09:52,200
+Otherwise, you will always be having only epsilon after after after any non-terminal. So, follow can never ever contain epsilon. Follow can never ever contain epsilon. So, follow of a can contain epsilon. So, follow no answer is no. So, follow of any non-terminal follow of any non-terminal non-terminal cannot contain epsilon. So, these are the two points that I am saying.
+
+21
+00:09:52,510 --> 00:10:23,380
+if it is star symbol it always contain dollar and none of the non-terminal contents epsilon as a as the follow okay none of the none of the non-terminal contents epsilon is follow I hope you got the point now let's find out the follow of some of the grammars let's find out the follow of E follow of OP okay follow of OP so tell me where E is coming on the right hand side wherever E is coming so E is coming here E is coming here
+
+22
+00:10:23,630 --> 00:10:50,840
+which means since he starts symbol let me first add dollar since he starts symbol is coming here and after that you have collaging parenthesis is coming here also each coming here also after that you have OP so E is following OP what does this mean E is following OP so if you have non-terminal then you always say that E is following basically first of the remaining first of the remaining which means
+
+23
+00:10:51,180 --> 00:11:21,230
+this will be having, you will be having first of OPE bracket. You will be having OPE bracket. First of OPE bracket, which means E cannot like, here I will be writing the terminal, so we cannot follow the terminal, non-terminal. So, I cannot write OPE. E is following first of the, like this, like whatever is the first of this, right? And what is follow of OPE? Follow of OPE is first of this, first of this, E and bracket.
+
+24
+00:11:21,650 --> 00:11:50,350
+So, it is basically first of first of E and bracket E and bracket ok. So, why I am writing why I am writing why I am not only writing E what if E is nullable though. So, I will be also taking the bracket in the first that is why I am not writing and just E ok. But in this grammar none of the thing is nullable. So, I can I can just say that first of OP like this first of E will be just first of E E bracket will be just first of E which means dollar and dollar and bracket.
+
+25
+00:11:50,580 --> 00:12:20,520
+So that's why follow of OP also don't unpack it. And then, then you can just copy this, you can just copy this here also because it is okay, it is containing first of OP not follow of OP. So, yeah, so first of E is, sorry. So this is this is a follow. First of E, let me just calculate first here. First of E and first of OP, first of OP. So what is first of E? First of E is int, int and
+
+26
+00:12:21,080 --> 00:12:50,760
+E is also producing this. So, two things first of OP is plus and star plus and star. So, now let me just copy this first of OP E is just first of OP which is plus and star and first of E is just int and brand. So, follow of E will be dollar closing parenthesis plus and star and follow of OP will be int and
+
+27
+00:12:51,000 --> 00:13:17,790
+opening parenthesis, opening parenthesis, which means that E will be following, E will be following dollar because it is a star symbol, closing parenthesis because of this and plus and star because of first of OP, because of first of OP. If OP goes to plus, then E will be following plus, if OP goes to star, E will be following star. And what is follow of OP? Follow of OP will be following first of E, which means intent. So,
+
+28
+00:13:19,790 --> 00:13:49,770
+So I hope you've got the idea and now let me tell you graphically. So what is happening here? Like there will be three there will be three cases So let me first tell you like this suppose suppose there is a grammar that is s is going to or let me take s is going to let's say Something which is a b c. Okay, and you want to find out you want to find out follow of follow of B Follow me you want to find out follow me then you will say that it is first of first of C
+
+29
+00:13:50,190 --> 00:14:19,630
+first of c right but as I said you as I said you that none of the no terminal contains contains the epsilon in the follow so what if first of c is epsilon what if first of c is epsilon like it cannot contain epsilon so ideally I should be writing this first of c minus epsilon ideally I should be writing like this minus epsilon but but let's not worry about it like because I know that it cannot it cannot contain the epsilon so I'm not writing minus epsilon okay so ideally ideally I should write first of c minus epsilon
+
+30
+00:14:19,870 --> 00:14:49,810
+so anyway so what if c first of c is containing epsilon what will be the follow up b then i mean follow up b is first of c that is okay without epsilon then it will be union of first of c if c is containing epsilon then this will reduce to a b only then what is follow up b just think about it s is giving you a b a b and let's suppose after s in in like somewhere like it you are getting it from s a and this s is giving a b so finally you have
+
+31
+00:14:50,090 --> 00:15:19,070
+finally you have s as produces s a then s as produces this a b and then a also you have okay now tell me what is follow b in this case what v is following whatever s following because because c c went to null c went to null so what we will follow whatever s is following so it will be follow of follow of s it will be follow f follow of s if if if c first of c
+
+32
+00:15:19,640 --> 00:15:52,830
+First of C or let me just write see if C is nullable if C is nullable if C is Nullable right Let me just say C is nullable. I hope you're getting the idea. So can you generalize it? Let me just try to do it. So suppose you have B1 B2 B3 B4 till BK Okay, and you want to find out follow off not a like I should be having a on the right hand side So let me just say follow B2 or B1 or something. Let me say B1, okay?
+
+33
+00:15:53,260 --> 00:16:22,430
+Then it will be it will be first of B2 basically should be first of whole thing first of whole thing So instead of writing like this. I'm I'm writing I'm breaking it down Okay, I mean follow B1. It should be first of B2 B2 B3 Till BK ideally should be like this and then I'm breaking it down into simpler simpler pieces So it will be first of first of basically B2 only first of B2 only but
+
+34
+00:16:24,200 --> 00:16:53,430
+but what if what if b2 is nullable if b2 is nullable then you will be having first of b3 also what if b3 is nullable then you will be having first of b4 also and till you will be having first of bk let's suppose everything is nullable now this is interesting this is interesting what if bk is also nullable if bk is also nullable which means after after that b1 nothing is left which means it just reduces like this it's just reduces like this
+
+35
+00:16:53,720 --> 00:17:23,150
+then then you will be having you will be having follow of follow of A also in b1 because b1 will be following whatever A is following right so if you are find if you are finding follow of b1 so you will say first of b2 if b2 is nullable b2 is nullable then you will go here if it is nullable b3 is nullable b3 is nullable then you will go here if bk is also nullable then you will be going for follow of A okay if bk is nullable
+
+36
+00:17:23,950 --> 00:17:53,650
+and in simple words basically if it is the last non-termula that is remaining I mean after that there is nothing that is remaining then follow b1 will be a follow of a okay so suppose suppose if that is given if that is given and if I ask you x, y, z if that is given if I ask you what is follow of z then you will say it is just follow of a follow of a it will follow whatever whatever a is following right
+
+37
+00:17:53,900 --> 00:18:25,410
+follow of z it will be just follow of a just follow of a okay you are getting so after z there is nothing that's why follow of z will be follow of a and what will the follow of x or follow of y follow of x will be will be first of y z which means first of y first of y and then if y is nullable then first of z first of z if z is also nullable if z is also nullable then you will go for follow of a right
+
+38
+00:18:25,790 --> 00:18:54,870
+of A. So, it is first of Y, first of Z and if Z is also nullable then you will go for fall of A. So, if Y is nullable, Y is nullable then you will go for this, if Z is nullable then you will then you will go for fall of A. So, these are the three things, if Z is nullable. So, here it will be basically fall of B1 will be first of first of everything and if this is nullable then you will also be having fall of A. I mean like
+
+39
+00:18:55,100 --> 00:19:23,270
+If these things are, if everything is nullable, then you will also have the follow-up A. Union follow-up A you can write if you want. By the way, you got the idea, right? So I will be going like this. I will go, if nullable nullable, I will be going like this. And if last thing is also nullable, then I will say that this is also, also content. It's not like it is, it is, if I'm going from here to here, then I'm forgetting this. No, I will have this, and I will have this, and I will have this. If last thing is also nullable, then I will also have the follow-up A. Okay?
+
+40
+00:19:24,370 --> 00:19:53,230
+So, let's understand this with just a diagram. So, let's suppose I want to find the follow of A. Now, from this case, you can just say the follow of A, like I am not giving you the protection, let's say I am just giving this diagram. So, A is following A, small a, so A is in the follow of A, right? By looking that, if I ask you follow of A, will you want? You will say that since this has been to epsilon, so A is directly following A, A directly following A, right? A is again directly following A, right? Now, now suppose
+
+41
+00:19:53,680 --> 00:20:21,980
+if I if I give you this diagram and I ask you what is follow of A then you will say that there is nothing after after follow of A after A then follow of A will be will be follow of S. So, follow of S must contain dollar that is why I must have dollar in the follow of A also. Let us take more examples. So, basically again there is some pictorial representation of first and follow. So, for given any non-terminal suppose it is it is generating something
+
+42
+00:20:22,280 --> 00:20:47,000
+then first will be first will be this symbol whatever it is generating set of all all symbols like whatever possible it is generating set of all symbols wherever wherever like set of all symbols set of all first symbols that that it is generating right that will come into the first and after x whatever is coming so see here after just after x whatever is coming it is for no of x after x whatever is coming
+
+43
+00:20:47,300 --> 00:21:17,100
+So follow x for a non-terminal axis set of symbols that might follow in the derivation of x in the input token history. So basically x whatever x is following. So x is following this. This is what x is generating. I'm not overwriting this diagram otherwise it won't look good. So this is what x is generating. After x whatever is coming is followed. And first of x will be whatever first is generating. I hope you understood from this diagram. Now let's take more examples and by that you will be definitely understanding the first and follow concept.
+
+44
+00:21:17,250 --> 00:21:46,310
+okay so let's find out first and follow for this these non-terminals okay so either you are finding first you're finding follow or we are finding both the first step is that just see whatever the nullable symbols so tell me is s nullable is a nullable is b nullable is c nullable so I think this is nullable this is nullable this is nullable I can directly check is s nullable I think yes because this is giving bc so so b b can go to null and c can go to null so s is also giving you null protection
+
+45
+00:21:46,590 --> 00:22:12,210
+So, basically all of them are nullable, nullable, all of them are nullable. Now, let us find out the first. Let us find out the first of S, first of A, first of A, first of B, first of C, first of C. So, what will the first of S? What will the first of S? It is basically small a, small a and then first of S AB.
+
+46
+00:22:13,310 --> 00:22:39,650
+So, it means first of S. So, I do not I am. So, basically it is first of S, A, B and I am not writing. So, it is basically it basically means what? First of S, first of S. If S is notable then first of A also then first of A also. Okay. Oh sorry. Let me first write epsilon everywhere. Okay. Epsilon everywhere and then I will be calculating the first because everything is notable. So, A here. Okay. So, yeah.
+
+47
+00:22:39,950 --> 00:23:09,070
+so this will be first of s and then if s is nullable then first of a and then if a is nullable then b first of this b which is b only right so it will be first of s which which is just repeated thing of writing like i do i'm not writing first of s here so it is first of a it is first of a comma b right so this is okay now from bc what what you can say it is first of b first of b if b is nullable which which in fact it is it is then it will be first of c first of c also right
+
+48
+00:23:11,010 --> 00:23:38,310
+Now, what is first of A? First of A will be, again I think this example is little tricky, it is A and then first of A which I am not writing repeatedly, then first of, because like first of A condensed, first of A is not helpful, so then this is first of A and then it will be, if A is 11, which in fact it is, then it will be first of S. First of S, right? Now, what about first of B? First of B epsilon and then first of B which I am not writing again.
+
+49
+00:23:38,570 --> 00:24:06,350
+then it will also contain first of a first of a first of a then it will it will go to the next production then you will say that okay it is basically first of a which you have already written if a is nullable you will go to b and that will be first of b so there is no no benefit of writing first of b here so okay let's go to the third production this is absolutely right absolutely that is fixed now as you can see this contains first of a b c and this contains first of s
+
+50
+00:24:06,700 --> 00:24:34,620
+which means this also contains first of abc this also this concerns first of a which means this contains first of s which means this contains first of abc everything so let's just see what is what we are getting so from a you want to be adding anything from from b you want to add a and adding anything here and from c you can add i think e right so this is epsilon a so first of s let me just write first of s will be epsilon a and b is already there
+
+51
+00:24:34,890 --> 00:24:57,810
+and then from from a you are not adding anything this is epsilon a you already have epsilon you already have i mean epsilon anyway like you know when to write or when to not write so don't worry about the epsilon because we we've in the first iteration only we decided about the epsilon's right so yeah so first of c from first of c you're adding e right yeah so this is all you're adding
+
+52
+00:24:58,110 --> 00:25:25,050
+in in one iteration then basically you will say that okay this epsilon a b will be here also because this is containing first of s so you will be having having b and e here and then this contains first of a which means epsilon is here so a b e it was also contains a b so everything is having epsilon a b epsilon a b epsilon a b everything everything is having that that is the first epsilon a b and here here this is just epsilon e here this is just epsilon a okay
+
+53
+00:25:25,900 --> 00:25:55,600
+So, first you have found out. So, let me write in the next page. First of S, first of A, B, C, right? A, B, C, these are epsilon, epsilon, A, B, E, epsilon, A, B, E, right? These are epsilon, A, B, epsilon, A, B, E. These are epsilon, A, B, epsilon, A, B, E. And this is
+
+54
+00:25:56,150 --> 00:26:27,010
+This is epsilon and E. This is epsilon and E. These are the first. Now let's find out the follow. So let me copy this example in the next page and then we will find the follow. So let's find out the follow of everything. So everything is nullable. Now let's find out the follow of S. So tell me what is follow of S? Follow of S from this example, you will be saying follow of S will be first of AB, right?
+
+55
+00:26:27,340 --> 00:26:56,240
+If A is nullable, then it will be B, otherwise it will be just first of A only. So what is first of A? So first of all you will be writing dollar. What is first of A? It is epsilon ABE, but you never write epsilon in the follow, so it is just ABE. And if this is epsilon, I mean this is nullable, then you will also go for B. And B is already included, so that is all. So follow of S is done. I mean, from this production it is done, you will be also having the follow of S.
+
+56
+00:26:56,470 --> 00:27:24,900
+follow has from this protection, I mean from this protection wherever it is on the right side. So, from this protection and this protection. So, what is follow phase from here? You will be saying the follow phase is just the follow of A. Then it will be follow of A also, follow of A also. And from this protection using follow phase is just follow of S. So, there is no need to write again and again. And what about follow of A? Follow of A wherever it is coming on the right hand side. So, A is coming here.
+
+57
+00:27:25,150 --> 00:27:52,350
+A is coming here so from this production just tell me what is falloff A I think this is B from this production it is first of S first of S if S is nullable then it will be just falloff A which is which is no benefit of writing so what is first of S first of S is ABE so B I already written so AE right okay and then A is coming here A is coming here so it will be falloff B it will it will be containing falloff B falloff B and then
+
+58
+00:27:53,230 --> 00:28:21,030
+and then A is coming here, it will also be containing first of B. If B is nullable, then it will also contain the following B, right? Because of this. So, you are getting here, B is AB. So, because of this B, it will be containing first of B, it will be containing first of B, first of B. If B is nullable, if B is nullable, then it will contain, because of this B, I mean, it will reduce like this, then because of this thing, it will contain the following B, okay?
+
+59
+00:28:21,350 --> 00:28:52,840
+so it will follow b I have already written so let's not write it if b is null level the since b is null level so I will be even follow b so let's not write it again okay yeah now let's go to follow of b follow of b it will be it will be follow of a follow of a and then if a is null level then again follow of b so that's okay now here from here you can just say follow of b only so that's okay so it is follow of a okay and what about what about follow of c
+
+60
+00:28:53,150 --> 00:29:24,190
+fall of c fall of c will be where is coming where c is coming on the right hand side here right so it is fall of s only only at one position it's coming so it is fall of s now let's just do one thing let's let's combine everything so this contains fall of a so a b e dollar you already have a b so it is not giving you anything and this contains fall of b fall of b fall of a and fall of so first of b i can write right so first was the epsilon i mean without epsilon because fall never contains epsilon a b
+
+61
+00:29:24,480 --> 00:29:50,930
+So, it is not not adding anything right first of B is not adding anything. So, let me just remove it and follow of B ok, follow of B and follow of A has to be same and it is just saying copy each other. So, like here also you will be having BAE ok and here also you are just having BAE. So, it is not adding anything follow of B will be just follow of A and follow of N follow of B are actually same. So, here also it is not adding anything right.
+
+62
+00:29:53,360 --> 00:30:21,160
+Now, what about follow of C? It is follow of S. Follow of S is dollar A, A, B, E. So, it is dollar A, B, E. And then follow of A. What is follow of A? B, A, E. So, B, E, I already have. So, this is I am done with this. And follow of A, let me just remove this follow of A also from here. Follow of A is basically A, B, E. I already have A, B. So, yeah, I am done. So, you can remove this follow of A. And these follow of follows are these things.
+
+63
+00:30:21,630 --> 00:30:51,700
+So, finally, I am getting this answer. So, this was a long example, but I hope you got the point that what is first and follow. So, how to find out the first and follow? First, I think you are you are you are having already good idea. How to find out the follow? You just need to do one thing that you just need to take care of few things that if let us suppose if you are having A, B, C, D something like that and if you are asking follow B, it will be first of C if C is in a label.
+
+64
+00:30:52,130 --> 00:31:20,500
+If c is nullable, I mean it will be basically first of cd, first of cd, which means if c is nullable, you will go for first of d also. If d is also nullable, then follow of b. So follow of b is basically first of cd, cd, or let me write it in the smaller form, first of c, first of c. If c is nullable, then you will go for first of d.
+
+65
+00:31:20,840 --> 00:31:47,390
+I mean also it is not like you will you will either having this or this you will you will having both first of D and then if D is also nullable, if D is also nullable this is if C is nullable then tell me if D is also nullable then what will happen? B is nullable then what will happen? Then you will say it is just fall of A. So, fall of B will be also for containing fall of A that is all. I hope you got the idea.
+
+66
+00:31:51,020 --> 00:32:19,510
+So let's find out the first and follow like first you already know but But sometimes we need to know first for to compute the following right because it follows sometimes one in the first So let me just do first and follow for this grammar, right? So let's find out whatever are the nullable symbols. So is e nullable t nullable x nullable y nullable Let's quickly see x nullable y nullable is e nullable I think x and y are nullable
+
+67
+00:32:19,850 --> 00:32:48,670
+t is not nullable, since t is not nullable, e can also not be nullable time. Now, let us find out the first. So, in the exam or in the you know questions either they will be asking first follow or they will be asking for the predictive parser table. So, in all the cases like whatever they will ask, they will not ask you the complicated examples like this. So, but we need to do it for the practice, they will just ask you the simple examples like this. So, let me tell you why it is simple. First of t,
+
+68
+00:32:49,000 --> 00:33:16,440
+and then you need to calculate first of x, then first of y, first of y. So, first write the epsilon wherever you can. So, here you are writing epsilon is the first. Now, now tell me what is first of e? What is first of e? It will be first of t, first of t. So, I think first of t, let me first calculate first of t, it is just this and end. So, first of e will be first of t. If t is nullable,
+
+69
+00:33:16,680 --> 00:33:41,970
+If t is nullable, then I will go for first of x, but it is not in a level. So, let us not worry about it. What is first of x? It is just absolute plus. What is first of y? It is just absolute star. Now, let us find out the following. Follow of e, follow of t, follow of x, follow of y, follow of x, follow of y. Let us find out the first and follow. Let us find out the following here.
+
+70
+00:33:43,020 --> 00:34:12,310
+So, follow of e will be just see wherever it is coming in the right hand side. So, first of all it is a star symbol right bowler, it is coming right on the right hand side. So, on this grammar on this production. So, there will be bracket. Yeah, it is coming right hand side here also, but there is nothing nothing after that. So, you will be seeing it is also containing follow of x, follow of x, right. So, it is coming on the right hand side two places because of this I have written this, because of this I have written follow of x, right. Now, I am done.
+
+71
+00:34:12,730 --> 00:34:43,350
+now let us write fall of t what will the fall of t it is coming here now it will be it will be first of x first of x if x is nullable if x is since x is nullable then it will be fall of e also okay so x is t is coming I think yeah here also t is coming here also t is coming so you will be having fall of y also right fall of y also what about fall what about fall of x fall of x will be
+
+72
+00:34:44,090 --> 00:35:10,470
+Where it is coming on the right hand side this in here, so it will be fall off follow of e and Where it is coming on the right hand side this x x is not coming anywhere else. So we just follow free What about fall of y fall of y will be containing fall of t and y is coming I think only only at the one place on the right hand side So it will be containing fall of t now. Let's let's combine these things
+
+73
+00:35:10,780 --> 00:35:37,800
+So, it is containing fall of x. So, fall of x and fall of e should be same because fall of x is also containing fall of e right. So, here here just right dollar and dollar and closing parenthesis ok dollar and closing parenthesis right. Now, this is ok. Now, ok this fall of e like you resolve this and then this fall of x will be just like you can you can remove this because fall of x is just continuing dollar and credit.
+
+74
+00:35:38,190 --> 00:36:07,830
+Now, what about fall of t? It is containing first of x, which is I think epsilon and plus, but we never write epsilon, so just take plus. And what about fall of e? Fall of e is containing dollar and closing parenthesis. So, yeah, that is okay. So, you can remove these two. What is fall of y? Fall of y is fall of t. So, which means like fall of y and fall of t are same plus dollar bracket. You are done with that, right? You are done with that. So, fall of e is dollar.
+
+75
+00:36:08,210 --> 00:36:40,920
+and this closing parenthesis. Fall of t is plus dollar and closing parenthesis. Fall of x is dollar and closing parenthesis. Fall of y will be plus dollar and closing parenthesis. Okay. I hope you got the idea. Okay. So let's solve one more one more example. Now tell me what will be what will be first of epsilon? It is just epsilon. What will be first of A? It will be just A. What will be first of A alpha? It will be A if if alpha is not nullable.
+
+76
+00:36:41,050 --> 00:37:11,680
+right not nullable sorry it will be a always like even if alpha is nullable it will be a always it is not alpha it is it is basically alpha so it is it is always like that now tell me what will be the first of bc it will be first of b it will be first of b i mean i'm not worrying about the epsilon okay i'm not worrying about the epsilon because we already decided that so based on that i'm writing i'm not worrying about the epsilon so it is first of b and if b is nullable you will go for first of c
+
+77
+00:37:11,880 --> 00:37:52,590
+you will go for first of C if B is null level okay if C is also null level like then it will contain epsilon it will contain epsilon but we are not worrying about the epsilon because we have already written epsilon in the first step I'm assuming that okay and if if I just give you this production if I ask you what is follow B then you will be saying follow B just follow A follow right okay now let's solve this they are saying that E E gives TE prime E prime gives TE prime so basically you need to find the first and follow right
+
+78
+00:37:53,940 --> 00:38:23,430
+So, can you do it at the home or should I do it? So, I have I have the answer here. So, just do it and try to match the answer, okay? Just do it how to do it or like you need to first check whatever is the nullable symbol t t prime f whatever is the nullable symbol. So, here I think t prime is nullable e prime is nullable directly you can say. So, t prime is nullable no t is nullable or not. So, f is not nullable clearly you can see f is not nullable
+
+79
+00:38:23,630 --> 00:38:49,820
+So, is t nullable since f is not nullable this is not nullable is e nullable since t is not nullable e cannot be nullable. So, you can say that first of e will never ever come contain epsilon ok let me let me just write first and follow here let us say this is first this is follow ok. So, first of e will never ever contain epsilon right will never ever contain epsilon because this is not nullable right. So, this will never ever contain epsilon.
+
+80
+00:38:50,170 --> 00:39:17,660
+and this will contain this will definitely contain epsilon this will definitely contain epsilon this will never ever contain epsilon okay now what about other first so first of e will be first of t right first of t so let me first find out first of e prime and because this seems very easy it is just plus and first of f is also very easy this is just id and what about first of t prime it is also very easy it just star here
+
+81
+00:39:18,000 --> 00:39:50,090
+what about first of t it is just first of f it is just first of f if f is nullable then i could have written um first of t prime but f is not nullable so i'm done what about first of e prime e prime is plus yeah this is i'm done and what about first of e it will be it will be first of t right so what is this first i've written okay so it is i was about to write first of t but but now i can write first of t directly which is the same
+
+82
+00:39:50,330 --> 00:40:19,040
+right. So, let's match with the answer. So, E, T and F is having first of like these are just ID right, this is an ID and this is having plus epsilon and multiplication epsilon. So, this is having plus epsilon and multiplication epsilon. So, I think our answers are correct. Now, let's find out the follow. Now, to find out the follow what you need to do, you just need to check wherever it is coming on the right hand side.
+
+83
+00:40:19,300 --> 00:40:45,410
+Now see where E is coming on the right hand side. E is coming on the right hand side at this place. So that's why first of all it should contain dollar and then that's why it is containing the closing parenthesis. And where else E is coming on the right side? I think on the one place only. Wherever E prime is coming on the right side. E prime is coming here, here, right at two places. So it means E prime is coming right side here which means it will contain the follow of E like this.
+
+84
+00:40:45,720 --> 00:41:15,350
+and then e prime is contained right side here which means even it will contain the fall of e prime which is just this. So, I am done. What about fall of t? Fall of t will be t is t is having right side here here at two places right. So, fall of t will be first of e prime first of e prime which is just plus if first of e prime contains epsilon which means e prime is nullable then fall of e fall of e is these symbols right ok. And from this you will be saying
+
+85
+00:41:15,620 --> 00:41:46,270
+like you will be having the same thing like first of first of e prime if e prime is nullable then follow of e prime follow of e prime and follow of e prime is having dollar bracket so yeah i'm done now for the t prime you will be seeing wherever it is coming on the right hand side at this place at this place which means first follow of t prime will be follow of t follow of t follow of t which means this dollar and bracket from this production from this production follow of t prime which is just this right so i'm done and
+
+86
+00:41:46,600 --> 00:42:16,760
+just see wherever f is coming on the right hand side at these two places then it will be first of t prime first of t prime it is basically like i never write epsilon right so it will just star and and then i'm writing here right so and then if t prime if t prime is nullable or t prime first of t prime contains epsilon then it will be follow of follow of t it will be follow of t it will be follow of t and follow of t is having plus dollar and bracket okay
+
+87
+00:42:16,960 --> 00:42:46,470
+so this is done and then from here you will be you will be saying you will be saying first of t prime first of t prime so first of t prime i have already written if t prime is null level then you will be saying follow of t prime also so follow of t prime will be plus dollar and bracket so plus dollar bracket i have already so this is the answer right so let's just quickly match it dollar bracket dollar bracket i have here so yes and then i have now plus dollar bracket for these two t and t prime so for t and t prime plus dollar bracket
+
+88
+00:42:46,740 --> 00:43:15,500
+and then I have then I have star plus a dollar bracket right star plus dollar bracket for the follow-off right I hope you got it now let's let's take this as a last example and or you or you can take it or since I do not have the answer in the slide so let me just take it as a last example for first and follow so just find out the null level whether whether s is null level so I think s is null level it's a null level
+
+89
+00:43:17,510 --> 00:43:45,470
+Since s is null level, b has to be null level and since s and b both are null level, that is why a is also null level. So, in the first you will be having epsilon everywhere. So, in the first you have epsilon, in the first you have epsilon, in the first you have epsilon, ok. Epsilon is still is done for the first, ok. Now, now let us calculate first from the other in the production. So, basically this is this is generating a. So, it has to a, right. So, I am done with the first of this because epsilon I have already did it.
+
+90
+00:43:45,770 --> 00:44:17,050
+and then first of a will be b and then b and then first of s first of s which is a and if that is nullable if first of s has epsilon then first of b first of b i have not currently calculated so first of b okay so what about this this is containing c and first of s first of s is just a right so it is it is having first of b is having epsilon c a so that's why you will be having c extra here right so a b c epsilon
+
+91
+00:44:18,400 --> 00:44:47,820
+abc epsilon which is obvious also a can generate either starting with b or a can generate epsilon a can also generate either starting with a like using this s production a can also generate either starting with c using making s null and making b start with c right so the string that are that are getting generated by a are basically starting with epsilon which means you can produce null from a or ab or c okay now let's just go to the follow of each symbol
+
+92
+00:44:48,140 --> 00:45:19,280
+falloff is similar. Now, what is falloff S? Falloff S will be just falloff like falloff S first of all it should be dollar and then from this production we will say instead falloff S. So, does not make any progress from this production using falloff S will be falloff B, falloff B. What about this? This will be falloff A will be first of S, first of S, first of S and if first of S is nullable since it is like S is nullable
+
+93
+00:45:19,520 --> 00:45:51,590
+since it is nullable so you will be having you will be having fall of s also yeah this is interesting so if first of s is nullable you will be having fall of s also fall of s right so like I am done with this production so now from here you can say fall of b fall of b you can say fall of b right now what will the fall of b fall of b b is coming here on the right hand side fall of b will be fall of a fall of a fall of b will be fall of a
+
+94
+00:45:53,670 --> 00:46:21,160
+Okay. So now let's just let's just merge them. So follow B will be follow of a and follow of a is first of s. So first of s is containing absolute I never write so first of s is containing a. So it is a now follow of s. So follow of s means dollar and follow B and follow B I already did. So first of s is done. This these two are done points and follow B, right?
+
+95
+00:46:21,710 --> 00:46:52,200
+So fall of B has fall of A and fall of has A has this so both are same basically so it will also be having A dollar so both are same so you can just remove this and Then you have you have fall of B which means you have fall of B means A dollar so you will be writing A dollar but dollar you already have so you will be writing A so everything is having A dollar as follow A dollar as follow A dollar as follow I hope you got this example also This is how we are calculating first and follow now
+
+96
+00:46:52,620 --> 00:47:27,210
+your next question will be why we are calculating right why why we are calculating little first and follow this seems useful but where i'm going to use them i'm going to use this first and follow at both the places which means like i will be using in top down parser we will be also using this in bottom up parser okay now in the next lecture we will be starting with the top down parser
+
+97
+00:47:27,540 --> 00:47:44,010
+that is basically like we have already seen one type of problem which is with the backtracking. Now, we will be starting with the predictive parsers which means without backtracking predictive parsers ok. In the next lecture, let us start predictive parser.
+

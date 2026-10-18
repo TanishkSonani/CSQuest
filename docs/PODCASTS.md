@@ -1,5 +1,10 @@
 # Section podcasts
 
+The pronunciation correction and player update are documented in
+[PODCAST_NOTATION.md](PODCAST_NOTATION.md). That pass covers 109 published episodes
+and keeps formula display separate from the speech sent to the voices. The
+historical generation and test counts below describe earlier releases.
+
 Each published course unit has one English conversation between Maya and Leo. The scripts introduce the section, cover every published topic in order, and end with a recap. The current inventory is 90 episodes across nine courses and 666 topics. TOC and Compiler Design remain unpublished and are excluded.
 
 Episodes adapt the existing beginner explanations, glossary definitions, examples and worked question explanations. They supplement the interactive lessons. They are not independently edited recordings of a human instructor. Some worked examples also appear in course exercises. Listening never awards XP, submits answers or completes lessons.

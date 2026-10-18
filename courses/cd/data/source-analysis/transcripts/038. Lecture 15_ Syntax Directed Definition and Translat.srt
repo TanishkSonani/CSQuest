@@ -1,0 +1,444 @@
+1
+00:00:00,000 --> 00:00:34,010
+Hi everyone in this video we will be looking at semantic analysis which is next phase of compiler so after parsing semantic analysis comes now why we are doing semantic analysis is because there are something that parser cannot catch suppose i have some statement a equal to b plus c according to the parser b is one identifier c is also one identifier a is also one identifier so according to the parsing rule it may be correct
+
+2
+00:00:34,410 --> 00:00:58,980
+which means i can add two identifiers and then the final result i can store in some other identifier so according to parser this may be correct but according to the language it may not be correct which means suppose like b type is something so there is some b type and that could be some integer suppose and then c type is something
+
+3
+00:00:59,380 --> 00:01:25,560
+let's suppose it is like there is some language which allows type of string okay in C language you do not have string as a type but I'm just taking one example that there is a language which allow type as string and in that language integer and string operation is not allowed then in that case we should be able to capture that see this type is it this type is string that is why this addition should not be allowed
+
+4
+00:01:26,140 --> 00:01:54,370
+So these kind of things are being done in semantic analysis phase and not only these type checking So this is one of them type checking is one of them and there are many other things that we do in semantic analysis phase So what what we are going to do? We will take examples of Grammars and I will show you that how how to do type checking and other things in the semantic analysis phase So there are a few definitions
+
+5
+00:01:54,970 --> 00:02:23,150
+Before I go to the details, there are two definitions in the semantic analysis. One is Syntax Directed Definition. One is called SST, which means Syntax Directed Definition, which says that you have a production and along with the production, you specify some semantic rules. What are those semantic rules? So, each production is having some variables. So, suppose this is E, I mean this is non-terminal and this non-terminal is having some attribute, something called attribute.
+
+6
+00:02:23,500 --> 00:02:53,000
+so this code is an attribute and yeah here here we only have one attribute so here code is one attribute and there could be other attribute also so suppose i have some production a gives bc then i can say that there are multiple attributes of a maybe a small a is one attribute maybe a small x is one attribute so there could be multiple attributes of one non-terminal so what does hdd or syntax directory definition says is that you have one production and
+
+7
+00:02:53,320 --> 00:03:14,740
+associated with one production there are some semantic rules so what are those semantic rules those are some computation over the attributes or those are some some print statement or something else so suppose that this is the production that you have then in that case i have let's suppose i have this is a semantic rule which means this is doing something so
+
+8
+00:03:15,130 --> 00:03:39,520
+it like it is doing some concatenation of two codes and then concatenating plus so that is okay like we do not need to worry about at this point in time that what it is doing all I want to convey is that there is some production and associated with the production there is some symmetric rule that is what syntax director definition says there is one other definition in this semantic analysis which is called syntax directed translation
+
+9
+00:03:39,900 --> 00:04:03,960
+So, the only keyword which is differing is definition and translation. Here I have definition, here I have translation. So, in this case, we do not explicitly specify the cementer rules. What we do? In the production itself, we embed those cementer rules, which means, like, I am explicitly not saying that this is cementer rule. I am just saying that this is one syntax-directed translation scheme that I have.
+
+10
+00:04:04,710 --> 00:04:23,050
+So, what is the benefit or what is what is the project cons of having syntax director translation over the syntax definition is that if you look at the syntax director definition, then generally it is easy to read. I mean you know that which one is production, which one are symmetric rules.
+
+11
+00:04:23,460 --> 00:04:48,530
+But here it is I mean compared to syntax that definition it is not that easy to read. So maybe this embedded semantic action maybe within the within the production itself. So we need not to be the end of production which means it could be like this plus print it could be like this. So basically this
+
+12
+00:04:49,470 --> 00:05:15,860
+action could be anywhere in the production. Maybe at the beginning, maybe in the middle. So we will see that what are those importance like when to have in the middle, when to have at the end. So that is very important topic. We will see that like where to put those semantic actions. But for now, like what I'm saying is that these semantic actions could be present anywhere in the production. That is why it is compared to HDD, it is little difficult to read out.
+
+13
+00:05:16,460 --> 00:05:34,200
+This is the one different one difference second one is that in the Semitic in the syntax tactic definition, which is this we do not specify any order Which means like we do not say that when we are going to execute the cement group right but here in syntax tactic translation
+
+14
+00:05:34,600 --> 00:06:04,570
+we specify that once we reduce this E1 like once we have E1, E1 is nothing but the annular occurrence of E. So, just to differentiate between this E and this E, I have just put it E1, but this E, it is like E gives E plus T. Just to differentiate between these two E, I am just saying it is even. So, here the order of evolution is specified, which means once I reduce something to E, then to T, then only I can print this plus. So, here
+
+15
+00:06:05,010 --> 00:06:35,000
+here the order is specified here the order is not specified so that's the like these are the two difference now don't worry we will see many examples of syntax directory definition and syntax directory translation in fact in practice what we do we basically implement this syntax directory translation schemes okay so we will see that how to implement this syntax directory translation schemes and how to make use of the syntax directory definitions now like just to give you an example
+
+16
+00:06:35,310 --> 00:07:04,980
+Suppose this is your syntax directory definition, which means you have production and you have semantic rule as separate. Okay. These are two separate things. But what you can do, you can basically put the semantic rule between the production and this thing is called syntax directory translation as DD and this thing is called as DD. Right. So in the syntax directory translation, I basically put the semantic rule in between the production. Now I can put it at the end or maybe in the between.
+
+17
+00:07:05,650 --> 00:07:32,090
+So, where to put is very important topic, we will look at it in next few slides. So, currently I am putting at the end only, but it is not necessary that you need to put at the end always. In fact, if you put at the end always, then you may not be able to evaluate some of the STTs in bottom up or top down parsers. So, we will look at it. But for now, I just want to convey is that you can put the semantic rule.
+
+18
+00:07:32,430 --> 00:08:01,400
+in between the production, maybe at the end, maybe in the between to convert the HDD to HDD. I hope that it's clear. Okay. Now there is one more definition, which is attribute grammar. And attribute grammar is nothing but a HDD syntax type of definition in which the functions in the semantic rule cannot have the side effect. So what is side effect? Side effect means that like, if it is not having the side effect means it is only computing the value of attribute values, which means let's suppose
+
+19
+00:08:01,860 --> 00:08:24,860
+This is my production and I have something like this. There is some attribute of B which is the attribute name is A and which is basically dependent on some attribute of X. So this is some semantic group. Now is this grammar, is attribute grammar? Yes. Why? Because it is not having any side effect which means that it is only computing the values of attributes.
+
+20
+00:08:25,260 --> 00:08:52,020
+it is not printing anything it is not doing anything extra other than other than computing the values of attributes which means suppose if i have some production like this where along with this i also let's suppose i also say that print some fine or something so basically what i'm doing i'm having some side effects which means i'm along with the along with the computing the values of attribute i'm also
+
+21
+00:08:52,500 --> 00:09:25,990
+printing some values or I am also doing something else which is not related to computing the attribute values. So that's why this is called side effect. And a HDD, this is an HDD, this is also an HDD. And HDD which is not having any side effect is called attribute grammar. So this is attribute grammar but this is not attribute grammar. So here you can say this is attribute grammar and this is not attribute grammar. Okay. Now this is just a paragraph that I have taken from Ulman.
+
+22
+00:09:26,310 --> 00:09:54,810
+so if you want you can read it out they have just defined the attribute grammar and hdd without side effect is sometimes called attribute grammar the rules in the attribute grammar define the value of an attribute purely in terms of value of other attributes and constants so that's the definition of attribute grammar anyway let me move to the next slide now as you as you are noticing that there are some attributes related to a grammar so what we are going to do we are going to classify those attributes into two types
+
+23
+00:09:55,210 --> 00:10:24,130
+these two attributes, like the attributes fall into two classes, one is synthesized and another one is inherited. What is synthesized attribute? A value of synthesized attribute is computed from value of its children books. What do I mean by that? Suppose I have any production like this. So A may have synthesized attribute, A may have inherited attribute. If it is synthesized attribute, let me say dot A, let's suppose this is synthesized attribute. So it will depend on the attributes of the
+
+24
+00:10:25,260 --> 00:10:53,050
+So, which means like you can say I mean there could be any relation. So, in general it could be any function of attributes of B and attributes of C. So, let us suppose I am just adding. Now, here A is synthesized attribute. Why? Because the synthesized attribute is computed from the values of its children course. Am I not computing this synthesized attribute from the values of its children? Yes, I am computing. So, that is why this is a synthesized attribute.
+
+25
+00:10:55,360 --> 00:11:20,740
+What about these attributes? I mean, are these attributes synthesized or inherited? Which means that for B, should I be having synthesized attribute? So for B, as far as the synthesized or inherited attribute of A is concerned, I do not care. Which means this could be synthesized attribute, this could be inherited attribute. So only thing that I care is that
+
+26
+00:11:21,050 --> 00:11:50,680
+this attribute of A should be dependent on its children attribute okay value of synthesized attribute is computed from value of its children nodes so it does not matter so this is synthesized attribute A is synthesized attribute now these attributes could be synthesized could be inherited okay now let's see the inherited attribute definition value of an inherited attribute is computed from siblings and parent node so here here this A is a synthesized attribute now suppose
+
+27
+00:11:50,990 --> 00:12:07,410
+I want to compute some attribute of B. Now, let us suppose this is some attribute of B. So, I can define this in terms of either attribute of C or in terms of either attribute of A and this is called inherited attribute. So, inherited attribute basically means let us suppose I am defining something like this.
+
+28
+00:12:10,930 --> 00:12:39,640
+So, I am just defining it randomly which means like I am not taking care of you know the meaning of it how water is computing. I am just saying that there is some attribute of B which is dependent on some attribute of C and some attribute of A. So, that is why this attribute of B is an inherited attribute. So, basically if that kind of grammar is given to you then I can define and for any grammar I can define synthesis attribute or inherited attribute right.
+
+29
+00:12:41,280 --> 00:13:09,530
+Now synthesize attribute depends on the values of children see synthesize attribute depends on the value of children which means in this production Can I compute can I compute the synthesize attribute of B? See I do not have the production of B, right? It is a production of A now if I need to compute the synthesize attributes of B, let's suppose Let me just write it like this. Let's suppose ABC these are three non-terminal and correspondingly
+
+30
+00:13:09,720 --> 00:13:40,310
+these are the synthesized attributes, these are the inherited attributes. Let me call it a, b, c and x, y, j. So, which means that a is a synthesized attribute of small a is a synthesized attribute of capital A and small x is a synthesized is a inherited attribute of capital A. Now, I want to compute these values. So, what values I can compute at max? This is my question. Can I compute synthesized attribute of A in this production?
+
+31
+00:13:40,810 --> 00:14:08,630
+Yes, I can compute because synthesized attribute of A depends on the attributes of its children. So attributes of children means now it could be the synthesized attribute or it could be the inherited attribute. So this attribute I have taken as a synthesized attribute, this attribute I have taken as an inherited attribute. So I can compute this A that is perfectly fine, which means that for this production I can compute the synthesized attribute of A.
+
+32
+00:14:08,910 --> 00:14:38,480
+Why? Because it depends on its children. So, I can take its children attribute and I can compute it, right? Now, can I compute synthesis attribute of B, which means can I compute this? See, this synthesis attribute, if I want to compute, see, I am just using it, I am not computing it in this production. If I want to compute using this production, then can I do it? Just tell me, can I compute B dot B? See, this B dot B has to depend on its children, right? But in this production, I do not have any child or children.
+
+33
+00:14:39,350 --> 00:15:06,070
+That is why this B dot B, I cannot compute in this production. So in this production, only synthesis attribute I can compute is for A. I cannot compute B, I cannot compute small c. Why? Because this B dot B and C dot small c depends on children of B and children of C. But in this production, I do not have children of B and children of C. So that is why I cannot compute these two attributes in this production.
+
+34
+00:15:06,380 --> 00:15:35,710
+So I can compute this but I cannot compute this. I cannot compute this. This is fine. Now let's go to the inherited attributes. Can I compute the inherited attributes of A? So this is the production that I have. Now what is the definition of inherited attribute? It says that it depends on its sibling and its parent. So here I do not have any parent neither I do have any sibling for A. That is why inherited attribute I cannot compute here.
+
+35
+00:15:36,010 --> 00:16:05,190
+right so I cannot compute inherited attribute here and now can I define the inherited attribute of B yes I can define so this inherited attribute of B I can compute similarly inherited attribute of C also I can compute so these two I can compute right I hope you got it like see here if you want to define the synthesized attribute then this synthesized attribute should be like if you want to define the synthesized attribute of A then this should be at A should be as a head
+
+36
+00:16:05,400 --> 00:16:36,750
+which means if you want to define the synthesized attribute then A should be ahead and if you want to define the inherited attribute of non-terminal suppose B then production must have B symbol in its body which means like in this production you can define the inherited attribute of B inherited attribute of C and synthesized attribute of A these kind of attributes you can define in this production I hope you got it now again I have written the same thing synthesized attribute the value depends on the attributes of the child
+
+37
+00:16:37,150 --> 00:17:06,800
+and this is important leave node or terminals have the synthesized attribute initialized by the lexical analysis which means that suppose there is some terminal like we will be doing the example but for now let's suppose there is some terminal id now what is what what is its attribute value it should be defined by the lexical analysis so these are defined by the lexical analysis and we cannot modify them and there is one attribute grammar that only has the synthesized attribute it's called as attributed grammar
+
+38
+00:17:07,240 --> 00:17:43,740
+So, suppose that in one grammar, you only have the synthesized attributes. Only the synthesized attributes you have and you do not have any inherited attribute, only the synthesized attributes you have. So, this is called let's suppose like I am not defining the synthesized attributes, but suppose you have only synthesized attribute you have, then this is called as attributed grammar. And as I said inherited attribute, the value of the node depend on the value of attribute of sibling and the parent node.
+
+39
+00:17:44,020 --> 00:18:11,380
+So, if this is the production, then for this the inherited attribute of B and C can be defined in terms of attributes of A and attributes of C, right. In general like inherited attribute of B can be defined in that in terms of attributes of A and attributes of C, okay. Now, let us do one example. This is one syntax and syntax vector definition for the calculator example. So, this is the grammar that I have and correspondingly cement rules also I have.
+
+40
+00:18:12,270 --> 00:18:36,050
+Now suppose that I want to I want to calculate some string which is there suppose 3 into 4 plus 5 So let me take it on the next slide 3 into 4 plus 5. I want to calculate this using this grammar So what will the first step? First thing I will be doing is making the parse tree. Okay, so let's make a parse tree
+
+41
+00:18:36,330 --> 00:19:06,050
+and let's see how to evaluate it so basically n is just n marker n is like n is just a dollar so you can treat it as a dollar which is just an n marker so let's let's try to build a parse tree of this string now if you see l l will give e and n and if you want to have this multiplication then I think this should go to this can go to e plus t I think okay e plus t
+
+42
+00:19:06,600 --> 00:19:39,440
+and then this E will go to the multiplication which means E will go to T and T will go to T cross F and then this T will go to F and this F will go to digit and similarly here this this T will go to F and F will go to digit right which I already have on the next page so let's see it see L is going to E plus T and this E is going to T T and then this T is going to T cross F
+
+43
+00:19:39,630 --> 00:20:08,010
+and then this is how we are basically making the pass tree. Now what I need to do once we make the pass tree then we need to evaluate this string based on the semantic rules. So let me do what let me actually construct the pass tree on the next page so that I can show you the evolution. So this E is going to L is going to En okay L is going to En let me just erase this.
+
+44
+00:20:18,220 --> 00:20:56,730
+and then this E is going to E plus T E plus T then this E will produce capital T and then this is producing T cross F and then this T will produce F which will produce I D and then this T will produce F which will produce I D and then this F will directly produce I D. This is the partiality that we have made. Now how to evaluate this string based on the symmetric rules that we have?
+
+45
+00:20:56,890 --> 00:21:25,620
+So, let me do one thing, let me just copy this grammar on the same page so that I can just show you everything in one slide. Now, this is the SDD that we have and I want to show you that how to evaluate this district. So, what we need to do, like either in general, either we will go top down fashion or we will go in bottom of fashion, okay? But here, I am showing you just a DFS way.
+
+46
+00:21:25,880 --> 00:21:55,080
+okay we are going to do a depth first traversal either you top down or you do bottom up both will eventually lead to DFS so let me just show you and then I will tell you that how so what I'm going to do I'm just going to do the DFS manner which means I'm going to do the top down top down and then left to right this is how DFS work right so I will go top down and left to right and whenever there is a reduction I will correspondingly I will check what is the semantic action
+
+47
+00:21:55,340 --> 00:22:21,460
+So, during this reduction, for this reduction, I have the semantic action which is f dot 12 equal to digit dot lexical value. So, this lexical value or id dot lexical value, this will be supplied by the lexical analyzer. So, this is 3, 4, 5. So, this will be supplied as 3. Now, you have the attribute which is f dot 12 is 5, sorry 3, right. Now, you go again, you go left to right.
+
+48
+00:22:21,930 --> 00:22:49,010
+and top to down so you went top to down then you keep on going like this then you see that okay you have one one more reduction which is t gives f now corresponding to this t gives f you have t dot well equal to f dot well which means here t dot well will be t dot well will be whatever f dot well which is three right now again you go left to right and top to down there is no reduction there is no reduction
+
+49
+00:22:49,330 --> 00:23:18,680
+so there is nobody now once again you encounter reduction now you will see that f dot well will be 4 right so at this point f dot well will be 4 and then you will keep on doing now again you find out one detection sorry here also you you found out one detection which is t gives t cross f now according to t gives t cross f t dot well will be multiplication of these two so here t dot well will be 12 now here e dot well will be just t dot well which is just 12
+
+50
+00:23:19,990 --> 00:23:49,480
+and you just keep on doing it so you found again one detection here now here you will say that f dot f dot value is 5 f dot value is 5 and you will keep on doing it now t dot value is also 5 now if you keep on doing it here also you found one detection which is e gives e plus t here e dot value plus t dot value which means e dot value will be 17 will be 17 and then
+
+51
+00:23:49,790 --> 00:24:07,670
+you again found one direction now you are going to just print that E dot value which is 17 right now you have printed 17 this is how you are going to execute this string on these uh these this grammar and these semantic rules now is this bottom up or top down what we are doing see here
+
+52
+00:24:08,140 --> 00:24:37,680
+What I'm doing I am basically first the first step that I did is basically I I have computed this fgif id right I mean I have reduced the id to f and then I have said f dot well equal to 3 So basically it is it is in that sense. It is a bottom up. So whenever I'm doing a DFS approach And which is basically going top to down and left to right. It is a bottom up approach Now can I do top down also?
+
+53
+00:24:38,390 --> 00:25:07,470
+that question I will answer little later that how to do top-down on this grammar like when you have a grammar and you have the semantic rule how to do top-down so that question I will answer little later but for now I want you to observe one thing like what kind of attributes that I have here so there is only one one at one type of attribute which is like for e I have well for t also I have well for f I have well so there are three attributes I mean there are three non-terminal and there are three attributes according to corresponding to every non-terminal
+
+54
+00:25:07,690 --> 00:25:37,810
+now what kind of those attributes which means are these attributes synthesis or these attributes are inherited attributes so let's just check it so here this just to differentiate between this e and this e i'm just saying this is even and this is even okay now tell me this well if i'm computing it here then it means that this depends on its children right so this well e dot well is basically synthesis attribute synthesized attribute similarly these well are synthesized attribute for e that well is synthesized attribute
+
+55
+00:25:38,040 --> 00:26:10,290
+for e the well is synthesized attribute now for for this t this well is depending on its children right again it's depending on its children so that is why for t also well is synthesized attribute and for this is depending on its children for f also this is depending on its children so for f well is synthesized attribute so these are synthesized attributes which means that these values so if I have some parse tree like this
+
+56
+00:26:11,500 --> 00:26:38,850
+So if I want to compute some synthesizer attribute then these value depend on this children right the children now if I'm doing the bottom up Which means I'm going from from bottom to top Which is the DFS right if I'm doing a bottom up then this is very natural. I mean DFS order is very natural Sorry, the synthesizer attribute evaluation is very natural in the bottom up. Why see these synthesizer attributes Basically depends on the children, right?
+
+57
+00:26:40,840 --> 00:27:07,240
+Now these synthesized attributes basically this will depend on children which means that if there are some synthesized attribute that I want to calculate that I first I like I will be like it will be depending on children Now if I am doing the bottom up then I have already evaluated these children's right Bottom up means that only that if I'm doing the bottom up then I have already evaluated these children So that is why that that comes very natural Which means that if you are if you are at this there suppose at this node and you want to calculate T dot y
+
+58
+00:27:07,560 --> 00:27:34,720
+then you must have already calculated this this t dot well this f dot well so that you can multiply so you must have already calculated its its children attribute values so synthesized attributes go very naturally with bottom up parcel right i hope you are getting see in the bottom up we are going from bottom to top and synthesized attribute basically if i want to compute any synthesized attribute let's suppose t gives t cross i f
+
+59
+00:27:34,920 --> 00:28:03,260
+if i want to compute any synthesis attribute at this point in time then it will depend on its children and since i'm coming from bottom then i have already computed its children which means the synthesis attribute can go very naturally with the bottom right suppose if i'm going the top down which means here i have something like this and maybe t gives a t cross f and this t gives f something like this right if i'm going the top down
+
+60
+00:28:03,550 --> 00:28:25,710
+Then I reduce this T to T cross F. Now if I want to compute the synthesized attribute in the top down fashion which means I am going top to down and I want to compute the synthesized attribute here. Here I want to compute the synthesized attribute. Then I am currently here only right. I am currently here only. I have not seen my children. This T has not seen its children which means that
+
+61
+00:28:25,980 --> 00:28:52,220
+this t currently do not know the attribute value of the children which means there will be t dot while here there will be m dot while here now this t doesn't know the value of this t dot well the value of this m dot m dot well so how to compute the synthesis attributes in case of top down right see if I am going the bottom up then I already know t dot well and f dot well so I can easily calculate t dot well here but if I am going the top top down then
+
+62
+00:28:52,430 --> 00:29:20,990
+at this point in time I do not know the value of 2.12 and f.12 so how to go bottom up in case of synthesized attribute how to go top down in case of synthesized attribute right this is one question that I have not answered yet so basically there are two type of parser one is bottom up another one is top down and there are two type of attributes synthesis attributes and inherited attributes
+
+63
+00:29:21,460 --> 00:29:45,140
+Now I have said like if you are going bottom up then the synthesis attributes are also flowing bottom up. So basically this is extremely easy. Similarly I will show you that this is also very easy. But here like suppose if I am only talking about the synthesis attribute currently then here I have a question mark. I have not shown you that how to do it. So I will show you little later.
+
+64
+00:29:45,480 --> 00:30:07,100
+that how to compute the synthesizable attribute in case of TomTom. So, just a hint is that we will first convert this HDD to corresponding HDD ok. And then like we will not just say that that if you are coming to this node, then we will not just say that immediately, immediately compute the values synthesize attribute value which means
+
+65
+00:30:07,450 --> 00:30:40,100
+if I am coming to this node from top to down then I will not immediately compute this value. I will just wait for some time so I will basically use the HDT which specify order of evolution. So I will answer this that how to use the synthesized attribute in top down. Let's wait for one like next video so you will get this answer. This is the
+
+66
+00:30:40,930 --> 00:31:11,330
+Pastry for our previous example. Now let's take one more example. Here I will be using mix of synthesized and inherited attributes. But here I will not worry about going bottom up or top down. Which means that see why I am worrying about the bottom up or top down is that is basically because that I do not want to have multiple passes. Okay. I do not want to have multiple passes. Which means
+
+67
+00:31:12,010 --> 00:31:41,370
+That if I am parsing if I'm parsing in the bottom of fashion on the top-down fashion in that parsing only like I should be able to evaluate my attribute in one pass only Okay, if that I can do if that I can do then it's great Right and we have seen that in case of synthesized attribute like if I'm doing the bottom of parsing Then I can easily do it in one pass which means I can do the bottom of parsing as well as I can I can In parallel I can compute the values of synthesized attribute, right? So this is the idea
+
+68
+00:31:41,790 --> 00:32:08,830
+but suppose for now I want to drop this idea and I am not much concerned like I want to have in one pass we will come to this point later that we will we want to have this things in one pass but for now I just want to tell you a few things so suppose let's take one grammar and I am not concerned about like I will take I will do this in one how how to do it in one pass I will just see that how to evaluate it may be multiple passes are needed that is fine okay
+
+69
+00:32:09,520 --> 00:32:38,840
+So one pass is just to evaluate maybe one attribute another pass I need maybe maybe one pass I need top down maybe one pass I need bottom up in the same example Maybe another pass I need top down like multiple passes may I may need so I'm not concerned about multiple passes I'm just concerned that how to evaluate the value So let's take this as a grammar and what I want to do this grammar describes the signed binary number So what I want to do I want to augment this grammar such that
+
+70
+00:32:39,140 --> 00:33:08,480
+the semantic rules finally compute the decimal value of the binary string associated with this grammar which means let's suppose there is some binary string minus 101 now this minus sign I am taking as it is so basically this corresponds to minus 5 so this minus 101 can be produced by this grammar minus 101 I can produce by this grammar and then finally it should evaluate I want to have some semantic actions such that it's evaluated to minus 5
+
+71
+00:33:09,870 --> 00:33:41,590
+I hope the ideas get here. So let me just recap what we have done till now. Till now we have first studied the definition of HDD, HDD, these things. Just a definition. Then I told you what are the synthesis attribute, what are the inherited attribute. Then now I am telling you that how to evaluate it. Now when it comes to the evaluation, then there is a natural question. Should we evaluate in bottom up or should we evaluate in top down?
+
+72
+00:33:41,940 --> 00:34:13,550
+Now, currently, let's suppose I'm not worrying about this diagram, which means I'm not concerned that I'm doing a bottom up top down, I'm not concerned about these things. So currently, I'm only concerned about one thing that how to evaluate it. Maybe multiple passes, okay? So maybe multiple passes are needed. I'm only concerned about how to evaluate. So I'm not concerned about whether I want to evaluate it in top down fashion or I want to evaluate it in bottom fashion.
+
+73
+00:34:13,850 --> 00:34:40,410
+I just want to care that how to evaluate it. Maybe I will do combination of bottom up top down, maybe multiple passes, I may do. So we are currently here. Now we are talking about this grammar. In this grammar, I want to augment this grammar such that the correspondingly, like it evaluates the corresponding decimal value. So let's do it. Let's first draw a parse tree for this minus 101.
+
+74
+00:34:41,410 --> 00:35:12,330
+Let me just do one thing. Let me just copy the grammar on the same page. So this is the grammar that we have. And this is a parse tree for minus 101. And that's very easy, which means the number could be a sign and a list. And this list could be a list and followed by one bit. And then this list could be a list and followed by one bit. And then this list is finally a bit. And for sign, I have minus and for bit, I have 101. So this is a parse tree.
+
+75
+00:35:12,570 --> 00:35:42,070
+now finally I want to evaluate some attribute of this number or I want to just print maybe like that we have done in earlier case see we have just printed the value right so like either I want to print or I want to evaluate it does not matter so finally I want some value which is minus 5 I want some value here now before I augmented let me just do it manually which means how I am going to convert this minus 1 0 1 2 minus 5 let's see so minus is as it is
+
+76
+00:35:42,320 --> 00:36:10,480
+what i'm going to do i will multiply so there will be a position right so let's suppose this is position 0 this is position 1 this is position 2 so i will be i'm going to multiply with the position so this 2 is for position right position and into 1 plus 0 into or 2 power 1 into 0 2 power 1 into 0 and this one is again a position and plus 2 power 0 into
+
+77
+00:36:10,980 --> 00:36:36,730
+one this zero zero position. So what I can do like I can define one attribute which is position and this position can take the value based on the like position on the business. So let me define one attribute which is position. So once I have the position then I need to calculate the value. Right. So let me first go step by step. Let me define the attribute position. So let's say that there are two attributes.
+
+78
+00:36:37,090 --> 00:37:06,720
+and in fact there are three attributes one is let's suppose one attribute is negative or positive this could be true or false and there is one attribute value there is one attribute position right so initially i'm saying that this this is having the position zero which means this number is basically sign and the list and this list is having position zero now this list may expand to list and bit now what do you think like what is the position of this bit
+
+79
+00:37:07,860 --> 00:37:34,250
+whatever like initially either this list is having position zero so whatever is the position of this list right so I will say that bit dot position it just let's say this is list one it just list dot position right and what is the position of this list one see this list one position like like list as such does not have any position I mean positions are basically for bits but this list one position will be propagated to
+
+80
+00:37:35,270 --> 00:38:06,890
+whatever it is extending. So this list may extend to again list and bit, right? So this bit basically, this bit position is basically dependent on this list position. So what do you think should be the position of this list? Let me just erase this. So since this list position, this bit position is just a list position. So this list one position list one dot position will be just one incremented by this list dot position, right?
+
+81
+00:38:07,370 --> 00:38:36,640
+List dot position plus one. I hope you got it So this is how we can we can calculate the position and initially I'm saying that list dot position is zero So see here initially I'm saying list dot position is zero and then I'm saying that this position Like this this bit will be bit will be having the position as as same as this list So this position is zero. This will be the position one. This is a position one This is position two and then again this is a position two
+
+82
+00:38:36,850 --> 00:39:01,030
+So, that's how we are calculating the position using these rules. Now, there is some other attribute which is value. Now, once you have the position, now calculating value is very easy. How to calculate the value? Just for a bit. So, you just need to do one thing. You just need to do maybe 2 power position into bit value.
+
+83
+00:39:02,600 --> 00:39:25,820
+like 2 power position into if it is 1 basically if bit is 1 then just a 2 power position if bit is 0 then just a 0 right. So based on that you can calculate the value. So if this is a position 2 then you will say that this is 4 right because 2 power 2 is 4 and if this is position 1 then this will be this will be
+
+84
+00:39:27,650 --> 00:39:54,500
+Okay, this is zero because because the bit itself is zero. If this is a position zero, then this is one because bit is one. So I hope you got it, right? This is how we are calculating the values. Now we need to again calculate the again calculate these values. Now see this list is basically having list and bit. Now I have the value of this. Now, what do you think the value of this will be? Right? So
+
+85
+00:39:55,340 --> 00:40:24,740
+let's suppose like just for a single example list gives bit for this single example list give bit if this position this value is 4 list give bit then this list value is also 4 right so this list value will also be 4 and what about this list value if this list is following while list and bits then this list value will be just a list value plus a bit value which means I will just sum up these two values now 4 plus 0 is just 4 so let me just show you
+
+86
+00:40:25,020 --> 00:40:49,980
+See, these are the force and then 4 plus 1 is 5. So, anyway like that is how we are calculating the bit, the position and value two attributes. Now, you do not need to worry about how to augment the grammar, how to write this grammar. I just wanted to drive some intuition that how to write the grammar, but in the exam you do not need to write the grammar, ok. The grammar will be given to you, you just need to analyze that grammar, ok or you just need to analyze those semantic actions.
+
+87
+00:40:51,040 --> 00:41:15,640
+or those are also called semantic rules. So you just need to analyze those semantic rules. Okay. I hope you got it. Now, these are the semantic rules associated with this grammar. And finally, I have a number. So number is followed by sign list. So you can say that if sign is negative, then it will be minus list value, whatever the value of this list. And this list value will be computed using the following semantic actions, right?
+
+88
+00:41:17,180 --> 00:41:44,060
+Now, let's just see that what are the attributes associated with each symbol. So these are the symbols I have, these are the attributes I have. Now for number I have value, for sign I have negative, for list I have position and well, and for this bit I have position and well. So these are the symbols and these are the attributes. Now, this well is of what type? Let's just check it. This number dot well is basically of what type?
+
+89
+00:41:44,310 --> 00:42:14,340
+since it is since number is appearing as a head so it has to be a synthesized type so this is synthesized similarly this is also synthesized because i'm calculating it now this list position just check it list position i'm calculating the list position here right so list one position i'm calculating this list position so what do you think now in this production it should be inherited or synthesized if i'm calculating some attribute of this then it should be inherited right so this position is inherited
+
+90
+00:42:14,680 --> 00:42:42,460
+this position and similarly this position is also inherited so since i'm calculating this value so these positions are inherited attributes these are inherited attributes and these are the synthesized values are synthesized attributes you can check it why because these values like i'm calculating the value of list 0 and list 0 is appearing as a head so that has to be a synthesized attribute so these are the synthesized attributes these are the inherited attributes now this is the first example that we have that we are seeing basically
+
+91
+00:42:43,020 --> 00:43:13,280
+which is having mix of synthesis engine and inherited attributes. Now let's do one thing. Suppose this grammar is given to you, then how to calculate some value which is let's suppose minus 101. Now first step is that you will draw a parse tree. So let me quickly draw it again. This is number. Number will be sign and list. List will be followed by list and bit. This bit, this list will be followed by again list.
+
+92
+00:43:13,640 --> 00:43:33,230
+and bit and then this list is just bit try now this is minus this is one this is zero this is one this is the parse tree that we have now what I want to do I want to compute the value of minus one zero one based on the semantic action that are given to me minus one zero so let's just do
+
+93
+00:43:33,500 --> 00:44:01,960
+like let's just follow the semantic actions now obviously the question will be that should we go top down should we go bottom up so let's not worry about it which means like whatever whatever you think is comfortable for you you may do multiple passes you may do three passes four passes whatever is comfortable for you so let's just see that how to do it I mean let's just try to do it bottom up first so I will go DFS manner so you can evaluate the value of sine dot negative which is true here
+
+94
+00:44:02,220 --> 00:44:31,540
+so sin dot negative is one attribute which is true you can do this way right so i'm doing a bottom up and then at this point in time you have you you see a reduction which is list gives a bit now since list gives give bit is this production and corresponding to that you have two actions so one action is saying bit dot position equal to list dot position another action is list dot value equal to bit dot value
+
+95
+00:44:31,710 --> 00:45:05,090
+So there are two actions. Let me just copy those two actions in the next page. So these are the two actions that I have. Now one action is saying that bit dot position equal to list dot position. So can you add this point in time? Can you calculate bit dot position that depends on this list dot position? Obviously, you can't calculate, right? I mean, how can you calculate bit dot position that depends on this list dot position?
+
+96
+00:45:05,370 --> 00:45:27,070
+Since the position anyway the since the position is an inherited attribute so generally we can't calculate the inherited attribute in this way I mean if there is an inherited attribute and so using the bottom of parser we generally can't calculate there are some tricks using that we calculate I mean we first convert the inherited attribute to synthesized attribute and all so there are some tricks that I will tell you but generally we can't do it.
+
+97
+00:45:27,190 --> 00:45:51,850
+So, anyway, like you do not need to know that theory, you just need to observe one thing that this bit dot position depends on the list dot position and you are currently here, right? So, you have not calculated the list dot position, right? So, you cannot calculate this bit dot position, right? So, at this, at this point in time, you cannot calculate the bit dot position. What about list dot value? List dot value also depends on bit dot value.
+
+98
+00:45:52,460 --> 00:46:17,340
+and since you do not know the width dot well currently so that is why you also can't compute the list dot well so anyway like if you do it the bottom up first bottom up then you can only compute one value which is signed or negative which is true so then you need to check if you can do top down on all so you need to do it all of all of that but we can save a lot of time what what we can do we can just write down all the attributes that are there
+
+99
+00:46:18,430 --> 00:46:47,950
+and let's just check how those attributes are getting flowed which means the flow is downwards or upwards let's just check it so what I am going to do I am going to write all the attributes and then I am going to calculate the values of these attributes so here I have I think two attributes position for the list I have two attributes position and well for bit I have two attributes position and well so this is position and well this is position and well this is also position and well
+
+100
+00:46:48,420 --> 00:47:12,500
+This is also position and well. This is also position and well. This is also position and well. And for number, I have only one attribute which is well. For number, I have only one attribute which is well. Now, this is initialized to zero. This position is initialized to zero. Now, you know that position, if this position is zero, then this position will be one and this position will be zero.
+
+101
+00:47:13,150 --> 00:47:42,510
+so from the rules you know it I mean you need to do it top down but anyway like let's not worry about the top down and bottom up so we know it from the intuition that this position is inherited attribute and this is basically getting float downwards so this is 0 then this is 1 this is 0 and then this is again 2 then this is 1 and this is 2 this is 1 and then this is again 2 this is how we are calculating the position so once the position got calculated we can calculate the bit value so this is 2 power 2 which is 4
+
+102
+00:47:42,760 --> 00:48:11,800
+and then this is 2 power 1 but this is 0 then this is 0 and then again this is 1 and 2 power 0 is 1 right. So, we have calculated the bit values and now let me calculate the list value. So, it will be just a addition of these two. So, list plus bit. So, first let me calculate this value which is just 4. So, this will be 4 plus 0 which is just 4 and then this will be 4 plus 1 which is just 5 and now you have the number which is basically minus of 5.
+
+103
+00:48:11,960 --> 00:48:36,760
+because of sin is minus. So, finally, you know the value of the number. So, here first you need to do top down to calculate the values of this position. So, the position initially 0, then this is 1, then that is how you calculate the value of this position and then you need to do bottom up to calculate the values of this value. In two passes, you can do it. So, once you need to do top down and then you need to do bottom up.
+
+104
+00:48:36,980 --> 00:48:59,570
+But anyway, let us not worry about the evolution order, we are only concerned that how to get these values. So, we can find out the answer just by the intuition that this position is getting flowed downwards and this value is getting flowed upwards. So, once I calculate these leaf values, then I can calculate intermediate values. So, that is how we are calculating the final value which is minus 5.
+
+105
+00:49:02,570 --> 00:49:32,030
+Now you observe one thing that like there could be multiple flows which means that there could be multiple attribute one attribute is going like this one attribute is going like this like this there could be multiple dependencies but ultimately the dependencies must be acyclic this is very very important the dependencies must be acyclic so in general determining for any given grammar any given SDD basically SDD determining
+
+106
+00:49:32,570 --> 00:50:07,940
+that whether dependency is acyclic is exponential problem meaning dependency is acyclic is exponential okay so we can't do it in general so that is why we will restrict ourselves to some set of grammars so we will restrict ourselves to s attributed and l attributed grammars which always guarantees the acyclic property
+
+107
+00:50:08,270 --> 00:50:39,340
+okay so we will just look at the subclass of HDDs which is S attributed and L attributed right so just to reiterate attribute evolution study is just like this you can construct the pastry then see that what are the dependencies how the values are getting flowed okay position is getting flowed downwards value is getting flowed upwards like that I mean just see the see the dependencies
+
+108
+00:50:39,890 --> 00:50:55,030
+the values getting float upwards then perform the topological sort means like this is just a algorithm step but intuition wise you know that what is topological sort is that you can start from this position then you can go like this and then you can perform the values and evaluate the attribute according to this order.
+
+109
+00:50:55,380 --> 00:51:21,080
+and the multiple attribute at the node in a parse tree may result in a node to widget multiple number of frames. So anyway, this step is crucial that we need to check the topological order. In what order we should go, we should go like this, then we should go like this, like that. So this topological order is important and this is not guaranteed for any given grammar. So in general, the dependencies could be cycling. Let's suppose there is one production I have and in this production, there are two rules.
+
+110
+00:51:21,460 --> 00:51:49,220
+one is like this another one is like this this is let's suppose one attribute s which is a symmetric attribute which is a synthesized attribute which is depending on the inherited attribute of i of b and then this b is also dependent of s so there is a cyclic dependency right to determine whether there is a cyclic dependency it is an exponential problem so that is why we will restrict ourselves to a subclass of subclass of HDDs which are s attributed and l attributed
+
+111
+00:51:49,550 --> 00:52:18,390
+So we will see these STDs in the next lecture. So in this lecture what we have seen we have just seen what is the definition of STD and then we have seen that how to evaluate. This may need multiple passes but that's okay. So in the next lecture we are going to see how like what is this S attributed and N attributed because these always determines a cyclic property.
+

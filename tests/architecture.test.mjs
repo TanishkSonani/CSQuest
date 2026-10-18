@@ -16,7 +16,12 @@ test('source subjects have isolated, uniform course roots with honest publicatio
  for(const course of subjects){
   assert.equal(course.contentDirectory,`courses/${course.id}/content`);assert.equal(course.dataDirectory,`courses/${course.id}/data`);
   const [{lessons},{units}]=await Promise.all(['lessons.js','curriculum.js'].map(file=>import(pathToFileURL(path.join(platformRoot,course.contentDirectory,file)).href)));
-  if(course.status==='planned'){assert.equal(lessons.length,0);assert.equal(units.length,0);}
+  if(course.status==='planned'){
+   // An authoring builder can hold an unpublished draft. Server tests separately
+   // ensure planned subjects never expose their lesson modules or bundles.
+   if(course.builder){assert.ok(lessons.length);assert.ok(units.length);}
+   else{assert.equal(lessons.length,0);assert.equal(units.length,0);}
+  }
   else{assert.ok(lessons.length);assert.ok(units.length);}
   const discovered=JSON.parse(await fs.readFile(path.join(platformRoot,course.dataDirectory,'source-files.json'),'utf8'));
   assert.equal(discovered.recordingCount,course.lectureCount);assert.equal(discovered.files.length,course.lectureCount);
@@ -48,6 +53,10 @@ test('shared server serves both subjects and shared modules while isolating priv
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'wall_test',displayName:'Wall Test',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
   const cookie=registration.headers.get('set-cookie').split(';')[0];const signedFetch=(url,options={})=>fetch(url,{...options,headers:{...options.headers,cookie}});
   const catalog=await (await signedFetch(base+'/api/subjects')).json();assert.equal(catalog.length,subjects.length);
+  for(const course of subjects.filter(c=>c.status==='planned')){
+   assert.equal((await signedFetch(`${base}/api/course-content?subject=${course.id}`)).status,404,'Draft course bundles stay unpublished');
+   assert.equal((await signedFetch(`${base}/courses/${course.id}/lessons.js`)).status,404,'Draft modules stay unpublished');
+  }
   assert.match(await (await signedFetch(base+'/subjects.js')).text(),/export const subjects=/);
   for(const [id,count] of [['coa',35],['dl',98]]){
    const status=await (await signedFetch(`${base}/api/status?subject=${id}`)).json();assert.equal(status.completed,count);assert.equal(status.total,count);

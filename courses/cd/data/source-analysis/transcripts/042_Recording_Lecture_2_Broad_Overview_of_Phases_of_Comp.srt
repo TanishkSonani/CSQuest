@@ -1,0 +1,1020 @@
+1
+00:00:22,900 --> 00:00:51,250
+Hi, everyone. Welcome to go classes. Now we are in the final phases of the compiler. If you see the phases of the compiler, then we have already seen lexical analysis, syntax analysis and semantic analysis. Okay. So these are the final phases of the compiler that we need to study now. Okay. So you can see intermediate representation and code optimization. These are the phases we will discuss in the next few lectures. Okay. So let's start.
+
+2
+00:00:52,890 --> 00:01:21,030
+Before we study all these phases. Okay. These different, different phases. Before we study, let me give you in this lecture, let me give you the overview of the compiler phases. Okay. Complete overview. Let me give you what, what is, what are the compiler phases, what they do with help of example. Okay. Also what is front end, what is backend, what is intermediate code. So everything, let me explain in this lecture. So this lecture is basically a broad overview, a detailed overview of compiler phases.
+
+3
+00:01:21,800 --> 00:01:52,210
+Okay. So you can easily notice. Okay. Yeah. Yeah. Everything we will see. So let's see. So what is a compiler? You already know that compiler that is basically a program. This is a big program. This is a large program which will convert your source language program into the low level target language program. Okay. For example, your source language that can be C language C plus plus Java. So that is a high level language program. Your program you can give as an input to the compiler.
+
+4
+00:01:52,670 --> 00:02:19,090
+What this compiler will do? What this compiler will do? This compiler will convert your source program into another program. Okay. Into a low level language program. So you can see this is your target code. Now remember this target code. Usually this target code is the assembly code. Okay. What is this? This is the assembly code, which is platform dependent. Yes or no. So you can see your compiler, what it will do. You will give the input.
+
+5
+00:02:19,730 --> 00:02:49,210
+Your code your code you will give as a input your high-level language code your sea language code You will give as a input to the compiler your compiler will convert your source code into a low-level language code into another code It will come convert. Okay. So normally this compiler will convert your source code into assembly code or it can convert directly into machine code Or it can directly convert to machine code. Okay. So very simple point, but in our discussion, we will assume that
+
+6
+00:02:49,470 --> 00:03:17,450
+compiler is converting your source language code into assembly code okay theoretically let me tell you theoretically when you study compiler design okay then normally you will see that basically we study uh we assume that compiler will convert your source language code into assembly code remember assembly code and machine code they are basically machine machine dependent yes or no they are processor dependent they are machine dependent codes both of them are machine dependent code
+
+7
+00:03:17,880 --> 00:03:40,630
+In previous lecture, we have already seen what is their differences and what are their similarities. Okay. So we have already seen. So you can see this compiler will convert your source language code into machine dependent assembly code. Okay. This assembly code, this is a machine dependent code. So very simple. So we have already seen what is a compiler. The compiler is a program. It will
+
+8
+00:03:40,910 --> 00:04:06,950
+take input another program okay compiler itself is a program and the input of compiler is your program in the high level language and the output of compiler will be another program in the low level language so the output of the compiler can be either assembly code or machine language code we have already seen so you can see this is your C language code when you press the compile button okay then what this compiler will do it will convert your program into the assembly language code
+
+9
+00:04:07,360 --> 00:04:31,900
+And this assembler, what it will do? It will convert your assembly code into the machine code. Machine code means binary code. What is machine code? This is the actual code which CPU can understand and CPU can execute. Remember, CPU cannot understand your C language code. CPU cannot understand assembly language code. CPU can understand only zero ones. Yes or no? So CPU can understand only machine code. What is machine code?
+
+10
+00:04:32,170 --> 00:05:01,010
+That is basically the binary code. That is the binary code. Okay, is this clear? So the assembler will convert your assembly code into binary code into machine code. Okay, or what can happen? We have all we have also seen that compiler what it can do? It can convert your high level language code into machine code directly. Okay, but we will assume in further discussion, we will assume that compiler will convert your code into assembly language code. Again, this assembly language code, this is machine dependent.
+
+11
+00:05:01,610 --> 00:05:32,700
+This is machine dependent Okay, your high-level language code. This is not machine dependent. This is not machine dependent. Okay, so This is not machine dependent But when you convert this high-level language code when this compiler will convert into assembly language code This assembly language code is machine dependent. Okay, let's move on now So we have seen already we have seen that machine language code
+
+12
+00:05:33,100 --> 00:06:02,440
+means your binary code basically 01 code and assembly language code they are basically very similar to each other the only difference between assembly language code and machine code that the only difference is human friendliness basically from a human point of view this assembly language code is more understandable okay we cannot understand the sequence of 0 comma 1 this machine code this is a sequence of 0 comma 1 right so you can see for example this is a machine code this is a sequence of 0 comma 1 so this machine code we cannot understand
+
+13
+00:06:02,750 --> 00:06:30,500
+But we can understand assembly language code. So the only difference between assembly language code and machine code that is human friendliness. There is no other difference. You already know in the previous lecture we have seen there is one to one mapping. There is one to one mapping between assembly language instructions to machine code instructions. Okay, there is one to one mapping. Very simple. So let's move on now. Also, we have seen that assembly language code, also this machine language code, these are machine dependent. Okay, they are machine dependent. What it means?
+
+14
+00:06:30,810 --> 00:06:58,780
+it means if you write assembly language code on one machine then you cannot execute this code on another machine so you can see the code the program written on one machine okay the program that you are writing in assembly language or machine language if you are writing on one machine then it will not execute on another machine it cannot be used on another machine so you can see assembly language and machine language these are machine dependent codes
+
+15
+00:06:59,250 --> 00:07:28,570
+Okay. So let's move on now. So we have seen everything. Now let's move on. Now let's see the overview of compiler phases. So what are the compiler phases? You have already seen that these are the phases of the compiler compiler is a big software. This is a very huge software. There are millions of lines of codes are there. Okay. Or maybe legs of lines of codes are there. So you can see this compiler. What it will do, it will do the compile. Okay. So it will do the compilation. This compilation process.
+
+16
+00:07:29,150 --> 00:07:57,250
+this compiler so this compilation process basically you can divide into a sequence of phases okay this complete process this compilation process you can divide into a sequence of phases okay means first lexical analysis will happen then syntax analysis will happen then semantic analysis will happen then intermediate code will be generated okay then intermediate code will be optimized then machine code will be generated and then machine code will be optimized
+
+17
+00:07:57,580 --> 00:08:26,070
+okay so this is the I can say sequence of compilation process this is the sequence now we will discuss all these all these stages or I can say all these phases we will discuss in detail in this lecture we will see a detailed overview of all the phases in this lecture okay but let me tell you these phases you can basically divide into two categories these phases you can say that these are the front end okay these phases are the front end
+
+18
+00:08:26,850 --> 00:08:54,790
+Look at these phases. Okay, you are doing the lexical analysis. You are doing syntax analysis. You are doing semantic analysis. And then you are generating the intermediate code. Okay, this is called these phases. These are collectively code. The collection of these phases is called front end. Now in this front end, what we do in this front end, can anyone tell me what we do? We are doing the lexical analysis of the source program. You have a source program. You are doing the syntax analysis means is the syntax correct?
+
+19
+00:08:55,260 --> 00:09:22,480
+is the semantic correct okay so you are basically analyzing the source code can I say in these phases you are basically analyzing the source code is the source code correct or not does it have some error does it have some syntax error does it have some semantic error yes or no so basically this front end these phases collectively these phases are called front end and what this front end does this does analysis okay what this does
+
+20
+00:09:22,750 --> 00:09:52,420
+this front end what this does this does analysis of source code yes or no of a source code so remember these pages are also called analysis pages these pages what we call them these are either you can call them front end either you can call them front end or you can call them analysis pages these pages will do the analysis of the source code okay they will analyze the source code and if there is any mistake in the source code then they will give the error
+
+21
+00:09:52,730 --> 00:10:18,430
+Okay, they will report the error. So very simple. This is the front end. These phases, they are collectively called the front end of the compiler. And look at these phases. These are called back end of the compiler. These phases. What are these? These phases are called back end of the compiler. What they do? This back end, these phases, what they do? They generate the machine code. Okay. What they do? They generate machine code. They generate the machine code.
+
+22
+00:10:19,170 --> 00:10:48,980
+Okay, which your CPU can execute. Yes or no. So remember these phases, they will generate the machine code or the assembly code. Either they will generate machine code or they will generate assembly code. These phases. So very simple point that these phases, the lower phases, these phases, what they will do. These are called backend collectively. These phases are called backend and what they will do, they will generate the machine code, machine code. That is your binary or they will generate assembly code. We will assume that they will generate assembly code.
+
+23
+00:10:49,180 --> 00:11:19,150
+Okay, this is what we will assume that at the end of these phases, you will get assembly code. Okay. So very simple. So remember this backend, what they will do, they will do synthesis. They will do synthesis of machine code. Is this clear? They will do synthesis of machine code. Basically, they are generating the machine code. So they are not analyzing, they are generating. Yes or no, these phases are doing the analysis and these phases, they are doing the generation. Is this clear? These phases will
+
+24
+00:11:19,420 --> 00:11:49,360
+do the analysis of the source code so we call them front end okay we can call them analysis phases and these phases they will generate they will generate the machine code or I can say they will generate the assembly code so these are called synthesis of the machine code so these phases are called synthesis basically these are doing analysis these are doing synthesis is this clear please tell me okay so far every point is clear so very simple you can see what front end and what back end does
+
+25
+00:11:49,580 --> 00:12:19,000
+So front end, they will do the analysis. They will read the source program. The lexical analyzer. Remember the lexical analyzer, it will read the source program from left to right, top to down. Okay. So this lexical analyzer, what this, this will do. This is your source code. This lexical analyzer will read your source code from left to right, top to down. So you can see. So this front end, what this will do, it will read your source code and it will check the structure means syntax and it will check the meaning.
+
+26
+00:12:19,320 --> 00:12:48,320
+structure means syntax syntax analyzer okay you will check is the syntax correct is the program structure correct is the program syntax correct and meaning means semantic meaning means semantic okay so you can see in the front end we do the analysis of the source code is this clear so can I say front end depends on the source program yes or no front end so can I say this front end this basically depends on this basically depends on
+
+27
+00:12:48,780 --> 00:13:17,820
+source language agree with me is this clear this depends on source language and what this backend will do what this backend pages will do they will do the synthesis means they will generate equivalent target language program okay they will generate equivalent target language program or you can say assembly program they will generate the assembly program so you can see the backend pages they will do the synthesis now assembly program that is machine dependent yes or no
+
+28
+00:13:18,100 --> 00:13:43,880
+the machine on which you are running the compiler okay so what what will happen finally you will get the assembly program with respect to that machine because assembly program that is machine dependent so the machine the CPU the processor on which you are doing you are running this compiler okay the processor on which you are running your your your code you are compiling your code so what will happen with respect to that machine
+
+29
+00:13:44,230 --> 00:14:16,470
+With respect to that machine, assembly language program will be generated. So can I say that back end, it depends on the machine. It depends on the target machine. Please tell me the back end fetches. They depend on the target machine. Okay. So very simple. So back end fetches, they will depend on the target machine and front end fetches. They will depend on the source language. Okay. I hope everything is clear. So very simple. So you can see what the compiler will do. It will recognize legal programs.
+
+30
+00:14:17,280 --> 00:14:47,870
+okay it simply means this is doing the analysis of source code okay this is doing the analysis of source code you are doing the analysis of source code is the source code correct okay is this a legal program is there any mistake in this syntax mistake semantic mistake is there any error in this so analysis of source code okay this will be done by front end who will do it this will be done by front end front end will do it okay and you can see
+
+31
+00:14:48,480 --> 00:15:14,830
+generate correct code generate the machine code target machine code this will be done by this will be done by back end okay this will be done by back end is this clear so very simple so okay let's move on now so you can see here we design the front end independent of the machine see front end does not depend on the machine yes or no front end only depends on the source language
+
+32
+00:15:15,500 --> 00:15:43,720
+okay yes or no front end only depends on the source language because front end will do the analysis of the source language so front end is the independent of machine okay and remember back end that is independent of the source language because back end what it will do it will generate the assembly language code okay the assembly language code that is machine dependent the machine the CPU the processor on which you are compiling your code with respect to that machine assembly language code will be generated
+
+33
+00:15:44,190 --> 00:16:21,080
+so you can easily see the backend it is independent of the source language it is actually dependent on the machine the backend is basically machine dependent this is basically machine dependent and this front end this is basically source language dependent okay is this clear so far everything is clear let me know now one more important point that i want to tell you and that is related to what is the separation of front end and backend where do they separate front end and backend where do they separate
+
+34
+00:16:21,780 --> 00:16:50,650
+where do they separate see in this diagram what do you think where do they separate in this diagram where do they separate see they are separating somewhere here yes or no notice in this diagram I told you this is the front end this is the back end so can I see they are separating here yes or no is this clear this is front end this is back end they are separating here and what is here here you have intermediate code here you have intermediate code actually you can notice you have a source code
+
+35
+00:16:50,970 --> 00:17:19,690
+okay what this compiler will do this compiler will do lexical analysis then it will do syntax analysis and then it will do semantics analysis so in these three phases in these three phases basically you are checking the legality of the program okay in these three phases in these three phases basically you are checking is the program legal or not in these three phases what you are doing let me tell you in these three phases okay look at these three in these three phases you are basically checking is the program legal or not
+
+36
+00:17:24,850 --> 00:17:56,180
+checking if program is legal or not means program has some mistake or not program is legal or not okay and after that what will happen the final phase of the front end because this is the front end this entire thing is the front end what this front end will give you it will give you intermediate representation okay so let me tell you basically what is happening here you have this source code you have this source code okay
+
+37
+00:17:56,580 --> 00:18:22,270
+this source code what you will do this front end okay once this source code goes through front end then what will happen the output of the front end what is that okay the output of the front end remember the front end will do lexic analysis syntax analysis semantic analysis and finally this front end will generate intermediate code okay some intermediate code it will generate some intermediate code will be generated
+
+38
+00:18:23,110 --> 00:18:50,130
+Okay, some kind of intermediate code will be generated. Don't worry. We will discuss this intermediate code in a very detailed way. Okay. So, but the point is this intermediate code will be generated. Okay. And so front end output will be intermediate code. Let me tell you one more thing that this intermediate code, this will be machine independent also source language independent. This intermediate code that is generated. This is machine independent also.
+
+39
+00:18:50,960 --> 00:19:26,280
+this does not depend on your machine also okay so remember this is a machine independent so this is a machine independent and this is a source language independent okay this is a source language independent so you can see this is machine independent and source language independent is this clear tell me what this front end is doing is this point clear so the front end will generate the
+
+40
+00:19:26,480 --> 00:19:56,580
+intermediate code and this intermediate code is machine independent. It does not depend on the machine on which you are doing the compilation. Okay. So remember this intermediate code, this does not depend on the machine. Also, this does not depend on your source language. Okay. So this is independent of both of them. Is this clear? Now finally, finally, what, what we will do this back end, what this back end will do? This back end will convert your intermediate code into the final target code.
+
+41
+00:19:56,790 --> 00:20:27,970
+Okay, final target code target assembly code. So this is the complete point. Is this clear? But remember here one interesting thing that this intermediate code, this is like a bridge between front end and back end. This is like the separation of front end and back end. What the front end will do, it will generate the intermediate code. And remember this intermediate code does not depend on the source language. This does not depend on the machine. Okay. This is independent of source language. This is independent of the machine.
+
+42
+00:20:28,350 --> 00:20:57,390
+What this backend will do, this backend will take this intermediate code and it will generate the target assembly code. Is this point clear? So this intermediate code, that is the separation of front end and back end. Is this point clear? Separation of front end and back end. That is basically this intermediate code. So you can see in the diagram, you can see your source language, your program in the source language, in the high level language, the front end, what it will do, it will produce, it will produce the intermediate representation. Okay.
+
+43
+00:20:57,790 --> 00:21:23,210
+So you can see at the back end, what it will do, it will take this intermediate representation as the input and it will, it will convert that. Okay. Finally, it will generate the target language. Okay. So here, so interesting things you notice that front end, this front end, if you notice in this front end, what you do, you do lexical analysis, syntax analysis, semantic analysis and intermediate code generation. So four things you do here in the front end.
+
+44
+00:21:23,690 --> 00:21:52,410
+four things will be done lexical syntax semantic analysis and intermediate code generation finally you will get intermediate representation okay finally you will get intermediate code so you can say intermediate representation or you can say intermediate code what this front end is doing basically it is converting your source language to intermediate code okay now this front end is actually machine independent right yes or no this is actually machine independent front end
+
+45
+00:21:52,550 --> 00:22:24,000
+This does not depend on the target machine, the machine on which you are compiling your code. This front end does not depend on that. So front end is basically machine independent, but you can see this backend. This is machine dependent. This is machine dependent. Okay. Another thing this front end is actually source language dependent. Yes or no. This is actually source language dependent. Okay. Source language dependent, but this backend is a source language independent. Yes or no.
+
+46
+00:22:24,270 --> 00:22:52,260
+source language independent independent what about this intermediate code you are getting an intermediate code after the front end you are getting an intermediate code what about this intermediate code this intermediate code this is machine independent also this is machine independent also and this is a source language independent also is this clear this is a source language independent also
+
+47
+00:22:53,760 --> 00:23:23,600
+So this is the separation, this intermediate representation, this is the separation of front end and back end. Is this point clear to everyone? Please tell me. Let me know. So you can see this. This slide, you can notice this is from IIT Kanpur. Okay. The professor Swarnendu Biswas. Okay. So IIT Kanpur professor, this slide is taken from their course. You can easily see your source program. What front end will do? Front end will generate the intermediate representation or I can say intermediate code.
+
+48
+00:23:23,970 --> 00:23:50,210
+and this backend what it will do it will take the intermediate code and it will create it will convert that into target program okay so very simple so this is the idea now remember front end that is responsible for analysis of the source code okay so front end that is responsible for understanding the source code source language okay so very simple and what this backend will do this backend is responsible for creating the target program okay creating the
+
+49
+00:23:50,380 --> 00:24:18,420
+target code machine code so you can see this backend is responsible for translating the input program to target architecture okay so this is the idea so you can see the intermediate representation the intermediate representation that is machine and language independent okay that is machine independent and language independent so very simple okay so we have seen everything we have seen so remember can i say that this intermediate code
+
+50
+00:24:18,720 --> 00:24:46,800
+this intermediate code can I say that is working as an interface between front end and back end yes or no this intermediate representation this is basically this intermediate code this is basically working as an interface between front end and back end okay here you have front end here you have back end so between these two this intermediate representation is working as a interface okay and what this front end is doing it is converting your source code into the intermediate code
+
+51
+00:24:47,150 --> 00:25:15,650
+And what this backend is doing, it is converting your intermediate code into the target code. Okay. So everything is written here. You can easily see what this front end will do. Front end, you can notice here, front end will map, will convert your source code into intermediate representation. And what backend will do, backend will map, backend will convert your intermediate representation to target machine code. Okay. So this is the point. Okay. Let's move on now.
+
+52
+00:25:16,850 --> 00:25:46,200
+Now one more small point I want to discuss. Okay. One more small point that is related to front end and back end. So this we have already seen. Okay. This, this photo, this picture we have already seen. Now we have already seen that this intermediate representation, this is not a machine dependent and this is not a language dependent. Okay. Yes or no, this intermediate representation, this is completely independent of the source language. This is completely independent of the target architecture. Okay. Very simple.
+
+53
+00:25:46,580 --> 00:26:17,350
+now if you are doing some optimization on this intermediate representation then that optimization should be treated in the backend or in the where see my question is very simple you have this intermediate representation right okay this intermediate representation this is machine independent and this is source language independent you already know this is a source language independent
+
+54
+00:26:21,450 --> 00:26:52,030
+and machine independent. Okay. The target architecture, the machine on which you are doing the compilation. Okay. So that is independent of that. Also machine independent. Now I want to ask you something. You can do some optimization here. Okay. On this, you can do some optimization on this intermediate representation. You can do some optimization. What you can do, you can do some optimization. First of all, let me tell you what optimization means. What this word means because we are going to use this word many times.
+
+55
+00:26:52,400 --> 00:27:21,860
+what this word means when I say optimization you already know what this means in your real life if you say optimization what that means making something better yes or no optimization for example code optimization what that means making the code better yes or no agree so optimize optimize the code means making the code better making the code better when I say better what that means when I say better what that means that means less space
+
+56
+00:27:23,180 --> 00:27:53,190
+that means less memory space less time less execution time yes or no is this clear so basically optimize the code what that means that means it should take less space and it should take less execution time basically you are improving the code in terms of time and space very simple okay so this is what optimization means means you are changing the code so that it becomes better so that it takes less space and it takes less execution time
+
+57
+00:27:53,400 --> 00:28:21,810
+okay so this is called optimization now you have this intermediate representation on this intermediate representation if you are performing some optimization if you are performing some optimization on this representation then you tell me is this optimization machine dependent or machine independent on this intermediate representation you are performing some optimization some optimization you are doing you are making it better this intermediate representation you are making it better
+
+58
+00:28:22,110 --> 00:28:53,460
+okay so tell me this optimization is this machine dependent optimization or is this machine independent optimization tell me this optimization this is a machine independent yes or no this is machine independent this optimization is machine independent optimization correct agree because already you know that this intermediate representation this itself is a machine independent if you are doing some optimization on this code then that is also
+
+59
+00:28:53,740 --> 00:29:22,540
+machine independent optimization is this clear very simple point okay so you can see in this diagram you can notice these are the phases of the compiler in this compiler you can easily notice one thing that you will do lexicon analysis then you will do syntax analysis semantic analysis then finally you will generate the intermediate code okay we have already seen that these are the front end these phases they they they are collectively called front end yes or no
+
+60
+00:29:22,900 --> 00:29:52,210
+these are collectively called front end what we call them we call them front end yes or no so that you already know we call them front end now what this front end will do front end will generate intermediate representation front end will generate intermediate code okay so this is your intermediate code remember this is independent of everything this intermediate code this is a machine independent
+
+61
+00:29:52,950 --> 00:30:20,190
+machine and language independent right okay so you already know this that this is machine and language independent now what you are doing you are performing some optimization on this on this intermediate representation you are performing some optimization you are making it better so that is called machine independent optimization yes or no so that is called machine independent code optimizer what it will give you what is the output
+
+62
+00:30:20,530 --> 00:30:47,090
+the output will be a better independent better intermediate representation i can say the output will be optimized intermediate representation is this clear now this optimized intermediate representation what you will do you will give to the next phase that is a code generator and machine dependent code optimizer okay so you can see code generator what it will do it will generate machine code target machine code remember this code generator
+
+63
+00:30:47,470 --> 00:31:16,690
+This will generate the target machine code, you know, your assembly language code. So this will generate the target machine code. Your assembly language code will be generated by this code generator. And then we can again optimize, then we can perform some machine dependent optimization. Okay. On this target assembly code, we can do some machine dependent optimization and finally you will get optimized machine code. Okay. Anyway, let me tell you, let me ask you, you already know that.
+
+64
+00:31:16,990 --> 00:31:44,290
+this code generator and this machine dependent code optimizer they are back end yes or no they are back end agree with me okay this code generator it will generate the code it will generate the target machine code the target assembly code will be generated by the code generator and this machine dependent code optimization okay this is basically part of back end now my question is will you consider this optimization this
+
+65
+00:31:44,570 --> 00:32:13,840
+Machine independent code optimization. Will you consider this as a backend? This is my question. Did you understand my question? Please tell me. Did you understand the question? See, very simple. Look at these phases, lexical analysis, lexical analysis, syntax analysis, semantic analysis and intermediate code generator. Okay. These phases are your front end, right? These are your front end. Okay. Now they will give you intermediate representation.
+
+66
+00:32:14,540 --> 00:32:44,910
+Okay, this is what they will give you intermediate code. This is your intermediate code. This is your intermediate code. Right. Now, what you will do on this intermediate code, what you will do, you will do because this intermediate code is machine independent that you already know this intermediate code is machine independent. Okay, so this is machine independent. So what you will do, you will do some optimization. So you will do machine independent optimization.
+
+67
+00:32:45,410 --> 00:33:13,090
+Finally, you will again, you will get optimized intermediate representation. You will get optimized intermediate code. Okay. Then these phases are your backend, right? These phases, these are your backend because you will generate the target machine code. You will generate the target assembly code and you can do optimization on that target assembly code also. Your target assembly code that you have, you can do some optimization on that also. You can make it better also. Okay. Now my question is.
+
+68
+00:33:13,540 --> 00:33:43,340
+What about this optimization? Will you consider this in the back end or not? This is my question. Read this question. Read this question. Should we consider this in the back end or not? This intermediate representation optimization. Which is machine independent optimization. This should be a part of back end or not. Tell me. Let me know. Anyone? You understood the question? Did you understand the question? Did you understand all the phases?
+
+69
+00:33:44,170 --> 00:34:11,520
+this intermediate code this is a very important phase this is a very important phase because remember this intermediate code this is machine independent and language independent this is a language and machine independent language and machine independent okay this is very important right yes or no this intermediate representation please understand this intermediate representation this is very important because this is the separation of front end and back end
+
+70
+00:34:11,980 --> 00:34:41,780
+this intermediate representation this separates the front end and back end yes or no now on this intermediate representation if you are doing some optimization should we consider that in the back end or not that is my question I hope you understood my question now let me tell you the answer okay let me tell you the answer the answer is some authors they don't consider okay some authors let me tell you like IIT Kanpur or IIT Kanpur professor I will give you the screenshot of the slides
+
+71
+00:34:42,140 --> 00:35:10,040
+IIT Kanpur professor, even the Ulman book, yeah, that is the compiler, that is the best book for the compiler, right? That is the standard book, most standard book for the compiler design. Okay. Also the Wikipedia. So they say, according to them, basically this, this, I can say intermediate code optimization. Okay. This intermediate code optimization, you are optimizing the intermediate code. This intermediate code optimization is not a part of backend.
+
+72
+00:35:10,510 --> 00:35:39,010
+but there are some authors i will give you the screenshot there are some authors like stanford course and there are some other authors they consider this optimization this intermediate optimization intermediate code optimization as as part of backend okay so basically there are two type of authors so again i'm just simply i'm telling you that actually what is happening you have a source code you have a source code this source code you will good it will go through the front end
+
+73
+00:35:39,590 --> 00:36:09,300
+it will go to go through the front end of the compiler what this front end will do this front end will generate intermediate code this front end will generate intermediate finally you will get intermediate code okay this is what the front end will do it will you will get intermediate code okay now this intermediate code it will be taken by the back end okay this intermediate code will be taken by the back end and this back end will generate the target code okay this
+
+74
+00:36:09,530 --> 00:36:39,830
+This backend will generate the target assembly code or machine code target assembly code or machine code. Machine code means zero one code, binary code. Okay. Or target assembly code. Now there is one step here. What are that? If you optimize this intermediate code, if you optimize this again, you will get the intermediate code, right? Okay. Basically you are doing some optimization here. You are doing some optimization here. If you optimize this code, you are doing some optimization here.
+
+75
+00:36:40,090 --> 00:37:08,630
+then this intermediate code if you optimize then again you will get optimized intermediate code i can say if you do the optimization then you will again get the intermediate code but that will be optimized okay that will be better intermediate code now this optimization this intermediate code optimization this should be a part of backend or not this intermediate code optimization what this this is intermediate code optimization now okay i can say this is intermediate representation i
+
+76
+00:37:08,990 --> 00:37:33,270
+This is intermediate representation optimization. This would be a part of backend or not. So I already told you that some authors, they don't consider this as a part of backend and some authors, they consider this as a part of backend. Okay. You don't have to worry. Remember, you don't have to worry, but ideally what should happen? What is your opinion? Forget about the authors. What is your opinion? You tell me what is your opinion?
+
+77
+00:37:33,660 --> 00:38:04,100
+Should we consider this intermediate representation optimization? You are doing the optimization of this intermediate code. Okay. Should we consider this as a part of backend? Should we consider that? Ideally, the answer is no. Why? What are the reason? Because the idea of backend, what is that? The idea of backend is basically to generate the assembly code. Yes or no. If you look at the idea of backend, see what the idea of front end and what the idea of backend. Just notice. If you see the idea of backend.
+
+78
+00:38:04,530 --> 00:38:39,060
+or idea of frontend what is that idea of frontend is the source program analysis correct the idea of frontend that is basically analysis of source program analysis of source program analysis of source program and generate intermediate code and generate intermediate code and generate intermediate code yes correct and similarly what is the idea of backend
+
+79
+00:38:40,010 --> 00:39:10,560
+Similarly, what is the idea of backend? What is the idea of backend? Idea of backend is very simple. That is generate the target assembly code target machine code. Yes or no. Generate target machine code target code. Okay. Target machine code or I can say or or assembly code. So very simple. Generate target machine code and and do machine dependent code optimization. Right.
+
+80
+00:39:10,970 --> 00:39:41,770
+okay machine dependent code optimization machine dependent code optimization code optimization okay so easily you can easily see that this intermediate representation okay this intermediate code this is independent of both of them right okay this intermediate code this is independent of the source language this is independent of the target architecture okay so you can easily see if I do the optimization on this if I optimize this intermediate code
+
+81
+00:39:42,150 --> 00:40:08,370
+that ideally should not be part of backend okay so you can easily see ideally this intermediate representation optimization ideally this should not be part of backend because what the backend does the basic idea of backend is basically that it will carry out machine dependent optimization okay machine dependent task it will carry out what this backend will do this backend will carry out machine dependent task like
+
+82
+00:40:08,880 --> 00:40:38,440
+like machine code generation and machine code optimization. Okay. This is what your backend will do. So very simple. Like you can see this slide. This slide is taken from IIT Kanpur. Okay. So you can easily notice here that you have a front end. This front end will generate the intermediate code, intermediate representation. And then you can optimize this, this intermediate code you can optimize what you will get. Again, you will get the intermediate code. Yes or no. Look at this slide. Okay. This is a very nice slide.
+
+83
+00:40:38,780 --> 00:41:08,320
+so basically this is your source program you give the source program to the compiler in the compiler your front end what this front end will do it will do the analysis of the source program okay then after the analysis of the source program it will generate intermediate representation then what you can do this intermediate representation you can optimize okay this optimization this is basically machine independent optimization because your intermediate representation is also machine independent so you are doing some
+
+84
+00:41:08,780 --> 00:41:37,640
+you are doing some optimization on this so that is machine independent optimization correct okay then so you can see if you optimize this intermediate code again you will get intermediate code or I can say you will get optimized intermediate code then finally this optimized intermediate code this optimized intermediate code will be taken by the back end and this back end will generate the target program is this clear
+
+85
+00:41:38,130 --> 00:42:02,750
+So these are the slides from IIT Kanpur. You can easily see. Okay. Like you can see this compiler. This is LLVM compiler system. Okay. So there is a compiler system, LLVM. What this compiler system will do, you can easily see your high level language, C language, C++ language and so on. These are your high level languages. You will write your code in these languages. What you will do, you will give your code as an input to the compiler.
+
+86
+00:42:03,140 --> 00:42:33,010
+in the compiler there is a front end what this front end will do it will generate the intermediate code the front end it will generate the intermediate code now this intermediate code you can you can give to the optimizer okay this intermediate code you can optimize again what you will get again you will get the intermediate code now this optimized intermediate code this is the optimized intermediate code now this you will give to the backend and the backend will generate the assembly code is this clear the backend will generate the
+
+87
+00:42:33,210 --> 00:43:02,530
+assembly code. So this is the complete idea. Is this clear? So you can see this slide is taken from IIT Kanpur. You can easily see. So they have back and also middle and also back front and also is this clear? Basically there are three and front and middle and back end. Is this clear? So remember this intermediate representation optimization, this intermediate code optimization, we don't put this in the back end. We don't consider this in the front end. This you can consider as a middle and
+
+88
+00:43:03,020 --> 00:43:28,950
+Is this clear? You can consider this as a middle end. I hope this point is clear. Now the same thing is given in the Ollman also. The same thing is also given on the Ollman. Let me tell you. In the Ollman also you can easily see the same thing is given basically. The grouping of fetches. The grouping of fetches you can see. What is the front end? Already it is given. You can easily see here that front end fetches are basically
+
+89
+00:43:29,260 --> 00:43:56,700
+lexical analysis, syntax analysis, semantic analysis and intermediate code generation. Okay. What this front end will do? Front end will generate the intermediate code. Okay. Then you can notice that this intermediate code optimization, you have intermediate code optimization. That is, that is separate. Okay. That you, this Pullman is also keeping it separate. You can see this code optimization. We are keeping it separate. We are keeping it separate. Then what this backend will do?
+
+90
+00:43:57,020 --> 00:44:23,180
+What this backend will do it will generate the code it will generate the target assembly code and it will do machine dependent optimization Okay, is this clear? So this same thing is given in the Oman also So you can see Oman is also doing what what this Oman is doing Oman is also putting this Intermediate code optimization separately Okay separately is this clear that is also not included in the backend the same thing you can see on the
+
+91
+00:44:23,440 --> 00:44:52,680
+Wikipedia also you can see there is front and there is middle and there is back end. Okay. So the same thing you can easily see on the Wikipedia also, you can see what the back end is doing. The back end is the input of the back end is optimized intermediate representation. Yes or no. The back end, the input of back end that is optimized intermediate code. Okay. So the optimized intermediate code will be input to the back end. And finally this back end, what it will do, it will generate the target assembly code and it will do machine dependent optimization.
+
+92
+00:44:53,350 --> 00:45:22,390
+But remember one thing, there are some authors who consider this intermediate code optimization optimization as part of backend. Like this is a Stanford slide. This slide is taken from Stanford. So if you, if you read the Stanford course in Stanford compiler design course, if you study, then you will find that they consider this intermediate code optimization as a part of backend. Okay. They consider this as a part of backend. Is this clear?
+
+93
+00:45:22,790 --> 00:45:51,260
+So why I'm telling you all these things? Why I'm telling you all these things like you can see some authors like you can see some authors they consider this machine independent code optimization that is also considered in the back end. Okay. So all these things why I'm telling you and what are the conclusion of all these things? See, let me tell you. I'm telling you all these things so that you don't get confused. Okay. After watching this lecture, let's assume one day you are learning one day some some PDF comes to you.
+
+94
+00:45:51,290 --> 00:46:20,960
+Okay. So then you might be confused. Oh, sir told this, but here this is given like that. Yes or no, sir said that intermediate code optimization is not part of the backend, but you can see in this Stanford, this is given as a part of backend. Okay. So I'm telling you all these things so that you don't get confused. Is this clear? The only purpose to tell you these small, small things like author dependent things, the only purpose is that so that you don't get confused.
+
+95
+00:46:21,390 --> 00:46:48,780
+Yes or no? If you if you if you refer to some particular resource and then you should not get confused. Is this clear? Now let me tell you the conclusion. Okay. Yes or no. What are the final conclusion then? What are the final conclusion? So what we will follow and what should we follow? Tell me. I have given you everything. I have told you the logic. What is the logic of back end? What is the idea of back end? What is front end? What are the definitions? What are their ideas? What they will do?
+
+96
+00:46:49,130 --> 00:47:16,760
+What is intermediate code? What is intermediate code optimization? After knowing all these things, tell me whom you will follow. Which convention you will follow? Let me know. So you can follow Ulman. Is this clear? You can follow Ulman or you can follow IIT Kanpur slides. So remember, finally, this is the final conclusion, what you need to follow. Just follow this, that intermediate code optimization is a middle end. You can consider there as a middle end. So remember,
+
+97
+00:47:17,070 --> 00:47:43,010
+this is what you can follow let me give you the final conclusion the final conclusion is like this that front end what it will do it will convert the source program into intermediate code okay what this intermediate code is this is source language independent and machine independent okay on this intermediate code you can perform the optimization and finally what this backend will do this backend will convert the optimized code
+
+98
+00:47:43,380 --> 00:48:11,720
+the optimized intermediate code will be converted to target machine code or target assembly code and this backend what it can do it can optimize the machine code also the machine code that you have that also you can optimize so this is the complete this is the complete conclusion so basically this is what we are going to follow is this clear this is what we are going to follow that when you give this source program as an input to the compiler then you can see in the compiler there is front end
+
+99
+00:48:12,010 --> 00:48:40,050
+This front end will do the analysis of the source program and this front end will generate the intermediate code. Then this intermediate code. This is independent of the source language. This is independent of the target architecture. Okay, so this intermediate code you can optimize this type of optimization is called machine independent optimization because this optimization you are performing on the intermediate code and this intermediate code. This is independent of the target architecture. Okay, so you are performing this optimization on the
+
+100
+00:48:40,380 --> 00:49:06,380
+intermediate code that is the reason this optimization is called machine independent optimization okay now you can see after the optimization what you will get again you will get the intermediate code or you can say this is the optimized intermediate code what what you can say you can say it is optimized intermediate code okay now this optimized intermediate code this will this will be the input to the backend and what this backend will do this backend will create the target program
+
+101
+00:49:06,680 --> 00:49:32,820
+it will, it will generate the target code and it, it can do this backend can do the optimization of this target code, this target code that you will get, you can optimize also. Okay. So this is what the backend will do. I hope this is clear to everyone. Okay. Is this clear? Please tell me. So this diagram, you can easily see that you're, you have a source language or your source program, the input, when you give your source program to the front end, you will get intermediate code.
+
+102
+00:49:33,200 --> 00:50:03,160
+Now you can do the optimization of this intermediate code. You will get optimized intermediate code and that will be the input to the backend and this backend will generate the target assembly code. Okay. This backend is going to generate the target assembly code. Very simple. Okay. So crystal clear. Please tell me. Can I say this is crystal clear or you can see this is the ULMAN. Okay. This is from the ULMAN. So I hope all these things that I told you these are crystal clear. Please tell me understood. Let me know. So just follow.
+
+103
+00:50:03,480 --> 00:50:33,340
+This IIT slide. Okay. This, uh, this is what we are going to follow. Okay. This is what we will follow. So you can say this, this intermediate code optimization, you can consider as a middle and is this clear? This intermediate code optimization, you can consider that as a middle and you can consider like that. Okay. So very easy. Okay. Now let's move on. So you can see the details of source language, the details of source language, they are confined to the front end.
+
+104
+00:50:33,720 --> 00:51:02,880
+and the details of the target machine are confined to the backend. We have already seen all these things. So the front end that is independent of the target machine and the backend is independent of the source language. So all these points, all these small, small points we have seen the intermediate code that is the interface between front end and backend. Okay. So very simple. Everything we have seen, I hope you understood. So your front end will generate the intermediate code and your backend will take this intermediate code as the input and it will generate the
+
+105
+00:51:03,060 --> 00:51:35,740
+target code. So everything we have seen understood. Let me know. So I can say that these phases, these are your front end. These are your front end. These are your back end. These are your back end. And this is your, you can consider this as a middle end. Okay. You can consider this as a middle end. Okay. Let's move on now. Let's solve this question. Tell me the answer for this gate exam question. This is get 20 23 question. A very simple question.
+
+106
+00:51:36,420 --> 00:52:04,840
+Consider the following statements regarding the front end and back end of a compiler. The front end includes phases that are independent of the target hardware. The front end includes phases that are independent of the target hardware. Yes, that is correct. That is the idea of the front end. Okay, the front end that is independent of the target hardware. The front end depends on the source language. Yes or no? The front end, what it will do? It will do the analysis of the source program. Yes or no?
+
+107
+00:52:05,040 --> 00:52:34,560
+and it will generate the intermediate code. So that is the task of the front end. The front end will do analysis of the source program. So this front end depends on the source language. Okay. Is this clear? So very simple. So you can see this statement is correct. The first statement that is correct. What about the next statement? The backend includes phases that are specific to target hardware. Yes, that is also correct. That is also correct. S2 is true. Okay. Because what is backend? The backend will take input.
+
+108
+00:52:34,880 --> 00:53:03,140
+The input of backend will be intermediate code and what this backend will do? This intermediate code will be converted to the target code. Yes or no target architecture code or I can say target hardware code, target assembly code. So this backend includes phases that are specific to the target hardware or I can say the backend basically the phases in the backend, they are machine dependent. Okay. The phases in the backend. What are the phases in the backend? Tell me. What are the phases in the backend in the, in the backend? What are the phases?
+
+109
+00:53:03,540 --> 00:53:29,020
+One is code generation. Yes or no. And another is a machine dependent code optimization. So these are the phases in the backend. Okay. If you see the backend in the backend, you have two phases. What are those two phases are there? One phase is code generation, your target code generation. You are generating the target code target machine code you are generating. So code generation and another is machine dependent code optimization.
+
+110
+00:53:33,870 --> 00:54:02,850
+And both these phases, you can see they are specific to the target hardware. They depend on the, they are machine dependent. They depend on the machine. What about this? The backend includes phases that are specific to the programming language that is used in the source code. No, this is statement is false. So finally answer will be as one as two are true. Is this clear? So very simple question in gate from 2023 latest question. Okay. Let's move on now. Now let's see the overview of compiler phases with one example.
+
+111
+00:54:03,220 --> 00:54:33,350
+Okay. I will take one example and we will see the detailed overview of all the phases. Let's see the detailed overview of all the compiler phases. So these are the compiler phases. Let's see the overview one by one, what they will do. Your input is the source code, your source program. That is the input. Okay. So first, what will happen? First, the lexical analysis will happen. Yes or no. So you can see the first step in the compilation process. The compiler will do the compilation in the compilation process. The first step is a lexical analysis.
+
+112
+00:54:33,870 --> 00:55:00,730
+okay what this lexical analyzer will do lexical analyzer will read your source code your source code your lexical analyzer will read from left to right from top to down okay and what it will do let me tell you so you can see lexical analysis this is the first step this is the first phase of the compilation process you can also call it scanning now what it will do you can see here that your source code that is the character stream
+
+113
+00:55:01,090 --> 00:55:30,750
+see your source code that is a sequence of characters that is your source code you can say that is the sequence of characters now what this lexica analyzer will do it will read your source code from left to right you can see the lexica analyzer will read the source code from left to right and it will convert your source code into token stream into stream of tokens okay so very simple you can see the stream of characters means that is your source code your source code will be converted
+
+114
+00:55:31,080 --> 00:56:00,470
+first you will read the source code the lexical analyzer will read the source code from left to right and it will generate tokens it will generate tokens now what is a token this word token what is a token token is a logical unit token is a token what was it what is a token token is basically logical unit of source code unit of source code logical piece of source code I can say this is a logical piece of source code
+
+115
+00:56:02,990 --> 00:56:31,410
+So what is a token token is a logical piece of source code. Don't worry. It will become clear. Now you can easily see that tokens basically tokens have a collective meaning. I told you because token basically that is a logical piece of the source code. Examples of tokens are like identifiers. Okay. Identifier this token you will give for user defined names. Okay. If you have a user defined variable, then for user defined words for user defined names, you will give this token identifier.
+
+116
+00:56:31,950 --> 00:57:00,130
+Okay, you can give this some I can say for reserve for reserved words for keywords, you can give another token. Okay, for integers, you can give another token for doubles floors, you can give another token. Okay, for operators for delimiters for special symbols, you can give another token. Okay, so let's understand actually what it means. What is happening here? Let me give you one analogy. Okay, let's understand what this lexical analysis means. Is this clear? What this lexical analyzer will do?
+
+117
+00:57:00,380 --> 00:57:16,960
+let's understand this very clearly so let me give you one analogy let's assume you go to a cafe in that cafe let's assume you order masala tea ginger tea filter coffee cold coffee and pao bhaji okay now let's assume that pao bhaji has no variations see there are variations for tea
+
+118
+00:57:17,150 --> 00:57:44,670
+Masala tea, Jinza tea, these are the variations of tea. Okay, there are variations of coffee also, cabbage, you know, filter coffee, cold coffee. These are the variations of coffee also. Let's assume that Pao Bhaji has no variation. Let's assume this Pao Bhaji, this is unique. Okay, there is no variation. Now, in this situation, just you tell me one thing. In this cafe, the on the counter, you will go to the counter. Okay, so on the counter, will they generate coupon for Masala tea, Jinza tea like that?
+
+119
+00:57:45,390 --> 00:58:13,050
+Will they generate coupon for every separate separate thing? No. See what they can do? They can generate coupon for tea. They can generate coupon for coffee. Let's assume in this cafe, in this cafe, they have coupon for tea. They have coupon for coffee. They don't have coupon for masala tea. They don't have coupon for ginger tea. They don't have coupon for filter filter coffee and they don't have coupon for cold coffee. Let's assume they have coupon for power bhaji also. So are you getting my point? Now what they will do?
+
+120
+00:58:13,320 --> 00:58:43,960
+Now they will generate coupon, but the coupon are only to either coffee or tea. There are only two tokens. These are the tokens. Okay. Now what will happen? Let me tell you. So you can see what, what will happen, what this cafe will do. So for this masala tea, what this cafe will do or this masala tea, the cafe will create a token for this masala tea. The cafe will create a token. It will generate a token and the token will be like this. The token will have two things.
+
+121
+00:58:44,460 --> 00:59:14,110
+The token will have two things. One is token name. The token name is T. Yes or no. The token name is T. So one is token name. That is T token name is T. T E A. Okay. So this is the token name and the token value. What are the token value? See the token name is T, but the token value is Masala T. Is this clear? Masala. So something like this. Is this understood? So this complete thing is your token. This complete thing is called token. So remember,
+
+122
+00:59:14,520 --> 00:59:46,560
+this complete thing if you look at this complete thing this is called token this complete thing is your token this is the token that will be generated when you order masala tea then this token will be generated here this is the token name here this is the token name that you are ordering tea and this is the token attribute or I can say this is the token value you can say this is the token attribute your token is tea and for that tea
+
+123
+00:59:46,830 --> 01:00:16,820
+what the attribute so you can say it is token attribute or token value did you understand this please tell me this did you understand this analogy did you understand let me know okay similarly for Ginza T what will happen for Ginza T another token will be generated another token will be generated the token will be like this the token name is T okay but the attribute is Ginza or I can say the value is Ginza this is additional information this is attribute for this token
+
+124
+01:00:17,290 --> 01:00:45,730
+okay the token name that is T and this attribute or I can say this is the value of the token or I can say this is the additional information about the token is this clear this is the additional information about the token is this clear please tell me similarly for filter coffee similarly the similarly will happen for filter coffee for filter coffee a token will be generated a token will be generated the token will be coffee the token name will be coffee but there will be additional information
+
+125
+01:00:46,170 --> 01:01:15,950
+that additional information is basically the attribute of this token okay what the attribute of this token or you can say value of this token that is basically filtered is this clear i hope this point is clear similarly for the cold coffee similarly for the cold coffee the token will be generated that is coffee this is the token generated and the attribute of this token the value of this token or i can say the additional information about this token that is called okay and finally this pao bhaji
+
+126
+01:01:17,730 --> 01:01:46,610
+For this power budget, let's assume there is a token that is power. That is very simple. The name of this token is T P A V B H. Okay. Is this clear? So let's assume this is the name of the token. And now there is no attribute, right? There is no attribute. There is no attribute required. Is this clear? There is no attribute required. So you can see this is the idea. I hope you understood this idea. So can you notice this is what I'm telling you what this lexical analyzer will do. It will read your program.
+
+127
+01:01:46,920 --> 01:02:17,240
+this is your source code okay what your lexical analyzer will do it will read your source code from left to right okay it will read from left to right and what it will do it will generate tokens now did you understand that token is a logical unit token is a logical piece of piece of source code piece of source code okay so basically your source code from that source code this lexical analyzer will will generate a token stream a stream of tokens
+
+128
+01:02:17,660 --> 01:02:46,900
+Now here you can easily see, for example, if you have user defined keywords, then this token you can generate the identifier token you can generate. The name of the token can be identifier. Okay. Yes or no. If you have user defined variables, like you are defining some variable, variable I variable J. So for these variables, what you can do, what you can do. So you can see you can generate token with this name token with the name identifier. Okay. For keywords for the reserved words, you can generate identifier with
+
+129
+01:02:47,210 --> 01:03:13,680
+the same name like for integer okay for for while you know there is while so while is a keyword in the C language for while what you can do you can generate a token with while name the name of the token is also while is this clear the name of the token is also while so very simple similarly for integers you can generate tokens okay so for everything basically for everything you will generate tokens i hope you understood let's see this example consider this program
+
+130
+01:03:14,110 --> 01:03:42,900
+now when this program will go through the lexical analysis then what will happen this program is there now the lexical analyzer what it will do it will read this program from left to right the lexical analyzer will read this program from left to right okay now you are reading this program from left to right so first I will come is this logical unit tell me will you ever read this as this is a logical unit is this logical unit of the source code
+
+131
+01:03:43,440 --> 01:04:13,610
+Do you think this is a logical unit is this some some I can say does it have some separate existence? I want to ask this this does it have some separate existence some separate value Is this a logical unit? No, this is not a logical unit. Yes or no This is also not a logical unit. Yes, this is a logical unit, right? For example in the analogy the masala tea Okay, you can see this is not a logical unit, right? But this complete thing is a logical unit
+
+132
+01:04:14,610 --> 01:04:46,430
+from the cafe point of view I can say this complete thing is logical piece okay yes or no logical piece or logical unit but you can see this is not logical unit this is not a logical unit agree so from the cafe point of view so very simple so this is the same idea here you can see this is a logical unit this is a logical unit so for this end what because this is a keyword is this a keyword in the C language yes this is a keyword
+
+133
+01:04:46,750 --> 01:05:16,430
+so for this int what you can generate this token you can generate t int token int means the name of the token is int okay this token you can generate and you don't need any value yes or no you don't need any value so this is the token you can generate this is the token you can generate and there is no need of any attribute because this is the keyword is this clear now this white space will be ignored okay there is a white space here yes or no there is a space
+
+134
+01:05:16,700 --> 01:05:42,530
+space here that space you can ignore in the sea language the space basically that you can ignore okay so basically this lexical analysis will ignore the space means for this space you will not generate any token please understand for this space the lexical analyzer will not generate any token the lexical analyzer will ignore this space will ignore this space then for this a
+
+135
+01:05:43,470 --> 01:06:12,710
+is this a logical unit or is this a logical unit tell me is this complete thing as logical unit or is this a separate logical unit this is a separate logical unit yes or no so you can see for this a this is a logical unit because this is a user defined keyword this is a user defined variable this is not a keyword in the C program in the C language this is not a keyword this is user defined variable name so for this what you can do you can generate the token with this identifier
+
+136
+01:06:14,090 --> 01:06:46,250
+The token name can be identifier and what are the value? What are the value of this token? What are the value of this token that is A? The value of this token is A. This complete thing is your token. This complete thing is your token. Is this clear? Here, this is the token value. You can say this is the token attribute or you can say this is the token value or you can say this is the token value. Okay. And what is this? This is token name. This is token name, right?
+
+137
+01:06:46,710 --> 01:07:19,430
+is this clear this is token name I hope you understood okay so very simple now one more thing that this this is a special symbol for this special symbol what will happen again you will generate a token this is a special symbol you can generate a token with this name like a special symbol okay you can generate token the name of the token can be this and for the token value the token value is this okay the token value is this is this clear
+
+138
+01:07:19,790 --> 01:07:49,310
+then finally this new line is there do you understand there is a new line here after this line there is a new line here okay this new line is also ignored by the lexical analyzer the lexical analyzer will not generate any token for the new line for the new line you can see you are going to the new line yes or no you are going to the new line so for this new line the lexical analyzer will not generate any token then again one token will be generated for this one token generated for this one token generated for this
+
+139
+01:07:49,660 --> 01:08:16,930
+for this for this for this so like this tokens are generated is this clear please tell me okay let me tell you one more thing the exact details they will depend on the compiler yes or no the exact details like what are the token names what token names you can use okay so everything basically that the exact detail will depend on the compiler and also the source language so this is just the overall idea
+
+140
+01:08:17,640 --> 01:08:46,880
+what I told you this is just the overall idea remember so the exact details like what are the token names how many tokens are there how many categories are there okay so the exact details will depend on the language on the source language also on the compiler for example what's what the compiler can do what some compiler can do some compiler what it can do instead of putting this value here you can put this value in the symbol table in the symbol table you can put this value and that index you can put here
+
+141
+01:08:47,370 --> 01:09:16,950
+is this clear is this point clear see some compiler what some compiler can do some compiler can do like this like for example let me take this one a for this a some compiler what it can do it can it can store in the symbol table this is your symbol table in the symbol table you can store this a the lexica analyzer what it will do in the symbol table let's assume at this address one at this address one you are storing this a
+
+142
+01:09:17,420 --> 01:09:45,700
+Okay, and that this is identifier, this is identifier, right? This is identifier. Okay, so you are restoring this, this here that identifier and the value is a. So what you can do, you can simply do this that this is the token name is identifier, or I can say token name can be ID token name can be ID. And instead of putting this value here, you can put this index, the symbol table index, this is your symbol table.
+
+143
+01:09:46,010 --> 01:10:13,120
+the symbol table index you can put. Anyway, what I want to tell you the objective details will depend on the compiler and also the source language. Okay. So you can see if you study the Ollman book, then you will find this type of explanation for the lexical analysis. You will find this type of explanation. If you study the Ollman book, then you will find that in the token, this is the token. Remember, this is the token. This is the token button. Instead of putting the attribute value.
+
+144
+01:10:13,450 --> 01:10:43,290
+this attribute value instead of putting that attribute value you can put the symbol table index in the symbol table you can put it you can store this value a you can store in the symbol table and this index you can put it in the token okay so anyway either you can do this or this explanation is from the Stanford okay this is the explanation from the Stanford you can easily see okay but anyway don't worry about it you just understand what token means okay what is happening here you just understand that
+
+145
+01:10:43,470 --> 01:11:13,040
+Is this clear? Please tell me. So you can see if you have this program, then for this program, you can see these are the tokens that will be generated. Okay. These are the tokens that are generated. Is this clear? Now, one more thing I want to tell you, like, for example, if you write this, okay, if you write this into and let's assume some name you are writing. Okay. So let's assume some ABC into ABC. Now, let me tell you one thing. See, this is the source code, right? Yes or no?
+
+146
+01:11:13,250 --> 01:11:43,290
+This is the source code. Okay, this is the source code. Now, for this ABC, a token will be generated. For this ABC, a token will be generated for this ABC. What are the token that generated? Tell me, what are the token that will be generated? The token will be generated is this that this is identifier because this is user defined user defined variable name. Yes or no, this is user defined variable name. So you can give this token identifier, this token you can give. Okay, that token name will be identifier.
+
+147
+01:11:44,020 --> 01:12:15,740
+token name will be identified and the value of this token value of this token or I can say the attribute of this token that will be ABC this is the additional information about the token okay the value of the token is ABC so you can see this is the token name this is the token name this is a token attribute token attribute okay and let me tell you one more thing this ABC which is part of source code this ABC is called lexeme
+
+148
+01:12:17,040 --> 01:12:48,020
+This is called lexeme. Is this clear? This ABC is called lexeme. So what is a lexeme? Lexeme is basically the part of source code for which you have generated the token. For this you have generated the token. So this is called lexeme. What is lexeme? This is a piece of source code. This is piece of source code for which token generated, for which you have generated the token, for which token is generated.
+
+149
+01:12:51,860 --> 01:13:20,460
+okay understood is this clear let me know for example if you have this while okay let's assume something something something now you can see this is your source code this is your source code right now in this source code for this a token will be generated agree okay a token will be generated for this this is a keyword in the C language this is a keyword so the token name you can give this is the token name you can give T while
+
+150
+01:13:21,050 --> 01:13:49,620
+Okay. T while this is the token name you can give. So you can see this T while this is the token name. Please understand T while that is the token name and the there is no attribute. Okay. There is no attribute. You don't need any attribute. Now the part of source code for which you have generated the token that is called lexeme. This is called lexeme. Is this clear? So what is a lexeme? Lexeme is part of the source code.
+
+151
+01:13:50,240 --> 01:14:26,370
+for which you have generated the token this is the token that you have generated for this part of the source code so remember this is the part of source code please understand this is part of source code for which token is generated token is a generated understood is this clear okay so here you can easily see a token will be generated because this is a keyword this is already a keyword so this is your lexeme can I say these are the lexeme
+
+152
+01:14:27,380 --> 01:15:14,130
+Is this clear? These, these are the lexemes. These are lexemes. Okay. What are these? So let me write it here. These are lexemes. So very simple. Now you can see this is the token name. Okay. So like that. Okay. You can easily see like this is identified. This is the token name with the value with the value a with the value a. Okay. So like that, you can easily see. Anyway, so let's move on now. So you can see this is lexeme. This is the
+
+153
+01:15:14,410 --> 01:15:44,250
+piece of original program please understand what is a lexeme what is the definition of lexeme that is the piece of original program from which you have generated the token okay and this is the token name and this is the token name similarly you can see this is the attribute this 137 this is the token attribute okay so you can easily see all these things now you can see the lexical analyzer it will produce the token of the form token name attribute value
+
+154
+01:15:44,740 --> 01:16:13,300
+Okay, this is this is how the token will look like. This is how the token will look like token name and attribute value. Okay, let's move on. Like you can see for this, this is the token for this. This is the token. Okay, for this, this is the token name. This is the attribute value. Right. Okay, for this, this is the token name. This is the attribute value. So like that. Anyway, you can easily see all these examples you can see. And remember why it is based new line tab. All these things are ignored.
+
+155
+01:16:13,740 --> 01:16:42,500
+okay for this white space there is a space here there is a space here there is a new line there is a tab okay so for all these things your new line your white space or your tab okay for all these things remember for all these things the token will not be generated for all these things token will not be generated we will not generate the token okay we will ignore all these so these will be ignored by the lexical analyzer the token will not be generated okay I hope everything is clear
+
+156
+01:16:42,800 --> 01:17:10,480
+so you can see in this example also you can notice if this for this a token will be generated okay because this is a keyword if is a keyword so the token name can be if okay similarly for this left parenthesis this token will be generated left parenthesis for this identified token will be generated and the value will be x for this greater than equal to token will be generated okay for this greater than equal to token will be generated okay
+
+157
+01:17:10,920 --> 01:17:40,350
+is this clear so very simple remember what tokens will be generated what are the names of the token how many token categories are there everything will depend on the compiler and the source language so please understand you might be thinking sir like let me give you one example so that you can clearly understand for example consider this like less than equal to okay less than equal to now one compiler what it can do for this compiler number one of what it can do compiler number one
+
+158
+01:17:40,570 --> 01:18:09,240
+can generate can generate token maybe it can generate token with this name that less than equal to less than equal to okay the token name can be less than equal to is this clear the token name is less than equal to there is no attribute value there is no attribute value but for this compiler to what it can do compiler to what it can do it can generate token like this it can generate token like this that this is a operator this is a operator
+
+159
+01:18:09,620 --> 01:18:37,900
+and the value the attribute is this okay i hope you understood is this clear so everything will depend on the compiler is this clear what is the token name how to generate the token how many categories are there for the token everything that will depend on the compiler the exact details will depend on the compiler please understand okay is this clear let me know is this point clear okay so you can see if this is your program if this is your source code
+
+160
+01:18:38,200 --> 01:19:10,250
+Then these are the tokens that can be generated and you can easily see this is that attribute. This is the token attribute. Okay. So like that, these are the token attributes. So very simple. Now let's move on the next phase of the compiler that is syntax analysis, or you can say that is parsing in this syntax analysis phase. What you do, you will check for the syntax, right? Yes or no. So very simple in this syntax analysis phase, what you will do the input is the token stream.
+
+161
+01:19:10,790 --> 01:19:37,890
+the token stream that you got from the lexical analyzer that token stream is the input for the syntax analyzer what the syntax analyzer will do it will check for the syntax it will check for the syntax is the program your source program does it have correct syntax okay and remember to check for the syntax to check for the syntax whose help it will take tell me the syntax analyzer will check for the syntax
+
+162
+01:19:38,710 --> 01:20:03,890
+using context free grammar yes or no using context free grammar right because whatever is your source language for that source language there is a context free grammar now with the help of that context free grammar this syntax analyzer will check for the syntax so remember this syntax analyzer or you can say this is parser what it will do it will verify is your syntax correct if the syntax is not correct then it will give you syntax error
+
+163
+01:20:04,510 --> 01:20:33,640
+Okay, if the syntax is not correct, it will give you syntax error and the output of this syntax analyzer that is syntax tree or you can say parse tree. Okay, or you can say parse tree. The output of this syntax analyzer that will be syntax tree or you can say parse tree very simple. So you can easily see if this is your code, then syntax analyzer will check for the syntax. Okay, is the syntax correct with the help of context free grammar. Remember this syntax analyzer, it will check for the syntax.
+
+164
+01:20:34,070 --> 01:21:04,770
+using context free grammar. And if there is any mistake, if there is, if there is any syntax mistake, then it will give you syntax error. Okay. Otherwise the output of this syntax analyzer, that will be a pastry or I can say syntax tree. Okay. Now let's see the next, next phase that is semantic analysis. What the semantic analysis will do. The name itself is telling you semantic means meaning. Yes or no. This name itself is telling you semantic means meaning. Meaning of the program must be correct.
+
+165
+01:21:05,020 --> 01:21:34,740
+means does your program make sense see syntax may be correct syntax may be correct but does your program make sense okay means all the instructions in the program do they make sense so this is what a semantic analysis will check so remember what the semantic analysis will do semantic analysis it will ensure that program has well defined meaning means all the instructions in the program they make sense okay is this clear for example you tell me one thing
+
+166
+01:21:35,000 --> 01:22:04,410
+if you are using some variable without declaring can you use it tell me means undeclared variable you did not declare the variable can you use it no you should not use yes or no so you can see this is semantic analysis this is part of semantic analysis that variables which are not declared they should not be used or I can say variables which you are using they must be declared before they are used so you can see this is checked by the semantic analysis
+
+167
+01:22:04,860 --> 01:22:38,580
+is this clear so very simple remember semantic analysis this basically this will make sure this will check whether your your instructions make sense okay this basically checks checks for sensibility of the instructions you can say for sensibility of instructions means do they make sense for example you can easily see one what the semantic analysis will do in this phase you will check that variables must be declared before they are used also
+
+168
+01:22:38,950 --> 01:23:08,110
+if you are writing some expression okay if you are writing some arithmetic expression then the types must be the types must match okay type mismatch must not happen let me give you one example see what is the type error when the type error will come type error will come when you are performing operation on the values which do not support that operation okay for example this this kind of type error see what is the type error let me tell you this type error
+
+169
+01:23:08,840 --> 01:23:37,890
+type mismatch you can say type mismatch error type mismatch error now what that type mismatch error so for example let's assume you have some string okay some string you are multiplying with integer so then type mismatch will happen or not yes or no you have some string this is a string and you are multiplying this with some integer this is integer now you can easily see that this operation
+
+170
+01:23:38,550 --> 01:24:07,030
+this operation this string cannot support very simple point this is what I'm telling you read this the type error will happen the type error will arise when the operations are performed on values which do not support that operations like this string this does not support multiplication string does not support multiplication so you can see that here the type mismatch will happen is this clear so you can see type mismatch will happen
+
+171
+01:24:07,380 --> 01:24:37,260
+when the operation, multiplication operation is performed on the values which do not support this operation okay so this is a very simple idea this is the idea of type mismatch so you can see this semantic analysis phase in this phase we check for type mismatch okay so remember type checking type checking is done in this phase also scope checking is done in this phase okay also scope checking so basically many things are done in this phase
+
+172
+01:24:37,660 --> 01:25:05,840
+scope checking type checking okay checking whether variables are declared before they are used so basically many things they are checked they are checked they are verified in this phase okay is this clear in this phase these are the things that we do let me tell you one more thing the major task of semantic analysis is type checking this type checking is the major task of semantic analysis if someone asked you like what are the major task the major task
+
+173
+01:25:07,440 --> 01:25:38,960
+of semantic analysis what is that the major task of semantic analysis semantic analysis will do a lot of things okay it will it will do a lot of things but the major task of semantic analysis is basically type checking okay that is a major task anyway so tell me one thing if if you have this program is there any type mismatch here in this program do we have any type mismatch look at this program and tell me
+
+174
+01:25:39,280 --> 01:26:09,050
+Do you have any type mismatch here? We have an array, integer array you have. Okay, in this first line, there is no problem. In this first line, there is no problem. This C is an integer variable. And this, and this ARR, this is an array of size two. Okay, so there is no problem in this line, right? Okay, in the first line, there is no problem, right? Agree? Syntax is correct. Actually, if you notice, there is no syntax error. There is no problem with the syntax. Syntax is correct. Okay, the syntax correct.
+
+175
+01:26:09,450 --> 01:26:39,160
+there is no syntax error here yes or no everything is correct you can see syntax is absolutely correct okay so you tell me is there any type mismatch yes of course see this is the array name you are multiplying with 10 so here there is a type mismatch because you cannot multiply this array name you cannot multiply with some integer yes or no so you are performing this operation on values which do not perform the which do not support this operation did you understand
+
+176
+01:26:39,700 --> 01:27:13,500
+you are performing this operation you are performing this operation on values which do not support this operation which do not support this operation so here there is a type mismatch is this clear please tell me let me know so here you can notice there is a type mismatch okay so this analysis is done in the semantic analysis phase okay so you can see the semantic analyzer it will do many things remember okay type matching type checking type checking is one of them
+
+177
+01:27:13,930 --> 01:27:36,470
+the semantic analysis will do a lot of things like it will check for undeclared variables if you are using some variable it must be declared before you are using it okay and scope checking type checking all these things they are done by the semantic analysis phase but type checking is major I can say the most important task of the semantic analysis that is the type checking okay so you can see
+
+178
+01:27:36,810 --> 01:28:03,410
+what this semantic analysis can do for type checking if you want to check the type then what you can do you can basically the syntax tree that you are getting this syntax analyzer will give you the syntax tree in that syntax tree you can annotate that syntax tree and you can check for type okay so basically this syntax analyzer will give you syntax tree what the semantic analysis will do for type checking this will annotate this syntax tree so basically you will get
+
+179
+01:28:03,740 --> 01:28:33,160
+the output of this semantic analysis that is annotated syntax tree is this clear the output of semantic analysis that will be annotated that will be annotated syntax tree okay so this is the idea okay let's move on now the next phase of compiler that is intermediate code generation now this is interesting so far you already know what is lexical analysis what is syntax analysis semantic analysis these things you have already studied in detail
+
+180
+01:28:33,490 --> 01:29:00,340
+Okay, you already know. Now the next phase, this is interesting. And now we will study basically our focus in the future lectures that will be on these phases, intermediate code generation and intermediate code optimization. So these are the phases on which we will focus. Okay, so let's see what is this intermediate code generation. In this phase, we will generate the intermediate code. Is this clear? In this phase, we are going to generate the intermediate code. I told you that
+
+181
+01:29:00,890 --> 01:29:29,770
+Intermediate code is machine independent and source language independent. So in this phase, what we are going to do, we are finally going to generate the intermediate code from the source language. Okay. You have a source program. That source program will be converted into the intermediate code. Okay. So you can see here, you have a source language, the front end, the last stage of the front end, if you notice the last stage in the front end, that is intermediate code generation. Okay. What this intermediate code generation will do.
+
+182
+01:29:29,950 --> 01:30:01,030
+it will generate the intermediate code. Okay. So let's see. Now, let me tell you one thing. We will study in detail. Don't worry. In future, we will study, but this intermediate code, intermediate representation, there are many types of intermediate representations, the intermediate representation, intermediate representation. Actually, there are many types of intermediate representations. Many, many, many, many are there. Okay. So intermediate representation, I can say there are many types.
+
+183
+01:30:02,690 --> 01:30:28,570
+Many types of intermediate representations are there. Many types of intermediate representations are there. We will study all of them in detail. Don't worry. Okay. Like for example, let me tell you some examples. Let me tell you like very popular. That is three address code. There is very popular intermediate representation. This is very popular. That is three address code. In short, we call it TAC. This is very popular.
+
+184
+01:30:28,930 --> 01:30:58,180
+another intermediate representation another intermediate representation is SSA single static assignment don't worry we will study this also in detailed way another intermediate representation is control flow graph control flow graph okay another intermediate representation is syntax tree your syntax tree okay syntax tree and there are many more okay and there are many many many more don't worry all of them we will study so you can see
+
+185
+01:30:58,460 --> 01:31:27,160
+that intermediate representation there are many type of intermediate representations are there now you can use 3 address code for intermediate representation you can use SSI single static assignment for intermediate representation you can use control flow graph and remember one more thing you can use multiple it's not that you have to use only one of them no no no okay you can have during the compilation multiple intermediate representations can be generated is this clear
+
+186
+01:31:27,540 --> 01:31:55,220
+During the compilation, when you do the compile, then during the compilation, multiple intermediate representations can be generated. Okay. Anyway, today, all these we will, we will study in detail. Don't worry. The three address code, SSA, control flow graph, syntax tree, DAG. Okay. Post fix all these intermediate representations. We will study in detailed way. But in this lecture, let me just take example of three address code. Okay. Because this is very popular.
+
+187
+01:31:55,500 --> 01:32:25,810
+So let me take example of three address code. Now this is your source code. This is your source code. Okay. Now let's, let's convert this to intermediate code. Okay. What we are going to do, we are convert, we are going to convert this to intermediate code, the intermediate code. Okay. And I'm assuming that for intermediate code, you are using three address code. Okay. I'm assuming as I told you, there are many different intermediate representations.
+
+188
+01:32:26,350 --> 01:32:54,620
+there are many different different intermediate representations are there but most popular is three address code is this clear the most popular intermediate representation that is three address code and control flow graph these are the very these are the most popular okay so three address code okay anyway so let's see the name itself is telling you three address code what that means let me just tell you a quick idea in detail we will study in the next lecture
+
+189
+01:32:54,990 --> 01:33:25,640
+but let me tell you what is three address code the name itself is telling you in the three address code instructions are very simple and they will use at most three addresses okay simple instructions using at most three addresses simple instructions simple instructions using at most three operands using at most three operands is this clear using at most three operands so remember in the three address code
+
+190
+01:33:25,920 --> 01:33:55,430
+the instructions are very simple and they will use at most three operands they will use for example how many operands are here tell me in this source code how many operands are there in this how many operands are there total how many operands total five operands are there okay so in the three address code how you will convert this this source code how will you convert this to three address code very simple okay first you will do this b into c okay no problem do the b into c
+
+191
+01:33:55,770 --> 01:34:24,610
+and you store this in some temporary variable T1 okay you store this in some temporary register T1 this T1 this is a temporary register or you can say this is a temporary variable okay you can say this is a temporary variable or temporary register so what you do you do B into C you store that into T1 okay because remember in the three address code we have instructions are very simple and they will use Atmos three operands yes or no Atmos three operands you can use
+
+192
+01:34:25,100 --> 01:34:48,480
+This instruction will use at most three operands. Okay, every instruction will use at most three operands. So this is the idea of three address code. Three address code is an intermediate representation. There are many different type of intermediate representations are there. But the most popular intermediate representation, the most popular type of intermediate code that is three address code. Okay, in this three address code, the instructions are very simple.
+
+193
+01:34:48,750 --> 01:35:18,130
+and they will use at most three operands. So if this is your source code, you can convert this into the three address code very easily. What do you do? You do B into C and you store this in a temporary variable T1. Then what you do? Then you do B into D. You store that into temporary variable T2. Then what you do? Then you do T1 plus T2. Yes or no? Then you do T1 plus T2. C. B into C. This you are putting in the T1 and this you are putting in the T2. Then you will do
+
+194
+01:35:18,590 --> 01:35:47,960
+then what you will do then you will do t1 plus t2 okay what you can do you can store this in t3 or maybe you can directly store in A either you can do this either you do this or what you can do or what you can do you can store this in t3 and then this t3 you can store in A okay so this is the complete idea is this clear this is your intermediate code please tell me did you understand let me know very simple see this is
+
+195
+01:35:48,150 --> 01:36:16,950
+Nothing hard here. Very simple. This is your intermediate code in three address code. So this is the three address intermediate code, three address intermediate code. Okay. Let's move on. So you can easily see this is what you will get. Okay. Let's see this one. How to convert this into three address code. Don't worry in, in the next lecture, we will study three address code in a detailed way. We will study, but right now some points I want to make. Okay. Some small, small points I want to make.
+
+196
+01:36:17,340 --> 01:36:48,150
+So that is the reason I'm taking this. So let's take this is the source code, how you will convert this to three address code. Okay, basically three address intermediate code, give me three address intermediate code, give me three address intermediate code, intermediate code, or I can say intermediate representation, what that will be, what that will be. So very simple. Here, what you will do? This is a while loop. So there will be a loop here, right? Yes or no, there will be a loop. Now, let me, let me try.
+
+197
+01:36:48,440 --> 01:37:19,660
+let me try because you want three address intermediate code yes or no what you want you want three address intermediate code three address intermediate code you want so what you will do anyone just tell me if you have this code first what you will do in this code first what the first thing you will do just tell me that point okay when you are executing this what the first thing you will do just tell me that first thing what you will do you will do y plus z yes very good very good
+
+198
+01:37:19,900 --> 01:37:48,390
+first thing you will do is y plus z okay let's put this y plus z in some variable t1 okay this y plus z you will do let me put it in a t1 okay i'm putting this in t1 then what you will do what are the next thing you will do tell me what is the next thing you will do you will compare this x you will compare this x with t1 yes or no okay let me put that in t2 so did you notice this t2
+
+199
+01:37:48,930 --> 01:38:17,580
+This T2, this is a Boolean, yes or no, either T2 will be 0 or 1, do you agree with me? Okay, see notice, first you will do Y plus Z, put this in temporary variable, this is a temporary variable T1, put here T1, now then what to do? Then you check X is less than T1 or not? You check X is less than T1 or not? And the result you store in T2, did you notice one thing that this T2, this T2 will be what? Can I say this T2 is Boolean?
+
+200
+01:38:18,310 --> 01:38:53,000
+either this t2 will be 0 or 1 yes or no this t2 will be a Boolean variable this is a temporary variable but this is a Boolean temporary variable okay either it will be 0 or 1 if x is less than t1 then it will be then it will be 1 if or else it will be 0 yes or no is this clear please tell me see a very simple point I'm telling you if you write like this in the t2 you are putting x less than t1 now what will happen here it will happen that
+
+201
+01:38:54,200 --> 01:39:24,190
+if x is actually less than t1 then this will be true yes or no if x is actually less than t1 then this will be true then in this situation t2 will be true t2 will be true okay else if x is greater than equal to t1 then in this situation t2 will be false right yes or no okay very simple is this clear so quite easily you can do I hope this point is clear true or you can say 1
+
+202
+01:39:24,700 --> 01:39:54,890
+and false or you can say zero either you can say true or you can say zero false means zero true means one so very simple now here this is what you will do what are the next thing you will do tell me when you are executing this code what is the next thing you will do the next thing you will do if this t2 is set then you will go here do you agree with me do you agree with me that if this t2 is true if this t2 is true then you will go to
+
+203
+01:39:55,300 --> 01:40:28,300
+this line yes or no is this clear please tell me so what you will do this is what you are going to do if if this t2 if this t2 is true then what you will do or maybe you can do like this if t2 is false then go out of the loop agree with me if a t2 is false okay if if a false t2 if a z if a z t2 okay i will explain don't worry so
+
+204
+01:40:28,580 --> 01:40:57,340
+Let's okay, let's write that if IFZ what this IFZ means what I will tell you IFZ T2 if this T2 is false then what should we do please tell me then we should go to where we should go out of the loop yes or no we should go out of the loop agree with me we should go out of the loop do you agree please tell me did you understand what I'm telling you if this T2 is a false if this T2 is zero
+
+205
+01:40:57,820 --> 01:41:28,270
+This means if T2 is 0, then you go out of the loop. Okay, so I'm telling you what this means, what this line means when I say if Z A, if Z A or maybe if Z T go to L1. Okay, what that means? Let me tell you. This simply means, this simply means if T2 is 0, 0 or you can say false. If T2 is false, then jump to L.
+
+206
+01:41:31,320 --> 01:42:00,890
+okay then jump to L is this clear so this is what we are going to write that if this t2 is 0 okay if z t2 means if this t2 is 0 then go to go out of the loop okay if this is not satisfied then what to do if this is not satisfied means if this t2 is true if this t2 is true then what to do tell me then what to do then in x you put x-1 x-y okay yes or no
+
+207
+01:42:01,050 --> 01:42:31,780
+Is this clear? Please tell me. L1 is here. Okay. After this instruction, where you will go? Tell me. Just tell me. After this instruction, where you will go? Just let me know. After this instruction, where you will go? See, this is very common sense. Okay. Everything is very simple. First, what you will do? First, you will do Y plus Z. Do this Y plus Z and put in T1. Store in temporary variable T1. Then you will check X is less than T1 or not. X is less than T1 or not. Store the result in T2. You can see T2 is Boolean variable.
+
+208
+01:42:32,200 --> 01:42:59,120
+if x is less than t1 if this is true then this will be true if this is false then this will be false okay now you can see if this t2 if this is false then you will go out of the loop okay means you will go to l1 if this t2 is false you will go out of the loop you will go out of the loop okay else if this t2 is not false okay if this t2 is true if this t2 is true then you will execute x equal to x minus y
+
+209
+01:42:59,620 --> 01:43:28,720
+after this line you will go again to y plus z yes or no after this line you will again go to y plus z again you will do y plus z after this line you will again do y plus z yes or no okay after this line what you will do you will go to L you will go to L0 okay you can go to L0 let's this is your L0 okay this is your L0 so that's it this is your program please tell me did you understand
+
+210
+01:43:29,600 --> 01:44:00,020
+Did you clearly understand how to convert, how to write intermediate code? This is the intermediate code we will get. Did you understand this one? Please tell me. This one, did you understand? Let me know. This is your program. This is the source code and we are converting this source code into intermediate code. Three address, intermediate representation. Did you understand? Let me know. Please tell me. Now Satyam is asking, why can we not go to second instruction? See.
+
+211
+01:44:00,350 --> 01:44:28,890
+that is a good doubt i will explain that but notice one thing here we are not doing any optimization satyam we are not doing any optimization here okay just focus on this code what this code is doing after this line again you will do this y plus z yes or no do you agree with me forget about optimization forget about optimization after this code again you will go here yes or no after this code again you will do this y plus z is this clear
+
+212
+01:44:30,260 --> 01:44:58,480
+I will answer your doubt what you are what you are thinking I understand that okay so that will come that will come but did you understand this that after this line you will again do y plus z then again you will do comparison and then again the same thing will happen okay so this is the idea understood okay this particular example did you understand so you can see this line what this line means if z t1 go to l1 what this means this means go to l1 if t1 is 0
+
+213
+01:44:59,300 --> 01:45:32,910
+go to L1 if a T1 is 0 and what this means this means go to L1 directly okay directly jump to L1 directly jump to L1 okay and this L1 is some level here so very simple okay so you can see if this is your code source code you can convert into intermediate code so finally this is your three address intermediate representation three address intermediate representation this is the intermediate representation
+
+214
+01:45:33,210 --> 01:46:01,930
+Okay, is this clear? Now, did you notice one thing? Is this machine dependent? Did we use any feature of the machine? Please tell me, when you are writing this code, did you use, did you think about the machine, the target architecture, the target machine? When we are converting this to this, did you think about the machine, the target machine, did you think about? No, you did not think. Yes or no? So this, this is basically machine independent. Yes or no, target machine independent. This is target machine.
+
+215
+01:46:03,550 --> 01:46:39,570
+independent. Okay. Also, this is a source code independent. This does not depend on the source language. Like does, does this depend on the C language? Is there anything related to C language here? Is there anything related to Java language here? No. So you can see this is a target machine independent. Also, this is a source language independent. This is source language independent. Okay. Now let's move on. Now the next phase, what are that?
+
+216
+01:46:40,030 --> 01:47:12,900
+the next phase is intermediate representation optimization this intermediate representation that you have can you optimize it optimization means making it better yes or no what optimization means that simply means making it better what the meaning of optimization code optimization what the meaning of code optimization you are making it better you are making it faster code optimization means doing some changes such that code becomes faster okay
+
+217
+01:47:14,040 --> 01:47:48,550
+So remember code this means do doing doing some changes Doing some changes. We will do some changes in the code to make it faster to make it faster and shorter smaller Okay, so this is what optimization means you make it faster. You make it more efficient. Okay, execution time should be less. So basically you are making the code better. Now, let me ask you a very simple point
+
+218
+01:47:49,770 --> 01:48:20,510
+This is the code we have already seen, right? Yes or no? Okay. This was your intermediate code that we got. Agree? This is the intermediate code that we got, right? This was the intermediate code that we got. Can you optimize it? This is the intermediate code that we got. Can you optimize it? Let me know. Can you optimize this? Now we are learning intermediate representation optimization. Remember IR optimization. IR optimization. We are
+
+219
+01:48:20,780 --> 01:48:57,230
+going to optimize the intermediate representation the intermediate code we are going to optimize so this is machine independent yes or no this optimizer is machine independent because this is optimizing the intermediate code intermediate code is machine independent so this optimization is also machine independent okay so tell me quickly tell me can you optimize this this intermediate code that we got this intermediate code can you optimize
+
+220
+01:48:58,460 --> 01:49:29,490
+can you optimize can we optimize can we make it better see in this intermediate code notice one thing again and again you are doing y plus z just notice one thing are you doing this y plus z again and again yes or no this y plus z in every loop you are doing y plus z is that stupidity or not in every loop if this loop runs let's assume thousand times how many times this addition you will do let's assume this loop
+
+221
+01:49:29,820 --> 01:50:01,560
+if this loop let's assume this runs thousand times okay if this loop if it runs for thousand times then how many times this addition will happen then thousand times addition will happen right thousand times y plus z addition will happen okay yes or no that is stupidity because are you changing y this y loop will it change y does it changing is it changing y y is y changing in this while loop
+
+222
+01:50:01,730 --> 01:50:33,320
+in this loop y changing or not y is not changing is z changing is z changing z is also not changing okay are you getting my point this is the code while x is less than y plus z y plus z okay and you can see that x is equal to x minus y this is your code now you very simple point you notice y is not changing z is not changing
+
+223
+01:50:33,530 --> 01:51:09,200
+in this loop okay no okay yes or no y comma z are unchanged they are unchanged by the loop by the while loop but still but still again and again you are adding it but still what you are doing but still in every in every iteration you are adding in every iteration we add y comma z yes or no
+
+224
+01:51:09,470 --> 01:51:40,490
+So this addition is taking a lot of time. Okay. If this while loop, if it runs, let's assume one million times, then one million unnecessary additions will happen. Yes or no. It's still in every, in, in every iteration you are adding. This is unnecessary work. Yes or no. This is unnecessary work. This is completely unnecessary work because neither why it's changing nor JD changing. So this addition you don't have to do again and again. What are the better thing? Just put it outside. Yes or no.
+
+225
+01:51:40,890 --> 01:52:08,390
+the better thing is put this outside okay so what you can do this line this y plus z you are doing this y plus z basically this y plus z what you do you put this outside okay this y plus z you can put you can store in some some variable t0 put it outside the loop and this t0 you put here this is the optimized yes or no can I say this is the optimized version
+
+226
+01:52:10,850 --> 01:52:39,580
+This is the optimized version. So same thing you can do here. This was your intermediate code. This line, you just keep it out of the loop. Just put it out of the loop because why is not changing? Z is not changing. Yes or no. If Y changing, can you put it out outside the loop in the in the here? If Y changing, then can you put it outside the loop? If Y is changing, if Y changing, can you put it outside the loop? No, then you cannot do.
+
+227
+01:52:39,860 --> 01:53:09,420
+Okay. Yes or no. If Y is changing, then you cannot do, but here Y is not changing. Z is not changing. So you don't have to do this Y plus Z again and again. This you put outside the loop. Here you put this code you put here outside the loop. So what you can do? This is what you can do. Is this clear? Now you can notice in the loop, you don't have to do any addition. If this loop runs for one million times, then you don't have to do one million additions. Yes or no. So this is called optimization.
+
+228
+01:53:10,030 --> 01:53:37,850
+this example did you understand did you understand the concept of optimization what optimization does what optimization does you can notice here you can notice if you are running this loop 1 1000 times then 1000 times this addition will happen unnecessary addition because y comma z are not changing so unnecessary addition will happen 1000 times so what you can do you can put this line outside outside the loop okay outside the loop you can put it now you can notice
+
+229
+01:53:38,200 --> 01:54:05,950
+that if you run this loop 1000 times then 1000 times addition will not happen only one time addition will happen you don't have to do addition 1000 times okay so this is your optimization intermediate code optimization so this is the simple idea we have already seen now the next phase is code generation or I can say machine code generation or you can say assembly code generation what this phase will do it will generate the assembly code very simple
+
+230
+01:54:06,550 --> 01:54:34,390
+this phase is going to generate the assembly code this this phase is going to generate your machine code or assembly code I can simply say the target machine code or the target assembly code will be generated okay very simple here in this phase what we will do the target program will be generated very simple okay the target program is going to be generated like you can see if this is your let's assume this is the output of optimized let's assume this is the optimized
+
+231
+01:54:37,070 --> 01:55:09,840
+intermediate representation okay this is the optimized intermediate representation now this will be the input to the code generation this will be the input to the code generation phase and what this code generation phase will give you it will give you the target machine code it will give you the target program okay you can say the target code will be generated it can be assembly code the target code I can say the target assembly code so now assembly code will be generated
+
+232
+01:55:10,110 --> 01:55:43,220
+Okay, so you can see this program. This is your optimized intermediate representation. Okay, this is the output. I can say output of IR optimization. So remember IR optimization output is this. So this is output of IR optimization. Okay, so this will be the input to the code generation phase to this code generation phase. And this code generation phase, it will give you the target assembly code. Okay, so like this, this is the target assembly code you are going to get. Is this clear?
+
+233
+01:55:43,720 --> 01:56:17,070
+so very simple this is the target assembly code you will get this is the target assembly code remember one thing remember one thing this is machine dependent this is machine dependent actually we cannot do anything here why because this is machine dependent means in your machine this instruction is there all these instructions are in the instruction set okay this is machine dependent and actually all these instructions they are in the instruction set of the machine
+
+234
+01:56:17,680 --> 01:56:49,380
+they are in instruction set of the machine they are in the instruction set of CPU of machine okay so remember this is your machine dependent the result this this result is machine dependent because this is the target assembly code and this target assembly code that is you already know this is machine dependent okay so and the final stage what is that the last stage that is code optimization means machine dependent code optimization okay
+
+235
+01:56:49,770 --> 01:57:17,910
+this assembly code that you got the machine dependent assembly code that you got now can you optimize that this is the point we can optimize that also okay so remember this is the code you got right yes or no what is this this is the code that you got so notice one thing we got this code this is the output of code generation right this is the assembly code that we got this is the assembly code
+
+236
+01:57:18,320 --> 01:57:53,120
+This is machine dependent. Okay, this is the assembly code that we got. Now, this is machine dependent. Now this you can optimize. Okay, you give this to the optimizer, machine dependent optimizer, optimizer, to this optimizer, you give this input, then this will give you optimized assembly code, optimized assembly code, optimized assembly code you will get. Okay, let me give you one example. Let's assume
+
+237
+01:57:53,530 --> 01:58:22,170
+that in your machine in your CPU let's assume this instruction you have see here basically what you are doing notice here please notice here these are the variables okay these are the variables this is sorry these are the registers this is your register 4 this is your register number 4 these are the registers like this is this is R6 okay what is this this is R6 this is the register R6 okay actually if you notice in this in this code what is happening can anyone tell me
+
+238
+01:58:22,880 --> 01:58:49,670
+in this code actually in this code what is happening in this code actually this is happening that first you are adding R2 R3 and you are putting in what R2 R3 you are putting in R1 yes or no this is the first thing you are doing then then what you are doing tell me then what you are doing then you are putting in R4 you are putting R1 plus R4 yes or no this is what you are doing you are adding
+
+239
+01:58:50,110 --> 01:59:21,230
+these two you are adding r1 plus r4 and you are putting the result in r4 here you can notice you are adding r2 r3 and you are putting the result in r1 okay what this this is a this is a set if less than this means set if less than what this means this means set if less than is this clear set if less than so what this means set if less than what this means means if this r1 is less than r5 then what you do
+
+240
+01:59:22,250 --> 01:59:51,400
+if this r1 is less than r5 if r1 is less than r5 then what to do then you set this r6 then you set this r6 means r6 becomes 1 then r6 becomes 1 is this clear please tell me let me know means this see SLT what this SLT means this SLT means set if less than set if less than means set this r6 set this r6 if r1 is less than r5
+
+241
+01:59:51,630 --> 02:00:23,350
+if r1 is less than r5 then set this r6 okay is this clear and finally this is branch if equal this is jump if r6 okay if r6 is set so if r6 is 1 if r6 is 1 jump to loop okay if r6 is 1 then jump to loop so here jump to loop if r6 jump to loop
+
+242
+02:00:25,010 --> 02:00:55,480
+if R6 is 1 so this is your code now you just tell me one thing let's assume I'm telling you let's assume there is an instruction in the machine in your CPU let's assume there is an instruction okay assume assume in CPU in CPU instruction set because now everything is machine dependent remember now we are in the territory of machine machine dependent now everything is machine dependent okay so let's assume
+
+243
+02:00:55,870 --> 02:01:28,940
+that in the CPU instruction set this instruction is there following instruction we have following instruction is present following instruction is present okay see what I am saying I am saying just assume that in the CPU instruction set in the processor instruction set let's assume the following instruction is present what is that the instruction is like this branch if less than branch if less than okay so
+
+244
+02:01:29,320 --> 02:01:57,880
+here something like this like for example this this type of thing r s branch to some location l1 okay what this means let me tell you what this means this means this means branch if less than okay this means jump jump if less than jump if r is less than s where to jump jump to l1 yes or no jump to l1 jump to l1 if
+
+245
+02:01:58,370 --> 02:02:29,640
+r is less than s so let's assume this instruction you have just assume this instruction is present in the CPU instruction set now can you optimize this now can you optimize this did you understand the question did you understand my question I am assuming in my CPU instruction set in the CPU this instruction is there okay this instruction branch if less than means if r is less than s then you jump to l1 then you jump to l1 now
+
+246
+02:02:29,930 --> 02:03:07,180
+Now can we optimize? Now can we optimize the previous assembly code? Now can we optimize the previous assembly code? And the answer is yes. Now what you can do? Now the answer is yes. Basically, what you can do? You don't need these two instructions. Okay, let me tell you now something like this will happen that now you don't need these two instructions. See, see what will happen.
+
+247
+02:03:07,580 --> 02:03:37,310
+these two instructions you don't need, yes or no? you can combine these two instructions, right? notice, please notice can you combine them? these two instructions, can you combine them? can you combine them? let me know just look at these two instructions and tell me, can you combine them now? we can combine them, right? we can replace these two with what? we can say branch if less than okay, branch if less than if R1 is less than R5
+
+248
+02:03:37,640 --> 02:04:11,300
+then you branch to loop is this clear or not please tell me these two instructions you can replace with one instruction these two instructions you can replace with one instruction what that means means these two instructions look at these okay these two these two instructions now you can replace with one instruction you can replace with one instruction branch if less than branch if less than dollar one dollar five go to loop
+
+249
+02:04:12,500 --> 02:04:46,380
+So this is how you can do understood very good Satyam. Excellent. Very good. So one instruction you can put. So finally the answer will be what will be the answer. So you can easily see these two instructions you can merge and this instruction you can get. So you got an optimized code. Yes or no. Did you notice? So this is your optimized assembly code. This is the final output. This is the optimized assembly code and this is the
+
+250
+02:04:46,700 --> 02:05:16,420
+last output of the compiler this is the last output of compiler i hope you understood all the phases please tell me did you understand did you understand the machine dependent code optimization and machine independent code optimization see in the machine dependent code optimization did you notice we are using the we are using the features of the CPU did you understand notice notice
+
+251
+02:05:16,830 --> 02:05:47,210
+that in the machine dependent code optimization machine dependent code optimization here we are using the features of the CPU like this instruction is there in the CPU or not in the instruction set of the CPU do we have this instruction or not please tell me did you understand in this machine this is machine dependent code optimization in this machine dependent code optimization we are using the features of the CPU we are using the features of the processor but in this IR optimization
+
+252
+02:05:47,580 --> 02:06:12,800
+we do not use features of the machine okay is this clear so this is a machine independent optimization and this is machine dependent optimization and did you understand all these things the complete sequence did you understand please tell me from lexical analysis to machine dependent code optimization everything did you understand let me know let me know did you understand everything please tell me so that's it
+
+253
+02:06:13,200 --> 02:06:38,500
+Okay. This is the complete overview. This is a detailed overview of compiler phases, the phases of the compiler with help of one example. I've told you what every phase will do. Okay. And I also told you what is intermediate representation, how to optimize the intermediate representation, how to generate the code. Okay. The machine code or I can say the assembly code, how to optimize the assembly code. So basically we have seen the output of every phase.
+
+254
+02:06:38,830 --> 02:07:07,260
+What are the input of every phase? What are the output of every phase? What every phase will do? What are the tasks of every phase? What is front end? What is back end? Okay. So basically everything, everything related to this is the complete detailed overview of compiler. Please tell me. Did you understand? Let me know. Just let me know. Did you understand the complete overview of compiler? Okay. In the next lecture, we will study intermediate representations. I told you.
+
+255
+02:07:07,470 --> 02:07:28,510
+that there are many different different type of intermediate representations like three address code control flow graph ssa ssa means single static assignment okay there are uh daz there is uh syntax tree okay so there are many intermediate representations are there and these intermediate representations we will study in the next lecture okay thank you everyone
+

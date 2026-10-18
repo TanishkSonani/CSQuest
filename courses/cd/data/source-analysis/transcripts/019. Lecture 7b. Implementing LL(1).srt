@@ -1,0 +1,204 @@
+1
+00:00:01,810 --> 00:00:31,240
+Hi everyone So till now we have seen that what is an LL1 grammar and how to write a parser for that which means how to make a parsing table Okay, so just to make you quick revise. Let me let me try to Let me try to make a parsing table for this or let me first tell you that how does LL1 works So this L means like we will go from left to right and then we will be doing the leftmost derivation So let's take one string which is num
+
+2
+00:00:32,450 --> 00:01:00,260
+maybe this num plus num okay num plus num let's take this string and then let's try to let's let's try to understand from the element context that how to pass that okay so what we are going to do we are always going to drive the left most protection which means like here you have only one option that's okay but now you are going to only drive from E
+
+3
+00:01:00,590 --> 00:01:25,650
+So, from E you have two options, from E you have two options. Now, which one to go for? Which one to go for? Now, that is decided by passing table. So, in the passing table, if I make the passing table, then for E and for this bracket, you will be having some entry.
+
+4
+00:01:27,640 --> 00:01:56,640
+So in that case, let's suppose this is production one, two, three, four, five. Suppose this is production number five. So you must be having production number five here, which means if you have E, if you have E and input symbol, if you have if you have opening parenthesis, then use production number five. Suppose this is the table. Okay. So I'm not going to make the table or I think I have the table here. Yeah, I have the table in the next page. So if you make the table, then this let's suppose this is production number one, this is two, three, four and five.
+
+5
+00:01:56,910 --> 00:02:25,370
+So tell me what is at E and opening parenthesis, it is production number five, right? This is production number five basically. Okay, this is production number five, which means if you have E in your hand, in your hand, in hand, if you have E, and then you see opening parenthesis, then what to do? Use production number five. So let's just do it, which means you will be just expanding like this, right? And then you will see that, okay, this and this are matching. So that's very good.
+
+6
+00:02:25,610 --> 00:02:45,950
+now now this is this is okay now you are at num now you want to produce like you will be doing the leftmost derivation again you will be doing the leftmost derivation why because because this is l11 which means you will you will go from here you will you will be going left to right left to right and on the grammar on the grammar you will be doing leftmost derivation
+
+7
+00:02:46,040 --> 00:03:15,520
+okay i'm not showing you with the parse tree because from that it is not much clear that i'm doing lmd or rmd or which derivation i'm doing but i'm explicitly showing you with the lmd okay that's how does it work now from this e you want to you want to have this num so from this e just see the parsing table from this e you want to have this num so which means use the production number four use the production number four it is saying use the production number four basically in the parsing table you should be having this four okay so let's use the production number four
+
+8
+00:03:15,710 --> 00:03:36,910
+So, how I am deciding which protection to use, I am making use of the pass interval. So, let us use the production number 4, which is this, which is this. So, it will just produce num and then closing parenthesis and then e prime. Now, this num and closing parenthesis will get cancelled. Now, you have plus and you have e prime here.
+
+9
+00:03:37,150 --> 00:04:06,530
+So just do LMD. LMD means leftmost derivation since there is only one non-terminal. So leftmost and rightmost both are same. But anyway, this is the LMD because I am always doing the leftmost derivation. I'm always doing the leftmost derivation. Now from this E prime, you want to generate this plus. So which production did you use? Among these two, which production to use? So we will take the help of parsing table, which means I will ask from this E prime, I want to generate this plus. So which production to use? It will tell me this production to use, which means it is production number two.
+
+10
+00:04:06,830 --> 00:04:36,480
+it is production number 2. So, it is telling me a production number 3 production number 2. So, I have I have said it production number 2, this is production number 3, this is production number 1. So, it is telling me that to use the production number 2 which means plus E. So, now, I will be using plus E. So, this num this is as it is plus E right. Now, this plus plus is getting matched then then I will I will again do the LMD and since there is only one one non-terminal. So, everything is same. So, I will I will be again doing the LMD.
+
+11
+00:04:36,770 --> 00:05:06,290
+now tell me which production to use this plus plus is matching I want to now get this num so which production to use you have in your hand and you want to produce num so which production to use production number four production number four means this so num so which means num plus num plus num now you got the whole string you got the whole string and there is no non-terminal left so you got the whole string and then it means that you have passed this string it means that you have passed this string
+
+12
+00:05:07,660 --> 00:05:35,620
+I hope you got the idea. So this is LMD. This is LMD. We do LMD and we basically we make use of only one symbol, one look ahead, which means at from the input, I'm just looking at one symbol. And based on the symbol, I'm making the decision which protection to use. So when I made this parsing table, then also I just use first and follow, which means
+
+13
+00:05:35,880 --> 00:06:05,780
+I just used made I just made use of one symbol so first is just one symbol right first doesn't have this two symbols a something like that first is just one symbol similarly follow just one symbol so we we just we are just making use of one symbol to make the parsing table so everywhere we are making use of just one symbol right so that's why this is LL1 because because we are making use of one symbol we are going left to right in the input and we are doing LMD in the grammar so that's why it is LL1
+
+14
+00:06:08,170 --> 00:06:34,110
+Right now now let's let's do Let's do the implementation part, which means like this was the theory part like how to build the passing table and all so let me just tell you that how to write a code Okay, so this is your passing table now I want to tell you that how to write a code so for implementation as I earlier told you that there are two ways one is recursive way that we call recursive descent parser and
+
+15
+00:06:33,850 --> 00:07:01,300
+And here, since it is for predictive parser, so I can call it like recursive decision parser with backtracking, right? With backtracking, or sorry, without backtracking, without backtracking. Or you can have non recursive parser with explicit tag. So I will show you both of the implementation, okay? I will show you both of the implementation. So for recursive decision idea, you have this grammar and
+
+16
+00:07:01,550 --> 00:07:30,440
+the idea is that idea of the recursive descent is that that for every for every non-terminal for every non-terminal I will be having one function so I will be implementing it right so let me just show you like this is your grammar this is your parser table this is your parser table parser table or ll1 table I'll just call it ll1 table this is your ll1 table this is your grammar I want to just write a code I want to just write a code which uses which uses
+
+17
+00:07:30,720 --> 00:07:56,190
+this table and parse it so i think that's very easy like for every every non-terminal i will be writing something i will be writing something so tell me tell me earlier what i did earlier when when it was with backtracking when it was with backtracking what i did just recall yourself then when when it was with backtracking then what i did i i basically tried this production
+
+18
+00:07:56,630 --> 00:08:19,670
+and if it fails since it's okay in this case there is only one protection so let's call this production as one like there will be another function as one okay that will be implementing this production so for every production I wrote one function if you remember okay so let's say that this is for this production I have written as one so earlier earlier I I basically tried as one and if as one failed then I tried as two
+
+19
+00:08:19,880 --> 00:08:49,650
+but in this case there is only s1 okay let's not worry about it let's let's see this let's suppose this is e prime 1 this is e prime 2 okay so earlier i did what i earlier i did this if it fails if it fails then i will be going e2 prime right this is what i was doing earlier and earlier i was doing here e1 even and e2 like this is even for this production this is even this is e2 so this is what with backtracking which means i was trying this if this fails i was trying this
+
+20
+00:08:49,980 --> 00:09:19,120
+but now I want to use a predictive parser which means I will be just trying one of them so how to how to choose one of them that will depend on that will depend on my input right if see here if my input if my input is let's suppose num if my input is num then I will be choosing from this e to I will be choosing num or I will be choosing this four or five I will be choosing four right I will be choosing four so for this e which production to choose
+
+21
+00:09:19,390 --> 00:09:48,070
+e1 or e2 depends on my input if input is num if input is num if input is num then I will I will choose this I will choose production number four if input is let's suppose here if input initially input was opening parenthesis so if input is starting with opening parenthesis input is opening parenthesis I was choosing production number five this is what I was doing I was doing earlier and who told me that that to do I mean as a human you know but as an algorithm who told me this parsing table told me right
+
+22
+00:09:48,330 --> 00:10:20,050
+this passing table told me. So, I will be doing what? I will be either making this choice or this choice. Similarly, either I will be making this choice or this choice. But based on what? Based on the passing table. So, I will just say this. That's very easy. I will just say that if current input is, let's suppose, is num, then I will go for even, then I will go for even.
+
+23
+00:10:20,410 --> 00:10:50,950
+else see this is important I am using if else here okay which means either I will be using this or I will be using this or let me just write if if if current here I will be returning directly returned okay earlier if you notice I was not returning from here okay so here I will be returning and here I will be saying if current input is basically is basically this opening parenthesis then use this production which is production number
+
+24
+00:10:51,290 --> 00:11:19,430
+like this is e2 right then use e2, return e2 whatever whatever this e2 is determining so return the same earlier what I had earlier I was not not looking at this input earlier I was not looking at this input okay I was basically backtracking which means I was trying this also and I was trying this also but now what I'm doing I'm just trying I'm based on the input based on the input I'm just trying one of them so now I hope you can you can modify this also so you can just say if if
+
+25
+00:11:19,860 --> 00:11:49,060
+Input is plus, input is plus, then you will be calling this, which is let's suppose E2. And when you will be calling this, where is this production? This is at dollar. So if input is plus, if input is plus, you have E prime in your hand, input is plus, then call this production. Otherwise, if input is dollar, which means you do these at the end of input, if input is dollar anyway, so you will be calling this production. You will be calling this production. I hope you got the idea. So that's all you need to do.
+
+26
+00:11:49,260 --> 00:12:17,540
+So instead of calling these two, just put if input is this, then call this. If input is this, then call this. That is all. That's the only modification that we need to do. So what I'm doing, based on the input, I'm saying if it is num, then call even. If it is this, call e2. If neither num nor bracket, which means let's suppose closing parentheses, then there is nothing. Which means if I'm coming at this situation, then there is no production to use.
+
+27
+00:12:17,770 --> 00:12:49,840
+which means I cannot parse, which means in the default case I am written false, which means there is an error. So I hope you got the idea how to implement. So there's the only difference that instead of trying all the possibilities, I will be trying only one of them based on the input. If there's the input, if current input symbol is num or this, based on this, I will be trying just one of them. So this is the recursive implementation. Now let's talk about non-recursive implementation. How to implement this non-recursively?
+
+28
+00:12:51,360 --> 00:13:22,900
+Okay, so this is this is your grammar. This is your parsing table. But at this point in time, I want to implement this non recursively. Okay, I don't want to use a function call and all I want to just implement this non recursively. So let's just see how to do it. So you do not want any any recursive calls and all. So what to do, you will be taking a stack this case in this case. So let's take one stack. Let's take one stack. And let's say this stack is having dollar dollar at
+
+29
+00:13:23,770 --> 00:13:53,690
+at the top initially okay and there is one input which is let's suppose num num plus num this is your input and this stack is having also dollar and start symbol and you want to parse this you want to parse this so what to do just apply your common sense like what can I do with the help of this stack and then this so why I'm putting this start symbol here because I want to make use of this so what I will be doing if this is start symbol
+
+30
+00:13:54,000 --> 00:14:22,480
+this is this this is like opening parenthesis then if it is a star symbol you want to generate opening parenthesis then use this use this which means i will be now popping s from it i will be now popping s from it okay now i will be popping s from it and then i will be pushing this ee prime i will be pushing this ee prime now to push this ee prime i will be pushing in the reverse order because i want i want to make use of e now see s is giving ee prime now
+
+31
+00:14:22,820 --> 00:14:54,730
+Now I want to expand this E because this is LMD. I want to expand this E. So that's why on the top of the hashtag, I want to have E. So I will be having E prime E like that. Now on the top of the hashtag, I have E. On the top of the hashtag, I have E. So this input is consumed. Now go here. On the top of the hashtag, I have E. And now I have num here. I have num here. Sorry, this input is not consumed.
+
+32
+00:14:56,990 --> 00:15:26,910
+So this input is not consumed yet because I have not generated the opening parenthesis. So I still have this opening parenthesis. I still have the opening parenthesis and on the top of the hashtag I have E. So on the top of the hashtag I have E and there is opening parenthesis. So what to do? You will be getting this E like this. So just push this, just push this, just push this but do it in the reverse order. So from here you will be getting
+
+33
+00:15:27,310 --> 00:15:57,760
+you will be getting something like this something like this e prime and then do it in the reverse order like this okay so just to repeat it like it was the start symbol at the at the start then what you did you just popped out the start symbol you just popped out the start symbol and then then you pushed push whatever is the production in the reverse order then you popped out e you pushed whatever is the production in the reverse order and how to get the production you will be getting from the passing table
+
+34
+00:15:58,450 --> 00:16:27,830
+and then you check on the top of the stack this time this time see this time is little different otherwise like earlier it was the non-terminal but this time it is terminal if there's a terminal then you will be matching the terminals and then you will be just popping this out you will just popping this out you will think okay I have generated this then advance the input pointer to num and also also use this E use this E for this num which means now you will be saying that you have E in your hand and you want to generate num so just use this E gives num
+
+35
+00:16:28,110 --> 00:16:53,670
+which means now you will be popping e pushing the num popping e pushing the num so your stack will look like this your stack will look like this dollar e prime closing parenthesis popping the e pushing the num now this num and num will get will get cancelled to each other which means you want to you want to produce num and on the top of the test stack also you have num so this will get cancelled to each other now you have closing parenthesis
+
+36
+00:16:53,950 --> 00:17:22,110
+and now here also you have closing parenthesis so this will also get cancelled now you have e prime here and you have plus num here so you will be popping e prime and pushing what from e prime you have plus plus right you have plus you have plus from e prime you have plus so you will be pushing plus e in the reverse order in the reverse order so dollar is as it is plus e means plus e reverse order means you want a plus on the top so it will be like that right now
+
+37
+00:17:22,510 --> 00:17:51,630
+you have plus here you have plus here so this will get cancelled which means you will pop it here you will advance the input pointer now you have num here you have e here which means from e you want to get num so just just use this protection which means pop this and push this num push this num and then just match this num and num and then at the end you will be having dollar from this input so dollar dollar is matching then it means that you have reached at the end of input you have also reached like your stack is also empty which means now now your
+
+38
+00:17:51,900 --> 00:18:23,520
+input this num in bracket num plus num has got accepted this is what it means okay so let me first show you the code and then we will traverse through the example again so what we need to do we basically need to do this like initially this is the initial configuration where you are having on the top of the stack you are basically having dollar and and star symbol right and your input is basically input is num plus num and let me just say it is ending with dollar
+
+39
+00:18:23,820 --> 00:18:50,360
+so this is your initial configuration then what to do you will be just you will be just making use of the parsing table you will be you will be going to the entry of s and s and bracket which means which means in this case s and bracket is this ee prime then you will be pushing ee prime in the reverse order so so on the top of the stack either it could be terminal or it is non-terminal so if it is terminal then you will be just cancelling both right which means if x is if x is on the top of the stack okay
+
+40
+00:18:50,680 --> 00:19:21,630
+so x is basically on x is let me call it x is x dot top top of the step okay so if this x is terminal if x is terminal then i will do what i will just pop pop it i will just pop it and move to the next symbol in the input advance means move to the next symbol in the input okay that's all now suppose suppose x is non-terminal so what to do if x is non-terminal then i will i will do what i will go to
+
+41
+00:19:21,930 --> 00:19:51,460
+the corresponding entry i will go to the corresponding entry of as and bracket and whatever i find as and bracket whatever i find i will push i will push it in the reverse order so i will push this so suppose i find this so i will push this in the reverse order which means i will push yk y2 till y1 such that y1 is on the top okay so now let me let me parse it again and then you will get the better better idea so basically what we are doing
+
+42
+00:19:51,750 --> 00:20:21,300
+we are we are writing the parsing algorithm we are writing the parsing algorithm this is the parsing algorithm which is making use of stack making use of input and also making use of your parsing table how because based on the parsing table only you will be getting to know that which production you want to push right which production you want to push so it is making use of stack it is making use of parsing table making use of input and then finally telling whether this input is accepted or not so let me take
+
+43
+00:20:22,260 --> 00:20:51,680
+One more example, so let's take the same example and let me try to parse it using the hashtag So in the hashtag you are having dollar on the top of that and then you have s then you have s, okay now Now tell me what's going to happen if this is as this is opening parenthesis Then you will you will check you will check the parsing table So this is a parsing table as an opening parenthesis, which means eeprem eeprem now you will be pushing you will be pushing
+
+44
+00:20:52,640 --> 00:21:24,100
+E and E prime in the reverse order, which means E should be on the top of that E and E prime like that, okay? Now this is E and then this is opening parenthesis, okay? You are not going to advance. This is again opening parenthesis. This is E. So what to do? This is E. So this is the passing table. This is E. This is opening parenthesis. Then you have, you have this. So now you want to push it in the reverse order. So you want to push in the reverse order, which means you want this on the top of the step. So just pop this E and push.
+
+45
+00:21:25,570 --> 00:22:00,750
+So let me just write it here. So this is e prime post this in the reverse order, okay? Now This and this is matching whenever there's a match just cancel it cancel it which means pop from here and move to the next simple Whenever whenever whenever there is a match, okay? Now see here. This is E. This is E. You have num. So what to do? Let's consult the passing table that for E and num What do we have for E and num? What do we have? This is E. This is num
+
+46
+00:22:00,940 --> 00:22:29,450
+we have just num which means just pop this e and push num right now this num and this num is matching which means cancel here cancel here now you are at this point now on the top of the stack you have again terminal which is which is closing parenthesis here also closing parenthesis cancel cancel now this is e prime this is plus just cancel the parsing table which is e prime and plus you have plus e just push it on the reverse order so pop the e prime
+
+47
+00:22:29,790 --> 00:23:01,220
+and push plus e such that plus is on the top right okay now you have plus plus just cancel out now you have num here and you have e here so enum let's just check what you are getting e at num you are just getting num so which means pop it and push num pop it and push num now this num and num are matching so just cancel cancel and input will end with dollar so this is dollar this is dollar and you are done with the parsing so you will say yes this this string is just suffered by the grammar so you got the point
+
+48
+00:23:01,540 --> 00:23:30,270
+what we are doing we are basically just going left to right and in the input and then we are we are doing just two things first thing is that if if it's match it is a match match then cancel from both side i mean cancel from both side so what i mean by that that you just advance the input and pop the symbol from the stack right and let's say
+
+49
+00:23:30,880 --> 00:24:07,640
+the second point that we that you are doing is that you are basically checking whether this whether this is terminal or not if it is non-terminal basically you know in case of non-terminal in case of non-terminal consult parsing table and and push appropriate production appropriate production that's all you need to do
+
+50
+00:24:08,190 --> 00:24:35,330
+you are just doing two things, if it is you are just checking whether if it is terminal or non terminal, if it is terminal then then just do this, if it is non terminal then just push it. So, there are just two things that we are doing, if it is terminal or non terminal. So, this is implementation of LL1 parser in non recursive way. This is also implementation of LL1 parser in non recursive way and this is also implementation of LL1 parser, but this is a recursive way.
+
+51
+00:24:38,700 --> 00:24:39,120
+Thank you.
+

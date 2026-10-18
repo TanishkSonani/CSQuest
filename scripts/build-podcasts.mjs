@@ -2,6 +2,8 @@ import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {subjects} from '../config/courses.mjs';
 import {correctAnswer} from '../packages/learning/engine.js';
+import {readFileSync} from 'node:fs';
+const pronunciation=JSON.parse(readFileSync(new URL('../config/podcast-pronunciation.json',import.meta.url),'utf8')).turns;
 
 const clean=value=>String(value||'').replace(/\s+/g,' ').trim();
 const sentence=value=>{const text=clean(value);return text&&!/[.!?]$/.test(text)?text+'.':text;};
@@ -43,7 +45,7 @@ const topicPrompt=(title,index)=>{
  ][index%8];
 };
 const topicTitle=plan=>clean(Array.isArray(plan)?plan[0]:plan?.title);
-const safeQuestion=q=>['choice','number'].includes(q.type)&&!q.code&&!q.given&&!q.diagram&&!q.setup&&q.prompt?.length<500&&!/\b(above|below|shown|following|previous|this code|this graph|circuit diagram|check for)\b/i.test(q.prompt);
+const safeQuestion=q=>['choice','number'].includes(q.type)&&!q.code&&!q.given&&!q.tocGiven&&!q.diagram&&!q.setup&&q.prompt?.length<500&&!/\b(above|below|shown|following|previous|this code|this graph|circuit diagram|check for)\b/i.test(q.prompt);
 export function buildEpisode(subject,unit,lecturePlans,lessons){
  const turns=[],chapters=[],seenExamples=new Set(),seenTerms=new Set(),seenWarnings=new Set(),seenQuestions=new Set(),seenIdeas=new Set(),chapterIdeas=[];
  const say=(speaker,text)=>{text=clean(text);if(text)turns.push({speaker,text});};
@@ -88,7 +90,7 @@ export function buildEpisode(subject,unit,lecturePlans,lessons){
    say('leo',/^(holds|stores|keeps|contains|connects|selects|identifies|measures|describes|represents|returns|counts|converts|moves|controls|determines|allows|provides|specifies|defines|uses|checks|compares)\b/i.test(definition)?`${name} ${definition}`:`${name} means ${definition}`);
   }
   const example=spokenSource(foundation.example),question=group.flatMap(l=>l.questions||[]).find(q=>safeQuestion(q)&&!seenQuestions.has(signature(q.prompt))&&!seenQuestions.has('answer:'+signature(q.explanation)));
-  if(example&&!seenExamples.has(signature(example))&&!(index%2===1&&question)){
+  if(example&&!seenExamples.has(signature(example))&&(subject.id==='cd'||!(index%2===1&&question))){
    seenExamples.add(signature(example));
    const parts=fragments(example);
    // Both hosts do the teaching: one sets up the actual case, the other
@@ -127,17 +129,26 @@ export function buildEpisode(subject,unit,lecturePlans,lessons){
   `We've covered a lot in ${lowerFirst(unit.title)}. You don't have to remember every detail at once; start by trying one of the examples yourself.`,
  ][variant]);
  chapters.push({id:'recap',title:'Recap and next steps',startTurn,endTurn:turns.length-1});
- const speechVersion=2;
+ for(const [index,turn] of turns.entries()){
+  const edit=pronunciation[`${subject.id}:${unit.id}:${index}`];
+  if(edit){if(edit.source!==turn.text)throw Error(`Review the changed pronunciation source for ${subject.id}:${unit.id}:${index}`);if(edit.text)turn.text=edit.text;}
+ }
+ const speechVersion=subject.id==='cd'?3:4;
  const hash=createHash('sha256').update(JSON.stringify({version:1,speechVersion,title:unit.title,turns,chapters})).digest('hex');
  return {id:`${subject.id}:${unit.id}`,subject:subject.id,unit:unit.id,title:unit.title,courseName:subject.name,description:unit.goal,language:'en-US',syntheticVoices:true,speechVersion,hosts:[{id:'maya',name:'Maya',voice:'af_heart'},{id:'leo',name:'Leo',voice:'am_michael'}],topics:titles,chapters,turns,hash,estimatedMinutes:Math.max(1,Math.round(turns.reduce((sum,t)=>sum+t.text.split(/\s+/).length,0)/145))};
 }
 if(process.argv[1]?.replaceAll('\\','/').endsWith('/build-podcasts.mjs')){
+ const subjectIndex=process.argv.indexOf('--subject'),requested=subjectIndex>=0?process.argv[subjectIndex+1]:null,draft=process.argv.includes('--draft');
+ if(subjectIndex>=0&&!subjects.some(s=>s.id===requested))throw Error('Choose a known subject after --subject.');
+ if(requested&&!draft&&subjects.find(s=>s.id===requested).status!=='available')throw Error('This subject is unpublished; prepare its local scripts with --draft.');
+ if(draft&&!requested)throw Error('--draft requires an explicit --subject; it must not publish unfinished course scripts accidentally.');
  let total=0,topics=0;
- for(const subject of subjects.filter(s=>s.status==='available')){
+ for(const subject of subjects.filter(s=>(!requested||s.id===requested)&&(s.status==='available'||draft))){
   const [{units,lecturePlans},{lessons}]=await Promise.all([import(`../courses/${subject.id}/content/curriculum.js`),import(`../courses/${subject.id}/content/lessons.js`)]);
+  if(!units.length||!lessons.length||lessons.some(l=>!l.ready))throw Error(`${subject.id}: finish source readiness before preparing all section conversations.`);
   const episodes=units.map(unit=>buildEpisode(subject,unit,lecturePlans,lessons));
   await fs.writeFile(new URL(`../courses/${subject.id}/data/podcasts.json`,import.meta.url),JSON.stringify({version:1,episodes},null,2)+'\n');
   total+=episodes.length;topics+=episodes.reduce((n,e)=>n+e.topics.length,0);console.log(`${subject.id}: ${episodes.length} section conversations, ${episodes.reduce((n,e)=>n+e.estimatedMinutes,0)} estimated minutes`);
  }
- console.log(`${total} episodes cover all ${topics} published recording topics.`);
+ console.log(`${total} episodes cover ${topics} ${draft?'local draft':'published'} topics.`);
 }

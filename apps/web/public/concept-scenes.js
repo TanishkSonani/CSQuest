@@ -8,11 +8,15 @@ import {dsArt} from './ds-labs.js';
 import {algoArt} from './algo-labs.js';
 import {aptitudeScenes} from './aptitude-labs.js';
 import {modelMarkup} from './lesson-visuals.js';
+import {tocScene,tocExperiment} from '/shared/toc-models.js';
+import {tocArt} from './toc-art.js';
+import {compilerScene,compilerExperiment} from '/shared/compiler-models.js';
+import {compilerArt} from './compiler-art.js';
 
 const sequence=(title,frames,assumptions='Separate, ungraded example. Step through the states; no quiz answers or progress are changed.')=>({title,frames,assumptions});
 function experimentFor(lesson,subject){
- if(subject==='toc')return {label:'Binary input',type:'text',value:'1011'};
- if(subject==='cd')return {label:'Source expression',type:'text',value:'total = count + 2;'};
+ if(subject==='toc')return lesson.tocSpec?tocExperiment(lesson.tocSpec):{label:'Binary input',type:'text',value:'1011'};
+ if(subject==='cd')return lesson.compilerSpec?compilerExperiment(lesson.compilerSpec):{label:'Source expression',type:'text',value:'total = count + 2;'};
  if(subject==='os'){
   if(['schedule','states'].includes(lesson.osLab))return {label:'Round-robin quantum (time units)',type:'number',min:1,max:8,value:2};
   if(lesson.osLab==='fork')return {label:'Successive successful fork calls',type:'number',min:1,max:4,value:2};
@@ -27,6 +31,8 @@ function experimentFor(lesson,subject){
  return null;
 }
 export function lessonScene(lesson,subject,value){
+ if(subject==='cd'&&lesson.compilerSpec)return compilerScene(lesson.compilerSpec,value);
+ if(subject==='toc'&&lesson.tocSpec)return tocScene(lesson.tocSpec,value);
  value??=experimentFor(lesson,subject)?.value??2;
  if(subject==='toc'){
   const input=typeof value==='string'?value:'1011',trace=dfaTrace(input);
@@ -69,7 +75,7 @@ export function frameMarkup(frame){
  const source=frame.source?`<pre class="scene-source"><code>${h(frame.source.slice(0,frame.span[0]))}<mark>${h(frame.source.slice(...frame.span))}</mark>${h(frame.source.slice(frame.span[1]))}</code></pre>`:frame.code?`<pre class="scene-source"><code>${frame.code.split('\n').map((line,i)=>`<span class="${i===frame.line?'source-current':''}">${h(line)}</span>`).join('\n')}</code></pre>`:'';
  const timeline=frame.timeline?`<div class="scene-timeline" role="img" aria-label="${h(frame.timeline.map(t=>`${t.id} ${t.start} to ${t.end}`).join('; '))}">${frame.timeline.map(slot=>`<span style="flex:${slot.end-slot.start}"><b>${h(slot.id)}</b><small>${slot.start}–${slot.end}</small></span>`).join('')}</div>`:'';
  const table=frame.headers?`<div class="visual-table-wrap"><table><thead><tr>${frame.headers.map(c=>`<th scope="col">${h(c)}</th>`).join('')}</tr></thead><tbody>${frame.rows.length?frame.rows.map((row,i)=>`<tr class="${i===frame.focus?'visual-active':''}">${row.map(v=>`<td>${h(String(v))}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${frame.headers.length}">No matching rows</td></tr>`}</tbody></table></div>`:'';
- return `${source}${diagram}${timeline}${frame.art||table}`;
+ return `${source}${diagram}${tocArt(frame.toc)}${compilerArt(frame)}${timeline}${frame.art||table}`;
 }
 
 export function predictionMarkup(lesson,subject){
@@ -83,7 +89,7 @@ export function predictionMarkup(lesson,subject){
 
 export function conceptPlayer(lesson,subject){
  const scene=lessonScene(lesson,subject),experiment=experimentFor(lesson,subject);
- return `<section class="concept-player" data-concept-player data-scene-subject="${h(subject)}"><header><span class="tag green">VISUAL WALKTHROUGH</span><h3>${h(scene.title)}</h3><p>${h(scene.assumptions)}</p></header>${experiment?`<form class="scene-experiment"><label>${h(experiment.label)}<input data-scene-input type="${experiment.type}" ${experiment.type==='number'?`min="${experiment.min}" max="${experiment.max}"`:'maxlength="40"'} value="${h(String(experiment.value))}"></label><button type="submit" class="btn secondary">RUN EXAMPLE</button><p role="alert" data-scene-error></p></form>`:''}<h4 data-scene-title>${h(scene.frames[0].title)}</h4><div class="scene-stage" data-scene-art>${frameMarkup(scene.frames[0])}</div><p class="scene-caption" data-scene-caption aria-live="polite">${h(scene.frames[0].caption)}</p>${scene.frames.length>1?`<label class="scene-seek">Example position <output data-scene-count>1 / ${scene.frames.length}</output><input type="range" data-scene-position min="0" max="${scene.frames.length-1}" value="0" aria-label="Visual example position"></label><div class="scene-controls"><button type="button" class="btn secondary" data-scene-back disabled>PREVIOUS</button><button type="button" class="btn secondary" data-scene-next>NEXT STEP</button><button type="button" class="text-button" data-scene-play aria-pressed="false">${reduced()?'STEP ONCE':'PLAY'}</button><button type="button" class="text-button" data-scene-restart>RESTART</button><label>Speed<select data-scene-speed aria-label="Playback speed"><option value="2400">Slow</option><option value="1600" selected>Normal</option><option value="900">Fast</option></select></label></div>`:'<p class="muted">One-state example. Change an input in the explorer to compare another case.</p>'}</section>`;
+ return `<section class="concept-player" data-concept-player data-scene-subject="${h(subject)}"><header><span class="tag green">VISUAL WALKTHROUGH</span><h3>${h(scene.title)}</h3><p>${h(scene.assumptions)}</p></header>${experiment?`<form class="scene-experiment"><label>${h(experiment.label)}<input data-scene-input type="${experiment.type}" ${experiment.type==='number'?`min="${experiment.min}" max="${experiment.max}"`:'maxlength="300"'} value="${h(String(experiment.value))}"></label><button type="submit" class="btn secondary">RUN EXAMPLE</button><p role="alert" data-scene-error></p></form>`:''}<h4 data-scene-title>${h(scene.frames[0].title)}</h4><div class="scene-stage" data-scene-art>${frameMarkup(scene.frames[0])}</div><p class="scene-caption" data-scene-caption aria-live="polite">${h(scene.frames[0].caption)}</p>${scene.frames.length>1?`<label class="scene-seek">Example position <output data-scene-count>1 / ${scene.frames.length}</output><input type="range" data-scene-position min="0" max="${scene.frames.length-1}" value="0" aria-label="Visual example position"></label><div class="scene-controls"><button type="button" class="btn secondary" data-scene-back disabled>PREVIOUS</button><button type="button" class="btn secondary" data-scene-next>NEXT STEP</button><button type="button" class="text-button" data-scene-play aria-pressed="false">${reduced()?'STEP ONCE':'PLAY'}</button><button type="button" class="text-button" data-scene-restart>RESTART</button><label>Speed<select data-scene-speed aria-label="Playback speed"><option value="2400">Slow</option><option value="1600" selected>Normal</option><option value="900">Fast</option></select></label></div>`:'<p class="muted">One-state example. Change an input in the explorer to compare another case.</p>'}</section>`;
 }
 
 const players=new Map();

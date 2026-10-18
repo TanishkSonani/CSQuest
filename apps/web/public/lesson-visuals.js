@@ -7,6 +7,8 @@ import {aptitudeIllustration} from './aptitude-labs.js';
 import {osIllustration,osWalkthrough} from './os-labs.js';
 import {dbmsIllustration} from './dbms-labs.js';
 import {cnIllustration} from './cn-labs.js';
+import {tocIllustration} from './toc-art.js';
+import {compilerIllustration} from './compiler-art.js';
 
 export function modelMarkup(m){
  const nodes=(labels,selected=-1)=>`<ol class="visual-flow">${labels.map((label,i)=>`<li class="${i===selected?'visual-active':''}"><small>${i+1}</small><strong>${h(label)}</strong></li>`).join('')}</ol>`;
@@ -30,6 +32,8 @@ export function topicDiagram(lesson,subject,compact=false){
  else if(kind.startsWith('os:'))content=osIllustration(lesson);
  else if(kind.startsWith('dbms:'))content=dbmsIllustration(lesson);
  else if(kind.startsWith('cn:'))content=cnIllustration(lesson);
+ else if(subject==='toc'&&lesson.tocSpec)content=tocIllustration(lesson);
+ else if(subject==='cd'&&lesson.compilerSpec)content=compilerIllustration(lesson);
  else content=modelMarkup(diagramModel(kind));
  const controls=compact?[]:diagramControls(kind);
  return `<figure class="topic-visual ${compact?'compact-visual':''}" data-topic-visual="${h(kind)}"><span class="visual-eyebrow">CONCEPT IN PICTURES · SEPARATE EXAMPLE</span><div class="visual-art visual-replay">${content}</div>${controls.length?`<div class="lab-controls">${controls.map(([label,min,max,step,value],i)=>`<label><span>${h(label)} <output>${value}</output></span><input type="range" data-visual-control="${i}" aria-label="${h(label)}" min="${min}" max="${max}" step="${step}" value="${value}"></label>`).join('')}</div>`:''}${controls.length?'<button type="button" class="text-button" data-visual-reset>RESET INPUTS</button>':''}</figure>`;
@@ -37,6 +41,8 @@ export function topicDiagram(lesson,subject,compact=false){
 export function teachingDiagram(lesson){return `<div class="teaching-process"><ol>${lesson.teachingSteps.map((step,i)=>`<li><span>${i+1}</span><p>${h(step)}</p></li>`).join('')}</ol></div>`;}
 
 export function walkthroughDiagram(lesson,subject,step){
+ if(subject==='cd'&&lesson.compilerSpec)return compilerIllustration(lesson,step);
+ if(subject==='toc'&&lesson.tocSpec)return tocIllustration(lesson,step);
  const kind=diagramKind(subject,lesson);
  if(kind.startsWith('os:'))return osWalkthrough(lesson,step);
  if(kind.startsWith('dbms:'))return dbmsIllustration(lesson,step);

@@ -63,7 +63,7 @@ export function createServer({store:providedStore,podcastDirectory}={}){
    if(!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
    let file;
    if(url.pathname.startsWith('/shared/')||url.pathname==='/packages/learning/instructional-notes.js'){
-    const match=url.pathname.replace('/packages/learning/','/shared/').match(/^\/shared\/(instructional-notes|teaching-models|engine|worked-examples|experience|activity|lesson-journey|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
+    const match=url.pathname.replace('/packages/learning/','/shared/').match(/^\/shared\/(instructional-notes|teaching-models|toc-models|compiler-models|engine|worked-examples|experience|activity|lesson-journey|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');
    }else{

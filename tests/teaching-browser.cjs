@@ -14,7 +14,7 @@ const {finishJourney}=require('./journey-helper.cjs');
   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('/api/account/session'))requests.push(`${r.status()} ${r.url()}`);});
   assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'teaching_audit',displayName:'Teaching Audit',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
-  const subjects=['c','ds','algo','dl','coa','os','dbms','cn','aptitude'];let flows=0;const coverage={};
+  const subjects=['c','ds','algo','dl','coa','os','dbms','cn','aptitude','toc'];let flows=0;const coverage={};
   for(const subject of playbackOnly?[]:subjects){
    const course=await(await context.request.get(`${base}/api/course-content?subject=${subject}`)).json();
    const ids=baseline?[0]:[0,Math.floor(course.lessons.length/6)*3+1,course.lessons.length-1];
@@ -57,7 +57,7 @@ const {finishJourney}=require('./journey-helper.cjs');
     await page.locator('[data-action=exit]').click();await page.locator('[data-action=leave]').click();await page.setViewportSize({width:390,height:844});
    }
   }
-  if(!baseline)for(const subject of ['toc','cd']){
+  if(!baseline)for(const subject of ['cd']){
    assert.equal((await context.request.get(`${base}/courses/${subject}/lessons.js`)).status(),404,'Preview does not publish a planned lesson module');
    await page.goto(base+'/#subjects');await page.locator(`[data-concept-preview="${subject}"]`).click();await page.locator('[data-concept-player]').waitFor();
    await page.locator('[data-scene-next]').click();assert.equal(await page.locator('[data-scene-position]').inputValue(),'1');
@@ -73,6 +73,6 @@ const {finishJourney}=require('./journey-helper.cjs');
   }
   if(!baseline&&!playbackOnly)fs.writeFileSync(`${output}/model-coverage.json`,JSON.stringify(coverage,null,2));
   assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);
-  fs.writeFileSync(`${output}/${playbackOnly?'playback-results':'results'}.json`,JSON.stringify({baseline,flows,subjects:[...subjects,'toc','cd'],errors,requests},null,2));console.log(`Teaching audit passed: ${flows} full journeys; screenshots: ${output}`);
+  fs.writeFileSync(`${output}/${playbackOnly?'playback-results':'results'}.json`,JSON.stringify({baseline,flows,subjects:[...subjects,'cd'],errors,requests},null,2));console.log(`Teaching audit passed: ${flows} full journeys; screenshots: ${output}`);
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

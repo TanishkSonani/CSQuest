@@ -1,0 +1,364 @@
+1
+00:00:00,910 --> 00:00:30,050
+Hi everyone. So till now we have seen the parsers with the backtracking, right? Which means that you start with the start symbol and then you explore some production. Let's suppose e gives e plus t maybe and Then let's suppose you explore more productions of e maybe this time e gives e plus t or then or maybe e gives t So suppose you're saying that e gives t and then suppose it fails then you will be you will be exploring the next production, right?
+
+2
+00:00:30,270 --> 00:00:58,270
+this is what we are backtracking is. But what is predictive parsing? It is that that you start with something and every time you predict some production and you stick to it, which means you can't backtrack. Let's suppose you predict somehow you say that E E gives A plus T is suitable production and then you you are not able to backtrack, which means if this fails, you are you can't just backtrack and then you can't say that, okay, let me choose another production. You can't do this. Okay.
+
+3
+00:00:58,550 --> 00:01:26,720
+this is what predictive parsing means. So predictive parsing have basically this property which means that if given a like if you choose some production then you can't backtrack. So basically how to choose that production is in the next question that we are going to answer but once you choose the production you can't backtrack that's the whole idea okay and how to choose that we will choose that based on the remaining input so what does this mean you will get to know okay.
+
+4
+00:01:28,720 --> 00:01:56,790
+So, the idea is that parser will predict the production instead of blindly trying any production. It will predict the production. Now, once it predicts, there is no go back, which means that there is no backtracking. So, for example, suppose this is a grammar, which is like E Gibbs plus E or num. This is a grammar. And I have written a parser with the backtracking and I have also written the parser without backtracking, which means predictor parsers.
+
+5
+00:01:58,800 --> 00:02:27,610
+In the in the parser with the backtracking what we do for e we will be having one function Okay, suppose I'm writing in the recursive way so a for e I will be having some function and Then for each production I will be calling so suppose I try for the first production and I say if even even means first production right so if even Is true then I will return true if even fails if even is even is false right if even function this this production is not working if it fails
+
+6
+00:02:27,930 --> 00:02:52,060
+then I will try e2 right if if e2 fails then I will say that okay both has failed then I will return false but the point here is that I will try e2 if even fails now look at here look at here what is happening I will I will just decide I will just decide which production to choose so switch case means like it will it will only like once it matches this plus I'm I'm returning even
+
+7
+00:02:52,400 --> 00:03:23,870
+So, whatever is even returning which means either it is returning true or false I will return the same value. So, I will either execute even or execute e2 maybe based on some criteria based on some criteria let us not worry about that criteria for now, but based on some criteria I will either choose even or e2 and what is that criteria I will I will see at the input I will see at the input and I will see whether it is plus or num and based on that criteria I will choose e1 or e2 right. So,
+
+8
+00:03:24,470 --> 00:03:54,080
+For example, for the same string, for the same grammar, suppose this is a grammar that I have, okay, this is some dummy grammar that I have taken. So, in this case, suppose, suppose I want to, I want to check whether this string plus plus plus num, this string, or maybe just two times plus, this strings belongs to my this grammar node, which means I want to parse, parse this string. So what I will do, I will be starting from E. And now this time I want to have predictive parser.
+
+9
+00:03:54,510 --> 00:04:23,530
+I will be starting from E then I will I have two options here I have two options here either I go for plus E or I go for num I go for num so there are two options I have in backtracking I will try this if it fails then I will try this right but in predictive I will only choose one of the way so let me let me just ask you the question that as a human what do you think like if I if if you do not know the algorithm but as a human what do you think like this works or this this will work
+
+10
+00:04:24,400 --> 00:04:54,050
+I think I think this this will work right this will work because if if we are just producing num then then how can you match this plus plus num that is not possible so I think as a human you can say this will work this will not work but as an algorithm how can we say so algorithm decides based on input okay based on the input current symbol which is called look ahead so this is input this is input now this input has three three symbols right so currently I'm at plus
+
+11
+00:04:54,350 --> 00:05:23,100
+Now, I will say that okay, if it is plus, if it is plus, then I will go for this production. If it is plus, I will go for this production, which means, which means I will decide based on the input symbol. If the inputs current input symbol is plus, which is also called look ahead, okay, look ahead, look ahead. So, based on this look ahead or current input symbol, I will decide which production to choose as an algorithm. So, if I need to decide between E Gibbs plus E or E Gibbs num,
+
+12
+00:05:23,370 --> 00:05:52,850
+Then based on this, see, see here, this is plus, this is plus. So in, in which of these two I can generate plus. I think, I think from this, at least I can generate plus. So this plus plus will get cancel out. Now I again have this E in my hand. So that, that was not the option that I've taken. So that's the only one option that, that I will go for, which is this, right? Now, like consider like this, this is in hand, like in hand, I have this and I want to produce something. Now again, in hand, I have this in hand, I have this.
+
+13
+00:05:53,160 --> 00:06:21,960
+and I want to produce this remaining this is remaining input right I want to produce this remaining input now again I have two options plus your num now as an algorithm it will choose what it will choose based on this plus right currently currently I am at I am at this plus it will choose based on this plus it will say okay since you want to like it doesn't know like it can't read all the input at once okay it will read at once at a time so one symbol at a time right so it will it will say that okay if it is plus then
+
+14
+00:06:22,290 --> 00:06:51,640
+then I will go for this protection if it is plus then I will go for this protection which means I will again again use plus E okay then what I will do I will say that okay this I have produced as this plus this plus is okay that I have produced as this plus now I will go for num num I will go for num now again I have two options like this is in my hand this is in hand I have two options one option is that I will I will use plus E or another option is that I may use num
+
+15
+00:06:52,040 --> 00:07:21,240
+So, what do you think which option is good? Like as a human you know num, but as an algorithm do you know num? Yes, why? Because if I want to produce num and I have two options, so obviously this option is not suitable because this option will produce me plus, this option will produce me plus and this option is obviously suitable because num num will match, right? Num num will match. So, that is why as an algorithm I will say, I will say if I have this E in my hand then this time I will go for num, this time I will go for num. Why?
+
+16
+00:07:21,580 --> 00:07:48,630
+because I want to produce this num so how I'm predicting you're getting the idea how I'm predicting based on the remaining input see here remaining input in num earlier remaining input was plus num before that remaining input or the whole input was plus num so based on the remaining input I am deciding which production to choose right so how I'm deciding based on on remaining input
+
+17
+00:07:50,940 --> 00:08:21,480
+This is how we are deciding, right? This is how we are deciding. I hope you got it. So, just look at here. So, if the current input symbol is plus, I will go for first production. If the current input symbol is plus, I will go for first production. If the current input symbol is num, then I will go for second production. As simple as that. So, I will only go for one of the production. I want to go for two productions, because from here I am returning, right? If I am returning, I want, I want to get into this case, second case, right? But here, if it fails, if it fails,
+
+18
+00:08:21,780 --> 00:08:44,450
+then I will also go for second this e2 right if this fails then it won't go to the first if it will go to the second e2 second if right but here if it fails doesn't matter I won't go to the second case that's the only difference you got the idea from the code that from the with the backtracking I will say that I will choose both of this production whichever is whichever is working
+
+19
+00:08:44,810 --> 00:09:14,820
+here I will say that okay I will I will choose I will I will choose even if even fails like based on based on the current input symbol if it is plus then I will choose even if even fails then then I won't go for e2 I will just say that parser has failed okay I hope you got the idea so there's the basic difference between the backtracking and the predictive parser now now from here you are you got the little idea that how to how to build the predictive parser
+
+20
+00:09:15,000 --> 00:09:46,320
+which means it seems very very easy which means I will just look for this input this input symbol and then based on that I will I will just decide which protection to choose right right so if this input symbol is plus then I will I will say that see this this plus I will I will favor this plus over this num but here here is like this is a very simple example but here is some complicated example that we can have which is something like this maybe t plus f and
+
+21
+00:09:46,590 --> 00:10:17,120
+f something like this right like it is starting with the non-terminal not with the with the terminal then how to check like I mean that is okay maybe okay let me take one example that looks like this only suppose suppose I am saying this is f this is maybe this is maybe t and I will say that t gives t gives plus e plus e and f gives num suppose this is the language this is the grammar that I am
+
+22
+00:10:17,680 --> 00:10:45,610
+Then in this grammar again if I'm starting with e then I have two options either to go for t or to go for f I have again two options either to go for t or to go for f Now which one you will choose? Based on the input right based on this plus which one you will choose? As a human you know that it is better to choose this t because further further you can explore this into plus e Right as a human you know that this is a better answer based on this plus you decided
+
+23
+00:10:45,890 --> 00:11:14,290
+that okay plus is better like better better production to choose at this point but how will algorithm get to know if this is non-terminal right how will algorithm get to know if this is non-terminal that is my question you're getting where we are where we are stuck so see here earlier if I had something like this then it was easy based on the current input symbol why because because
+
+24
+00:11:14,820 --> 00:11:43,970
+I will just check whether I want if I want plus then I will go for this if I want num then I will go for this So currently I want plus I will go for this again. So this this plus is okay This plus is consumed and this plus is consumed. So which means now I like now I now I have at this plus now my current current pointer is at this plus now again I want plus so I will go for this I will go for this production now I want num so this is also done now I want num so I am at this
+
+25
+00:11:44,170 --> 00:12:12,200
+and since I want num then I will go for this production which is num that was easy but if you have something if you have something where you are having non-terminals to start with then what to do if you have non-terminals then then also it is easy but it it will involve a concept that is called first and follow concept okay that I will tell you so basically here from e you have two options t or f
+
+26
+00:12:12,420 --> 00:12:40,250
+So, based on based on first or follow, you will decide whether you should go for t or f, based on first or follow. So, here as you can see as a human like this is this is this this this prediction is better. So, you will go for e to t and then from t to plus e right and then from e to f then f to num. So, e to e to again t then t e to plus e then from e to f f to num. So, anyway you can you can generate this.
+
+27
+00:12:40,470 --> 00:13:09,270
+string using this grammar, but you need to decide which production to choose. And since it is non-terminal, so it is not very straightforward, so that is why we have some concept that will make our life easy. That concept is called first and follow sets. So to build the predictive parsing table, okay, to build the predictive, so we are talking about the predictive parsers only, predictive parsers. So to build the predictive parser table, that is called table basically, I will tell you how to build it. We need two concepts that is first and follow.
+
+28
+00:13:09,500 --> 00:13:37,510
+So basically, the idea is that to predict which production to use, to predict which production to use, I will go for this concept first and follow. So once I compute this first and follow, then deciding whether which production to use for an algorithm, it will be easy. So in this lecture, we will be just seeing first and follow, and then we will connect it like how to use first and follow to decide which production to use. So you are getting where is the confusion? Confusion is that which production to use.
+
+29
+00:13:37,740 --> 00:14:07,500
+We always have this question in our predictive parser, which production to use, production to use. If you are doing the top down parser, you always have, you always have this question which is which production to use. You always have the confusion whether to use this production or this production. So, you always have the confusion which production to use and that will be answered based on the input, based on the current input symbols. So, let us just understand this first and follow and then in the next lecture, we will build the parser.
+
+30
+00:14:09,530 --> 00:14:36,800
+So, what is first? What is first set? So, first set for any non-terminal A is set of terminals that can be at a start of a start of a string produced by A, which means let us suppose A this is a grammar that is given to you, this is a grammar that is given to you, suppose this is a grammar that is given to you. And if I ask you what is first of A? What is first of A? Then you will see me that what are the
+
+31
+00:14:37,080 --> 00:15:06,280
+what are the first symbols of all the strings that A can produce. So A can produce many strings. So A can produce maybe A, A, A, A can produce A, C, A can produce like that. A can only produce C. So there are many possible choices that A can produce. But out of all possible choices, you have only two symbols which are A, either it starts with A or it starts with C. So first of A will be A and C. Why?
+
+32
+00:15:07,360 --> 00:15:33,020
+because whenever you are generating any any strings using A using A then that start with either A or C. So, first is a set of terminals set of terminals that can be at the start of a string produced by A. So, A is producing many strings, but every string is either starting with A or starting with C that is why first of A is AC. So, basically
+
+33
+00:15:34,040 --> 00:16:03,840
+Like you like we will be doing many questions for first and follow and you will get to understand it more But here I'm just listing listing the idea that what is first, okay? So main idea will be suppose suppose you have you have any production like this any production like this Then what you will be doing? Then you will say that you will just check B1 you will just just check B1 and You will say that first of B1 whatever is the first of B1 will be the first of a if
+
+34
+00:16:04,060 --> 00:16:33,040
+first of b1 is not epsilon. So, let me just show you with the example and let us see that how it works. Suppose this is the grammar that is given to you, very simple grammar and I am asking first of s, then you will say it may start with a, it may start with c, it may start with d. So, first of s is acd, done. You are done with your answer, why? Because it like strings may start with a, it may start with c, it may start with d, first of s is acd.
+
+35
+00:16:34,630 --> 00:17:04,570
+So, in this case, first of S also very easy, just A, B, C. First of S is just A, B, C. I hope you got it. Now, let us just try to solve this. What is first, first of S and also what is first of A? What is first of S and what is first of A? First of S is I think very easy, it is just A and B. Either we will start with A or start with B. What is first of A?
+
+36
+00:17:05,100 --> 00:17:33,630
+either string will start with A or D or F. So, first of A is also very easy. So, in like this example is easy, where first of S and first of A are for H full S. So, first of S will be A and B, first of A will be ADF. Because if you are producing some string using A, then it will either start with A or D or F. Let us solve this question. Now, they are asking what is first of
+
+37
+00:17:34,990 --> 00:18:04,240
+all terminals may be S and first of A. Let us just see what is first of S and what is first of A. Let us first see what is first of A. So, string will either start with A, either start with A or epsilon, this is important epsilon. You will also be having epsilon in first of A. Why? Because this A may either produce any string that is start with A or A may also produce epsilon. So, let me write it here.
+
+38
+00:18:04,620 --> 00:18:33,140
+first of any non-terminal x will contain, contain epsilon only if, only if x produces epsilon in one-on-mode step, okay, in one-on-mode step. If x is producing epsilon, then only, then only it will, it will, it will, it will contain the epsilon. So, here this a is producing epsilon, that's why this contains the epsilon in the first of a, okay. What about first of s?
+
+39
+00:18:33,620 --> 00:19:02,850
+1st of S is little turkey here. So, A is obviously 1st of S, A is obviously 1st of S because whatever string you are generating using S, it will it will start from A or or this is this is turkey. So, it will be or 1st of AB which means whatever string like you will be getting from that, 1st of those strings you will be writing here. Now, what is 1st of AB? What is 1st of AB? 1st of AB will be
+
+40
+00:19:03,110 --> 00:19:32,900
+What is whatever is the first of a whatever is the first of a so what is what is first of a it is a it is a and Epsilon also and Epsilon also but but see this a b if you put a Instead of in this capital a right so this capital a like whatever it is generating either it may generate something that it starts with a so it will be like a something and then be or or it will produce the Epsilon it will produce the Epsilon and then in this case it will be Epsilon b but
+
+41
+00:19:33,280 --> 00:20:02,370
+first of b first of s can never be epsilon like first of anything will be epsilon only if that thing is generating epsilon is s generating epsilon tell me if s s is generating epsilon you can do anything s cannot generate epsilon right so first of s is a because of this and also first of ab but first of ab is little tricky first of ab will be first of a first of a first of a if a
+
+42
+00:20:03,320 --> 00:20:35,830
+does not produce epsilon, does not produce epsilon basically, then it is okay, then it is first of A, okay? But if A produce epsilon, if A produce epsilon, then this is first of A and B also, because you will put the epsilon here and you will be getting B only, right? And then B also. So, this is first of AB, now first of AS will be, first of AS will be, AS will be AB, okay? So, basically, basically,
+
+43
+00:20:37,070 --> 00:21:10,050
+Let us suppose you have something like this, alpha, beta. Let us suppose you have something like this. And if I ask you what is first of A, then you will say that first of A is just first of alpha, first of basically alpha beta. And what is first of alpha beta? It is first of alpha, first of alpha only. If alpha does not produce epsilon,
+
+44
+00:21:11,760 --> 00:21:40,200
+produce epsilon which means like if alpha does not produce epsilon then then you do not care about beta basically it is just first of alpha because like it will it will first of alpha beta basically it will just Generate some non-empty string may be a b and then beta then then the first will be random and very alpha only but if alpha produces epsilon Which means now this alpha beta will will go to epsilon beta, which is just beta then then this will be this will be first of alpha is
+
+45
+00:21:40,580 --> 00:22:11,680
+is okay, union first of beta also, first of beta also. If alpha produces epsilon, right? So, if alpha does not produce as epsilon, that's EG, basically that will always be EG cases, okay? But if it produces epsilon, then you also need to include the first of beta. You also need to include first of beta. Why? Because if it produces epsilon, then this will just disappear. Then it is as good as saying A gives beta. Then in this case, A will be
+
+46
+00:22:11,860 --> 00:22:42,650
+like if first of A will be the first of beta. So, to be very precise actually I need to write here first of alpha, if alpha produce epsilon then first of alpha union beta, first of beta that is okay, but to be extremely precise I need to write something like this. First of alpha minus epsilon, minus epsilon, because you can't include epsilon in the first, if A is not producing epsilon. So, suppose beta is also producing epsilon, suppose beta is also producing epsilon,
+
+47
+00:22:42,890 --> 00:23:12,060
+then what will be the first of beta so till now it is okay then what will be the first of beta first of beta if beta is also producing epsilon then first of beta will be will be some some numbers and then epsilon then will you be having epsilon here in the first of a yes we will be having y because if alpha and beta both are producing epsilon both are producing epsilon somehow right somehow both are producing epsilon then in this case a will also produce epsilon and you will be having epsilon in the first of a because h producing epsilon see here
+
+48
+00:23:12,270 --> 00:23:41,550
+first of x will contain epsilon only if that particular non-terminal produces epsilon. So, let us go to the next example and from that it will be more clear. So, in this lecture, in the next lecture, we will be just computing first and follow. Basically, in this lecture, we will just practice with first and follow. In the next lecture, we will be building the parsing table. So, again, we will be computing the first and follow because we cannot build the parsing table without producing the first and follow, without computing the first and follow.
+
+49
+00:23:44,480 --> 00:24:12,500
+So, whenever as you see like there is some some here and there some some misunderstanding or concepts are I mean things are not easy basically if you have the epsilon right if you have the epsilon in your grammar. So, whenever you have the epsilon in your grammar just check whether you have epsilon in your grammar then do one thing that is very easy. Just check first check what are the productions that are producing epsilon? What are the productions that are producing epsilon? Can S produce epsilon?
+
+50
+00:24:13,040 --> 00:24:41,900
+Can S produce epsilon? Can S produce epsilon? I think no. So, no, because S can, S will be either producing A or B A. So, it cannot, it can never be epsilon. Can A produce epsilon? I think directly as it can produce. Can B produce epsilon? I think no. Right? No. So, only A can produce epsilon. Okay? Just, just keep this thing in mind. So, this is the first step. First step is always, always check whatever terminals, whatever non-terminals are producing epsilon. Okay?
+
+51
+00:24:42,180 --> 00:25:07,120
+these non-terminals are called nullable basically nullable just check for nullable non-terminals what are the non-terminals which are nullable which means which can produce epsilon now now compute the first and follow whatever you want to compute so let's just compute first okay so now tell me what is first of s it is very easy a and b like very easy a and b what is first of a it is like from this very easy a
+
+52
+00:25:07,410 --> 00:25:36,360
+And since it is producing epsilon, so it has to be epsilon because because as I told you that first of x will contain epsilon only if that non-terminal is producing epsilon. Since the non-terminal is producing epsilon, then it has to contain epsilon. You just check whether the non-terminal is producing epsilon or not. If it is producing epsilon, it has to contain the first has to contain the epsilon in that. So, this is done, this is done. Now, just check this, just check this. It will be first of A B.
+
+53
+00:25:37,390 --> 00:26:07,840
+this is just first of a b right now now what is first of a b now whenever you have more than two more than one non-terminal in that case just check what will be the first of a b to check first of a b you need to check whether whether the first non-terminal is nullable or not if it is nullable then then you will be including first of a first of a without without epsilon basically that is that is just first of a so so like you do not need to write as in first of a that is okay i mean
+
+54
+00:26:08,010 --> 00:26:39,090
+without epsilon u will be including union that because of that first of b, because of that first of b. And what is first of b? Let us just calculate it first. What is first of b? It is c, d, e, f. So, now what will be the first of a? First of a will be a epsilon is a digitage, a epsilon is a digitage. Then you also have first of a minus epsilon like you also have you already have first of a. So, this does not help if first of a equal to if I say anytime a epsilon first of a
+
+55
+00:26:39,530 --> 00:27:09,450
+comma first of b something like that so first of a is repeating so it does not does not help us so let's ignore this first of a like before union whatever is written let's ignore this it it won't help us but after union it is first of b which means you need to include all this set which is c d e f okay so how we are calculating first step is that check what are the nullable symbols second step calculate first and follow like in this case i'm just calculating first so how to calculate first you need to first you need to first
+
+56
+00:27:09,760 --> 00:27:41,250
+basically check whichever symbol you can directly write so in this case AB directly I can write in this case A and epsilon I can write but here here I will be saying first of AB now this this becomes little tricky if A is nullable if A is nullable then it also includes first of B okay okay so now let's solve this I think this example is little tricky first first let's let's see what are the nullable symbols can as is as nullable
+
+57
+00:27:41,480 --> 00:28:11,310
+as nullable, can s go to epsilon? Just look at it carefully. Can s, can s go to epsilon? I think yes. So, from this no, from this no, at least d will be generating, but from this yes, because it will go to b and c and b may go to epsilon, c may go to epsilon. So, yes, s can go to epsilon. And can a go to epsilon? Yes, obviously, directly it is going. Can b go to epsilon? Yes, obviously. Can c go to epsilon? Yes, obviously. So, all are nullable, no problem. Now, let us just find out first.
+
+58
+00:28:12,010 --> 00:28:44,520
+So first of s will be since since it is in a label So it it must have to include epsilon and then then it will be having a because of this and Then because of a b sd it will be having first of a b sd and then first of bc first of bc Okay, so let's calculate first of a what is first of a first of a will be e epsilon
+
+59
+00:28:45,020 --> 00:29:21,660
+and then first of s e, first of s e, first of s e. And what is first of b? First of b will be d epsilon and then first of s d, then first of s d and what is first of c? It will be epsilon first of a b and first of s f, first of s f. Now, let me just write it little more clearly.
+
+60
+00:29:22,140 --> 00:29:37,460
+what is first of s so what is first of s it is it is just epsilon a that is okay but but instead of writing it in combined form tell me what is first of a b sd isn't it first of s first of sorry first of a
+
+61
+00:29:38,010 --> 00:30:06,510
+minus epsilon because you can't include epsilon unless and until this this s is producing epsilon but but you do not need to write minus epsilon because it doesn't matter because whether you are you are carrying epsilon with it or not because you already have epsilon here right because you already have epsilon here so if you write minus epsilon anyway you are carrying epsilon so it does not matter so it is basically first of A union union union first of B also right first of B also
+
+62
+00:30:06,750 --> 00:30:28,800
+because because a is nullable since a is nullable so it will be first of b also first of b also right it will be first of b also since a is nullable so actually it is should be first of b minus epsilon because it depends whether s is producing epsilon or not then only you will be including epsilon it should be first of b minus epsilon but i'm not writing minus epsilon because you already have epsilon so
+
+63
+00:30:29,100 --> 00:31:03,000
+So, so let us not worry about it. I will I will never be writing minus epsilon because I will I will just check whether it will it is having epsilon naught by just seeing whether it is nullable or not. If it is nullable, then it will be having epsilon. If it is not nullable, it cannot have epsilon. So, it can have epsilon. So, a non-terminal a non-terminal. So, I will I will write it here maybe ok. A non-terminal have epsilon
+
+64
+00:31:03,520 --> 00:31:34,780
+if and only if a non-terminal let's suppose a has epsilon if and only if a is in a level which means which means that is a produces epsilon in one or more steps okay so I will I will not worry about the epsilon I will not worry about the epsilon so that is that is why I will be not writing minus epsilon or plus epsilon okay I will not worry about the epsilon so first of a first of a b c d will be first of a
+
+65
+00:31:35,300 --> 00:32:05,100
+Now, it depends whether whether a is epsilon or not since a is epsilon say a is nullable that is why I have first of b also ok. If it is not nullable I cannot have first of b. Now, now if b is nullable I will be going further I will be going further to s which will be first of s first of s. Now, if s is nullable if s is nullable I will go to this first of d which is just d right which is just d ok.
+
+66
+00:32:05,830 --> 00:32:32,160
+I hope you got it. How am I progressing? I am progressing based on that if it is nullable or not. If it is nullable, then I will include first of this also. If this is also nullable, I will include first of this also. If this is also nullable, I will include first of this also. Now, okay, this is not closing parenthesis. Now, just check what I need to write here. This will be first of BC. What is first of BC? It is first of B, first of B if
+
+67
+00:32:32,410 --> 00:33:02,670
+if first of b is b is nullable I will go to c is b nullable everything is nullable here in this in this grammar so I will also go to first of c okay so since since this is just first of s so there is no need to write again and again first of s this is this is already containing first of s there is no need to write this first of s again and again recursively so it won't won't won't be won't be adding anything now first of s is epsilon a first of a first of b first of c and b okay
+
+68
+00:33:04,150 --> 00:33:29,840
+first of S is done, I mean once I have first of A, B, A, B, C then their first of S is done. So, let us just go to first of A. What is first of A? E epsilon that is ok. What is first of S E? What is first of S E? It will be first of S, if S is null level then I will go further. Since S is null level, so I will just say E, right. So, first of S E is S, first of S and E.
+
+69
+00:33:30,410 --> 00:33:59,260
+So, it is basically E I already have. So, there is no need to write again and again. So, first of S E I will just say first of S. Can I just write it here or let me just write here. So, first of A is coming out to be E epsilon first of S. This is what I am getting. Now, let us see what is first of B. This is D epsilon and first of S D. First of S D means first of S, first of S and if S is null level, then I will go further.
+
+70
+00:33:59,520 --> 00:34:30,730
+since s is nullable I will say d also and d I already have so let me just write it here it is it is basically d epsilon and first of s right I hope you are getting so how I am how I am progressing if that symbol is nullable I will go here if that is also nullable I will go here if that that is also nullable I will go here so what is the first step first step is that whatever is nullable if the and whenever whenever you have something nullable just write epsilon there okay just write epsilon in the first
+
+71
+00:34:31,040 --> 00:35:01,390
+and if it is not nullable you won't be writing epsilon in the first okay so epsilon history is clear when you have epsilon when you do not have epsilon epsilon history is a thing clear now how to progress just check whether it is nullable or not that's how you be progress right okay so for this first of c will be epsilon first of ab first of ab will be what first of a first of a if a is nullable i mean more further since it is nullable then first of b right what is first of fs sf it is first of s
+
+72
+00:35:01,590 --> 00:35:31,520
+If S is nullable, I will move further, which means first of F, which is F only. So, first of C is first of A, B as F. So, what do I have basically finally? This includes every first. Since this includes every first, this means that whenever I have first, so whenever first of S, this also include every first. Here also I have first of S, this also include every first.
+
+73
+00:35:31,820 --> 00:35:56,710
+here i i i also have first of s it also include every every every first which means everything should be same so just just merge everything and get the final answer which means which means this first of s should be epsilon a and whatever is the first of a so first of a is epsilon are you getting anything extra from this yes you are getting e right you are getting e so first of s will be let me just write it in the next page maybe
+
+74
+00:35:59,570 --> 00:36:30,590
+Okay, let me write it before before solve before simplifying first of s first of a b c right first of a first of b first of c So this this example is little complicated and I have taken this example intentionally so that you you get the good practice of the first right? Okay, this is before simplification. This is epsilon a first of
+
+75
+00:36:32,110 --> 00:37:03,990
+A, B, C, A, B, C, everything right? Okay, epsilon A, D and let me first take D, D and first of A, like I'm not writing first again and again, like first of A, B and C, okay? First of A, B, C, okay? First of, I mean like this is separate, okay? I mean this is first of A and then first of B and then first of C. I hope you got the idea. This is first of A and then first of B and then first of C, okay?
+
+76
+00:37:05,240 --> 00:37:35,910
+and what is first of a first of a is e epsilon first of e epsilon e epsilon first of s okay e so let me write epsilon first epsilon and as a first entry epsilon epsilon everywhere right e epsilon first of s first of s and but what is first of b it is d d epsilon first of s so epsilon d first of s and what is first of c this is epsilon
+
+77
+00:37:36,270 --> 00:38:05,010
+first of A, first of B, first of F, F and first of S, first of A, B and F, A, B and S. So this is what I have. Now let me just simplify it. So now I have everything, everything very, very in the minimal, minimal simplification form. So here just see like how to merge them. So it first of has to require first of A, first of B, first of C.
+
+78
+00:38:05,220 --> 00:38:30,700
+which means in first of here we are getting anything extra apart from epsilon ad i think we are getting we are getting e right so it will it will be basically epsilon ad as it is then you are getting e then it will also need first of b it here we have d and epsilon d and epsilon are already here here we have e epsilon and f so it will just include f okay so you are getting you are getting this and then
+
+79
+00:38:31,990 --> 00:38:57,830
+First of ABC. So let me just write I mean currently I'm not removing this first of ABC You will you will just see why okay? I'm currently not removing I mean for the first iteration I'm getting this maybe maybe if I modify a later and then maybe maybe I may get something else also, right? I may get something else also. That's why I'm not I'm not So what is first of a so it is epsilon e and first of s first of s means everything which is a
+
+80
+00:39:03,490 --> 00:39:28,430
+So, let me write in there not around the a, d, e, f ok. So, a, d, e, f, a, d, e, f. So, intuitively you understand that everything is including first of s. So, everything should be same, everything should be same and this includes everything, this includes a, b, c. So, everything should go here and everything is including first of s and so that is why everything should be same. So, just write all the all the non term all the terminals that we are getting from anywhere.
+
+81
+00:39:28,770 --> 00:39:57,130
+so it will contain all the terminals it will also contain all the terminals it will also contain all the terminals which is epsilon d and first of first of s so first of s is just adef so adef let me write in that order this is adef and if you want you can write first of f first of s here like currently don't remove this first of s okay so currently don't remove first of this first of s but i will remove it in the next page maybe
+
+82
+00:39:57,460 --> 00:40:13,500
+So this is epsilon this is epsilon this is epsilon and then f and then first of a b and s so this is just a d e f and then first of a b s like that right so these are the your first
+
+83
+00:40:13,740 --> 00:40:37,200
+Now now just and just run it one more time which means it will include from ABC it will include from ABC nothing is extra getting added here it will it will copy first of s nothing is getting extra getting added here it will it will also copy first of s nothing extra nothing extra right so now now in this iteration nothing is getting changed now now you can remove these things because first only contains the terminals okay
+
+84
+00:40:37,440 --> 00:41:07,030
+But intuitively, I think you do not need to do it. I have just run it very systematically. But intuitively, you understood it. If you want to find out the first, then how to do it? You can basically, you can see that everything, this first of s is including everything. And then a is including first of s, which means this first of s should contain everything. And then a should also contain everything, because it includes first of s. b should also contain everything, c should also contain everything.
+
+85
+00:41:07,390 --> 00:41:36,860
+so that is why I have everything should be common everything should be same and these are the final answers okay so let's try to find out the first in this example also okay in these examples let's try to find out the first so let's try to see if that is that is producing epsilon if not then then there is no nobody like things will be easy so first of e will be just int and e is also producing this so int and this right and first of op
+
+86
+00:41:37,310 --> 00:42:03,620
+first of op will be plus and star plus and star. I hope you got it. So, this was like trust me, this was the one of the toughest example that we can see in the first, first follow. So, toughest in the sense like it just have epsilons. So, just practice this example one more time, I will suggest if you are not getting just practice is one more time and it will come very easy. Just follow the simple procedure. Let's check the null level symbols.
+
+87
+00:42:04,040 --> 00:42:35,550
+add epsilon everywhere wherever it is in a level then then forget about the epsilon and then go systematically like how to move to the next next non-terminal based on that if it is in a level or not okay yeah these are the firsts now let's let's calculate the first of e t x and y here so okay so here you have the epsilon symbols right epsilon you have the epsilon so first check how many how many are null level so e t x y
+
+88
+00:42:35,820 --> 00:43:05,640
+is e nullable. So, x and y is nullable x and y is nullable which means you are directly producing epsilon that is okay is e nullable. So, okay is t nullable I do not think t is nullable because it has to have this this bracket or int. So, t is not nullable t is not nullable. Now, tell me can e be nullable since since it is producing t and x if e is not t is not nullable. So, e cannot cannot also be nullable because if it cannot go to epsilon then how can the whole thing can go to epsilon right.
+
+89
+00:43:06,350 --> 00:43:36,190
+So, these are the two nullable symbols, only two nullable symbols, ok. Now, now let's just compute first. So, first of E, first of T, first of T, first of X, first of Y, ok. Let's just compute the firsts. So, here what I will be doing, whatever is a nullable symbol, I will write epsilon here and I will never ever write epsilon here, never ever write epsilon here, neither here, right.
+
+90
+00:43:36,510 --> 00:44:05,590
+so that's that's fixed like i will not write epsilon here and here okay now i think it is very easy what is first of t first of e it is just first of tx tx it is just first of tx so instead of writing it let me just write uh answer directly okay instead of writing like this let me just write answer directly so before calculating first of t let me let me see what is a g so first of t is eg which is this and int first of x is also eg epsilon is already there plus
+
+91
+00:44:05,880 --> 00:44:33,090
+and here epsilon is also there. So, these are easy. Now, tell me what is first of e? It is first of tx. If t is nullable, then I will go to x, like let me first copy the first of t. If t is nullable, then I will go to x. Since t is not non-level, I will stop here. I will stop here. So, these are my firsts. These are my firsts. Now, in the next lecture, we will see the follow sets.
+

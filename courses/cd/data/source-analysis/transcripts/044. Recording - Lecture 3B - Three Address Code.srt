@@ -1,0 +1,796 @@
+1
+00:00:20,720 --> 00:00:49,110
+Hi, everyone. Welcome to go classes. In this lecture, we will study the very important intermediate representation that is three address code. We have already seen that the front end of the compiler that will create an intermediate representation. Now this intermediate representation, it has many types. I can say many different type of intermediate representations are possible, like like three address code syntax tree, control flow graph. Okay, so a single
+
+2
+00:00:49,520 --> 00:01:18,710
+static assignment so basically many different type of intermediate representations are possible and the very important intermediate representation that is a three address code so in this lecture we will study this three address code which is a intermediate representation okay so let's start in short this three address code we will call it TAC three address code or we can write it three AC three address code okay so let's start now now what is this three address code
+
+3
+00:01:19,090 --> 00:01:48,190
+this three address code the name itself is telling you that basically it has something to do with three addresses okay see what is this three address code this three address code this is a machine independent code I already told you in the previous lectures that this three address code or I can say this intermediate representation that we create front end will create the intermediate representation that intermediate representation is basically machine independent okay so this three address code this is basically machine independent
+
+4
+00:01:48,740 --> 00:02:19,480
+okay the CPU the processor on which you are compiling your program okay so on that this three address code does not depend so this three address code this is machine independent so this is CPU independent this is processor independent so you can you can execute I can say you can compile your program on any machine on any CPU on any processor this three address code does not depend on that okay so this is machine independent language okay so this is basically a language
+
+5
+00:02:19,940 --> 00:02:49,700
+this three address code this is basically a language and this is a machine independent language and this three address code this is basically a language this is basically a language okay so remember this is machine independent language means it is not like a assembly language assembly language is machine dependent right yes or no do you remember the assembly language that is that is machine dependent you already know that the compiler will generate assembly language
+
+6
+00:02:50,190 --> 00:03:16,580
+the output of the compiler will be assembly language and that assembly language that is basically machine dependent that is the machine dependent language so that you already know this is machine dependent language okay so you can see this three address code this is basically a language it is similar to assembly language but it is not machine dependent so this is machine independent language this is similar to this is similar
+
+7
+00:03:17,070 --> 00:03:39,170
+I am just saying similar, similar to assembly language okay this is similar to assembly language but machine independent but it is a machine independent but this three address code is machine independent this three address code is a machine independent independent code or I can say language
+
+8
+00:03:42,170 --> 00:04:06,890
+Okay, so these are simple simple points. What is the three address code? This is machine independent language. This is similar to assembly language, but this three address code, this is a machine independent. Okay, so this does not depend on the machine. This is source language independent also. This is a source language independent also source language independent. Okay, now let's see what is this three address code then
+
+9
+00:04:07,170 --> 00:04:35,550
+see in this three address code because this is a language because this itself is a language this is you can say this is basically an intermediate language right okay what is this this is an intermediate language so this itself has its own syntax rules yes or no so this is an intermediate language this three address code this is an intermediate language so that is the reason this itself has its instructions rules okay so this has rules this has instructions okay so basically
+
+10
+00:04:35,900 --> 00:04:59,020
+these things are there instructions rules and all these things now let's see what are the types of instruction in this three address code in this three address code which type of instructions we have okay so let's see let's focus on instructions what are the instructions in three address code in this three address code in this language what are the instructions so the name itself is telling you three address code means
+
+11
+00:04:59,410 --> 00:05:28,940
+it has something to do with three addresses actually it means that any instruction will have at most three operands at most three operands so remember instructions in three address code so what are the instructions the instructions will have at most three operands so very simple very simple point any instruction this is the simple idea this is the simple rule that any instruction in three address code has at most three operands at most
+
+12
+00:05:29,370 --> 00:05:58,940
+three operands okay any instruction in the three address code that will have at most three operands so very simple point so you can easily see the three in three address code refers to the number of operands in any instruction okay so this is the simple point that number of operands in any instruction that will be at most three so you can see this is the basic format of three address code this three address code this is basically a form of intermediate representation
+
+13
+00:05:59,470 --> 00:06:28,070
+there are many different type of intermediate representation possible like syntax tree, control flow graph, SSA, static single assignment so there are many different type of intermediate representations are possible this three address code is one of them and this is very popular intermediate representation now in this three address code what are the instructions? the basic format of instructions the basic format of instructions what is that? the basic format is basically
+
+14
+00:06:28,590 --> 00:06:57,730
+that you will have three operands at most three operands you will have now remember when I say operand when I say operand then what operand can be when I say operand what operand can be operand can be either a variable either a variable name okay either it can be a variable or it can be a constant remember the constant that is also operand or it can be a temporary variable that we will generate or it can be a temporary variable that we generate
+
+15
+00:07:00,680 --> 00:07:32,690
+temporary variable that we will generate. Okay. So very simple point that what is a operand? Either operand can be variable or it can be constant or it can be temporary variable that we will generate. So you can see that this type of instructions you will have in the three address code. You will have at most three operands. Okay, you can easily see. So these XYZ, what are these? These are either variables or constants or temporary variables. Okay. And remember you, you can have three addresses.
+
+16
+00:07:33,090 --> 00:07:59,510
+or I can say you can have three operands so you have three operands here but you can have two operand or one operand also okay is this clear so basically you can have less number of operands also so the maximum you can use that is three operands okay so the very simple point now let's see this if you have this high level language code this is the sentence or I can say statement in the high level language let's assume in the C language this is the statement you have in the C language then
+
+17
+00:08:00,050 --> 00:08:31,000
+what will be the 3 address representation of this statement this is the statement and for this statement this is the syntax tree this is the syntax tree you can easily see this is the syntax tree but I want to ask what will be the 3 address code for this for this instruction what will be the 3 address code what is going to be the 3 address code what that will be so very simple point in this 3 address code remember any instruction will have at most 3 operands
+
+18
+00:08:31,260 --> 00:08:59,700
+So what you can do in this three in this three address code, first you can do this multiplication. So what you can do, you can do this to multiplied by a. Okay, you can store this in some temporary variable. Let's call it T one. This is a temporary variable which is generated by the compiler. Okay, this is a temporary variable which is generated by the compiler. And this what is this a this is a variable from the source language. Yes or no. Okay, so remember variable from the source language, you can see variable.
+
+19
+00:09:00,240 --> 00:09:33,250
+from source language from source code or temporary variable generated by generated by compiler okay so very simple point so you can easily see what you will do first you will do this multiplication to multiplied by a you can store this in some temporary variable t1 which is generated by the compiler very simple then what you can do then you can do this b-3 okay you can do this b-3 you can store this in some temporary variable maybe t2 okay
+
+20
+00:09:33,560 --> 00:10:01,020
+you can see this is the variable from the source language from the source code and this is a temporary variable which is generated by the compiler and finally what you will do finally you will do this t1 plus t2 yes or no you will do this basically you will do this t1 plus t2 and you can store this in some variable t3 okay so very simple point this will be your three address code yes or no so remember very simple point that this is your high level language statement c language statement and
+
+21
+00:10:02,510 --> 00:10:32,950
+The front end, what the front end will do? The front end will convert this into this three address code. Is this clear? Please tell me. Let me know. Is this understood? So very simple point. This is your three address code representation. This is your three address code intermediate representation of this statement. Okay. Very simple. I hope you understood. Is this clear? Please tell me. Let me know. Is this point clear? Now a student is asking, is there any limit on taking temporary variable?
+
+22
+00:10:33,410 --> 00:11:01,550
+you can take any number of temporary variables any number of temporary variables you have unlimited supply of temporary variables because these are compiler generated temporary variables okay these you can take unlimited number of temporary variables so let me write it here okay so we can basically we can use unlimited number of temporary variables unlimited number of temporary variables
+
+23
+00:11:02,950 --> 00:11:28,690
+Because this is an intermediate representation. This is not the final code. Yes or no? Is this clear? This is not your final code. See the compiler will finally generate the assembly language. That assembly language will be the assembly program will be machine dependent. Okay. Yes or no? So remember the final code that that cannot have unlimited number of variables. Right. Yes or no? Okay. The final code cannot have unlimited number of registers.
+
+24
+00:11:29,110 --> 00:12:01,740
+because in a CPU you have limited number of registers maybe 32 registers maybe 64 registers okay so remember I am talking about intermediate representation this intermediate representation this three address code this is an intermediate representation which does not depend on the machine it does not reflect the machine okay yes or no it does not reflect your CPU this is an intermediate representation this is not your final output of the compiler so remember you can use unlimited number of temporary variables okay in a
+
+25
+00:12:01,950 --> 00:12:30,320
+intermediate representation is this clear please tell me is this your doubt okay so let's move on so we have seen what is a three address code in this three address code you can notice on the right side of the assignment operation you have at most one operator yes or no if you look at this three address code in this three address code maximum three operands you can have any instruction like this instruction has three operands this instruction has three operands so you can easily see in the three address code
+
+26
+00:12:30,570 --> 00:12:58,970
+there is at most one operator on the RHS of assignment operation yes or no so you can see if you look at this instruction then on RHS on RHS you have at most one operator okay so very simple at most one operator on RHS of any instruction so this type of instructions you cannot write yes or no x plus y into z okay see x plus y into z you might be thinking sir we have three operands here do you agree
+
+27
+00:12:59,310 --> 00:13:29,490
+Actually you can see this has 3 operands. Yes or no? You might be thinking Sir this also has 3 operands. This also has 3 operands. Right? Yes or no? You might be thinking that Sir this also has 3 operands. But remember see what we are saying? We are saying that in 3 address code every instruction has at most 3 operands. But we are not saying that any instruction with 3 operands will be allowed in the 3 address code. Is this clear? Please tell me. Did you understand? I am saying
+
+28
+00:13:29,760 --> 00:13:57,940
+3 address code is a language okay it is a intermediate language in this language you have some instructions you have okay there is a certain set of instructions you have I will tell you what are the instructions allowed okay so basically 3 address code this is a language in this language there is a certain set of instructions these instructions they will have at most 3 operands every instruction in the 3 address code will have at most 3 operands but I am not saying that if your instruction has 3 operands
+
+29
+00:13:58,190 --> 00:14:26,910
+then it will be allowed in the 3 address code no remember 3 address code that is a language in this there is a certain set of instructions there are certain instructions that are allowed these instructions all these instructions will have at most 3 operands okay so you can easily see like look at this instruction this has 3 operands but remember but remember this is not allowed in this is not allowed in 3 address code
+
+30
+00:14:27,250 --> 00:14:47,790
+this is not allowed in 3 address code basically 3 address code says that you cannot have this type of nested this type of nested expressions okay see you cannot have this type of this type of expressions you cannot have built up arithmetic expressions okay see you cannot have multi operator operation expressions you cannot have
+
+31
+00:14:48,080 --> 00:15:17,340
+so what basically this is not allowed in the 3 address code the reason is very simple because you cannot have this type of instruction where you have multiple operators like these are the multiple operators that you have to perform you don't know should I do this should I do this yes or no okay maybe you will be confused should I do this first should I do this first so basically 3 address code does not have this ambiguity okay in the 3 address code we don't have this ambiguity very simple rule that on the RHS of any instruction you must have
+
+32
+00:15:17,630 --> 00:15:45,010
+at most one operator so remember this instruction is not allowed in the 3 address code okay this you can convert into the 3 address code this you can convert in the 3 address code what you can do you can do like this okay first you can do like if you want to do multiplication first like in the C language the C language that is the high level language in the C language you can see first multiplication will happen so what you can do first you can do this multiplication and you can store that result in T1
+
+33
+00:15:45,410 --> 00:16:14,010
+This T1 is the compiler generated temporary variable. Then what you can do? Then you can store the result in T2. What you can do? You can do X plus T1. Okay. Very simple. So this is a three address code. So remember very simple point that this instruction has three operands, but this is not allowed in the three address code because in the three address code, you cannot have this type of instruction where you have multiple operators. Okay. Basically, three address code says that you must have at most one operator on our right side of any instruction.
+
+34
+00:16:15,550 --> 00:16:40,930
+You must have at most one operator on the right side of any instruction and remember multi operator Arithmetic instructions are not allowed. Okay, these are not allowed So if you have this instruction, then you will translate this into a sequence of three address instruction So this is the sequence of three address instructions you will get is this point clear? Please tell me let me know. Okay, so very simple point. Now, let's move on Now you can see
+
+35
+00:16:41,110 --> 00:17:10,570
+if this is your statement in the C language or your high level language then you can convert this into 3 address code what you can do first you can do this B into C you can store this into a temporary variable T1 then you can do this B into D you can store this into a temporary variable T2 then what you can do then you can do their addition then you can do their addition and then what you can do then what you can do this result you can store in A finally what you can do
+
+36
+00:17:10,780 --> 00:17:37,460
+Finally this result you can store in A. So this is what you are going to do. First you will do B into C. You will store that into temporary variable T1. Then you will do B into D. You will store that into temporary variable T2. Then you will do their addition. You will store that in temporary variable T3. And this T3 you will store in variable A. Okay. Is this clear? Let me know. So very simple point. So you can see a three address instruction can have at most three operands. Okay. And remember
+
+37
+00:17:37,910 --> 00:18:08,560
+You cannot, we do not allow arithmetic operations with more than one operator. Yes or no? So all these things we have seen. Now let's move on. Now, there are two things in the three address code. If you look at the name, look at the name three address code. There are two things that we need to study in the three address code. Three address code. You might be thinking, what is the meaning of address? Yes or no? You might be thinking, see, this three is clear because three means three operands. Yes or no?
+
+38
+00:18:08,850 --> 00:18:40,290
+three means at most three operands what this three means this three means at most three operands okay in any instruction in any instruction yes or no okay so this three is quite clear there is no problem in the three now what is this address you might be thinking sir what is this address okay the second thing what are the allowed instructions okay the second thing basically what are the instructions what are the allowed instructions
+
+39
+00:18:41,210 --> 00:19:10,330
+What are the allowed instructions? Okay, yes or no? So these are the two things that we need to see in this three address code. We need to see what is address. When I say address, what is address? The second thing, when I say three address code, this is a language, this is an intermediate language. So what are the allowed instructions? Which instructions are allowed? So these two things we need to see basically. We need to see what are addresses and what are instructions. Okay, so these two things we need to study. Now first let me tell you what are addresses.
+
+40
+00:19:10,960 --> 00:19:36,320
+Let's see what our addresses and this is something interesting See if I give you in the high level language if I give you let's assume you have a C language in this C language if I give you this statement I'm giving you let's assume this is statement I'm giving you in X you are storing a plus B plus C Okay, let's assume this is what you are doing now in this situation What will happen? Let me tell you
+
+41
+00:19:36,650 --> 00:20:04,650
+see this you can convert into the three address code right yes or no this you can easily convert into three address code okay so if you convert this into three address code then what will happen first you will do for example a plus b you will store that into temporary variable t1 then you will do this t1 plus c you will store that into temporary variable t2 and finally the result you can store in the variable x okay so this is what you can do but here what is where is the address can you tell me
+
+42
+00:20:04,990 --> 00:20:37,260
+in this whole process where is the address I am asking where is the address in this whole process where is this address in this in this where is the address in this three address code because the name itself is telling you address so where is the address so let me tell you these names all these names they are actually they are not names they are actually pointers to the symbol table they are actually addresses of the symbol table okay see this point will become more clear basically this is not this be
+
+43
+00:20:37,610 --> 00:21:06,850
+we are writing this B so that it is easy for us so this is for our convenience I am writing this B but inside the compiler if you see inside the computer inside the compiler this is a address which is pointing to the symbol table where this B is stored so these are actually pointers to the symbol table so remember this is also pointer to the symbol table this is also pointer to the symbol table actually what happens let me tell you
+
+44
+00:21:07,090 --> 00:21:35,130
+okay so first of all let me tell you that all these for example this x what is this x this is actually a address of the symbol table or I can say this is actually a pointer to the symbol table this is actually a pointer to the symbol table okay where this entry of x is there okay so this is pointer to the symbol table where where entry of x is present entry of x is a present
+
+45
+00:21:35,880 --> 00:22:05,830
+now what that means let me tell you what that means actually it means like this see what your lexical analysis will do tell me if you have this C language program who will read this program anyone in the compiler there are many phases which phase will read this program this is your source language program this is the source code who will read the source code who is going to read the source code the source code lexical analyzer will read yes or no the lexical analyzer will read the source code right okay so what will happen
+
+46
+00:22:06,140 --> 00:22:34,390
+the lexical analyzer is going to read the source code and in the compiler there is a symbol table okay in the compiler there is a symbol table so this is your symbol table this symbol table must have this is a data structure devoted this symbol table this is just a data structure nothing else this is just a data structure you can implement this symbol table using hash using hash table okay so this is just a this is just a data structure remember nothing else
+
+47
+00:22:34,960 --> 00:23:02,380
+This is a data structure which compiler is using to store the information. Okay. So when you are doing the compiler compilation, then compiler will store the information in the symbol table and what is the symbol table. This is just a data structure. You can implement the symbol table using hash table. Okay. Maybe using tree using tree also you can you can implement the symbol table. So the symbol table you can implement you but the most popular implementation the most popular
+
+48
+00:23:02,710 --> 00:23:29,510
+implementation of symbol table that is using the hash table. Okay, so using hash table, you can implement this symbol table. So what is the symbol table? This is a data structure which is used by the compiler to store information. Okay, and this symbol table is used by all the phases of the compiler. Each and every phase from the beginning till the last each and every phase will use this symbol table. Okay, now let's see what will happen. Let me give you the idea. Let me give you the demo what will happen.
+
+49
+00:23:29,830 --> 00:23:59,290
+so the lexical analyzer first the lexical analyzer what it will do the lexical analyzer what it will do it will read yes or no this will read the program right this will read source code correct okay so it will read the source code and what it will do it will see that okay this is a identifier this is a user defined variable this is a user defined variable so it will make entry this lexical analyzer will make entry in the symbol table for this x
+
+50
+00:23:59,610 --> 00:24:29,580
+okay for this x entry will be created okay so for example this entry will be created for x what is this x okay and this token what this lexical analyzer will do it will read the source code and it will see that okay this is a user defined variable so it will create entry for that it will also put token for that so you can see this is called lexeme this is called lexeme okay this is called lexeme this x is called lexeme and for this
+
+51
+00:24:29,810 --> 00:25:00,340
+the token what are the token name what are the token name the token name will be identifier this will be the token name so these things are stored by whom tell me these two things are stored by whom these two things are stored by lexical analyzer so the lexical analyzer will store these two things okay now very simple yes or no after that you can see this operator is there for this operator what the what this lexical analyzer analyzer will do it will store that also okay so basically
+
+52
+00:25:00,730 --> 00:25:28,680
+this is the operator what the token name token name is operator then there is a okay then there is a for this the token name is identifier then there is plus for this the token name what the token name the token name is operator okay then there is then there is b okay for that also the same thing will happen and so on okay I hope you understood so basically like this entry will be created okay then the syntax analyzer what it will do
+
+53
+00:25:28,970 --> 00:25:55,290
+it will check for syntax right yes or no it will verify syntax it will verify syntax there is a semantic analyzer also yes or no there is a semantic analysis phase also now in this semantic analysis phase this will do the type checking yes or no this will do the type checking so what this semantic analyzer will do it will store the data type also this semantic analyzer it will store the data type also what are the data type
+
+54
+00:25:56,370 --> 00:26:24,730
+What are the data type? Okay, so this data type entry will be created by whom? Who will create this data type entry? In the symbol table, in the symbol table, this syntax, this semantic analyzer, this semantic analyzer will create the entry. For example, if this is integer, okay, like this, if this is integer, like this. So this entry will be created by semantic analyzer. Okay, like this. Now, now what will happen? Let me tell you when this intermediate code generator
+
+55
+00:26:25,060 --> 00:26:58,360
+There is a phase intermediate code generator, right? Okay. So now you have this phase. There is a phase. What are the phase intermediate code generator? Okay. So you have this phase intermediate code generator. Now what this intermediate code generator will do? ICG. What is this? This is intermediate code generator. Okay. So you can see what this intermediate code generator will do. It will create the three address code, right? Yes or no. Now notice what it will do.
+
+56
+00:26:58,550 --> 00:27:26,890
+now notice what it will do okay let me have this address 0 this is address 1 this is address 2 this is address 3 and so on okay so now tell me what it will do this intermediate code generator what it will do it will use these entries it will use these entries for example you can see what you are doing first you are doing a plus b write yes or no first you are doing a plus b so actually it will not do a plus b what it will do this when you are writing a that is actually not a that is actually the
+
+57
+00:27:27,580 --> 00:27:56,860
+where is the entry of A this address this address is this clear basically this two are you getting my point this two plus where is the entry for B where is the entry for B for example let's assume the entry for B is here let's assume the entry for B is here let's assume this is four so that will be like this and you will store it here where you will store tell me this result you will store where let me know are you getting my point see this two this is the
+
+58
+00:27:57,130 --> 00:28:30,790
+this is the basically address symbol table address for A yes or no where entry of A is there this is symbol table address okay where entry of A is there where you have entry of A entry of A is present information of A is present is this clear please tell me similarly this is also symbol table address and you will do their addition and then where you will store you will store it into a temporary variable right
+
+59
+00:28:31,180 --> 00:28:59,490
+this temporary variable will be stored this also will be stored in the symbol table okay this also will be stored in the symbol table remember this T1 this also will be stored in the symbol table okay in the symbol table this temporary variable also will be stored who will store it let me know who will store in this in the symbol table please tell me in the symbol table who will store this T1 this T1 also will be stored this is a temporary variable okay again this is identifier
+
+60
+00:28:59,850 --> 00:29:28,200
+maybe or you can say maybe temporary variable maybe this token you can give maybe this token you can give okay so like this i hope you are getting this point so remember this t1 this also has an entry in the symbol table is this clear let me know so actually this we okay this t1 actually means the entry the symbol table address where the entry of t1 is there so something like this okay i hope you are getting this point okay so this is a simple point what i'm telling you
+
+61
+00:29:28,480 --> 00:30:00,040
+actually when you convert this into three address code in this three address code see we will always write like this we will always write like this but actually what are these things but actually what are these things please tell me this is actually pointer to the symbol table yes or no this is actually pointer this is actually address this is actually address okay symbol table address so this is pointer to symbol table where record of B is present yes or no
+
+62
+00:30:00,300 --> 00:30:36,660
+where record of B is present B is present is this clear? let me know did you understand? similarly similarly this is a pointer to the symbol table this is a pointer or address symbol table address this is pointer to the symbol table where record of T1 is created where record of T1 is created record of T1 is created did you understand? so now did you understand that operands are nothing but addresses
+
+63
+00:30:37,180 --> 00:31:11,660
+now did you understand these operands these are nothing but addresses this is actually address okay this is actually address this is actually symbol table address is this clear all these are basically symbol table addresses for example if you do t1 plus c you store that into t2 that is basically symbol table address this is basically symbol table address is this clear let me know please tell me did you understand this so all these these are basically all of them
+
+64
+00:31:12,030 --> 00:31:41,460
+these are pointers to the symbol table understood let me know is this point clear so let's see what are the addresses you can see what is the address address is remember any name any name means your variable you know in the source language in the source program there are some variables so those names we will use as a address actually see please understand for convenience for our convenience we write
+
+65
+00:31:41,820 --> 00:32:09,660
+these variable names for our convenience we are writing XYZ T12 for our convenience we are doing that okay for our convenience we allow source program names to appear in the addresses in the three address code as addresses see for our convenience we allow source program variable names to appear as addresses in the three address code actually if you notice actually actually these names the source names basically they are replaced by pointers to the symbol table entry
+
+66
+00:32:09,930 --> 00:32:38,680
+where all the information about that name is kept is this understood let me know this paragraph is this understood so what is the address you can see any variable name is address also constant is also address also compiler generated temporary variable these are also addresses so all these are basically addresses actually let me give you like in the c language in the c language let's assume you write this statement you're writing something like a plus
+
+67
+00:32:40,090 --> 00:33:08,280
+B into 20 something like this. Okay, let's assume you are doing this Okay, this is you have in the sea language now remember what the same what this lexical analyzer will do Again, what this lexical analyzer will do it will read this yes or no So remember in the symbol table entry will be created for everything Symbol table has entry for everything everything that you have in your source program This is the source program in the source program
+
+68
+00:33:08,660 --> 00:33:36,830
+for everything there is entry in the symbol table for everything okay remember in your source program whatever you have whether you have operator whether you have constant whether you have variable name whether your function name okay anything for everything there is entry in the symbol table so in the symbol table there will be entry for x there will be entry for x what are the token the token is let's assume identifier okay the data type that is into who will put this data type information in the symbol table
+
+69
+00:33:37,180 --> 00:34:05,220
+which phase of the compiler will store this information the data type information because this data type information this will be used for type checking so this information is stored by the semantic analyzer okay the semantic analyzer will store this information and so on okay so very simple now remember for this 20 also entry will be created for this 20 this 20 this constant for this 20 also entry will be created in the this is a constant is this clear
+
+70
+00:34:05,610 --> 00:34:34,000
+for this 20 also entry will be created in the symbol table and this address let's assume this address is let's assume some address 6 and let's assume this is some address 4 now you can see when you convert this when you convert into the this when I convert into the 3 address code in 3 address code when I convert this then what will happen first you will do B into 20 tell me what is this 20 tell me what is this 20 this is actually the pointer
+
+71
+00:34:34,490 --> 00:35:05,100
+to the symbol table where this 20 entry is there where this entry for this constant is there is this clear please tell me let me know so when you write this b into 20 you will store this into some temporary variable t1 okay then you will do this a plus t1 and you will store that result you will store in the x okay so remember here what will happen here this 20 is nothing but this is also this is also pointer what this this is also pointer to the
+
+72
+00:35:05,480 --> 00:35:37,850
+symbol table this constant is also pointer remember this constant is also pointer to the symbol table where entry for this constant is made where entry for this constant is made is this understood so finally what are the addresses finally what are the addresses let me let me know the addresses any variable name is address yes or no
+
+73
+00:35:38,240 --> 00:36:07,600
+For our convenience, we will use X, Y, Z, A, B, C, these things we will use, but actually these are these are actually pointers to the symbol table where the entry is made for these variables. Yes or no? Similarly, constant. This constant is also stored in the symbol table. In the symbol table, there is entry for this constant also. Okay, so we will use this constant. We will use this constant like this 20. We will use for our convenience, but actually this is a pointer to the symbol table where the entry for this constant is made.
+
+74
+00:36:07,920 --> 00:36:35,460
+similarly a compiler generated temporary variable for every temporary variable there is an entry in the symbol table okay and very simple when you write this T1 then it basically means this is a pointer to the symbol table where the entry for T1 is made is this clear please tell me all these concepts are the crystal clear so basically some points about symbol table I want to tell you okay maybe you already know so this is a small detour from our 3 address code discussion
+
+75
+00:36:35,930 --> 00:37:04,590
+So some simple simple points about symbol table. I want to tell you what is a symbol table? What is a symbol table? Symbol table is a data structure which is used by the compiler to hold information about the source program. Yes or no? Very simple. This symbol table, this is just a data structure which the compiler will use to hold information about the source program. Very simple. Okay. So entries will be created. Every phase will basically use this symbol table. Okay. More mainly what will happen?
+
+76
+00:37:05,740 --> 00:37:34,880
+what will happen see the analysis phases the analysis phases of the compiler they will create the entry okay they will write into the symbol table and the synthesis phases they will use these symbol tables so every phase will use the symbol table okay so remember the analysis phases like your x lexical analysis syntax analysis semantic analysis and intermediate code generation so these analysis phases they will store in the symbol table okay they will store in the symbol table like we have seen
+
+77
+00:37:35,130 --> 00:38:02,500
+the lexical analyzer it will store in the symbol table the semantic analyzer it will store in the symbol table the intermediate code generator it will store the temporary variables in the symbol table yes or no the temporary variables those will be stored by the intermediate code generator in the symbol table so the synthesis sorry the analysis phases they will store in the symbol table the analysis phases of the compiler what they will do they will store information in the symbol table okay and
+
+78
+00:38:03,430 --> 00:38:30,790
+The synthesis phases like code generation, machine code generation or optimization, those phases will use this information to generate the target code. So this is the simple point. Now let's move on. Now one thing I want to tell you in this symbol table, what entries are created? You might be thinking in symbol table, what do we store? So let me tell you every single information of your source code is stored in the symbol table. The symbol table is used to store.
+
+79
+00:38:31,310 --> 00:38:59,220
+information about every symbol contained within the program in your source program every symbol that you have for every symbol there is entry in the symbol table like your keywords your operators variables constant data types function processor literals basically whatever you have in your source program for everything entry is created in the symbol table and remember these are the information these are typically these are the information put in the symbol table for every
+
+80
+00:38:59,610 --> 00:39:28,650
+for every I can say variable or constant okay so you can see symbol table will contain the following type of operation information the following type of information for the input strings in the source program like you will put what is the lexeme okay you will put what is the token you will put is this variable is this operator means basically what type what type of thing is this is this a variable is this operator is this constant what is this data type this will be stored by the semantic analyzer and so on
+
+81
+00:39:28,870 --> 00:39:57,650
+so here you can see every phase of the compiler will use the symbol table remember every phase of the compiler in the compiler every phase will use the symbol table for example initially you can see the standard things you know in your C language there are some standard things okay so those you can store initially for example in the C language if you are writing a C compiler just think about it okay you are creating the C compiler you are writing the C compiler then tell me will you wait
+
+82
+00:39:58,000 --> 00:40:27,020
+for the compiler for the lexical analyzer to store this some I can say some information about the C language for example you are writing a C compiler then what you can do what you can do in the symbol table you can store okay before before you start basically this before the lexical analyzer itself what you can do some standard information you can keep in the symbol table okay like the information about the keywords operators which are the properties of the C language okay so very simple now what this scanner will do
+
+83
+00:40:27,110 --> 00:40:55,510
+it will read the program it will read your source program and it will place the user defined identifiers and literals in it okay and it will also return the token then you know the lexic the semantic sorry the syntax analyzer the parser will use this information and it will create the syntax tree the semantic analyzer what it will do it will store the information like data types so this information will be stored you know that intermediate code generator it will store the information like temporary variables
+
+84
+00:40:55,950 --> 00:41:23,770
+the information of temporary variables that will be stored by the intermediate code generator also it will use pointers to the entries in the symbol table for creating the intermediate code okay so this intermediate code generator this will use the pointers to the entries in the symbol table to create the intermediate representation okay and so on finally you can see this code generation phase this will also use the symbol table so every phase is using the symbol table okay now
+
+85
+00:41:24,250 --> 00:41:53,760
+Let's come back to our discussion that is 3 address code. Now finally let's see what are the instructions allowed in the 3 address code. We have seen what is the address. Did you understand what is the address? Please tell me. So far we have seen what address means. When we say address what that means. This is what we have seen. Address. What this address means in 3 address code. Did you understand? Let me know. So what is the address in 3 address code? That is
+
+86
+00:41:54,110 --> 00:42:38,680
+any name yes or no any name in the C program in the C or I can say variable name variable names in a source program similarly constants similarly compiler generated temporary variables yes or no compiler generated temporary variables did you understand let me know so far did you understand what our addresses so in the three address code everything is a pointer to the symbol table entry
+
+87
+00:42:39,200 --> 00:43:07,360
+yes or no in the three address code variable if you are writing if you are writing some variable name that is a entry to the symbol that is a pointer to the symbol table where that variable information is hold similarly if you are writing constant in the three address code for our convenience we will write constant in the three address code but that actually means that actually is a pointer to the symbol table where the entry for this constant is made okay so basically what is the address in the three address code that I told you
+
+88
+00:43:07,680 --> 00:43:41,970
+what is address if someone ask you what is this address this is a symbol pointer to the symbol table right yes or no this is basically a pointer to the symbol table okay so very simple I hope you understood this what is address in 3 address code I hope you understood now let's see now we will see what are the instructions what are the common use instructions in the 3 address code okay so let's start so what we are going to do now now we will see what are the common 3 address code instructions which are which we can use
+
+89
+00:43:42,410 --> 00:44:10,710
+so here one thing I want to tell you so this is a note please notice the note is this that what are the exact set of instructions allowed in the three address code that will depend on the compiler okay see we will see some basic three address instructions we will see we will see what are the three address instruction for jump for arithmetic expressions okay so basically we will see all the basic three address instructions we will see but let me tell you
+
+90
+00:44:10,910 --> 00:44:39,710
+the exact set of instructions which are allowed in the three address code which instructions are allowed in the three address code which are not allowed in the three address code that will depend on the compiler different compilers can have their own set of three address code instructions what we will do we will study the basic three address code instruction which are given in the book ulman okay here one thing i want to tell you for example if you study ulman ulman three address code
+
+91
+00:44:40,350 --> 00:45:09,060
+also Stanford 3 address code okay so let me tell you one difference in the ULMAN 3 address code in the Stanford 3 address code let me tell you the difference like in this ULMAN you have this type of instruction like this instruction is there what instruction for example this instruction is allowed if A is less than B then go to go to some some location some location L is this clear so you can see
+
+92
+00:45:09,470 --> 00:45:43,890
+If A is less than B, then go to some location L. This is allowed in the ULMAN. Is this clear? This is allowed. This instruction. This instruction is allowed. Allowed in ULMAN. Okay? But in Stanford, this instruction is not allowed. In Stanford, basically this instruction is not allowed. Okay? So in this, I can say, this instruction, instruction allowed. This instruction allowed. Is this clear? But if you study Stanford, 3rd and 4th language. Okay? Then...
+
+93
+00:45:43,610 --> 00:46:13,350
+this instruction is not allowed for example this same instruction not allowed this is not allowed here then tell me how to do this if this instruction is not allowed in the Stanford then how to do this then what this Stanford will do then you can easily do this okay basically you will do this in two instructions yes or no if you want to do this activity if you want to do this activity then you will have to write basically two instructions what you will do first you will write this
+
+94
+00:46:13,670 --> 00:46:40,690
+first you will save this in some temporary variable t1 this a less than b first you will store this in some temporary variable t1 and then this instruction is allowed if t1 go to l okay this is allowed if t1 go to l is this clear please tell me let me know did you understand so what i am trying to tell you see very simple point that the exact set of instructions that will depend on the compiler
+
+95
+00:46:41,200 --> 00:47:09,740
+Is this clear? Different compilers have their own different set of 3 address instructions. We will study the basic 3 address instructions that are given in the Ulman book. Is this clear? This point is this clear? So don't fight. See, if some student is learning from Stanford, let's assume 3 address code, some student is learning from Stanford, then that student will think that if you write this instruction in the 3 address code, that student will think, oh this is wrong. Yes or no?
+
+96
+00:47:10,180 --> 00:47:35,890
+Are you getting my point? So remember the exact details what are the instructions that are allowed in the 3DS code that will depend on the compiler. We will see the basic instructions. Now let's see the basic instructions. There are total 8 type of basic instructions that we will see. Let's see the first. So now here is the list for all the common 3DS instructions. These are the commonly found. These instructions you will commonly found everywhere.
+
+97
+00:47:36,210 --> 00:48:03,930
+Okay, these are the very basic instructions that you will find in in almost all the three address code languages Okay, so for example this instruction this arithmetic instruction Okay, this instruction like x equal to y operator z this instruction here remember this x y z they are they are operands either they can be names or constants or temporaries is this clear so this instruction is allowed very simple point here this operator can be either logical operator
+
+98
+00:48:04,270 --> 00:48:32,210
+or it can be arithmetic operator for example you can have arithmetic operator like x equal to y plus z this is allowed is this clear this is fine for example you can also have logical operation you can also have logical operation like you can do and you can do and this is also fine you can do logical operation for example in this x you can also store y less than z okay so like this basically either it will be true or false yes or no
+
+99
+00:48:32,530 --> 00:49:01,810
+in this situation, in this situation the result will be true or false so that so this x is basically Boolean here yes or no? y less than z the result will be either true or false so here this x this is basically a Boolean variable okay I hope you understood so all these are fine so this operator either can be logical operator like and or it can be arithmetic operator like this okay so very simple so this instruction is allowed okay this type of instructions are allowed very simple these are the basic instructions that are allowed
+
+100
+00:49:02,060 --> 00:49:30,870
+what else is allowed what else is allowed this is also allowed like if you want to write x equal to minus y this is also allowed is this clear only two operands are there you can see x comma y only two addresses you have only two operands you have this is allowed this is fine there is no problem here okay so very simple for example the negation is also allowed the negation you can see the logical negation okay let's let's write like this this is a logical negation see this is your arithmetic negation
+
+101
+00:49:31,140 --> 00:50:03,260
+this is your minus and this is your logical negation this is your logical negation like it will make if if this y is true then this x will be false if this y is false then x will be true okay so very simple so this is logical negation and this is your arithmetic negation this is your minus operation so these instructions are also allowed also the copy instruction is allowed means you can write like this x equal to y this is also fine okay there is no problem okay the value of y you will put in the value
+
+102
+00:50:03,460 --> 00:50:31,310
+in the x so x is assigned the value of y so these are allowed these instructions are allowed very simple now let's see unconditional jump instruction is also allowed this instruction is also allowed for example if you want to jump let's assume this is your three address code in this three address code let's assume this is like this this is instruction number one instruction number two instruction number three instruction number four and so on and at some point let's assume you want to write okay you want to write here
+
+103
+00:50:31,850 --> 00:51:00,170
+here let's assume you want to jump to the instruction to then what you can do you can write like this go to 2 is this clear go to 2 so what this means without checking anything just go to 2 so this is unconditional jump this go to 2 because here you are not checking any condition we are not checking any condition without checking any condition we are jumping to 2 so this is called unconditional jump so for this unconditional jump this go to L this is a
+
+104
+00:51:00,490 --> 00:51:31,320
+this you can use okay you can use this go to L go to some address L okay this L is some address is this clear for example you can say in the 3 address code if there is let's assume this instruction there is an instruction here and that instruction label L this L is the label or you can say address this L is basically the label here you have some instruction like maybe you have some instruction maybe X equal to A plus B and after some point after some
+
+105
+00:51:31,550 --> 00:52:01,710
+after some points let's assume here you have another instruction which is go to L okay then what it means this is unconditional jump to L okay this is unconditional jump to L so here from here you will directly go to here this is unconditional jump is this clear this is unconditional we are not checking any condition without checking any conditional you just jump so when you execute this instruction when you come to this instruction then you will directly go to the instruction number L okay so very simple
+
+106
+00:52:02,100 --> 00:52:34,540
+there is a conditional jump also there is a conditional jump also there is conditional jump now the conditional jump instruction is something like this that if t okay if t go to l if t go to l now tell me what this means what this means let me know what this means what this instruction means this instruction means that very simple if t is a true if t is true or one
+
+107
+00:52:34,860 --> 00:53:03,410
+ok if t is true or if it is one then basically then jump to l yes or no then jump to the location l jump to the label l ok if this t if this is false or zero if this is false or zero then then just go to the next instruction right yes or no then just go to the next instruction then just go to next instruction go to the next instruction in the sequence
+
+108
+00:53:04,050 --> 00:53:37,610
+go to the next instruction in sequence is this clear what this instruction means there is another instruction there is another conditional jump instruction and that is like this if a false if a false okay this is how so this if a false T then okay if a false T go to L now what that will mean what this instruction will mean if a false T then go to L
+
+109
+00:53:37,930 --> 00:54:10,900
+tell me what this will mean let me know this will mean if t is false if t is false or zero then you go to l then jump to l then jump to l okay but if t is true if t is true or one then then just go to next instruction in the sequence then just go to next instruction in sequence next instruction in a sequence okay is this clear
+
+110
+00:54:11,240 --> 00:54:39,720
+so this is another conditional jump that is allowed okay is this point clear let me know now let me tell you the same instruction the ulman will write like this okay ulman will write like this that go to l okay this is unconditional jump this is unconditional jump okay if t go to l this is conditional jump and this is another conditional jump if false t go to l
+
+111
+00:54:40,440 --> 00:55:07,890
+okay so these are the three instructions okay these same instructions if you check the Stanford then they will write like this they will write okay this okay basically everything will be same this is same like go to L they will also write like this this is also same there is no problem here if T go to L there is no problem here here they will write if Z okay if Z this is how they will write is this clear if Z means if 0
+
+112
+00:55:08,480 --> 00:55:37,870
+okay because both are same if z means if 0 if z means if 0 so both are same if false if 0 both are same okay so they will write like this if z if z if z if z okay if z t go to l so remember both are basically same these are same these are same these are same okay anyway so I hope you understood this so we have unconditional jump without any condition just directly jump and there is conditional jump also like you can see
+
+113
+00:55:38,140 --> 00:56:08,570
+if x go to L if false x go to L okay so you have these are the instructions you have I hope you understood now let me tell you there is another conditional jump that is allowed okay in the ulman that is also allowed let me tell you that is like this another conditional jump that is like this if something and then some operator okay some relational operator okay some relational operator some relational operator
+
+114
+00:56:09,780 --> 00:56:40,740
+b go to l this is also fine what this what this this is some relational operator some relational operator this is some relational operator for example relational operator for example you can say this can be equal this can be less than this can be greater than this can be less than equal this can be greater than equal yes or no so this is some relational operator for example let me tell you like you can write like this if
+
+115
+00:56:41,190 --> 00:57:06,590
+a is less than equal to b then go to l okay means if this will happen then go to l okay for example if a is equal to b go to l okay maybe not equal also so like this i hope you understood so these are the instructions that are allowed so you can see these type of instructions are also allowed conditional jump where if x relational operator y go to l
+
+116
+00:57:06,900 --> 00:57:35,600
+this relational operator this relational operator this can be like equal not equal less than greater than less than equal to greater than equal to so these type of instructions are also allowed is this clear please tell me so far the instructions which are allowed is that clear let me know now some more instructions that are allowed okay so this is the next category 7 number so some more instructions that are allowed like these type of instructions address and pointer assignment
+
+117
+00:57:36,080 --> 00:58:05,500
+Okay, like you are basically storing the address of y in x. Okay, so these are also allowed. Okay, you are storing the address of y in x. So these are also allowed. Okay, so address and pointer assignments. These are also allowed x equal to star y. Okay, star x equal to y. So all these things are also allowed. These instructions are also allowed. Okay. Now something very important. That is the reason I have kept it for last. This is very, very, very important.
+
+118
+00:58:05,930 --> 00:58:36,070
+that indexed addressing mode is also allowed indexed addressing mode that is also allowed see one thing I want to tell you that this type of instructions are also allowed like x equal to see what I want to tell you here this is very important because many students they have misconception here and many teachers they teach it very wrongly okay see this instruction is also allowed okay also this instruction is also allowed now tell me are they array are these array is this array
+
+119
+00:58:36,400 --> 00:59:04,960
+let me know is this array is this array please tell me is this array this is not array this is not array remember intermediate code that is a that is intermediate representation that is not your high level language in the C language you have array the concept of array you have in the C language in the 3 address code there is no concept of array so please understand that these okay when you write like this this is not array is this clear
+
+120
+00:59:05,600 --> 00:59:38,340
+when you write like this this is not array so what is this please tell me this is not array is this clear this is not array what is this let me know what is this what is this then this is indexed addressing mode this is indexed addressing mode in your computer organization you have seen this this is indexed addressing mode yes or no is this clear so this is not array this is indexed addressing mode so let me tell you what actually this means
+
+121
+00:59:38,630 --> 01:00:08,330
+so don't worry what actually this means when you write like this that y in y you are storing x i okay so please understand this if you are writing in the three address code what this means okay in three address code this means in three address code it means what it means it means that in y you are basically putting the content which is at x plus i address okay at this address
+
+122
+01:00:09,000 --> 01:00:36,080
+at this address what the content you have okay at this address what the content you have so notice here you can see the instruction when you write like this it means that you are setting the value of x to the value in the location which is i memory units beyond the location of y what I am saying so when you write like this in the 3 address code this means that in y you are putting the content at this location at this location this is the location
+
+123
+01:00:37,920 --> 01:01:06,720
+this is the location at this location what the content you have at this location what the content you have what is the content the content you will put what the content or I can say value the value at this location is this clear that value you will put in why okay so let me tell you the difference let me clearly tell you the difference so first of all let me tell you that in the C language there is a concept of array
+
+124
+01:01:07,100 --> 01:01:39,500
+but in the three address course there is no concept of array so please understand the difference here we have concept of array right here there is concept of array okay but here there is no concept of array you have no concept of array three address code is an intermediate representation it does not depend on the source language it does not depend on the machine it does not depend on the source language so there is no concept of array or array index array comma array index is this clear
+
+125
+01:01:39,930 --> 01:02:07,680
+so very simple point in the like let me give you one example let's assume that you have integer in the C language okay so i'm giving you this instruction let's assume that this array you have okay so let me just quickly give you this is the array you have and this is a integer array okay let's call it a rr okay and this is a integer array what is this this is a integer array now here you have some integer
+
+126
+01:02:08,030 --> 01:02:40,000
+okay this this is a integer array now let's assume that you have some integer here okay some integer here something here something here for example maybe four five six seven and so on okay these are the values and this is the address let's call it hundred this is the address hundred and let's assume every integer is taking eight bytes okay let's assume integer size integer size is eight bytes is this clear let's assume integer size is eight bytes so this will be what
+
+127
+01:02:40,440 --> 01:03:12,440
+please tell me this will be what or maybe 4 4 bytes ok for simplicity let's take 4 bytes let me take 4 4 bytes so this will be what tell me if this is your address 100 then this will be your address 104 108 112 and so on right yes or no 116 and so on is this clear please tell me ok so you can see let me write it 8 here let me write it 9 here
+
+128
+01:03:12,700 --> 01:03:43,930
+This will be 120, this will be 124 and so on. Okay. Now notice something interesting in the C language in C language. Okay. Please focus here. This is important because many teachers, they also teach it wrong and many students, they have misconception. So I'm telling you in the C language, if I write ARR four, what you will get in why you are putting ARR four, then tell me what will be the result of this? What will happen if you do this?
+
+129
+01:03:45,810 --> 01:04:14,600
+in why you are putting ARR4 then what will be the outcome of this? what will be the result of this? please tell me the result of this will be what? what y will have? let me know what y will have? please tell me so here y will have you can see this is A0, A1, A2, A3, A4 y will have 8 yes or no? y will have 8 right? agree? is this clear? because you can see this is in the C language focus on the C language
+
+130
+01:04:15,070 --> 01:04:45,350
+see in the C language this is your A0 right this is the ARR0 in the C language this is ARR1 in the C language right yes or no is this clear please tell me in the C language this is ARR2 so in the C language this will be your ARR4 understood let me know this is happening in the C language this is happening in the C language okay this happens
+
+131
+01:04:45,900 --> 01:05:18,200
+in C language in C language this happens ok now now you tell me in 3 address code if I write this in 3 address code if I write this statement the same statement I write Y ARR 4 now tell me now what will be the outcome tell me tell me tell me now what will be the outcome in the 3 address code if I write this Y ARR 4 then what actually it means it means what
+
+132
+01:05:18,460 --> 01:05:48,490
+it means in the why you are putting the value at location the value at location which location the location arr plus 4 what is that location arr means 100 right arr means 100 so at location 104 yes or no value at location 104 is this clear because arr means 100 this arr this arr this simply means 100
+
+133
+01:05:49,480 --> 01:06:20,530
+so you can see so the final result what that will be let me know the final result what why will have what why will have why will have this value is this clear why will have this value five is this understood please tell me let me know okay so very simple point in the three address code you don't you don't have the concept of index so very simple remember in C language what will happen and in three address code what will happen okay in the C language
+
+134
+01:06:20,920 --> 01:06:50,040
+if you write y equal to a4 then this basically means y will have the value 8 okay but in the three address code if i write y equal to a sorry ar ar 4 then here the y value will have 5 is this understood please tell me so very simple point i'm telling you that in the three address code these instructions are allowed what instructions let's come to this point
+
+135
+01:06:50,410 --> 01:07:23,330
+these instructions are allowed okay so let me tell you this instruction is allowed or this is not array this is not array what this this is your index addressing mode or you can say this is your index instruction okay you can say that this is indexed instruction you can call it indexed instruction is this clear don't call it array don't say array don't call it array this is indexed instruction
+
+136
+01:07:23,710 --> 01:07:58,420
+and what this will mean what this will mean this will mean that in x you are putting the value at location at location which is given by y plus i okay is this clear please tell me is this point clear so this is a simple point i hope you understood so let's move on now okay now you tell me a simple point you tell me let's assume this c language thing i am giving you
+
+137
+01:07:58,620 --> 01:08:29,590
+okay this is a C language let's assume integer size integer size is 8 bytes okay let's assume the integer size is given to you that is 8 bytes and this instruction you have y equal to some array arr and here you have some 5 now tell me what you will have in the 3 address code give me the 3 address code for this give me the 3 address code for this basically what you want to do in y you want to put the
+
+138
+01:08:30,570 --> 01:09:00,570
+arr5 right yes or no okay this is your arr let's assume the base address is 100 basically you want to put this is arr012345 okay this is arr5 right this this is arr5 let's 012345 this is what you want to put in y so what you will do in 3 address code what you will do the area the integer size is 8 bytes
+
+139
+01:09:00,870 --> 01:09:34,540
+so actually what is the address of this tell me what is the address of this what is the address of this you can say this will be 108 yes or no this will be 108 this will be 140 is this clear this will be 140 right so in the 3 address code what you will write in 3 address code what you are going to write first you will calculate first you will calculate this means basically see you want to jump to this location you want to go to this cell right yes or no
+
+140
+01:09:34,910 --> 01:10:07,700
+you want to go to this cell you want to access this cell how to access this cell in the 3 address code I want to access this cell how to access this cell in the 3 address code so first I will calculate first I will calculate this 5 multiplied by 8 I will put this in T1 because this is the integer size yes or no first I will calculate this then what I will do then I can do this y equal to ARR T1 is this clear
+
+141
+01:10:08,060 --> 01:10:36,970
+let me know please tell me did you understand this this is what i will have to do now you can notice now i will access that that location now i this location i can access is this understood let me know please tell me did you understand this point please let me know see this is quite simple point if you did not understand let me again tell you see in the c language let's assume integer size is 8 bytes
+
+142
+01:10:37,440 --> 01:11:05,580
+and you want to access this in some some location AI okay ARR equal to this actually in the C language if I give you this okay maybe let me just write it maybe let me write it too okay see in the C language when I do this what will actually happen in the C language when I write this then actually what will happen then this Y will have this content at the address at this okay like this is your array
+
+143
+01:11:06,190 --> 01:11:34,010
+this is your array please understand this is the array base address is 100 okay this is the address 108 this is the address 116 okay then this is the address 124 so you can see like this this is a0 a1 a2 so you can see this value let's assume you have some value 40 here then you can notice in the C language when I write this this instruction when I write then why will have value 40 okay why will have this value 40 right yes or no in the C language
+
+144
+01:11:34,380 --> 01:12:01,040
+you don't have to do anything the compiler will do the compiler will do everything okay the compiler will multiply this two with eight yes or no please tell me who will multiply this two with eight compiler will do that yes or no the compiler is going to do that you don't have to do that in the C language you write this and your Y will have value 40 the compiler will multiply this two with eight but in the three address code you have to do everything yes or no
+
+145
+01:12:01,630 --> 01:12:35,060
+You have to do everything. We have to do everything. We have to write everything. Yes or no. Is this clear? Please tell me. There are no shortcuts in three address code. There are no shortcuts. Is this clear? So in the three address code, what you will write in three address code, the same thing, how you will write the same thing. First, you will calculate this to multiplied by eight. You will store that into some T1 and then you can do this ARR of T1.
+
+146
+01:12:36,450 --> 01:13:07,350
+because now actually what it will do what this address will become if you look at this this will become 100 plus 100 plus 16 right yes or 100 plus T1 T1 is 16 T1 is 16 so this will become 100 and 100 plus 16 that value okay the value the value at this location you will put in why so this is the idea okay let's move on now so we have done we have seen what is the three address code what are the instructions that are allowed
+
+147
+01:13:07,850 --> 01:13:35,830
+so please tell me did you understand let me know did you understand did you understand what is this three three means three operands every instruction will have at most three operands what is this address this is basically pointed to the symbol table yes or no address what is address like your variable name constant or compiler generated temporary variables these are the addresses and what is code code means instructions what are the instructions that are allowed we have seen yes or no
+
+148
+01:13:36,090 --> 01:14:06,760
+So did you understand? Did you clearly understand what is three address code? What is this? What is this? What is this? All these three things. Did you understand? Please tell me. Let me know. Now let's do some practice of three address code. For example, this is your high level language program. Okay. This is maybe this is a C language program. Let's convert that into three address code. What you will get. Let's convert this into three address code. What you are going to get. Please tell me if you convert this into three address code, what you will get.
+
+149
+01:14:07,480 --> 01:14:36,790
+so very simple first what you will do first you will do this B plus C this B plus C you can store in some temporary variable T1 then you can do this T1 plus D you can store that into A okay next what you can do next you can do A into A this you can store into some temporary variable T2 next what you can do you can do B into B you can store that into some temporary variable T3 and finally what you can do you can do this
+
+150
+01:14:37,400 --> 01:15:08,700
+t2 plus t3 you can do this t2 plus t3 and you can store that into b yes or no so this is your 3 address code is this clear please tell me is this clear and let me tell you one more thing this is one of the 3 address code that is there of course there are many other 3 address codes are possible for example you can you can create this 3 address code also okay first you are doing b plus c you are storing yeah okay the same 3 address code we got right okay yes yes but actually what I'm telling you
+
+151
+01:15:08,990 --> 01:15:37,990
+For example, this also you can see this also can be done. Okay, let me tell you this also can be done. For example, because it will depend on the compiler. Okay. Yes or no, how the compiler will generate the three address code that will depend on the compiler. For example, this also can be done like first to do B plus C, first to do B plus C, you store that into temporary variable T1, then you do T1 plus D, you store that into temporary variable T2.
+
+152
+01:15:38,260 --> 01:16:07,760
+and then this T2 you store in A yes or no this is also possible the compiler can do like this also this is also correct it depends on the compiler please understand it depends on the compiler is this clear let me know okay so remember for this instruction either this this is also fine or this is also fine if you do like this in the T1 you are putting B plus C and then in A you are putting T1 plus D
+
+153
+01:16:08,070 --> 01:16:39,630
+okay so remember this is also fine this is also fine please understand is this clear let me know both are fine it will depend on the compiler okay let's move on this you can easily see very simple if you have this instruction then this will be the three address code you can easily see first what you can do this five you can put in the t0 okay this five you can put in the t0 then this you can put in t2 and then you can do remember another possibility what is that
+
+154
+01:16:40,350 --> 01:17:09,230
+What is another possibility? The another possibility is for 3 address code. What is another possibility of 3 address code? Let me tell you the another possibility of 3 address code is you do this to multiplied by B you store that into some temporary variable T1 and then what you do then you do 5 plus T1 and you store into A. This is also correct. There is no problem. Okay. This is also correct. And this is also correct. There is no problem. Okay. Let's move on. Tell me the answer for this. Can you take your copy pan?
+
+155
+01:17:11,470 --> 01:17:35,650
+can you take your copy pan if this is your code then what will be the 3 address code for this high level language program this is the C language program now what will be the 3 address code see if this is successful then execute this and then you go here right similarly if this is not successful then execute this and then go here so this is your if then statement right
+
+156
+01:17:35,980 --> 01:18:05,040
+so how to convert this into 3 address code let me let me check first what you will do tell me the first thing that you will do just tell me the first step that you will do first you will do this x less than y yes or no first you will check this x less than y store somewhere let me store in t1 in the temporary variable t1 let me store okay is this clear so first you are doing this and you are storing this into temporary variable t1 is this clear please tell me this is the first thing you will do first you will check this
+
+157
+01:18:05,350 --> 01:18:33,140
+axis less than y or not and the true or false is this true or false that you will store in t1 now now what to do now what to do if if this is a false or maybe i can say if this is true then what to do and if this is false then what to do see what i can do i can write like this i can say if this is false if this t1 is false okay if this t1 is false means if this is false
+
+158
+01:18:33,690 --> 01:19:01,540
+if this is false then what should be executed please tell me first time calculating x less than y the result I'm storing in temporary variable t1 if this is false if t1 is false means if this is false if this condition is false what should I execute I should execute this this else part I should execute this else part so what I will do if if this t1 is false then go to then go to some location l1 in the location l1
+
+159
+01:19:01,900 --> 01:19:31,170
+in the location l1 i will put this instruction this instruction i will put in the location l1 and there is location l2 because after this i will execute this yes or no after this i will execute this so here i will put in l2 i will put this okay very simple now if this is not successful then what to do please tell me means if t1 is not false if this is statement if t1 is not false then what should be executed tell me
+
+160
+01:19:31,560 --> 01:20:01,190
+if t1 is not false means if t1 is true okay if t1 is not false then this is unsuccessful okay then you will not go to this l1 so if this t1 is true then what you will do then you will execute this this you will execute right z equal to x this you will execute but after this you should execute this so after this instruction you should put go to l2 yes or no this is what you should put go to l2
+
+161
+01:20:01,420 --> 01:20:32,000
+So this is your 3 address code. Did you understand? Please tell me. Let me know. Did you understand? Please let me know. Did you understand this point or not? Is this clear? Of course, there are many other ways. Okay. Let me tell you other way. Okay. See, this is another way. First you will check this condition. Let me check this condition first. So first I will check this condition. X is less than Y or not. I will store the result in T1. Then, if this condition is satisfied,
+
+162
+01:20:32,620 --> 01:21:02,600
+if this T1 is true then what should be executed please tell me then where should I go if this T1 is true if this T1 is true if T1 if T1 means if this T1 is true then where should I go then I should go to this statement yes or no then I should go to this statement so then I should go to L1 on L1 I will put this statement z equal to x yes or no and from here the next statement should be this
+
+163
+01:21:02,970 --> 01:21:32,760
+yes or no the next statement should be this so let's call it L2 that will be Z into this okay now if this is not successful then if this is not successful means if T1 is false then you will not go to L1 if T1 is false then you will not go to L1 in this situation this should be executed right in this situation I should execute this I should execute correct after that I should go to L2 after that I should go to L2
+
+164
+01:21:33,440 --> 01:22:04,160
+Okay. So there are different, different ways. This is also fine. Is this clear? This code is also fine. This code is also fine. Both are fine. Please tell me. Did you understand? Let me know. So you can see you can do like this. Okay. Very easily. You can do like this. Understood. Did you understand? Let me know. Okay. Let's move on. Let's see this. How to write the three at a squad for this loop. We have already written three at a squad for if then now let's write the three at a squad for loop. This is the loop.
+
+165
+01:22:04,600 --> 01:22:33,380
+so tell me how to do that what is the first thing you will do tell me what is the first thing that you will check first you will check this condition very simple so let's check this condition x is less than y or not let's save the result in T1 okay in the temporary variable T1 then what I will do please tell me then what I will do then if this condition is satisfied if this T1 is satisfied then first you tell me if this T1 is not satisfied then what should I do
+
+166
+01:22:33,760 --> 01:23:01,880
+if false if this T1 is false then what should I do if this condition is false then what should I do then I should execute this statement yes or no let's call it L1 this statement I should execute right so if this if this condition is false then go to then go to L1 okay else if this is not satisfied means if this T1 if this condition is actually true then what should happen
+
+167
+01:23:02,420 --> 01:23:34,000
+then go to x equal to x into 2 and from here where should I jump from here where should I jump please tell me from where where should I jump I should jump to L0 where is L0 L0 is here this is a L0 is this clear please tell me did you understand let me know so this is how you can write the code understood so you can easily see this is how you can convert the Y loop into 3 address code I hope you understood
+
+168
+01:23:34,780 --> 01:24:10,820
+Okay, let's move on. Now let's see this question. If you want to access ARR5, then what you will do in the C language, this is how you can do, but in the 3 address code, what you should do, please tell me if you want to access ARR5, then what you should do in 3 address code, what should I do in 3 address code? Tell me in 3 address code, what should I do to access ARR5? This is the off C language of high level language. Okay.
+
+169
+01:24:11,130 --> 01:24:41,250
+So in three address code what should I do first I should multiply this with the size of integer yes or no what the integer size correct or I can say what the element size basically what this element is this character array integer array so basically the element size I should multiply this with the element size store in T1 and then what should I do very simple then I should put this ARR T1 okay this is what should I do yes or no
+
+170
+01:24:41,570 --> 01:25:14,110
+is this clear so this is you can do very simple in the three address code in three address code this is what you will do and in three address code this is not array right yes or no see this is array this is array in C language but this is not array in three address code okay is this clear see in C language there is simple convention C one is saying sir five is four if we count from zero no no no in C in C if I give you this statement
+
+171
+01:25:14,860 --> 01:25:41,040
+please notice in C if I give you this statement the index always starts from zero in C language yes or no in C language the index will always start from zero the index will always always always start from zero see like this okay like this let's assume this is ARR base address is let's assume 100 and the let's assume the element size let's assume this is a
+
+172
+01:25:42,000 --> 01:26:13,650
+this is character array or maybe this is anything okay so let's assume the next element or maybe this array let's assume this array this is a integer array okay and let's assume integer size I am already giving you integer size is a 4 bytes okay that is a 4 bytes now here you can see that this will be ARR0 yes or no what this will be this will be ARR0 this will be 108
+
+173
+01:26:14,580 --> 01:26:47,820
+1 1 2 1 1 6 1 2 0 yes or no so where is ARR 5 please tell me where is ARR 5 this is 0 1 2 3 see ARR 0 ARR 1 2 3 4 5 yes or no so this is your ARR 5 right agree what this this is ARR 5 yes or no this is ARR 5 now notice how to access this in the C language index will always start from 0 yes or no
+
+174
+01:26:48,190 --> 01:27:20,610
+this is your ARR 0 yes or no correct so in the 3 address code what should I do please tell me in 3 address code what should I do this address I need to calculate yes or no I need to calculate from this 100 this offset I need to calculate so this what I will do I will multiply this with size this is the integer size I will store in T1 and then finally very simple this ARR T1 I will put in Y
+
+175
+01:27:21,040 --> 01:27:58,950
+is this clear simple right so here this is the element size this is the element size this was your index from the C language yes or no this was your C language index array index C language array index this was your C language array index correct but remember in three address code this is not array right yes or no this is not array in three address code
+
+176
+01:28:00,590 --> 01:28:34,100
+okay you already know what is this when you write this in the three address code so because this point is quite important in three address code when you write this statement that Y is equal to ARR okay here some I then remember what this will mean or maybe you write for here then what this will mean this will mean this means in why you are putting value
+
+177
+01:28:34,840 --> 01:29:07,060
+at location at location arr plus 4 okay value at location arr plus 4 is this clear so very simple now let's move on now let's see this this is statement let's convert this into 3 address code can you do that let's convert this into 3 address code can you try that first what you will do please tell me what the first thing you will do let me know what the first thing you will do first this is what you are going to do
+
+178
+01:29:07,260 --> 01:29:36,490
+Okay. You are going to do I plus one and you will put it in I. Yes or no. So very simple. Okay. First you do this, then you check is this condition true. If this condition is true, then again go to here. So this is your do while loop. This is the do while loop. So first you do this. Okay. First what you will do? First you do this. So in I, you put I plus one. This is the first thing that you will do. Yes or no. After that, what you will do? Then you will check this condition. But tell me.
+
+179
+01:29:36,920 --> 01:30:13,060
+this statement is in the C language or not this statement is in the high language or low language please tell me this statement this is high level language or low level language please tell me this is your C language statement if this is your C language statement so this is array or not in the C language in the C language this is array right in the C language this is array agree with me agree with me in the C language this is array
+
+180
+01:30:13,330 --> 01:30:45,180
+but in the 3 address code there is no such thing as array in 3 address code we don't have array okay we do not have array so this is your level let me give you this level l0 now the next thing that what you will do first you will check this what you are going to do please tell me what you are going to do what is the next thing the next thing will be you calculate i multiplied by 8 okay you store that into some t1 i'm assuming assuming that
+
+181
+01:30:45,420 --> 01:31:20,200
+Element size is 8 bytes. Assume. Element size 8 bytes. Is this clear? Assume element size is 8 bytes. Then what you will do? First you will calculate I into 8 and you will store that into T1. Then what you will do? Then you will do this AT1. Yes or no? This AT1 you can store into some T2. Correct. Agree with me. You can store into some T2. Now very simple. Now very simple. Now what you will do?
+
+182
+01:31:20,610 --> 01:31:49,800
+now you will check if if this t2 is less than v if this t2 is less than v then what to do please tell me if this t2 is less than v if this condition satisfied then where should I go if this condition satisfies where should I go I should go back to here I should go to L0 yes or no I should go to L0 if this condition is not satisfied then what should I do
+
+183
+01:31:50,410 --> 01:32:24,020
+if this condition is not satisfied then where should I go then just go ok further very simple just go further is this clear let me know did you understand this anyone has any doubt in this please tell me let me know anyone has any doubt in this please tell me if you have doubt you can ask so very simple this is how you can write it ok so you can see first you will do this then I multiply by 8 ok then
+
+184
+01:32:24,250 --> 01:32:49,370
+very easily you can write like this or you can give numbers if you don't want to give labels see if you don't want to give labels you can give some numbers you can give like this numbers also you can give like go to L instead of go to L you can say go to 100 so remember either you can give labels or you can give position numbers both are fine both are fine this is also fine this is also fine both are fine
+
+185
+01:32:51,130 --> 01:33:21,270
+is this understood this is important is this understood please tell me this thing that in the 3 address code there is no concept of array this is indexed addressing mode yes or no in the 3 address code this is not array this is indexed instruction okay let's move on now let me ask you this question this is a question a very simple question so tell me the answer these instructions are allowed in a certain in a certain 3 address code let's assume
+
+186
+01:33:21,490 --> 01:33:54,090
+in a certain compiler in a certain compiler in a certain compiler let's assume these instructions are allowed in a certain compiler these instructions are allowed only these instructions are allowed like in the variable like for example a equal to 20 okay this is allowed in like a equal to b is allowed a equal to b into c that is allowed okay so but tell me is this allowed or not y equal to minus x is this allowed check it
+
+187
+01:33:54,320 --> 01:34:25,320
+is this allowed this is not allowed right yes or no are you getting my point in a certain compiler basically this is not allowed what is not allowed variable equal to op variable variable 1 equal to op variable this is not allowed right is this clear in a certain compiler this is not allowed this is not allowed then how to do this then how will you compile this any idea
+
+188
+01:34:26,250 --> 01:34:56,410
+in a certain compiler 3 address code in a certain compiler 3 address code this is not allowed variable equal to OP variable 2 means this type of instruction is not allowed in the 3 address code then what to do then how to compile how would you compile let me know very simple this is what we won't write this is what we want so very simple we can write two instructions for this first what I or maybe single single instruction is fine what I can do
+
+189
+01:34:56,930 --> 01:35:27,410
+I can just simply write y equal to minus one multiplied by x because constant into variable is allowed right look at this this is allowed right okay this is already allowed yes or no this is already allowed so constant you can take constant equal to minus one into x is this clear so like this you can do or you can do like this any other idea or you can do like this zero minus x okay this is also allowed because this is constant
+
+190
+01:35:29,070 --> 01:36:04,640
+this is operator and this is variable is this clear this is constant this is operator this is variable okay so this was a simple question nothing else did you understand this question please tell me did you understand that there is a certain compiler 3 address code in a particular in a certain compiler 3 address code let's assume that this type of instruction is not allowed let's assume variable equal to OP variable 2 means y equal to minus x this is not allowed
+
+191
+01:36:04,940 --> 01:36:34,580
+then in this situation how to compile okay then in this situation how to compile very simple you can take constant equal to minus one you can take constant equal to minus one or you can take constant equal to zero operator equal to minus one okay yes or no operator equal to minus did you understand in our compiler please tell me in the ulman compiler is this instruction allowed is this instruction allowed in our compiler that we have seen the instruction set that we have seen is this allowed
+
+192
+01:36:35,040 --> 01:37:09,560
+Yes, that is allowed. Okay. In the old man, this is allowed. Yes or no. In our compiler, this instruction is actually allowed. Okay. Let's move on. Let's solve this question. This is gate 1989 question. Tell me. So let's solve this question. This is gate computer science 1989 question in the following code template for if then else statement. Correct. Okay. This, this template is given to you and the question is asking, is this template correct?
+
+193
+01:37:10,860 --> 01:37:38,870
+if not correct then correct it ok so this is the statement you can see high level language statement if expression then statement 1 else statement 2 ok and this template is given to you what this template is saying code for expression there is some expression right there is some expression so this is the code for that expression then this is saying result is in EE ok the result of this expression that is in EE
+
+194
+01:37:39,350 --> 01:38:11,140
+and e greater than 0 indicates true okay then these statements are given to you branch on true means if this expression is true then go to L1 means you execute a statement 2 so is this correct please tell me the question is asking is the following code template is this template correct for if then else statement let me know is this correct so this is not correct right see very simple
+
+195
+01:38:11,480 --> 01:38:41,800
+if this expression is true then statement 1 should execute yes or no very simple very common sense that if this expression is true if this condition is true look at this result in E E greater than 0 indicates true indicates true so notice that if this expression is true if this E is true if this expression is true then what should happen tell me if this expression is true then statement 1 should be executed
+
+196
+01:38:43,370 --> 01:39:13,320
+then statement 1 should be executed yes or no else statement 2 should be executed else statement 2 should be executed so you can see here what you are doing here you are saying that branch on true to L1 basically this template is wrong this template is wrong why what this template is doing this template is wrong why because this template is executing statement 2
+
+197
+01:39:13,800 --> 01:39:44,710
+yes or no because this template is executing statement 2 when condition is false when this expression is false sorry when this expression is true when this expression is true then you are executing statement 2 when this expression is true then you are executing statement 2 so this code is wrong now let's correct it the question is saying let's correct it so how to correct it
+
+198
+01:39:45,420 --> 01:40:17,710
+how to correct very simple if this expression is true then statement one should be executed yes or no so very simple what to do basically if this expression is true means you can say like this that branch branch on e greater than zero branch on e greater than zero remember the question is saying e greater than zero indicates true please notice e indicates e greater than zero indicates true okay so here actually note that e greater than zero
+
+199
+01:40:18,710 --> 01:40:55,680
+e greater than zero sorry for that maybe some mistake happened in the software so let me start a new session okay in five minutes let me start a new session okay thank you everyone so let's start a new session in five minutes is that fine okay
+

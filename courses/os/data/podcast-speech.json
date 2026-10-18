@@ -1,0 +1,1473 @@
+{
+  "version": 4,
+  "episodes": [
+    {
+      "id": "os:0",
+      "scriptHash": "af88b3330375cf0e55522a131de29b550c02a75e51d7ea62480270dbc190564d",
+      "speechVersion": 4,
+      "digest": "393c2cc68558ef140ecad50bada2423f38e03fa8a2cb822573bec554cb2b6889",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called Programs become processes.",
+          "spoken": "Welcome to C S Quest Audio. I primem Maya, here with Leo. This section is called Programs become processes.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "leo",
+          "text": "From booting the computer to creating a running program.",
+          "spoken": "From booting the computer to creating a running program.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: follow a program from disk into memory, see what fork and exec change, and trace parent and child processes.",
+          "spoken": "Here's what we're working toward: follow a program from disk into memory, see what fork and exec change, and trace parent and child processes.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We'll begin with operating systems and computer startup and work our way to exec replaces a process image.",
+          "spoken": "We'll begin with operating systems and computer startup and work our way to exec replaces a process image.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "leo",
+          "text": "Let's start with operating systems and computer startup. What do we need to know?",
+          "spoken": "Let's start with operating systems and computer startup. What do we need to know?",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "maya",
+          "text": "An operating system is the trusted software layer that starts the machine, manages hardware and gives applications safe, useful services.",
+          "spoken": "An operating system is the trusted software layer that starts the machine, manages hardware and gives applications safe, useful services.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "Hardware means the physical processor, memory and devices.",
+          "spoken": "Hardware means the physical processor, memory and devices.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "When you open a photo, the app asks the OS to read file blocks, allocate memory and schedule its instructions on the CPU.",
+          "spoken": "When you open a photo, the app asks the OS to read file blocks, allocate memory and schedule its instructions on the C P U.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "A process is not a program file.",
+          "spoken": "A process is not a program file.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "That takes us to from a program file to a process. Where does it fit?",
+          "spoken": "That takes us to from a program file to a process. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "A program file is passive instructions stored on disk; a process is one active execution with its own state and resources.",
+          "spoken": "A program file is passive instructions stored on disk; a process is one active execution with its own state and resources.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Program means a stored set of instructions; it does not run by itself.",
+          "spoken": "Program means a stored set of instructions; it does not run by itself.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "From program file to process · Discover: A loader starts a program with three initialized data values, what must exist for this running instance to resume after it is paused?",
+          "spoken": "From program file to process; Discover: A loader starts a program with three initialized data values, what must exist for this running instance to resume after it is paused?",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Saved process state such as registers and a program counter. A program file is passive instructions stored on disk; a process is one active execution with its own state and resources.",
+          "spoken": "Saved process state such as registers and a program counter. A program file is passive instructions stored on disk; a process is one active execution with its own state and resources.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "fork creates a child process from a running parent; both continue after the call with separate return values.",
+          "spoken": "fork creates a child process from a running parent; both continue after the call with separate return values.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Parent means the process that calls fork.",
+          "spoken": "Parent means the process that calls fork.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "After one successful fork, a print statement reached by both processes can run twice, though their order is not fixed.",
+          "spoken": "After one successful fork, a print statement reached by both processes can run twice, though their order is not fixed.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Fork creates a process; exec replaces the running program image.",
+          "spoken": "Fork creates a process; exec replaces the running program image.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A fork trace is a branching execution tree: only processes that reach a fork create another child.",
+          "spoken": "A fork trace is a branching execution tree: only processes that reach a fork create another child.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Execution path means the instructions one process reaches in order.",
+          "spoken": "Execution path means the instructions one process reaches in order.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "Tracing fork trees · Discover: A program starts with one process; each of its two branches reaches one more fork, how many processes exist after both second forks succeed?",
+          "spoken": "Tracing fork trees; Discover: A program starts with one process; each of its two branches reaches one more fork, how many processes exist after both second forks succeed?",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Four. A fork trace is a branching execution tree: only processes that reach a fork create another child.",
+          "spoken": "Four. A fork trace is a branching execution tree: only processes that reach a fork create another child.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "How would you explain exec replaces a process image to someone meeting it for the first time?",
+          "spoken": "How would you explain exec replaces a process image to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "exec loads a new program into the current process, replacing its code and data while the process keeps its identity.",
+          "spoken": "exec loads a new program into the current process, replacing its code and data while the process keeps its identity.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Process image means the code, data and stack currently loaded for a process.",
+          "spoken": "Process image means the code, data and stack currently loaded for a process.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "A command shell can keep its process identity while replacing its image with the requested command.",
+          "spoken": "A command shell can keep its process identity while replacing its image with the requested command.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "Before we leave programs become processes, let's connect the pieces.",
+          "spoken": "Before we leave programs become processes, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "An operating system is the trusted software layer that starts the machine, manages hardware and gives applications safe, useful services.",
+          "spoken": "An operating system is the trusted software layer that starts the machine, manages hardware and gives applications safe, useful services.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "leo",
+          "text": "exec loads a new program into the current process, replacing its code and data while the process keeps its identity.",
+          "spoken": "exec loads a new program into the current process, replacing its code and data while the process keeps its identity.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "maya",
+          "text": "We've covered a lot in programs become processes. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "spoken": "We've covered a lot in programs become processes. You don't have to remember every detail at once; start by trying one of the examples yourself.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "os:1",
+      "scriptHash": "927daa55b3e7c05eab79383f6429f78a0cf856b38664c148aa0da591788add84",
+      "speechVersion": 4,
+      "digest": "95ff5dd5c592c860d3fdc5e9e8b986c53288144519096d37b3234320134ab630",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called Threads and CPU scheduling.",
+          "spoken": "Hi, I primem Maya. Leo's with me, and today's section is called Threads and C P U scheduling.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "leo",
+          "text": "Share a processor fairly and keep work moving.",
+          "spoken": "Share a processor fairly and keep work moving.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: compare processes and threads, read the ready queue, and simulate CPU scheduling by hand.",
+          "spoken": "Here's what we're working toward: compare processes and threads, read the ready queue, and simulate C P U scheduling by hand.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We'll begin with user mode and kernel mode and work our way to priority scheduling and starvation.",
+          "spoken": "We'll begin with user mode and kernel mode and work our way to priority scheduling and starvation.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "leo",
+          "text": "That takes us to user mode and kernel mode. Where does it fit?",
+          "spoken": "That takes us to user mode and kernel mode. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "maya",
+          "text": "Applications run with limited privileges and request protected operations through system calls handled by the kernel.",
+          "spoken": "Applications run with limited privileges and request protected operations through system calls handled by the kernel.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "User mode means a restricted CPU mode for application instructions.",
+          "spoken": "User mode means a restricted C P U mode for application instructions.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "read asks the kernel to copy bytes from an open file into a process buffer after checking access and arguments.",
+          "spoken": "read asks the kernel to copy bytes from an open file into a process buffer after checking access and arguments.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "A process is not a program file.",
+          "spoken": "A process is not a program file.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "There's another piece to this: user and kernel threads.",
+          "spoken": "There's another piece to this: user and kernel threads.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "Threads are execution paths within a process; they share process resources but each needs its own instruction position and stack.",
+          "spoken": "Threads are execution paths within a process; they share process resources but each needs its own instruction position and stack.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Thread means a schedulable path of execution with its own registers and stack.",
+          "spoken": "Thread means a schedulable path of execution with its own registers and stack.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "User-level and kernel-level threads · Discover: Two threads belong to one process and update different local variables, which resource is private to each thread during execution?",
+          "spoken": "User-level and kernel-level threads; Discover: Two threads belong to one process and update different local variables, which resource is private to each thread during execution?",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Its register state and stack. Threads are execution paths within a process; they share process resources but each needs its own instruction position and stack.",
+          "spoken": "Its register state and stack. Threads are execution paths within a process; they share process resources but each needs its own instruction position and stack.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "A thread mapping determines how user threads correspond to kernel-scheduled threads; a context switch saves one execution and restores another.",
+          "spoken": "A thread mapping determines how user threads correspond to kernel-scheduled threads; a context switch saves one execution and restores another.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Many-to-one means many user threads map to one kernel thread.",
+          "spoken": "Many-to-one means many user threads map to one kernel thread.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "With many-to-one mapping, one blocking system call can block the only kernel thread and stall every user thread in that process.",
+          "spoken": "With many-to-one mapping, one blocking system call can block the only kernel thread and stall every user thread in that process.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "maya",
+          "text": "A process moves among states as it waits for CPU time, requests I/O and finishes; different schedulers make decisions at different timescales.",
+          "spoken": "A process moves among states as it waits for C P U time, requests input and output and finishes; different schedulers make decisions at different timescales.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "leo",
+          "text": "Ready means able to run, waiting for a CPU.",
+          "spoken": "Ready means able to run, waiting for a C P U.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Process states and schedulers · Discover: A running process requests disk I/O and its data is not ready yet, what state should it enter while waiting?",
+          "spoken": "Process states and schedulers; Discover: A running process requests disk input and output and its data is not ready yet, what state should it enter while waiting?",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "Blocked. A process moves among states as it waits for CPU time, requests I/O and finishes; different schedulers make decisions at different timescales.",
+          "spoken": "Blocked. A process moves among states as it waits for C P U time, requests input and output and finishes; different schedulers make decisions at different timescales.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Blocked is not ready.",
+          "spoken": "Blocked is not ready.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "I want to unpack scheduling goals and FCFS next.",
+          "spoken": "I want to unpack scheduling goals and FCFS next.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "A CPU scheduler chooses a ready process; scheduling metrics describe different costs experienced by each job.",
+          "spoken": "A C P U scheduler chooses a ready process; scheduling metrics describe different costs experienced by each job.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Arrival time means when a process enters the ready system.",
+          "spoken": "Arrival time means when a process enters the ready system.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "If a job arrives at time 2 and finishes at time 9, its turnaround is 7 time units.",
+          "spoken": "If a job arrives at time two and finishes at time nine, its turnaround is seven time units.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "A timeline must respect arrivals, remaining burst time and the scheduling rule.",
+          "spoken": "A timeline must respect arrivals, remaining burst time and the scheduling rule.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "SJF chooses the ready job with the shortest next CPU burst; preemptive SRTF can replace it when a shorter remaining job arrives.",
+          "spoken": "SJF chooses the ready job with the shortest next C P U burst; preemptive SRTF can replace it when a shorter remaining job arrives.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "leo",
+          "text": "CPU burst means a stretch of computation before waiting or yielding.",
+          "spoken": "C P U burst means a stretch of computation before waiting or yielding.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "leo",
+          "text": "Shortest-job-first scheduling · Discover: Two jobs arrive together with CPU bursts 6 and 2, which job runs first under non-preemptive SJF?",
+          "spoken": "Shortest-job-first scheduling; Discover: Two jobs arrive together with C P U bursts six and two, which job runs first under non-preemptive SJF?",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "The 2-unit burst. SJF chooses the ready job with the shortest next CPU burst; preemptive SRTF can replace it when a shorter remaining job arrives.",
+          "spoken": "The two minus unit burst. SJF chooses the ready job with the shortest next C P U burst; preemptive SRTF can replace it when a shorter remaining job arrives.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "maya",
+          "text": "Round-robin scheduling gives each ready process up to one time quantum, then moves unfinished work to the queue tail.",
+          "spoken": "Round-robin scheduling gives each ready process up to one time quantum, then moves unfinished work to the queue tail.",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "leo",
+          "text": "Time quantum means the maximum CPU time in one round-robin turn.",
+          "spoken": "Time quantum means the maximum C P U time in one round-robin turn.",
+          "hints": {}
+        },
+        {
+          "index": 33,
+          "speaker": "maya",
+          "text": "With a quantum of 3, a process needing 8 CPU units runs for 3, returns to the tail, and needs 5 more.",
+          "spoken": "With a quantum of three, a process needing eight C P U units runs for three, returns to the tail, and needs five more.",
+          "hints": {}
+        },
+        {
+          "index": 34,
+          "speaker": "leo",
+          "text": "Let's start with scheduling mixed CPU and I/O bursts. What do we need to know?",
+          "spoken": "Let's start with scheduling mixed C P U and input and output bursts. What do we need to know?",
+          "hints": {}
+        },
+        {
+          "index": 35,
+          "speaker": "maya",
+          "text": "Processes alternate between CPU bursts and I/O waits; completion of I/O moves a blocked process back to the ready queue.",
+          "spoken": "Processes alternate between C P U bursts and input and output waits; completion of input and output moves a blocked process back to the ready queue.",
+          "hints": {}
+        },
+        {
+          "index": 36,
+          "speaker": "leo",
+          "text": "CPU burst means work executed on a processor.",
+          "spoken": "C P U burst means work executed on a processor.",
+          "hints": {}
+        },
+        {
+          "index": 37,
+          "speaker": "leo",
+          "text": "CPU and I/O bursts in scheduling · Discover: Process A blocks for I/O while process B is ready, what should the scheduler do with the idle CPU?",
+          "spoken": "C P U and input and output bursts in scheduling; Discover: Process A blocks for input and output while process B is ready, what should the scheduler do with the idle C P U?",
+          "hints": {}
+        },
+        {
+          "index": 38,
+          "speaker": "maya",
+          "text": "Run B while A waits for its I/O event. Processes alternate between CPU bursts and I/O waits; completion of I/O moves a blocked process back to the ready queue.",
+          "spoken": "Run B while A waits for its input and output event. Processes alternate between C P U bursts and input and output waits; completion of input and output moves a blocked process back to the ready queue.",
+          "hints": {}
+        },
+        {
+          "index": 39,
+          "speaker": "maya",
+          "text": "Priority scheduling favors higher-priority ready jobs; aging gradually raises long-waiting jobs to prevent starvation.",
+          "spoken": "Priority scheduling favors higher-priority ready jobs; aging gradually raises long-waiting jobs to prevent starvation.",
+          "hints": {}
+        },
+        {
+          "index": 40,
+          "speaker": "leo",
+          "text": "Priority means a rank used to choose among ready processes.",
+          "spoken": "Priority means a rank used to choose among ready processes.",
+          "hints": {}
+        },
+        {
+          "index": 41,
+          "speaker": "maya",
+          "text": "If smaller numbers mean higher priority, a job at priority 5 may wait behind a stream of new priority-1 jobs unless aging helps it.",
+          "spoken": "If smaller numbers mean higher priority, a job at priority five may wait behind a stream of new priority minus one jobs unless aging helps it.",
+          "hints": {}
+        },
+        {
+          "index": 42,
+          "speaker": "leo",
+          "text": "Before we leave threads and CPU scheduling, let's connect the pieces.",
+          "spoken": "Before we leave threads and C P U scheduling, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 43,
+          "speaker": "maya",
+          "text": "Applications run with limited privileges and request protected operations through system calls handled by the kernel.",
+          "spoken": "Applications run with limited privileges and request protected operations through system calls handled by the kernel.",
+          "hints": {}
+        },
+        {
+          "index": 44,
+          "speaker": "leo",
+          "text": "Priority scheduling favors higher-priority ready jobs; aging gradually raises long-waiting jobs to prevent starvation.",
+          "spoken": "Priority scheduling favors higher-priority ready jobs; aging gradually raises long-waiting jobs to prevent starvation.",
+          "hints": {}
+        },
+        {
+          "index": 45,
+          "speaker": "maya",
+          "text": "Try explaining priority scheduling and starvation in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "spoken": "Try explaining priority scheduling and starvation in your own words. If you get stuck, that chapter is a good place to listen again.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "os:2",
+      "scriptHash": "439c0e064ceea14f1468f337a6c932e96fb3fefb4ff54183f390084e4f503e7f",
+      "speechVersion": 4,
+      "digest": "d6d91a120c4ea2b28e51327fb5191e66cef391743b71e71ff6cf3dcbee5e9932",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Welcome back. Maya here, with Leo. We've reached the section called Communication and synchronization.",
+          "spoken": "Welcome back. Maya here, with Leo. We've reached the section called Communication and synchronization.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "leo",
+          "text": "Coordinate concurrent work without races or deadlock.",
+          "spoken": "Coordinate concurrent work without races or deadlock.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: make shared data safe with critical sections, atomic operations, locks and semaphores.",
+          "spoken": "Here's what we're working toward: make shared data safe with critical sections, atomic operations, locks and semaphores.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We'll begin with interprocess communication and work our way to readers, writers and dining philosophers.",
+          "spoken": "We'll begin with interprocess communication and work our way to readers, writers and dining philosophers.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "leo",
+          "text": "There's another piece to this: interprocess communication.",
+          "spoken": "There's another piece to this: interprocess communication.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "maya",
+          "text": "Processes communicate by sharing a memory region or exchanging messages through operating-system mechanisms.",
+          "spoken": "Processes communicate by sharing a memory region or exchanging messages through operating-system mechanisms.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "Shared memory means a region mapped so multiple processes can read or write it.",
+          "spoken": "Shared memory means a region mapped so multiple processes can read or write it.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "A producer can place records in shared memory, but both processes still need a rule for when a record is complete.",
+          "spoken": "A producer can place records in shared memory, but both processes still need a rule for when a record is complete.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "Let's spend a moment on concurrency and race conditions.",
+          "spoken": "Let's spend a moment on concurrency and race conditions.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "Concurrent instructions can interleave; a race occurs when the result depends on the timing of accesses to shared data.",
+          "spoken": "Concurrent instructions can interleave; a race occurs when the result depends on the timing of accesses to shared data.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "Interleaving means an order that mixes steps from concurrent executions.",
+          "spoken": "Interleaving means an order that mixes steps from concurrent executions.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Concurrency and race conditions · Discover: Two workers each increment the same counter using separate read and write steps, what final value can occur if both read zero before either write?",
+          "spoken": "Concurrency and race conditions; Discover: Two workers each increment the same counter using separate read and write steps, what final value can occur if both read zero before either write?",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "1. Concurrent instructions can interleave; a race occurs when the result depends on the timing of accesses to shared data.",
+          "spoken": "one. Concurrent instructions can interleave; a race occurs when the result depends on the timing of accesses to shared data.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "A read-modify-write sequence is not automatically atomic.",
+          "spoken": "A read-modify-write sequence is not automatically atomic.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "A critical section protects shared data; a correct protocol needs mutual exclusion, progress and bounded waiting.",
+          "spoken": "A critical section protects shared data; a correct protocol needs mutual exclusion, progress and bounded waiting.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Mutual exclusion means at most one process is in the critical section at a time.",
+          "spoken": "Mutual exclusion means at most one process is in the critical section at a time.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "A bank balance update should not let two transfers overwrite each other’s changes.",
+          "spoken": "A bank balance update should not let two transfers overwrite each other’s changes.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Mutual exclusion alone does not guarantee fairness.",
+          "spoken": "Mutual exclusion alone does not guarantee fairness.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "maya",
+          "text": "A synchronization protocol must both keep conflicting work out of the critical section and let waiting work make progress.",
+          "spoken": "A synchronization protocol must both keep conflicting work out of the critical section and let waiting work make progress.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "Safety means nothing bad happens, such as two owners entering together.",
+          "spoken": "Safety means nothing bad happens, such as two owners entering together.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "Testing critical-section protocols · Discover: A lock allows one owner in but permanently ignores every later request, which property does that behavior violate?",
+          "spoken": "Testing critical-section protocols; Discover: A lock allows one owner in but permanently ignores every later request, which property does that behavior violate?",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "Progress. A synchronization protocol must both keep conflicting work out of the critical section and let waiting work make progress.",
+          "spoken": "Progress. A synchronization protocol must both keep conflicting work out of the critical section and let waiting work make progress.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "Now for peterson’s solution. What's the key distinction?",
+          "spoken": "Now for peterson’s solution. What's the key distinction?",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "Peterson’s algorithm uses one intent flag per process and a turn variable to coordinate two processes under its memory-order assumptions.",
+          "spoken": "Peterson’s algorithm uses one intent flag per process and a turn variable to coordinate two processes under its memory-order assumptions.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "leo",
+          "text": "Intent flag means a shared Boolean stating that a process wants to enter.",
+          "spoken": "Intent flag means a shared Boolean stating that a process wants to enter.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "maya",
+          "text": "If both processes raise their flags, turn breaks the tie so one waits while the other enters.",
+          "spoken": "If both processes raise their flags, turn breaks the tie so one waits while the other enters.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "maya",
+          "text": "Atomic read-modify-write instructions let software update a lock without another processor slipping between the read and write.",
+          "spoken": "Atomic read-modify-write instructions let software update a lock without another processor slipping between the read and write.",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "leo",
+          "text": "Test-and-set means atomically reads a lock value and sets it.",
+          "spoken": "Test-and-set means atomically reads a lock value and sets it.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "leo",
+          "text": "Atomic hardware operations · Discover: Two CPU cores try to acquire the same lock simultaneously, what feature makes only one atomic test-and-set observe the old unlocked value?",
+          "spoken": "Atomic hardware operations; Discover: Two C P U cores try to acquire the same lock simultaneously, what feature makes only one atomic test-and-set observe the old unlocked value?",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "maya",
+          "text": "The instruction executes indivisibly across the competing cores. Atomic read-modify-write instructions let software update a lock without another processor slipping between the read and write.",
+          "spoken": "The instruction executes indivisibly across the competing cores. Atomic read-modify-write instructions let software update a lock without another processor slipping between the read and write.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "A semaphore is an integer-like synchronization object whose wait and signal operations coordinate permits or events.",
+          "spoken": "A semaphore is an integer-like synchronization object whose wait and signal operations coordinate permits or events.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "leo",
+          "text": "wait means take a permit or block until one becomes available.",
+          "spoken": "wait means take a permit or block until one becomes available.",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "maya",
+          "text": "A semaphore initialized to 3 can allow up to three workers to use a pool of three identical resources.",
+          "spoken": "A semaphore initialized to three can allow up to three workers to use a pool of three identical resources.",
+          "hints": {}
+        },
+        {
+          "index": 33,
+          "speaker": "leo",
+          "text": "That takes us to producer-consumer buffers. Where does it fit?",
+          "spoken": "That takes us to producer-consumer buffers. Where does it fit?",
+          "hints": {}
+        },
+        {
+          "index": 34,
+          "speaker": "maya",
+          "text": "A bounded buffer uses empty-slot, full-slot and mutual-exclusion semaphores to coordinate producers and consumers safely.",
+          "spoken": "A bounded buffer uses empty-slot, full-slot and mutual-exclusion semaphores to coordinate producers and consumers safely.",
+          "hints": {}
+        },
+        {
+          "index": 35,
+          "speaker": "leo",
+          "text": "empty means the number of unused buffer slots.",
+          "spoken": "empty means the number of unused buffer slots.",
+          "hints": {}
+        },
+        {
+          "index": 36,
+          "speaker": "leo",
+          "text": "Bounded producer-consumer buffer · Discover: A four-slot buffer contains three items before a producer inserts one, how many empty slots remain afterward?",
+          "spoken": "Bounded producer-consumer buffer; Discover: A four-slot buffer contains three items before a producer inserts one, how many empty slots remain afterward?",
+          "hints": {}
+        },
+        {
+          "index": 37,
+          "speaker": "maya",
+          "text": "0. A bounded buffer uses empty-slot, full-slot and mutual-exclusion semaphores to coordinate producers and consumers safely.",
+          "spoken": "zero. A bounded buffer uses empty-slot, full-slot and mutual-exclusion semaphores to coordinate producers and consumers safely.",
+          "hints": {}
+        },
+        {
+          "index": 38,
+          "speaker": "maya",
+          "text": "Readers-writers and dining philosophers model competing access to shared resources and reveal starvation and deadlock risks.",
+          "spoken": "Readers-writers and dining philosophers model competing access to shared resources and reveal starvation and deadlock risks.",
+          "hints": {}
+        },
+        {
+          "index": 39,
+          "speaker": "leo",
+          "text": "Reader means a process that observes shared data without changing it.",
+          "spoken": "Reader means a process that observes shared data without changing it.",
+          "hints": {}
+        },
+        {
+          "index": 40,
+          "speaker": "maya",
+          "text": "If every philosopher picks up one fork and waits for the other, the resource graph can form a cycle.",
+          "spoken": "If every philosopher picks up one fork and waits for the other, the resource graph can form a cycle.",
+          "hints": {}
+        },
+        {
+          "index": 41,
+          "speaker": "leo",
+          "text": "Fork creates a process; exec replaces the running program image.",
+          "spoken": "Fork creates a process; exec replaces the running program image.",
+          "hints": {}
+        },
+        {
+          "index": 42,
+          "speaker": "leo",
+          "text": "Before we leave communication and synchronization, let's connect the pieces.",
+          "spoken": "Before we leave communication and synchronization, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 43,
+          "speaker": "maya",
+          "text": "Processes communicate by sharing a memory region or exchanging messages through operating-system mechanisms.",
+          "spoken": "Processes communicate by sharing a memory region or exchanging messages through operating-system mechanisms.",
+          "hints": {}
+        },
+        {
+          "index": 44,
+          "speaker": "leo",
+          "text": "Readers-writers and dining philosophers model competing access to shared resources and reveal starvation and deadlock risks.",
+          "spoken": "Readers-writers and dining philosophers model competing access to shared resources and reveal starvation and deadlock risks.",
+          "hints": {}
+        },
+        {
+          "index": 45,
+          "speaker": "maya",
+          "text": "When you try a problem on readers, writers and dining philosophers, talk through why each step works. That's a useful check on what has clicked.",
+          "spoken": "When you try a problem on readers, writers and dining philosophers, talk through why each step works. That's a useful check on what has clicked.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "os:3",
+      "scriptHash": "fa97ea2261fde0498f77ac4f3725388d56a0851e60ec3f4c7ba5bff3bb1d5a85",
+      "speechVersion": 4,
+      "digest": "df5f986fdfed2d004b8a4a652d701f292c7e912ede1eff28e4f283a5f7a354be",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "I'm Maya, and this is CSQuest Audio. Today, Leo and I are taking on Memory and virtual addresses.",
+          "spoken": "I primem Maya, and this is C S Quest Audio. Today, Leo and I are taking on Memory and virtual addresses.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "leo",
+          "text": "Translate addresses, keep pages close and respond to misses.",
+          "spoken": "Translate addresses, keep pages close and respond to misses.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: trace segmentation and paging, calculate address translation costs, and model page replacement.",
+          "spoken": "Here's what we're working toward: trace segmentation and paging, calculate address translation costs, and model page replacement.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We'll begin with base and bounds, then segmentation and work our way to TLB, dirty pages and page-fault costs.",
+          "spoken": "We'll begin with base and bounds, then segmentation and work our way to T L B, dirty pages and page-fault costs.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "leo",
+          "text": "Let's spend a moment on base and bounds, then segmentation.",
+          "spoken": "Let's spend a moment on base and bounds, then segmentation.",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "maya",
+          "text": "A base and bound pair confines addresses to one process region; segmentation gives code, data and stack separate variable-sized regions.",
+          "spoken": "A base and bound pair confines addresses to one process region; segmentation gives code, data and stack separate variable-sized regions.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "Base means the physical start address of a region.",
+          "spoken": "Base means the physical start address of a region.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "For base 4000 and length 600, logical offset 120 maps to 4120, while offset 700 is outside the bound.",
+          "spoken": "For base four thousand and length six hundred, logical offset one hundred twenty maps to four thousand one hundred twenty, while offset seven hundred is outside the bound.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "How would you explain segmentation examples and fragmentation to someone meeting it for the first time?",
+          "spoken": "How would you explain segmentation examples and fragmentation to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "maya",
+          "text": "Variable-sized segments can leave free memory split into gaps; total free space may be large enough while no single gap is large enough.",
+          "spoken": "Variable-sized segments can leave free memory split into gaps; total free space may be large enough while no single gap is large enough.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "leo",
+          "text": "External fragmentation means free memory exists in separated holes that cannot fit one requested block.",
+          "spoken": "External fragmentation means free memory exists in separated holes that cannot fit one requested block.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Segmentation and external fragmentation · Discover: Memory has free holes of 4 and 5 units and a request needs 7 contiguous units, can the request fit without compaction?",
+          "spoken": "Segmentation and external fragmentation; Discover: Memory has free holes of four and five units and a request needs seven contiguous units, can the request fit without compaction?",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "maya",
+          "text": "No. Variable-sized segments can leave free memory split into gaps; total free space may be large enough while no single gap is large enough.",
+          "spoken": "No. Variable-sized segments can leave free memory split into gaps; total free space may be large enough while no single gap is large enough.",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Paging divides virtual memory into fixed-size pages and physical memory into equal-size frames; a page table maps one to the other.",
+          "spoken": "Paging divides virtual memory into fixed-size pages and physical memory into equal-size frames; a page table maps one to the other.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "leo",
+          "text": "Page means a fixed-size block of a process virtual address space.",
+          "spoken": "Page means a fixed-size block of a process virtual address space.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "maya",
+          "text": "With 256-byte pages, address 600 is page 2 with offset 88 because 600 = 2×256 + 88.",
+          "spoken": "With two hundred fifty six byte pages, address six hundred is page two with offset eighty eight because six hundred equals two times two hundred fifty six plus eighty eight.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "A flat page table stores one entry for each virtual page, so address width and page size determine its entry count.",
+          "spoken": "A flat page table stores one entry for each virtual page, so address width and page size determine its entry count.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "leo",
+          "text": "Virtual address means an address generated by a process.",
+          "spoken": "Virtual address means an address generated by a process.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "leo",
+          "text": "Single-level page-table calculations · Discover: A 16-bit virtual address uses 256-byte pages, how many page-number bits remain?",
+          "spoken": "Single-level page-table calculations; Discover: A sixteen bit virtual address uses two hundred fifty six byte pages, how many page-number bits remain?",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "maya",
+          "text": "8 bits. A flat page table stores one entry for each virtual page, so address width and page size determine its entry count.",
+          "spoken": "eight bits. A flat page table stores one entry for each virtual page, so address width and page size determine its entry count.",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "leo",
+          "text": "We also need to talk about multilevel page tables.",
+          "spoken": "We also need to talk about multilevel page tables.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "maya",
+          "text": "A multilevel page table splits virtual page-number bits into indexes so unused branches need not allocate lower-level tables.",
+          "spoken": "A multilevel page table splits virtual page-number bits into indexes so unused branches need not allocate lower-level tables.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "leo",
+          "text": "Page-directory index means the first group of page-number bits used to choose a table.",
+          "spoken": "Page-directory index means the first group of page-number bits used to choose a table.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "maya",
+          "text": "A two-level walk first selects a page-directory entry, then a page-table entry, then uses the offset in the frame.",
+          "spoken": "A two-level walk first selects a page-directory entry, then a page-table entry, then uses the offset in the frame.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "maya",
+          "text": "A multilevel translation follows each page-table index in order and appends the original offset to the final frame number.",
+          "spoken": "A multilevel translation follows each page-table index in order and appends the original offset to the final frame number.",
+          "hints": {}
+        },
+        {
+          "index": 25,
+          "speaker": "leo",
+          "text": "Page walk means the sequence of memory reads needed to follow page tables.",
+          "spoken": "Page walk means the sequence of memory reads needed to follow page tables.",
+          "hints": {}
+        },
+        {
+          "index": 26,
+          "speaker": "leo",
+          "text": "Walking multilevel translations · Discover: A two-level translation performs two table reads followed by one data read, how many memory reads occur without a translation cache?",
+          "spoken": "Walking multilevel translations; Discover: A two-level translation performs two table reads followed by one data read, how many memory reads occur without a translation cache?",
+          "hints": {}
+        },
+        {
+          "index": 27,
+          "speaker": "maya",
+          "text": "3. A multilevel translation follows each page-table index in order and appends the original offset to the final frame number.",
+          "spoken": "three. A multilevel translation follows each page-table index in order and appends the original offset to the final frame number.",
+          "hints": {}
+        },
+        {
+          "index": 28,
+          "speaker": "maya",
+          "text": "Page tables trade memory space against lookup work; a translation lookaside buffer caches recent mappings to avoid repeated walks.",
+          "spoken": "Page tables trade memory space against lookup work; a translation lookaside buffer caches recent mappings to avoid repeated walks.",
+          "hints": {}
+        },
+        {
+          "index": 29,
+          "speaker": "leo",
+          "text": "Flat page table means one entry for every virtual page.",
+          "spoken": "Flat page table means one entry for every virtual page.",
+          "hints": {}
+        },
+        {
+          "index": 30,
+          "speaker": "maya",
+          "text": "A TLB hit can find a frame quickly; a miss needs a page-table walk before the requested data access.",
+          "spoken": "A T L B hit can find a frame quickly; a miss needs a page-table walk before the requested data access.",
+          "hints": {}
+        },
+        {
+          "index": 31,
+          "speaker": "leo",
+          "text": "A TLB miss is not necessarily a page fault.",
+          "spoken": "A T L B miss is not necessarily a page fault.",
+          "hints": {}
+        },
+        {
+          "index": 32,
+          "speaker": "leo",
+          "text": "Page offsets are preserved during translation.",
+          "spoken": "Page offsets are preserved during translation.",
+          "hints": {}
+        },
+        {
+          "index": 33,
+          "speaker": "leo",
+          "text": "There's another piece to this: reviewing memory allocation schemes.",
+          "spoken": "There's another piece to this: reviewing memory allocation schemes.",
+          "hints": {}
+        },
+        {
+          "index": 34,
+          "speaker": "maya",
+          "text": "Contiguous regions, segmentation and paging make different tradeoffs in protection, flexibility and fragmentation.",
+          "spoken": "Contiguous regions, segmentation and paging make different tradeoffs in protection, flexibility and fragmentation.",
+          "hints": {}
+        },
+        {
+          "index": 35,
+          "speaker": "leo",
+          "text": "Contiguous allocation means give a process one adjacent physical region.",
+          "spoken": "Contiguous allocation means give a process one adjacent physical region.",
+          "hints": {}
+        },
+        {
+          "index": 36,
+          "speaker": "leo",
+          "text": "Review memory allocation schemes · Discover: A process needs 10 bytes and receives a fixed 8-byte page size, how many bytes are unused in its final allocated page?",
+          "spoken": "Review memory allocation schemes; Discover: A process needs ten bytes and receives a fixed eight byte page size, how many bytes are unused in its final allocated page?",
+          "hints": {}
+        },
+        {
+          "index": 37,
+          "speaker": "maya",
+          "text": "6 bytes. Contiguous regions, segmentation and paging make different tradeoffs in protection, flexibility and fragmentation.",
+          "spoken": "six bytes. Contiguous regions, segmentation and paging make different tradeoffs in protection, flexibility and fragmentation.",
+          "hints": {}
+        },
+        {
+          "index": 38,
+          "speaker": "maya",
+          "text": "Segmented paging first selects a segment’s page table, then maps a page within that segment to a frame.",
+          "spoken": "Segmented paging first selects a segment’s page table, then maps a page within that segment to a frame.",
+          "hints": {}
+        },
+        {
+          "index": 39,
+          "speaker": "leo",
+          "text": "Segment number means the logical region being addressed.",
+          "spoken": "Segment number means the logical region being addressed.",
+          "hints": {}
+        },
+        {
+          "index": 40,
+          "speaker": "maya",
+          "text": "A logical address can select segment 2, page 3, offset 12; the segment table locates the page table before frame translation.",
+          "spoken": "A logical address can select segment two, page three, offset twelve; the segment table locates the page table before frame translation.",
+          "hints": {}
+        },
+        {
+          "index": 41,
+          "speaker": "maya",
+          "text": "Demand paging loads a page when it is first accessed; if memory is full, a replacement policy chooses a resident page to evict.",
+          "spoken": "Demand paging loads a page when it is first accessed; if memory is full, a replacement policy chooses a resident page to evict.",
+          "hints": {}
+        },
+        {
+          "index": 42,
+          "speaker": "leo",
+          "text": "Page fault means a trap caused by accessing a page that is not currently mapped in memory.",
+          "spoken": "Page fault means a trap caused by accessing a page that is not currently mapped in memory.",
+          "hints": {}
+        },
+        {
+          "index": 43,
+          "speaker": "leo",
+          "text": "Demand paging and page replacement · Discover: Frames hold pages 1 and 2; a reference requests absent page 3, what event is raised before page 3 can be read?",
+          "spoken": "Demand paging and page replacement; Discover: Frames hold pages one and two; a reference requests absent page three, what event is raised before page three can be read?",
+          "hints": {}
+        },
+        {
+          "index": 44,
+          "speaker": "maya",
+          "text": "A page fault. Demand paging loads a page when it is first accessed; if memory is full, a replacement policy chooses a resident page to evict.",
+          "spoken": "A page fault. Demand paging loads a page when it is first accessed; if memory is full, a replacement policy chooses a resident page to evict.",
+          "hints": {}
+        },
+        {
+          "index": 45,
+          "speaker": "leo",
+          "text": "I want to unpack TLBs and virtual-memory performance next.",
+          "spoken": "I want to unpack TLBs and virtual-memory performance next.",
+          "hints": {}
+        },
+        {
+          "index": 46,
+          "speaker": "maya",
+          "text": "A translation lookaside buffer caches address translations; effective access time depends on hit rate and the costs of hits and misses.",
+          "spoken": "A translation lookaside buffer caches address translations; effective access time depends on hit rate and the costs of hits and misses.",
+          "hints": {}
+        },
+        {
+          "index": 47,
+          "speaker": "leo",
+          "text": "TLB hit means the translation is found in the translation cache.",
+          "spoken": "T L B hit means the translation is found in the translation cache.",
+          "hints": {}
+        },
+        {
+          "index": 48,
+          "speaker": "maya",
+          "text": "If a hit costs 10 ns and a miss path costs 110 ns, a 90% hit rate gives 20 ns average: 0.9×10 + 0.1×110.",
+          "spoken": "If a hit costs ten ns and a miss path costs one hundred ten ns, a ninety percent hit rate gives twenty ns average: zero point nine times ten plus zero point one times one hundred ten.",
+          "hints": {}
+        },
+        {
+          "index": 49,
+          "speaker": "maya",
+          "text": "A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "spoken": "A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "hints": {}
+        },
+        {
+          "index": 50,
+          "speaker": "leo",
+          "text": "Dirty bit means a flag showing that a memory page changed since it was loaded.",
+          "spoken": "Dirty bit means a flag showing that a memory page changed since it was loaded.",
+          "hints": {}
+        },
+        {
+          "index": 51,
+          "speaker": "leo",
+          "text": "Dirty pages and page-fault cost · Discover: A dirty victim takes 8 ms to write and the new page takes 12 ms to read, what storage time is required before execution resumes?",
+          "spoken": "Dirty pages and page-fault cost; Discover: A dirty victim takes eight ms to write and the new page takes twelve ms to read, what storage time is required before execution resumes?",
+          "hints": {}
+        },
+        {
+          "index": 52,
+          "speaker": "maya",
+          "text": "20 ms. A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "spoken": "twenty ms. A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "hints": {}
+        },
+        {
+          "index": 53,
+          "speaker": "leo",
+          "text": "Before we leave memory and virtual addresses, let's connect the pieces.",
+          "spoken": "Before we leave memory and virtual addresses, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 54,
+          "speaker": "maya",
+          "text": "A base and bound pair confines addresses to one process region; segmentation gives code, data and stack separate variable-sized regions.",
+          "spoken": "A base and bound pair confines addresses to one process region; segmentation gives code, data and stack separate variable-sized regions.",
+          "hints": {}
+        },
+        {
+          "index": 55,
+          "speaker": "leo",
+          "text": "A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "spoken": "A dirty victim has been modified; eviction must write it back before the requested page can be read into its frame.",
+          "hints": {}
+        },
+        {
+          "index": 56,
+          "speaker": "maya",
+          "text": "Take a small example of base and bounds, then segmentation and work it out before looking at the explanation. Then compare your reasoning.",
+          "spoken": "Take a small example of base and bounds, then segmentation and work it out before looking at the explanation. Then compare your reasoning.",
+          "hints": {}
+        }
+      ]
+    },
+    {
+      "id": "os:4",
+      "scriptHash": "bcef5a0d6f5027d9e41c0a9ead761810bb8ec57bd8f3350105ab188fc0e81e8f",
+      "speechVersion": 4,
+      "digest": "9b1a15417b31d6286fcac7a6a74ec331f23c08d12eab202e58fc59b85f03c6bc",
+      "turns": [
+        {
+          "index": 0,
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is Deadlocks and file systems.",
+          "spoken": "Maya and Leo here. Our section today is Deadlocks and file systems.",
+          "hints": {}
+        },
+        {
+          "index": 1,
+          "speaker": "leo",
+          "text": "Allocate resources safely and find data on storage.",
+          "spoken": "Allocate resources safely and find data on storage.",
+          "hints": {}
+        },
+        {
+          "index": 2,
+          "speaker": "maya",
+          "text": "Here's what we're working toward: recognize deadlock, test safe allocations, and follow files from a name to disk blocks.",
+          "spoken": "Here's what we're working toward: recognize deadlock, test safe allocations, and follow files from a name to disk blocks.",
+          "hints": {}
+        },
+        {
+          "index": 3,
+          "speaker": "leo",
+          "text": "We'll begin with deadlock conditions and resource graphs and work our way to file-system implementation practice.",
+          "spoken": "We'll begin with deadlock conditions and resource graphs and work our way to file-system implementation practice.",
+          "hints": {}
+        },
+        {
+          "index": 4,
+          "speaker": "leo",
+          "text": "How would you explain deadlock conditions and resource graphs to someone meeting it for the first time?",
+          "spoken": "How would you explain deadlock conditions and resource graphs to someone meeting it for the first time?",
+          "hints": {}
+        },
+        {
+          "index": 5,
+          "speaker": "maya",
+          "text": "Deadlock is a set of processes waiting forever; four conditions must all hold for deadlock to be possible.",
+          "spoken": "Deadlock is a set of processes waiting forever; four conditions must all hold for deadlock to be possible.",
+          "hints": {}
+        },
+        {
+          "index": 6,
+          "speaker": "leo",
+          "text": "Mutual exclusion means at least one resource can be held by only one process at a time.",
+          "spoken": "Mutual exclusion means at least one resource can be held by only one process at a time.",
+          "hints": {}
+        },
+        {
+          "index": 7,
+          "speaker": "maya",
+          "text": "P1 holds printer and waits for scanner while P2 holds scanner and waits for printer; neither can proceed.",
+          "spoken": "P one holds printer and waits for scanner while P two holds scanner and waits for printer; neither can proceed.",
+          "hints": {}
+        },
+        {
+          "index": 8,
+          "speaker": "leo",
+          "text": "A cycle implies deadlock in a single-instance resource graph, but not generally with multiple instances.",
+          "spoken": "A cycle implies deadlock in a single-instance resource graph, but not generally with multiple instances.",
+          "hints": {}
+        },
+        {
+          "index": 9,
+          "speaker": "leo",
+          "text": "I want to unpack deadlock prevention, avoidance and Banker’s algorithm next.",
+          "spoken": "I want to unpack deadlock prevention, avoidance and Banker’s algorithm next.",
+          "hints": {}
+        },
+        {
+          "index": 10,
+          "speaker": "maya",
+          "text": "Banker’s algorithm grants a resource request only when the remaining needs can still be satisfied in some safe completion order.",
+          "spoken": "Banker’s algorithm grants a resource request only when the remaining needs can still be satisfied in some safe completion order.",
+          "hints": {}
+        },
+        {
+          "index": 11,
+          "speaker": "leo",
+          "text": "Available means currently free instances of each resource type.",
+          "spoken": "Available means currently free instances of each resource type.",
+          "hints": {}
+        },
+        {
+          "index": 12,
+          "speaker": "leo",
+          "text": "Banker’s algorithm and safe states · Discover: A process needs at most 2 more units and 3 are currently available, can its remaining need be satisfied now?",
+          "spoken": "Banker’s algorithm and safe states; Discover: A process needs at most two more units and three are currently available, can its remaining need be satisfied now?",
+          "hints": {}
+        },
+        {
+          "index": 13,
+          "speaker": "maya",
+          "text": "Yes. Banker’s algorithm grants a resource request only when the remaining needs can still be satisfied in some safe completion order.",
+          "spoken": "Yes. Banker’s algorithm grants a resource request only when the remaining needs can still be satisfied in some safe completion order.",
+          "hints": {}
+        },
+        {
+          "index": 14,
+          "speaker": "maya",
+          "text": "A file system maps human-readable names to metadata and disk blocks using an allocation strategy.",
+          "spoken": "A file system maps human-readable names to metadata and disk blocks using an allocation strategy.",
+          "hints": {}
+        },
+        {
+          "index": 15,
+          "speaker": "leo",
+          "text": "Directory means a mapping from names to file metadata or entries.",
+          "spoken": "Directory means a mapping from names to file metadata or entries.",
+          "hints": {}
+        },
+        {
+          "index": 16,
+          "speaker": "maya",
+          "text": "An indexed file can reach block 90 through its index even when its data blocks are not adjacent.",
+          "spoken": "An indexed file can reach block ninety through its index even when its data blocks are not adjacent.",
+          "hints": {}
+        },
+        {
+          "index": 17,
+          "speaker": "maya",
+          "text": "Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "spoken": "Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "hints": {}
+        },
+        {
+          "index": 18,
+          "speaker": "leo",
+          "text": "Seek means movement of a disk head to a track or cylinder.",
+          "spoken": "Seek means movement of a disk head to a track or cylinder.",
+          "hints": {}
+        },
+        {
+          "index": 19,
+          "speaker": "leo",
+          "text": "File-system and disk scheduling practice · Discover: A disk head is at cylinder 40 and the next request is cylinder 46, how many cylinders of movement are required?",
+          "spoken": "File-system and disk scheduling practice; Discover: A disk head is at cylinder forty and the next request is cylinder forty six, how many cylinders of movement are required?",
+          "hints": {}
+        },
+        {
+          "index": 20,
+          "speaker": "maya",
+          "text": "6. Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "spoken": "six. Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "hints": {}
+        },
+        {
+          "index": 21,
+          "speaker": "leo",
+          "text": "Before we leave deadlocks and file systems, let's connect the pieces.",
+          "spoken": "Before we leave deadlocks and file systems, let's connect the pieces.",
+          "hints": {}
+        },
+        {
+          "index": 22,
+          "speaker": "maya",
+          "text": "Deadlock is a set of processes waiting forever; four conditions must all hold for deadlock to be possible.",
+          "spoken": "Deadlock is a set of processes waiting forever; four conditions must all hold for deadlock to be possible.",
+          "hints": {}
+        },
+        {
+          "index": 23,
+          "speaker": "leo",
+          "text": "Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "spoken": "Storage performance depends on how a file maps to blocks and how the disk device orders requests.",
+          "hints": {}
+        },
+        {
+          "index": 24,
+          "speaker": "maya",
+          "text": "You can pause here and try the Deadlocks and file systems activities. Pick one idea and see whether you can explain it without the notes.",
+          "spoken": "You can pause here and try the Deadlocks and file systems activities. Pick one idea and see whether you can explain it without the notes.",
+          "hints": {}
+        }
+      ]
+    }
+  ]
+}
