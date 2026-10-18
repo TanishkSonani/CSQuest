@@ -9,6 +9,13 @@ All ten existing CD recordings are complete and checksum-verified on the VM.
 `tests/deployment-compiler.cjs` checks the real published subject, imported bundle,
 first teaching journey, last-section access, optional workshop and podcast playback.
 
+Live publication verification passed on 2026-10-18: the subject is available,
+all 156 stages and 624 exercises are exposed through the authenticated API, all
+ten workshops remain optional, and all ten CD podcasts are ready. Playwright
+completed the first teaching flow and opened the last stage and a workshop at
+390px and 1440px, played real CD audio, and confirmed unchanged XP/completions.
+The complete published podcast catalog also passed its live 119-episode check.
+
 The local draft covers 52 topic identities in ten sections: 156 lesson stages,
 624 exercises and ten optional workshops. All 51 completed source transcripts
 are imported. Source 008 is explicitly skipped for no detected speech and has
