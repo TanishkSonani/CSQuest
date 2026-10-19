@@ -34,7 +34,9 @@
 - [x] Add a simple Notepad with plain-text editing, Save / Save as, unsaved-change protection and save-to-current-directory preflight; respect learner/public permissions and upload caps.
 - [x] Improve audio and video layout, controls, accessibility and mobile behavior together.
 - [x] Validate permissions, last-Admin races, password/scope protection, upload recovery and desktop/mobile layouts.
-- [ ] Commit, deploy, verify production and remove temporary QA records/files.
+- [x] Commit, deploy, verify production and remove temporary QA records/files.
+
+Production release: `fbc08c7d6af7ee60a316030c06eb14152840141d`. CI and deployment passed. Live Playwright checks covered password/cap settings, actual public chunk uploads and SHA-256 downloads, rejection before transfer, public/private Notepad, compact sidebar, limited read-only access, desktop/mobile layouts and link revocation. Temporary QA files, account and verification session were removed.
 
 No Recycle Bin. Metadata/notes retain Undo; permanently deleted file bytes do not.
 
