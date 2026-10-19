@@ -21,6 +21,11 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
   try{
    const url=new URL(req.url,'http://127.0.0.1');
+   // Only these capability-token routes bypass platform login. Each resolves
+   // a currently active public link before returning any metadata or file bytes.
+   if(['/api/library/public-info','/api/library/public-file'].includes(url.pathname)){
+    await library({req,res,url,send,actor:null});return;
+   }
    const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/');
    if(dynamic){
     const courses=await store.courses(),accounts=createAccounts({store,courses});
@@ -70,7 +75,8 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');
    }else{
-    const web=path.join(root,'apps','web','public');file=path.resolve(web,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
+    const web=path.join(root,'apps','web','public');file=path.resolve(web,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname==='/library-share'?'/library-share.html':url.pathname));
+    if(url.pathname==='/library-share'||url.pathname==='/library-share.html'){res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');}
     if(!file.startsWith(web+path.sep)){send(403,{error:'Invalid path'});return;}
    }
    const stat=await fs.stat(file),version=stat.mtimeMs+':'+stat.size;

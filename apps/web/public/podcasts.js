@@ -55,7 +55,7 @@ function updateDock(){
  sizeReader();
  if(!detail)return;
  dock.setAttribute('aria-label',detail.library?'Library audio player':'Podcast player');
- dock.querySelectorAll('[data-podcast-open-transcript]').forEach(link=>{link.href=detail.library?'#library':'#podcasts';});
+ dock.querySelectorAll('[data-podcast-open-transcript]').forEach(link=>{link.href=detail.publicShare?location.pathname+location.hash:detail.library?'#library':'#podcasts';});
  const transcriptLink=dock.querySelector('.podcast-transcript-link');transcriptLink.hidden=!!detail.library;
  dock.querySelector('[data-podcast-now-course]').textContent=detail.library?detail.courseName:`${detail.courseName} · Section ${detail.unit+1}`;
  dock.querySelector('[data-podcast-now-title]').textContent=detail.title;
@@ -77,7 +77,7 @@ function followActiveTurn(force=true){
  if(force||caption.top<reader.top+inset||caption.top>reader.bottom-32||(caption.height<reader.height-inset&&caption.bottom>reader.bottom-8))container.scrollTop+=caption.top-reader.top-inset;
 }
 function openTranscript(){
- if(detail?.library){location.hash='#library';return;}
+ if(detail?.library){if(!detail.publicShare)location.hash='#library';return;}
  const container=document.querySelector('[data-podcast-detail]:has(.podcast-transcript)');
  if(!container){openTranscriptPending=true;location.hash='#podcasts';return;}
  openTranscriptPending=false;
@@ -119,12 +119,12 @@ async function playEpisode(id,{source='library',preserveQueue=false,start=null,a
 }
 export function pauseSharedAudio(){audio.pause();}
 export async function playLibraryAudio(file,driveName){
- const nextOwner=account.user?.id;if(!nextOwner)return;
+ const nextOwner=account.user?.id||(file.publicShare?'public':null);if(!nextOwner)return;
  owner=nextOwner;audio.pause();savePosition();loadEpoch++;error='';queue=[];
- detail={library:true,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
+ detail={library:true,publicShare:!!file.publicShare,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
  const saved=restorePosition();rate=playbackSpeeds.includes(saved?.rate)?saved.rate:rate;
  document.dispatchEvent(new CustomEvent('csquest-audio-start'));
- audio.src='/api/library/file?id='+encodeURIComponent(file.id);audio.playbackRate=rate;pendingSeek=saved?.time||0;
+ audio.src=file.url||'/api/library/file?id='+encodeURIComponent(file.id);audio.playbackRate=rate;pendingSeek=saved?.time||0;
  updateDock();renderLibrary();
  if('mediaSession' in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:file.name,artist:'CSQuest Library',album:driveName});
  try{await audio.play();}catch{error='Press play to start, or download this file if its format is unsupported.';updateDock();}

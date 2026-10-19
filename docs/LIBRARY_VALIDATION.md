@@ -1,8 +1,10 @@
 # Local Library validation
 
+Sharing checks cover owner-only member/link management, Viewer/Editor privileges, one shared owner inventory, cross-instance access, revocation while a chunk is arriving, hashed public tokens, no-login file/range/HEAD access, link expiry/replacement/revocation, deletion cascades, and private-file isolation. Playwright verifies management on desktop/mobile, Viewer controls, Editor uploads, clearing a revoked member's file list, anonymous file downloads, escaped filenames, and reuse of the public audio/video players. Reports/screenshots are under `qa-results/library-sharing`. The queue test releases only one of four active transfers and confirms the next queued file starts while the other three remain active, then appends another selection and verifies all contents.
+
 The local app runs at **http://localhost:4173/#library**. The earlier startup failure was reproduced in Playwright: an old Node process returned HTTP 404 for `/shared/compiler-models.js`. Restarting the verified CSQuest process fixed the failure without changing user data.
 
-The automated suite now passes **203 tests**, with two existing GCC-dependent checks skipped, including the storage diagnostic test. Destructive and fault scenarios use isolated PostgreSQL schemas and temporary files; they do not modify the owner's Library or learning records.
+The automated suite now passes **206 tests**, with two existing GCC-dependent checks skipped, including the storage diagnostic test. Destructive and fault scenarios use isolated PostgreSQL schemas and temporary files; they do not modify the owner's Library or learning records.
 
 The parallel-transfer update additionally passed a real **5,000,000,000-byte** and **4,000,000,000-byte** concurrent upload/download soak: both complete download SHA-256 hashes matched, resume offsets above 2 GB were preserved across server instances, and tail byte ranges beyond 4 GB were correct. Local uploads finished together in about 90 seconds and streaming download verification in about 48 seconds, with peak Node RSS of 298 MB. These are local integration measurements, not expected Internet speeds. The report is `qa-results/library-large-transfer/report.json`; all 9 GB of temporary data were removed after the check.
 

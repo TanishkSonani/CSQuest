@@ -1,5 +1,15 @@
 # Private Library
 
+## Sharing and access
+
+The configured owner can open **MANAGE ACCESS** from the Library header. Add an existing CSQuest username as **Viewer** (browse folders, inspect file details, play, download) or **Editor** (also upload and manage files/folders). Change a friend's role or remove access in the same panel. Only the owner can manage members or public links, and the GUI cannot remove or transfer the configured owner's access. All members see the same owner's Library and share its storage allocations. Files created by Editors remain in that Library when a member leaves. Host filesystem totals and platform buffers remain visible only to the owner. Membership is stored in PostgreSQL; every request checks access, and mutations recheck it under the storage lock, including chunks still arriving when an Editor is revoked.
+
+For people without CSQuest accounts, select a completed file, open **Details → SHARE FILE**, and create a public link. Choose 1, 7, or 30 days, or no expiry. The standalone public page at `/library-share#<token>` allows playback/download of that file without login and reuses the existing Library video player and podcast audio dock. It exposes no private listing, sibling files, directory paths, member details, storage totals, or upload/management controls. Public links work for files only. Use Manage access to revoke a link; creating a replacement invalidates the previous one. Deleting its file invalidates the link too. The secret link is shown only when generated; copy it then, or replace it later. The database stores its SHA-256 hash rather than the usable token.
+
+Anyone who receives a public link can use it until it expires or is revoked. Pages and responses request no indexing or referrer forwarding. Revocation blocks subsequent requests; bytes already downloaded or buffered cannot be recalled. Sharing does not grant access to learning records or other platform features.
+
+The upload queue is automatic: up to **four files** transfer concurrently, each extra file shows its queue position and starts as soon as any active file frees a slot. Select additional files while a batch is running to append them. The entire new selection must pass storage preflight and atomic reservation before it enters the queue. Canceled and failed transfers release their active slot so the next queued file can start. Reloading requires reselecting the original files to resume; browser file handles cannot be recovered automatically after a reload.
+
 Open **Library** in the sidebar or **More → Library** on mobile. The **This PC** overview follows File Explorer's layout while using CSQuest's theme. Boot has a **35 GiB** library allocation and Block has **125 GiB**. Select a drive to browse folders, search/sort files, switch list/grid views, upload, download, rename, or delete. Nonempty folders must be emptied first.
 
 The UI uses decimal **KB, MB, and GB** throughout. The original byte limits are unchanged: they display as **37.58 GB Boot** and **134.22 GB Block**. On desktop a single click selects a drive or item; double-click opens a drive, folder, or media file. Enter opens a focused item. Mobile uses one tap to open. Opening a drive replaces the overview with a directory explorer, breadcrumbs, an Up button, and a desktop folder navigation pane.
@@ -20,7 +30,7 @@ Audio reuses the podcast dock, including seeking and playback position. Both aud
 
 ## Setup
 
-Set `LIBRARY_OWNER_ID` to the existing owner's account UUID. Access fails closed when missing; ordinary learner accounts cannot list files, inspect host capacity, upload, or stream. On a local installation, add the UUID to the ignored `.env`, run `npm run db:migrate`, and restart. Local roots default to `runtime/library/boot` and `runtime/library/block`; these are development data and share the host filesystem. Back them up before clearing runtime files. Production roots must be durable directories outside release trees.
+Set `LIBRARY_OWNER_ID` to the existing owner's account UUID. Access fails closed when missing. Only the owner and explicitly granted accounts can access the private Library; anonymous visitors need an active public link for its single file. On a local installation, add the UUID to the ignored `.env`, run `npm run db:migrate`, and restart. Local roots default to `runtime/library/boot` and `runtime/library/block`; these are development data and share the host filesystem. Back them up before clearing runtime files. Production roots must be durable directories outside release trees.
 
 On the current Ubuntu VM, deploy code/migrations with the normal pipeline, then run as an administrator:
 
