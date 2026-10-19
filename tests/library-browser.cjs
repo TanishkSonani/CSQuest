@@ -1,3 +1,4 @@
+const {selectFile,fileAction}=require('./explorer-browser-helpers.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
@@ -20,7 +21,7 @@ const {randomUUID}=require('node:crypto');
   const registration=await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'library_ui',displayName:'Library Owner',avatar:'chip',password:'a memorable browser password'}});assert.equal(registration.status(),200);const user=(await registration.json()).user;
   await fixture.store.pool.query("INSERT INTO csquest_users(id,username,display_name,avatar,password,recovery_hash,created_at,revision,updated_at) SELECT $1,'library_configured',display_name,avatar,password,recovery_hash,created_at,revision,updated_at FROM csquest_users WHERE id=$2",[ownerId,user.id]);
   await fixture.store.pool.query('UPDATE csquest_sessions SET user_id=$1 WHERE user_id=$2',[ownerId,user.id]);
-  const open=async name=>{const match=/^Open (Boot|Block) storage$/.exec(name);if(match&&!await page.getByRole('button',{name,exact:true}).count()){await page.locator('[data-lib-nav-drive='+match[1].toLowerCase()+']').click();return;}const item=page.getByRole('button',{name,exact:true});if(page.viewportSize().width<=650)await item.click();else await item.dblclick();};
+  const open=async name=>{const layout=page.locator('.library-browser-layout');if(page.viewportSize().width<=1250&&await layout.count()&&!await layout.evaluate(e=>e.classList.contains('is-details-hidden')))await page.locator('[data-lib-action=details-close]').click();const match=/^Open (Boot|Block) storage$/.exec(name);if(match&&!await page.getByRole('button',{name,exact:true}).count()){await page.locator('[data-lib-nav-drive='+match[1].toLowerCase()+']').click();return;}const item=page.getByRole('button',{name,exact:true});if(page.viewportSize().width<=650)await item.click();else await item.dblclick();};
   await page.goto(base+'/#library');await page.getByRole('button',{name:'Open Boot storage'}).waitFor();
   assert.equal(await page.locator('.library-drive').count(),2);await fs.mkdir('qa-results/library',{recursive:true});
   await page.screenshot({path:'qa-results/library/desktop-light.png',fullPage:true});
@@ -32,8 +33,8 @@ const {randomUUID}=require('node:crypto');
   await open('Open Week 1');await page.getByText('A little room for everything.',{exact:true}).waitFor();
   const text=Buffer.from('A private library document.');await page.locator('[data-lib-upload]').setInputFiles({name:'notes.txt',mimeType:'text/plain',buffer:text});
   await page.getByRole('button',{name:'Open notes.txt',exact:true}).waitFor();
-  const downloaded=page.waitForEvent('download');await page.getByRole('link',{name:'Download notes.txt',exact:true}).click();const download=await downloaded;assert.equal(download.suggestedFilename(),'notes.txt');assert.deepEqual(await fs.readFile(await download.path()),text);
-  await page.getByRole('button',{name:'Move notes.txt',exact:true}).click();await page.locator('.library-form-dialog select').selectOption({label:'Study files'});await page.getByRole('button',{name:'MOVE HERE',exact:true}).click();await page.getByText('A little room for everything.',{exact:true}).waitFor();
+  const stored=(await fixture.store.pool.query("SELECT id FROM csquest_library_entries WHERE name='notes.txt'")).rows[0];const download=await context.request.get(base+'/api/library/file?id='+stored.id+'&download=1');assert.deepEqual(await download.body(),text);
+  await fileAction(page,'move','notes.txt');await page.locator('.library-form-dialog select').selectOption({label:'Study files'});await page.getByRole('button',{name:'MOVE SELECTED',exact:true}).click();await page.getByText('A little room for everything.',{exact:true}).waitFor();
   await page.locator('.library-breadcrumb').getByRole('button',{name:'Study files',exact:true}).click();await page.getByRole('button',{name:'Open notes.txt',exact:true}).waitFor();
   let chunks=0;page.on('request',r=>{if(r.url().includes('/api/library/chunk'))chunks++;});
   await page.locator('[data-lib-upload]').setInputFiles({name:'too-large.mp4',mimeType:'video/mp4',buffer:Buffer.alloc(200*1024)});
@@ -44,8 +45,8 @@ const {randomUUID}=require('node:crypto');
   const wav=Buffer.alloc(44+16000);wav.write('RIFF');wav.writeUInt32LE(wav.length-8,4);wav.write('WAVEfmt ',8);wav.writeUInt32LE(16,16);wav.writeUInt16LE(1,20);wav.writeUInt16LE(1,22);wav.writeUInt32LE(8000,24);wav.writeUInt32LE(16000,28);wav.writeUInt16LE(2,32);wav.writeUInt16LE(16,34);wav.write('data',36);wav.writeUInt32LE(16000,40);
   await page.locator('[data-lib-upload]').setInputFiles({name:'quiet.wav',mimeType:'audio/wav',buffer:wav});await page.getByRole('button',{name:'Open quiet.wav',exact:true}).waitFor();await open('Open quiet.wav');
   await page.getByRole('region',{name:'Library audio player',exact:true}).waitFor();
-  const audioSpeeds=await page.locator('[data-podcast-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value)));assert.deepEqual(audioSpeeds,Array.from({length:12},(_,i)=>(i+1)/4));
-  await page.locator('[data-podcast-speed]').selectOption('3');assert.equal(await page.locator('#podcast-player').count(),1);
+  assert.equal(await page.locator('[data-podcast-speed]').getAttribute('step'),'0.25');
+  await page.locator('[data-podcast-speed]').evaluate(e=>{e.value='3';e.dispatchEvent(new Event('input',{bubbles:true}));});assert.equal(await page.locator('#podcast-player').count(),1);
   assert.equal(await page.locator('.podcast-transcript-link').isVisible(),false);
   // Generate real browser-supported media without a transcoder dependency.
   const videoBase64=await page.evaluate(async()=>{

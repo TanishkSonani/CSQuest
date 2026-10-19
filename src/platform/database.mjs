@@ -47,8 +47,9 @@ export function createStore(pool=createPool()){
   async documentContent(courseId,path,version){return (await pool.query('SELECT xmin::text AS version, CASE WHEN xmin::text=$3 THEN NULL ELSE data::text END AS content FROM csquest_course_documents WHERE course_id=$1 AND path=$2',[courseId,path,version||null])).rows[0];},
   async status(courseId){return (await pool.query('SELECT data FROM csquest_course_status WHERE course_id=$1',[courseId])).rows[0]?.data;},
   // Only load and lock the relevant account; unrelated learners remain independent.
-  async accounts(task,{username,sessionHash,readOnly=false,scoreLearning=false,courses=[]}={}){
+  async accounts(task,{username,sessionHash,readOnly=false,scoreLearning=false,courses=[],deletingAccount=false,adminId}={}){
    return transaction(pool,async client=>{
+    if(deletingAccount)await client.query("SELECT pg_advisory_xact_lock(hashtextextended('csquest:admin-roles',0))");
     if(username)await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',['csquest:username:'+username]);
     let id;
     if(username)id=(await client.query('SELECT id FROM csquest_users WHERE username=$1',[username])).rows[0]?.id;
@@ -62,7 +63,10 @@ export function createStore(pool=createPool()){
     const previousData=user?structuredClone(user.data):{};
     const result=await task(db);
     if(!readOnly){
-     if(user&&!db.users.some(value=>value.id===id))await client.query('DELETE FROM csquest_users WHERE id=$1',[id]);
+     if(user&&!db.users.some(value=>value.id===id)){
+      if(rows[0].role==='admin'||id===adminId){const admins=Number((await client.query("SELECT count(*) FROM csquest_users WHERE role='admin' OR id=$1",[adminId||null])).rows[0].count);if(admins<=1)throw Object.assign(Error('The last administrator cannot be deleted.'),{status:409});}
+      await client.query('DELETE FROM csquest_users WHERE id=$1',[id]);
+     }
      for(const value of db.users){
       await saveUser(client,value);
       if(scoreLearning&&user&&value.id===id)for(const event of freshActivity(previousData,value.data,courses))await client.query(`INSERT INTO csquest_activity_events(user_id,course_id,event_key,xp) VALUES($1,$2,$3,$4) ON CONFLICT(user_id,course_id,event_key) DO NOTHING`,[id,event.courseId,event.key,event.xp]);

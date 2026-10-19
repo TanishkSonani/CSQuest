@@ -15,7 +15,7 @@ test('signup cannot assign roles; administrators grant Library visibility to sel
  assert.equal((await f.req('access',{username:'learner_a',role:'editor'})).status,400);
  const users=await f.ok(await request(f,null,'/api/admin/users?q=learner_'));assert.equal(users.users.length,2);assert.ok(users.users.every(u=>u.libraryAccess));assert.ok(!JSON.stringify(users).includes('password'));
  await f.ok(await request(f,null,'/api/admin/library-access',{userIds:[a.id,b.id],enabled:false}));assert.equal((await f.ok(await request(f,a,'/api/account/session'))).user.libraryAccess,false);
- await f.ok(await request(f,null,'/api/admin/role',{userId:a.id,role:'admin'}));assert.equal((await request(f,a,'/api/library/folder',{drive:'boot',name:'admin-created'})).status,200);assert.equal((await request(f,a,'/api/admin/role',{userId:b.id,role:'admin'})).status,403);
+ await f.ok(await request(f,null,'/api/admin/role',{userId:a.id,role:'admin'}));assert.equal((await request(f,a,'/api/library/folder',{drive:'boot',name:'admin-created'})).status,200);assert.equal((await request(f,a,'/api/admin/role',{userId:b.id,role:'admin'})).status,200);
  assert.equal((await request(f,null,'/api/admin/role',{userId:f.ownerId,role:'learner'})).status,400);
 });
 test('reporters see only their reports; admin responses and priorities are visible to the reporter',async t=>{

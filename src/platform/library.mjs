@@ -1,3 +1,4 @@
+import {libraryScope,assertLibraryScope} from './library-scope.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {randomUUID,createHash} from 'node:crypto';
@@ -54,10 +55,12 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
   if(!url.pathname.startsWith('/api/library/'))return false;
   let chunkSlot=false;
   try{
-   const route=url.pathname.slice('/api/library/'.length);
-   if(await sharing.publicRequest({route,req,res,url,send}))return true;
-   const role=await sharing.role(pool,actor);
-   if(await tools({route,req,res,url,send,actor,role}))return true;
+   const rawRoute=url.pathname.slice('/api/library/'.length);
+   if(await sharing.publicRequest({route:rawRoute,req,res,url,send}))return true;
+   const publicContext=await sharing.authorizeUpload({route:rawRoute,req,res,url});
+   const route=publicContext?.route||rawRoute;if(publicContext)actor={id:ownerId};
+   const role=publicContext?.readOnly?'viewer':await sharing.role(pool,actor),scope=publicContext?.readOnly?{ids:publicContext.ids}:await libraryScope(pool,actor,ownerId);
+   if(await tools({route,req,res,url,send,actor,role,scope}))return true;
    const methods={access:['GET','POST'],'access-remove':['POST'],'public-links':['GET','POST'],'public-link-remove':['POST'],storage:['GET'],uploads:['GET'],details:['GET'],list:['GET'],folders:['GET'],folder:['POST'],move:['POST'],prepare:['POST'],upload:['GET','POST'],chunk:['PUT'],complete:['POST'],cancel:['POST'],rename:['POST'],delete:['POST'],file:['GET','HEAD']};
    if(!methods[route])fail(404,'Library action not found.');
    if(!methods[route].includes(req.method))fail(405,'Method not allowed.');
@@ -66,7 +69,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    if(!['storage','details','list','folders','file'].includes(route))await sharing.assertWrite(pool,actor);
    if(route==='storage'){
     const volumes=[];
-    for(const drive of drives){
+    for(const drive of drives.filter(d=>!scope||scope.drives.has(d.id))){
      try{
       const volume=await transaction(pool,async db=>{
        await lock(db);
@@ -90,11 +93,11 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     send(200,{...publicEntry(entry),chunkBytes:CHUNK_BYTES,resumeChecks:entry.status==='uploading'?await resumeChecks(entry,drive):[]});return true;
    }
    if(route==='details'){
-    const entry=await get(pool,url.searchParams.get('id'),ownerId);
+    const entry=await get(pool,url.searchParams.get('id'),ownerId);assertLibraryScope(scope,entry.id);
     if(entry.status!=='ready')fail(404,'File or folder is not ready.');
     const drive=drives.find(d=>d.id===entry.drive);await inspect(drive);
     const location=[];let ancestor=entry.parent_id;
-    for(let depth=0;ancestor;depth++){if(depth>=100)fail(409,'Folder structure is invalid.');const p=await get(pool,ancestor,ownerId);location.unshift(p.name);ancestor=p.parent_id;}
+    for(let depth=0;ancestor;depth++){if(depth>=100)fail(409,'Folder structure is invalid.');const p=await get(pool,ancestor,ownerId);if(!scope||scope.ids.has(p.id))location.unshift(p.name);ancestor=p.parent_id;}
     const detail={...publicEntry(entry),driveName:drive.name,location,extension:entry.kind==='file'?path.extname(entry.name).toLowerCase():null,mediaType:types[path.extname(entry.name).toLowerCase()]||null};
     if(entry.kind==='file'){
      const handle=await openLibraryFile(drive,entry.id);
@@ -106,24 +109,24 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     send(200,detail);return true;
    }
    if(route==='file'){
-    const e=await get(pool,url.searchParams.get('id'),ownerId);
+    const e=await get(pool,url.searchParams.get('id'),ownerId);assertLibraryScope(scope,e.id);
     if(e.kind!=='file'||e.status!=='ready')fail(404,'File is not ready.');
     await streamLibraryFile({req,res,url,entry:e,drive:drives.find(d=>d.id===e.drive),inspect});return true;
    }
    if(route==='folders'){
-    const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');await inspect(drive);
+    const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');if(scope&&!scope.drives.has(drive.id))fail(404,'This drive is outside your Library access.');await inspect(drive);
     const folders=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND kind='folder' AND status='ready' ORDER BY lower(name)",[ownerId,drive.id])).rows.map(publicEntry);
-    send(200,{folders});return true;
+    send(200,{folders:folders.filter(f=>!scope||scope.ids.has(f.id)).map(f=>({...f,parent:scope&&!scope.ids.has(f.parent)?null:f.parent}))});return true;
    }
    if(route==='list'){
-    const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');await inspect(drive);
+    const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');if(scope&&!scope.drives.has(drive.id))fail(404,'This drive is outside your Library access.');await inspect(drive);
     const folder=await parent(pool,url.searchParams.get('parent'),drive.id,ownerId),breadcrumbs=[];
-    let ancestor=folder;
+    if(folder)assertLibraryScope(scope,folder);let ancestor=folder;
     for(let depth=0;ancestor;depth++){
-     if(depth>=100)fail(400,'Folder nesting limit reached.');const e=await get(pool,ancestor,ownerId);breadcrumbs.unshift({id:e.id,name:e.name});ancestor=e.parent_id;
+     if(depth>=100)fail(400,'Folder nesting limit reached.');const e=await get(pool,ancestor,ownerId);if(!scope||scope.ids.has(e.id))breadcrumbs.unshift({id:e.id,name:e.name});ancestor=e.parent_id;
     }
-    const entries=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND parent_id IS NOT DISTINCT FROM $3::uuid AND status='ready' ORDER BY kind DESC,lower(name)",[ownerId,drive.id,folder])).rows.map(publicEntry);
-    send(200,{entries,breadcrumbs});return true;
+    const entries=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND (parent_id IS NOT DISTINCT FROM $3::uuid OR $3::uuid IS NULL AND id=ANY($4::uuid[])) AND status='ready' ORDER BY kind DESC,lower(name)",[ownerId,drive.id,folder,scope?[...scope.roots]:[]])).rows.map(publicEntry);
+    send(200,{entries:entries.filter(e=>!scope||scope.ids.has(e.id)),breadcrumbs});return true;
    }
    // Receive the bounded body BEFORE borrowing a transaction connection or taking
    // the shared capacity lock. Slow senders must not serialize all other transfers.
@@ -141,13 +144,14 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     if(!count)fail(400,'Upload chunk is empty.');
     chunkData=Buffer.concat(chunks,count);
    }
-   const body=route==='chunk'?null:await readBody(req);
+   const body=route==='chunk'?null:publicContext?.body||await readBody(req);
    const result=await transaction(pool,async db=>{
     let e,drive;
     if(['folder','upload','prepare'].includes(route)){drive=drives.find(d=>d.id===body.drive);if(!drive)fail(400,'Choose a drive.');}
     else{try{e=await get(db,route==='chunk'?url.searchParams.get('id'):body.id,ownerId);}catch(error){if(error.status===404&&['delete','cancel'].includes(route))return {ok:true};throw error;}drive=drives.find(d=>d.id===e.drive);}
     await lock(db);
     await sharing.assertWrite(db,actor);
+    if(publicContext)await sharing.assertUpload(db,publicContext,e);
     // Chunk commits still serialize capacity decisions and durable writes across
     // processes, but never hold the lock while receiving network data.
     await inspect(drive);if(route!=='chunk')await cleanup(db,drive,await rows(db,drive.id));
@@ -177,18 +181,21 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      }
      const total=files.filter(f=>!f.skip).reduce((sum,f)=>sum+f.size,0),usage=await measure(db,drive);
      if(!usage.writable||!Number.isSafeInteger(total)||total>usage.available)fail(507,'The selected files exceed the available library space. No uploads were started.');
+     await sharing.checkCaps(db,drive,files);
      const prepared=[];
      for(const file of files){
       if(file.skip){prepared.push({skipped:true,name:file.name,size:file.size});continue;}
       const duplicate=prepared.some(p=>!p.skipped&&p.parent===file.parent&&p.name.toLowerCase()===file.name.toLowerCase());if(duplicate)fail(409,'This selection contains duplicate filenames.');
       const entry=(await db.query("INSERT INTO csquest_library_entries(id,owner_id,drive,parent_id,name,kind,size,status,expires_at) VALUES($1,$2,$3,$4,$5,'file',$6,'uploading',now()+interval '24 hours') RETURNING *",[randomUUID(),ownerId,drive.id,file.parent,file.name,file.size])).rows[0];
       await db.query('UPDATE csquest_library_entries SET parent_id=$2,replace_id=$3,final_name=$4 WHERE id=$1',[entry.id,file.parent,file.replaceId,file.finalName]);entry.parent_id=file.parent;entry.final_name=file.finalName;
+      if(publicContext)await db.query('UPDATE csquest_library_entries SET public_link_id=$2,public_session_hash=$3 WHERE id=$1',[entry.id,publicContext.link.id,publicContext.sessionHash]);
       prepared.push({...publicEntry(entry),chunkBytes:CHUNK_BYTES});
      }
      return {uploads:prepared};
     }
     if(route==='folder'||route==='upload'){
      const name=filename(body.name),folder=await parent(db,body.parent,drive.id,ownerId),id=randomUUID();
+     if(route==='upload')await sharing.checkCaps(db,drive,[{parent:folder,size:body.size}]);
      if(route==='folder'){
       // Bound the depth of the complete tree, not just its displayed breadcrumb.
       let ancestor=folder,depth=0;while(ancestor){if(++depth>=99)fail(400,'Folder nesting limit reached.');ancestor=(await get(db,ancestor,ownerId)).parent_id;}

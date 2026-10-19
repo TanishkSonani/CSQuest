@@ -1,3 +1,6 @@
+import {explorerContextMenu} from './explorer-context-menu.js';
+import {libraryNotepad} from './library-notepad.js';
+import {explorerFiles,explorerTree,mountPrivateExplorer,updateExplorerSelection,selectedExplorerIds} from './explorer-layout.js';
 import {escapeHtml as h} from '/shared/engine.js';
 import {account} from './account-client.js';
 import {icon} from './icons.js';
@@ -14,8 +17,10 @@ const activeUploads=new Set(),parallelUploads=4;
 let accessRole=null;
 const canWrite=()=>accessRole==='owner';
 const canManage=()=>accessRole==='owner';
+const expandedFolders=new Set();
 let transferPaint=null;
 let transferRefresh=null;
+let completionCollapsed=false;
 let trayExpanded=false,selectedFiles=new Set(),conflictMode='keep',lastUndo=null;
 const root=()=>document.querySelector('[data-library]');
 const storageKey=()=>`csquest:library-uploads:${owner}`;
@@ -66,11 +71,7 @@ function driveCard(v){
  const percent=v.online?Math.min(100,v.committed/v.quota*100):0;
  return `<button type="button" class="library-drive ${selectedDrive===v.id?'is-current':''}" data-lib-drive="${v.id}" ${!v.online?'disabled':''} aria-label="Open ${h(v.name)}"><span class="library-drive-art ${v.id}">${icon('drive')}<small>${v.id==='boot'?'B':'D'}</small></span><span class="library-drive-details"><strong>${h(v.name)} ${icon('chevron')}</strong><span>${bytes(v.quota)} library allocation</span><span class="library-capacity ${percent>90?'is-low':''}" role="meter" aria-label="${h(v.name)} allocation used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(percent)}"><span style="width:${percent}%"></span></span><b>${v.online?bytes(v.available)+' available':'Drive unavailable'}</b><small>${v.online?bytes(v.used)+' stored'+(v.pending?' · '+bytes(v.pending)+' reserved for uploads':''):h(v.error)}</small></span></button>`;
 }
-function treeMarkup(){
- const seen=new Set();
- function branch(parent,depth=0){if(depth>99)return '';return allFolders.filter(f=>f.parent===parent).sort((a,b)=>a.name.localeCompare(b.name)).map(f=>{if(seen.has(f.id))return '';seen.add(f.id);return `<button class="library-tree-folder ${folder===f.id?'is-current':''}" style="--depth:${Math.min(depth,5)}" data-lib-folder="${f.id}" title="${h(f.name)}">${icon('folder')}<span>${h(f.name)}</span></button>${branch(f.id,depth+1)}`;}).join('');}
- return branch(null);
-}
+function treeMarkup(){return explorerTree(allFolders,{current:folder,open:expandedFolders,onPath:new Set(crumbs.map(c=>c.id))});}
 function storageMarkup(){return volumes&&canManage()?`<details class="library-storage-details" ${storageExpanded?'open':''}><summary>Storage details</summary><div class="library-table-scroll"><table><caption class="sr-only">Physical volume usage and library limits</caption><thead><tr><th>Volume</th><th>Filesystem total</th><th>System / other / reserved</th><th>Filesystem free</th><th>Platform buffer</th></tr></thead><tbody>${volumes.map(v=>`<tr><th>${h(v.name)}</th><td>${bytes(v.total)}</td><td>${v.online?bytes(Math.max(0,v.total-v.free-v.used)):'—'}</td><td>${bytes(v.free)}</td><td>${bytes(v.buffer)}</td></tr>`).join('')}</tbody></table></div>${volumes.some(v=>v.shared)?'<p class="tiny-note">Local preview: both directories share one physical filesystem. Free space and upload reservations are shared.</p>':''}<p class="tiny-note">Library allocations are capped. Available space protects room for the platform, database, and backups.</p></details>`:'';}
 function draw(){
  const el=root();if(!el)return;
@@ -88,27 +89,23 @@ function draw(){
  if(!canWrite()){picker?.closest('label').remove();el.querySelector('[data-lib-action=folder]')?.remove();}
  if(canManage()){const button=document.createElement('button');button.className='btn secondary library-manage';button.dataset.libAction='access';button.textContent='MANAGE ACCESS';el.querySelector('.library-heading').append(button);}
  mountLibraryOrganizer({api,entries,drive,folder,admin:canManage(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});
+ mountPrivateExplorer({drive,folder,volumes,folders:allFolders,crumbs,selected:selectedEntry,admin:canManage(),navigate,shareDrive:()=>{const v=volumes?.find(v=>v.id===(drive||selectedDrive))||volumes?.[0];if(v)manageLibraryAccess(api,{kind:'drive',drive:v.id,name:v.name});}});
  if(accessRole&&accessRole!=='owner'){el.querySelector('.page-eyebrow').textContent='LIBRARY · SHARED WITH YOU';const status=el.querySelector('.library-status span');status.textContent=(canWrite()?'Editor access':'Viewer access')+' · '+status.textContent;}
+ mountPrivateContext();
  if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel:el.querySelector('[data-lib-details]'),admin:canManage()});
  const details=el.querySelector('.library-storage-details');if(details)details.ontoggle=()=>{if(details.isConnected)storageExpanded=details.open;};
 }
 
-function filesMarkup(){
- const list=entries.filter(e=>e.name.toLowerCase().includes(query.toLowerCase())).sort((a,b)=>Number(b.kind==='folder')-Number(a.kind==='folder')||(sort==='size'?b.size-a.size:sort==='date'?new Date(b.updatedAt)-new Date(a.updatedAt):a.name.localeCompare(b.name)));
- if(!list.length)return `<div class="library-empty">${icon('folder')}<h2>${query?'No matching files':'A little room for everything.'}</h2><p>${query?'Try a different name.':'Upload files or create your first folder here.'}</p></div>`;
- return `<div class="library-files ${grid?'is-grid':''}">${!grid?'<div class="library-file-head"><span>Name</span><span>Size</span><span>Modified</span><span>Actions</span></div>':''}${list.map(e=>{
-  const kind=e.kind==='folder'?'folder':mediaKind(e.name),glyph=kind==='audio'?'sound':kind;
-  return `<article class="library-file ${selectedEntry===e.id?'is-selected':''}" data-lib-entry="${e.id}"><button class="library-file-open ${kind}" data-lib-open="${e.id}" aria-label="Open ${h(e.name)}" title="Open ${h(e.name)}">${icon(glyph)}<span>${h(e.name)}<small>${kind==='folder'?'Folder':e.name.split('.').pop().toUpperCase()+' file'}</small></span></button><span class="library-file-size">${e.kind==='folder'?'—':bytes(e.size)}</span><time class="library-file-date">${new Date(e.updatedAt).toLocaleDateString()}</time><div class="library-file-actions">${e.kind==='file'?`<a class="library-small-button" href="${fileUrl(e.id,true)}" aria-label="Download ${h(e.name)}" title="Download">${icon('download')}</a>`:''}<button class="library-small-button" data-lib-info="${e.id}" aria-label="Details for ${h(e.name)}" title="Details">ⓘ</button>${canWrite()?`<button class="library-small-button" data-lib-move="${e.id}" aria-label="Move ${h(e.name)}" title="Move to folder">${icon('arrow')}</button><button class="library-small-button" data-lib-rename="${e.id}" aria-label="Rename ${h(e.name)}" title="Rename">${icon('pencil')}</button><button class="library-small-button" data-lib-delete="${e.id}" aria-label="Delete ${h(e.name)}" title="Delete">${icon('close')}</button>`:''}</div></article>`;
- }).join('')}</div>`;
-}
+function filesMarkup(){return explorerFiles(entries,{selected:selectedEntry,query,sort,grid});}
 function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${['uploading','queued','waiting'].includes(u.state)?`<button class="library-small-button" data-lib-pause="${i}" aria-label="Pause upload of ${h(u.name)}">Ⅱ</button>`:''}${u.state==='queued'?`<button class="library-small-button" data-lib-prioritize="${i}" aria-label="Prioritize ${h(u.name)}">↑</button>`:''}${!['done','canceled','skipped'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
 function drawTransfers(){
+ if(uploads.length&&uploads.every(u=>['done','canceled','skipped'].includes(u.state))&&!completionCollapsed){trayExpanded=false;completionCollapsed=true;}
  const node=root()?.querySelector('[data-lib-transfers]');if(node)node.innerHTML=transfersMarkup();remember();
  let tray=document.querySelector('[data-library-tray]');
- if(!owner||owner!==account.user?.id||!uploads.some(u=>!['done','canceled','skipped'].includes(u.state))){tray?.remove();return;}
+ if(!owner||owner!==account.user?.id||!uploads.length){tray?.remove();return;}
  if(!tray){tray=document.createElement('aside');tray.className='library-global-tray';tray.dataset.libraryTray='';tray.setAttribute('aria-label','Upload activity');document.body.append(tray);}
  const active=uploads.filter(u=>u.state==='uploading').length,queued=uploads.filter(u=>u.state==='queued').length,paused=uploads.filter(u=>['paused','waiting'].includes(u.state)).length;
- tray.innerHTML=`<button data-lib-action="tray" aria-expanded="${trayExpanded}">${icon('upload')} ${active} uploading · ${queued} queued${paused?' · '+paused+' paused / waiting':''} ${trayExpanded?'▾':'▴'}</button><div data-tray-body ${trayExpanded?'':'hidden'}><div class="button-row"><button class="btn secondary" data-lib-action="pause-all">PAUSE ALL</button><button class="btn secondary" data-lib-action="resume-all">RESUME ALL</button></div>${transfersMarkup()}</div>`;
+ tray.innerHTML=`<button data-lib-action="tray" aria-expanded="${trayExpanded}">${icon('upload')} ${active} uploading · ${queued} queued · ${uploads.filter(u=>u.state==='done').length} complete${paused?' · '+paused+' paused / waiting':''} ${trayExpanded?'▾':'▴'}</button><div data-tray-body ${trayExpanded?'':'hidden'}><div class="button-row"><button class="btn secondary" data-lib-action="clear-completed">CLEAR COMPLETED</button><button class="btn secondary" data-lib-action="pause-all">PAUSE ALL</button><button class="btn secondary" data-lib-action="resume-all">RESUME ALL</button></div>${transfersMarkup()}</div>`;
 }
 function clearDetails(){
  detailsEpoch++;selectedEntry=null;selectedDetails=null;detailsBusy=false;detailsError='';
@@ -169,12 +166,12 @@ async function refresh(){
     try{const [listing,tree]=await Promise.all([api('list?drive='+drive),api('folders?drive='+drive)]);if(ticket!==epoch)return;entries=listing.entries;allFolders=tree.folders;problem='This folder was removed. Returned to the drive root.';}catch{problem='This location is no longer available. Open This PC to choose a drive.';}
    }else problem=e.message+(checkedAt?' Storage figures may be out of date.':'');
   }
- }finally{if(ticket===epoch){busy=false;draw();}}
+ }finally{if(ticket===epoch){busy=false;draw();drawTransfers();}}
 }
 async function navigate(nextDrive,nextFolder=null){drive=nextDrive;folder=nextFolder;query='';entries=[];crumbs=[];allFolders=[];clearDetails();selectedDrive=nextDrive;await refresh();}
 const tapToOpen=()=>matchMedia('(pointer:coarse)').matches||innerWidth<=650;
-function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(e.kind==='folder')navigate(drive,e.id);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else if(/\.(pdf|png|jpe?g|gif|webp|avif)$/i.test(e.name)){api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});previewLibraryFile(e);}else{api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
-function selectEntry(id){const changed=selectedEntry!==id;selectedEntry=id;root()?.querySelectorAll('[data-lib-entry]').forEach(row=>{const selected=row.dataset.libEntry===id;row.classList.toggle('is-selected',selected);row.querySelector('[data-lib-open]')?.setAttribute('aria-pressed',String(selected));});if(changed||!selectedDetails&&!detailsBusy)loadDetails(id);}
+function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(e.kind==='folder')navigate(drive,e.id);else if(/\.txt$/i.test(e.name))openTextFile(e);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else if(/\.(pdf|png|jpe?g|gif|webp|avif)$/i.test(e.name)){api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});previewLibraryFile(e);}else{api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
+function selectEntry(id){updateExplorerSelection([id]);const changed=selectedEntry!==id;selectedEntry=id;root()?.querySelectorAll('[data-lib-entry]').forEach(row=>{const selected=row.dataset.libEntry===id;row.classList.toggle('is-selected',selected);row.querySelector('[data-lib-open]')?.setAttribute('aria-pressed',String(selected));});if(changed||!selectedDetails&&!detailsBusy)loadDetails(id);document.dispatchEvent(new CustomEvent('library-entry-selected',{detail:{id}}));}
 function matchingTransfer(file,targetDrive,targetFolder){return uploads.find(u=>u.state==='paused'&&u.drive===targetDrive&&u.parent===targetFolder&&(u.originalName||u.name)===file.name&&u.size===file.size&&(u.lastModified==null||u.lastModified===file.lastModified));}
 function formDialog(title,initial,onSubmit,{deleting=false}={}){
  const dialog=document.createElement('dialog');dialog.className='library-form-dialog';dialog.setAttribute('aria-label',title);
@@ -222,13 +219,13 @@ async function addFiles(files){
    fresh.forEach((file,i)=>prepared.push({file,name:batch.uploads[i].name,originalName:file.name,size:file.size,lastModified:file.lastModified,drive:targetDrive,parent:batch.uploads[i].parent||targetFolder,uploaded:0,state:batch.uploads[i].skipped?'skipped':'queued',id:batch.uploads[i].id}));
   }
   problem='';draw();
- }catch(e){if(requestOwner===owner){problem=e.message;draw();}return;}
+ }catch(e){if(requestOwner===owner){problem=e.message;draw();}return false;}
  for(const file of files){
   const existing=matchingTransfer(file,targetDrive,targetFolder);
   if(existing){existing.file=file;existing.state='queued';existing.error='';}
   else {const ready=prepared.find(u=>u.file===file);if(ready)uploads.push(ready);}
  }
- drawTransfers();processUploads();
+ completionCollapsed=false;trayExpanded=true;drawTransfers();processUploads();return true;
 }
 function processUploads(){
  if(!owner||!canWrite())return;
@@ -285,6 +282,7 @@ export function playVideo(file){
  try{const value=JSON.parse(localStorage.getItem(preferencesKey)||'{}').skipSeconds;if(Number.isInteger(value)&&value>=1&&value<=600)skipSeconds=value;}catch{}
  dialog.innerHTML=`<section class="library-video-player"><header><span class="library-video-cone" aria-hidden="true">${icon('video')}</span><div><small>CSQUEST LIBRARY</small><h2>${h(file.name)}</h2></div><button class="icon-button" data-video-close aria-label="Close video">${icon('close')}</button></header><div class="library-video-stage"><video playsinline preload="metadata" tabindex="0" aria-label="${h(file.name)}" src="${h(file.url||fileUrl(file.id))}"></video></div><p class="library-video-message" role="status" data-video-message>Loading video…</p><div class="library-video-controls"><div class="library-video-timeline"><time data-video-time>00:00 / 00:00</time><input type="range" min="0" max="1" value="0" step=".1" aria-label="Video playback position" data-video-seek></div><div class="library-video-buttons"><button class="library-video-play" data-video-action="play" aria-label="Play video">▶</button><button data-video-action="back" aria-label="Back 10 seconds">−10s</button><button data-video-action="forward" aria-label="Forward 10 seconds">+10s</button><button data-video-action="stop" aria-label="Stop video">■</button><label>Speed<select data-video-speed>${speeds.map(s=>`<option value="${s}" ${s===(saved.rate||1)?'selected':''}>${s}×</option>`).join('')}</select></label><label class="library-video-volume">Volume<input type="range" min="0" max="1" step=".05" value="1" aria-label="Video volume" data-video-volume></label><button data-video-action="mute" aria-label="Mute video">${icon('sound')}</button><button data-video-action="pip" aria-label="Picture in picture">▣</button><button data-video-action="fullscreen" aria-label="Fullscreen video">⛶</button><a href="${h(file.downloadUrl||fileUrl(file.id,true))}" aria-label="Download video">${icon('download')}</a></div><p class="library-video-hints">Space: play/pause · ← →: seek · F: fullscreen · M: mute</p></div></section>`;
  const previous=document.activeElement;document.body.append(dialog);dialog.showModal();const video=dialog.querySelector('video'),player=dialog.querySelector('.library-video-player');let lastSave=0,bookmarkReady=false;
+ const feedback=document.createElement('span');feedback.className='video-seek-feedback';feedback.setAttribute('aria-live','polite');player.querySelector('.library-video-stage').append(feedback);let feedbackTimer;
  const skipLabel=document.createElement('label');skipLabel.className='library-video-skip';skipLabel.innerHTML='Skip (s)<input type="number" min="1" max="600" step="1" inputmode="numeric" aria-label="Skip interval in seconds" data-video-skip>';
  dialog.querySelector('[data-video-action=stop]').after(skipLabel);
  const skipInput=skipLabel.querySelector('input');skipInput.value=skipSeconds;
@@ -307,7 +305,7 @@ export function playVideo(file){
  }
  async function action(name){try{
   if(name==='play'){if(video.paused)await video.play();else video.pause();}
-  if(name==='back'||name==='forward'){const end=Number.isFinite(video.duration)?video.duration:video.seekable.length?video.seekable.end(video.seekable.length-1):0;video.currentTime=Math.max(0,Math.min(end,video.currentTime+(name==='back'?-skipSeconds:skipSeconds)));}
+  if(name==='back'||name==='forward'){const end=Number.isFinite(video.duration)?video.duration:video.seekable.length?video.seekable.end(video.seekable.length-1):0;video.currentTime=Math.max(0,Math.min(end,video.currentTime+(name==='back'?-skipSeconds:skipSeconds)));feedback.textContent=(name==='back'?'−':'+')+skipSeconds+' seconds';feedback.classList.add('is-visible');clearTimeout(feedbackTimer);feedbackTimer=setTimeout(()=>feedback.classList.remove('is-visible'),850);}
   if(name==='stop'){video.pause();video.currentTime=0;}
   if(name==='mute'){video.muted=!video.muted;dialog.querySelector('[data-video-action=mute]').setAttribute('aria-label',video.muted?'Unmute video':'Mute video');}
   if(name==='fullscreen'){if(document.fullscreenElement)await document.exitFullscreen();else if(player.requestFullscreen)await player.requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();else message('Fullscreen is unavailable in this browser. Rotate your phone to watch in landscape.');}
@@ -326,7 +324,7 @@ export function playVideo(file){
  for(const name of ['timeupdate','play','pause','ended'])video.addEventListener(name,update);
  video.onclick=()=>{if(wakingControls){wakingControls=false;showControls();return;}action('play');};video.ondblclick=()=>action('fullscreen');
  dialog.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea,a')||e.key===' '&&e.target.closest('button')||e.altKey||e.ctrlKey||e.metaKey)return;const keys={' ':'play',ArrowLeft:'back',ArrowRight:'forward',f:'fullscreen',m:'mute'};if(keys[e.key]){e.preventDefault();action(keys[e.key]);}});
- dialog.addEventListener('close',()=>{clearTimeout(controlsTimer);document.removeEventListener('fullscreenchange',fullscreenChanged);persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
+ dialog.addEventListener('close',()=>{clearTimeout(controlsTimer);clearTimeout(feedbackTimer);document.removeEventListener('fullscreenchange',fullscreenChanged);persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
 }
 document.addEventListener('csquest-audio-start',()=>videoDialog?.querySelector('video')?.pause());
 window.addEventListener('account-status',()=>{if(owner&&account.user?.id!==owner){uploads.forEach(u=>u.controller?.abort());remember();videoDialog?.close();clearDetails();document.querySelectorAll('.library-form-dialog').forEach(d=>d.close());epoch++;owner=null;entries=[];crumbs=[];allFolders=[];volumes=null;checkedAt=null;uploads=[];busy=false;}});
@@ -335,6 +333,8 @@ document.addEventListener('click',event=>{
  const node=event.target.closest('[data-library],[data-library-tray]');if(!node)return;
  const button=event.target.closest('button');if(!button)return;
  const act=button.dataset.libAction;
+ if(act==='clear-completed'){uploads=uploads.filter(u=>!['done','canceled','skipped'].includes(u.state));drawTransfers();return;}
+ if(button.dataset.libCommand){const action=button.dataset.libCommand,id=button.dataset.libTarget,entry=entries.find(e=>e.id===id),ids=selectedExplorerIds();if(action==='details'){root().querySelector('.library-browser-layout')?.classList.toggle('is-details-hidden');return;}if(action==='open'&&id){openEntry(id);return;}if(action==='download'){const a=document.createElement('a');a.href=ids.length===1&&entry?.kind==='file'?fileUrl(id,true):'/api/library/archive?ids='+ids.join(',');a.click();return;}if(action==='rename'&&entry){formDialog('Rename',entry.name,name=>api('rename',{id:entry.id,name}));return;}if(action==='share'&&entry){manageLibraryAccess(api,entry);return;}if(action==='move'){root().querySelector('[data-bulk-move]')?.click();return;}if(action==='delete'){root().querySelector('[data-bulk-delete]')?.click();return;}return;}
  if(act==='tray'){trayExpanded=!trayExpanded;drawTransfers();return;}
  if(act==='pause-all'){for(const u of uploads)if(['uploading','queued','waiting'].includes(u.state)){u.state='paused';u.error='Paused by you.';u.controller?.abort();}drawTransfers();return;}
  if(act==='resume-all'){for(const u of uploads)if(u.state==='paused'&&u.file){u.state='queued';u.error='';u.retryCount=0;}processUploads();drawTransfers();return;}
@@ -348,9 +348,9 @@ document.addEventListener('click',event=>{
  if(button.hasAttribute('data-lib-nav-drive')){navigate(button.dataset.libNavDrive);return;}
  if(act==='up'){if(folder)navigate(drive,crumbs.at(-2)?.id||null);else navigate(null);return;}
  if(button.hasAttribute('data-lib-folder')){navigate(button.dataset.libTargetDrive||drive,button.dataset.libFolder||null);return;}
- if(act==='details-close'){const target=root().querySelector(`[data-lib-open="${selectedEntry}"]`);clearDetails();root().querySelectorAll('[data-lib-entry]').forEach(row=>{row.classList.remove('is-selected');row.querySelector('[data-lib-open]')?.setAttribute('aria-pressed','false');});renderDetails();target?.focus();return;}
+ if(act==='details-close'){root().querySelector('.library-browser-layout')?.classList.add('is-details-hidden');root().querySelector('[data-lib-command=details]')?.focus();return;}
  if(act==='details-open'){if(selectedEntry)openEntry(selectedEntry);return;}
- if(button.dataset.libInfo){selectEntry(button.dataset.libInfo);if(tapToOpen())root().querySelector('[data-lib-details]')?.scrollIntoView({block:'start',behavior:'auto'});return;}
+ if(button.dataset.libInfo){selectEntry(button.dataset.libInfo);root().querySelector('.library-browser-layout')?.classList.remove('is-details-hidden');return;}
  if(act==='view'){grid=!grid;draw();return;}
  if(act==='folder'){const target={drive,parent:folder};formDialog('New folder','',name=>api('folder',{...target,name}));return;}
  if(button.dataset.libOpen){if(tapToOpen()||event.detail===0)openEntry(button.dataset.libOpen);else selectEntry(button.dataset.libOpen);return;}
@@ -368,3 +368,8 @@ document.addEventListener('dragover',e=>{if(e.target.closest('.library-explorer'
 document.addEventListener('drop',e=>{if(e.target.closest('.library-explorer')&&drive&&canWrite()){e.preventDefault();addFiles([...e.dataTransfer.files]);}});
 
 document.addEventListener('dblclick',event=>{if(tapToOpen()||!event.target.closest('[data-library]'))return;const card=event.target.closest('[data-lib-drive]');if(card){navigate(card.dataset.libDrive);return;}const entry=event.target.closest('[data-lib-open]');if(entry)openEntry(entry.dataset.libOpen);});
+
+document.addEventListener('toggle',event=>{const branch=event.target.closest?.('[data-tree-branch]');if(branch)branch.open?expandedFolders.add(branch.dataset.treeBranch):expandedFolders.delete(branch.dataset.treeBranch);},true);
+
+async function openTextFile(entry){if(entry.size>2*1024**2){problem='Notepad previews text files up to 2 MB. Download larger files to edit them.';draw();return;}try{const response=await fetch(fileUrl(entry.id));if(!response.ok)throw Error('This text file could not be opened.');const text=await response.text();libraryNotepad({name:entry.name,text,readOnly:!canManage(),location:[drive,...crumbs.map(c=>c.name)].join(' / '),save:async file=>{const previous=conflictMode;try{if(file.name===entry.name)conflictMode='replace';return await addFiles([file]);}finally{conflictMode=previous;}}});}catch(error){problem=error.message;draw();}}
+function mountPrivateContext(){const host=root()?.querySelector('.library-explorer');if(!host)return;const command=(name,id)=>{selectEntry(id);const b=root().querySelector('[data-lib-command="'+name+'"]');b?.click();};explorerContextMenu(host,{selection:()=>selectedEntry,select:selectEntry,open:openEntry,download:id=>command('download',id),...(canManage()?{rename:id=>command('rename',id),move:id=>command('move',id),remove:id=>command('delete',id),share:id=>command('share',id),newDirectory:()=>root().querySelector('[data-lib-action=folder]')?.click(),newText:()=>libraryNotepad({location:[drive,...crumbs.map(c=>c.name)].join(' / '),save:file=>addFiles([file])}),upload:()=>root().querySelector('[data-lib-upload]')?.click()}:{}),details:id=>{selectEntry(id);root().querySelector('.library-browser-layout')?.classList.remove('is-details-hidden');},refresh});}

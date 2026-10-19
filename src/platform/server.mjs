@@ -26,7 +26,7 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
    const url=new URL(req.url,'http://127.0.0.1');
    // Only these capability-token routes bypass platform login. Each resolves
    // a currently active public link before returning any metadata or file bytes.
-   if(['/api/library/public-info','/api/library/public-file'].includes(url.pathname)){
+   if(['public-info','public-file','public-unlock','public-prepare','public-folder','public-upload','public-chunk','public-complete','public-cancel','public-archive'].map(x=>'/api/library/'+x).includes(url.pathname)){
     await library({req,res,url,send,actor:null});return;
    }
    const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/');

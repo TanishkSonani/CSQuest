@@ -1,3 +1,4 @@
+import {mountShellControls} from './shell-controls.js';
 import {adminView,helpView,mountPlatform} from './platform-ui.js';
 import {libraryView,mountLibrary} from './library.js';
 import {mountTocLab} from './toc-labs.js';
@@ -53,7 +54,7 @@ function sound(kind='correct'){
 }
 const visibleSubject=()=>loadingSubject||selectedSubject;
 const navItems=[['subjects','map','Subjects'],['learn','book','Learn'],['practice','target','Practice'],['errors','book','Practice errors'],['podcasts','sound','Podcasts'],['library','folder','Library'],['roadmap','map','Course map'],['progress','trophy','My progress'],['social','heart','Social']];
-const visibleNav=()=>[...navItems.filter(([id])=>id!=='library'||account.user?.libraryAccess),['help','book','Help'],...(account.user?.role==='admin'?[['admin','settings','Admin']]:[])];
+const visibleNav=()=>[...navItems.filter(([id])=>id!=='library'||account.user?.libraryAccess),['help','book','Help'],...(account.user?.role==='admin'?[['admin','settings','Users & access'],['admin-reports','book','Reported issues']]:[])];
 function mobileNavigation(){
  const primary=[['learn','book','Learn'],['practice','target','Practice'],['social','heart','Social'],['progress','trophy','Progress']];
  return `<nav class="mobile-nav" aria-label="Mobile navigation">${primary.map(([id,i,label])=>`<a href="#${id}" class="${route===id?'selected':''}" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${label}</span></a>`).join('')}<button type="button" data-action="more" aria-haspopup="dialog" class="${primary.some(i=>i[0]===route)?'':'selected'}">${icon('map')}<span>More</span></button></nav>`;
@@ -62,7 +63,7 @@ function openNavigation(){
  openDialog(`<div class="modal-heading"><div><span class="page-eyebrow">YOUR LEARNING SPACE</span><h2>Explore CSQuest</h2></div><button class="icon-button" data-action="close" aria-label="Close navigation">${icon('close')}</button></div><nav aria-label="More pages">${[...visibleNav(),['account','chip','My profile'],['settings','settings','Settings']].map(([id,i,label])=>`<a class="nav-item ${route===id?'selected':''}" href="#${id}" data-action="close" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${label}</span>${icon('chevron')}</a>`).join('')}</nav>`,'navigation-dialog');
 }
 function render(){
-  if(route==='library'&&!account.user?.libraryAccess||route==='admin'&&account.user?.role!=='admin')route='learn';
+  if(route==='library'&&!account.user?.libraryAccess||['admin','admin-reports'].includes(route)&&account.user?.role!=='admin')route='learn';
   const previousFocus=focusKey(document.activeElement);
   const dueReviews=progress.mistakes.filter(m=>m.due<=Date.now()&&m.status!=='resolved').length;
   clearLearningPath();
@@ -72,11 +73,12 @@ function render(){
   if(!visibleNav().some(i=>i[0]===route)&&!['settings','account'].includes(route))route='learn';
   $('#app').innerHTML=`<aside class="sidebar"><a class="brand" href="#learn">${icon('chip')}<span>cs<span class="brand-quest">quest</span></span></a><div class="brand-tag">YOUR COMPUTER SCIENCE ADVENTURE</div><nav aria-label="Main navigation">${visibleNav().map(([id,i,name])=>`<a class="nav-item ${route===id?'selected':''}" href="#${id}" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${name}</span>${['practice','errors'].includes(id)&&dueReviews?`<span class="nav-review-count" aria-label="${dueReviews} reviews due">${Math.min(99,dueReviews)}${dueReviews>99?'+':''}</span>`:''}</a>`).join('')}</nav><div class="sidebar-bottom">${mascot('happy','mini-buddy')}<p>Big ideas start<br>with little bits.</p><a class="nav-item account-sidebar ${route==='account'?'selected':''}" href="#account">${avatarMarkup(account.user?.avatar||'chip',true)}<span>${account.user?'My profile':'Log in'}</span></a><a class="nav-item ${route==='settings'?'selected':''}" href="#settings">${icon('settings')}<span>Settings</span></a></div></aside>
   <div class="workspace"><header class="topbar"><button class="course-label plain subject-picker" data-action="subjects" title="Choose a subject"><span class="course-flag">${icon('chip')}</span><span>${h(visibleSubject().shortName.toUpperCase())}<br><b>CS QUEST</b></span>${icon('arrow')}</button><div class="top-stats">${accountButton()}${themeButton()}<span class="stat orange" title="Study-day streak">${icon('flame')}<b>${uxContext().habit.streak}</b><span>day streak</span></span><span class="stat gold" title="${progress.xp.toLocaleString()} total earned XP" aria-label="${progress.xp.toLocaleString()} total earned XP">${icon('bolt')}<b class="full-stat">${progress.xp}</b><b class="compact-stat" aria-hidden="true">${new Intl.NumberFormat(undefined,{notation:'compact',maximumFractionDigits:1}).format(progress.xp)}</b><span>XP</span></span><button class="stat red plain" data-action="hearts" title="Learning hearts">${icon('heart')}<b>5</b></button></div></header><div class="mobile-save-status"><span class="account-sync" role="status">${h(syncText())}</span><a href="#account">${account.user?'MY PROFILE':'SAVE MY PROGRESS'}</a></div>
-  <div class="content-layout page-${route}"><main id="main" tabindex="-1">${loadingSubject&&route!=='subjects'?subjectLoadingView():route==='subjects'?subjectsView():route==='learn'?learnView():route==='practice'?practiceView():route==='errors'?errorsView():route==='roadmap'?roadmapView():route==='settings'?settingsView():route==='admin'?adminView():route==='help'?helpView():route==='library'?libraryView():route==='podcasts'?podcastsView(subjects):route==='progress'?progressView(uxContext(),courseProgressCard(selectedSubject,progress,lessons.length)):route==='social'?socialView():route==='account'?accountView(subjects):learnView()}</main><aside class="rightbar" aria-label="Learning tools" tabindex="0">${rightbar()}</aside></div>${mobileNavigation()}</div>`;
+  <div class="content-layout page-${route}"><main id="main" tabindex="-1">${loadingSubject&&route!=='subjects'?subjectLoadingView():route==='subjects'?subjectsView():route==='learn'?learnView():route==='practice'?practiceView():route==='errors'?errorsView():route==='roadmap'?roadmapView():route==='settings'?settingsView():['admin','admin-reports'].includes(route)?adminView():route==='help'?helpView():route==='library'?libraryView():route==='podcasts'?podcastsView(subjects):route==='progress'?progressView(uxContext(),courseProgressCard(selectedSubject,progress,lessons.length)):route==='social'?socialView():route==='account'?accountView(subjects):learnView()}</main><aside class="rightbar" aria-label="Learning tools" tabindex="0">${rightbar()}</aside></div>${mobileNavigation()}</div>`;
  if(route==='subjects'){filterCatalog();refreshSubjects();}
  if(route==='social')mountSocial();
  mountPodcasts(subjects);
  mountLibrary();
+ mountShellControls();
  mountPlatform(()=>({route,courseId:selectedSubject?.id,lessonId:session?.lesson?.id??null}));
  if(route==='learn'&&!loadingSubject){const key=selectedSubject.id+':'+activeUnit+':'+nextLesson()?.id;decorateLearningPath({autoScroll:key!==pathEntryKey});pathEntryKey=key;}else pathEntryKey=null;
  animatePage($('#main'),selectedSubject.id+':'+route+':'+(route==='learn'?activeUnit:''));

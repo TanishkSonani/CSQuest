@@ -48,8 +48,8 @@ test('public links expose only their ready file, support byte ranges, and revoke
  const f=await libraryFixture(t),u=await upload(f,'shared <script>.txt'),privateFile=await upload(f,'still-private.txt');
  const link=await f.ok(await f.req('public-links',{entryId:u.id,days:7}));assert.equal(link.token.length,43);
  const anonymous=(route,options={})=>fetch(f.base+'/api/library/'+route,options);
- const info=await(await anonymous('public-info?token='+link.token)).json();assert.equal(info.name,u.name);assert.deepEqual(Object.keys(info).sort(),['expiresAt','id','mediaType','name','size']);
- const stored=(await f.db.store.pool.query('SELECT * FROM csquest_library_public_links')).rows[0];assert.equal(stored.token_hash,createHash('sha256').update(link.token).digest('hex'));assert.equal(JSON.stringify(stored).includes(link.token),false);
+ const info=await(await anonymous('public-info?token='+link.token)).json();assert.equal(info.name,u.name);assert.deepEqual(Object.keys(info).sort(),['allowUpload','breadcrumbs','createdAt','drive','expiresAt','id','kind','mediaType','name','parent','root','size','updatedAt']);
+ const stored=(await f.db.store.pool.query('SELECT * FROM csquest_library_public_links')).rows[0];assert.equal(stored.token_hash,createHash('sha256').update('csquest-public-v2:'+link.token).digest('hex'));assert.equal(JSON.stringify(stored).includes(link.token),false);
  assert.equal(JSON.stringify(await f.ok(await f.req('public-links'))).includes(link.token),false);
  assert.equal((await anonymous('public-file?token='+link.token+'&id='+privateFile.id)).status,404);
  const range=await anonymous('public-file?token='+link.token,{headers:{Range:'bytes=0-6'}});assert.equal(range.status,206);assert.equal(await range.text(),'private');
@@ -62,5 +62,5 @@ test('public links expose only their ready file, support byte ranges, and revoke
  const final=await f.ok(await f.req('public-links',{entryId:u.id,days:30}));await f.ok(await f.req('delete',{id:u.id}));assert.equal((await anonymous('public-file?token='+final.token)).status,404);assert.equal((await f.db.store.pool.query('SELECT * FROM csquest_library_public_links')).rowCount,0);
  const folder=await f.ok(await f.req('folder',{drive:'boot',name:'No public tree'}));assert.equal((await f.req('public-links',{entryId:folder.id,days:null})).status,200);
  assert.equal((await f.req('public-links',{entryId:privateFile.id,days:-1})).status,400);
- const page=await fetch(f.base+'/library-share');assert.equal(page.status,200);assert.match(await page.text(),/Shared file/);assert.match(page.headers.get('x-robots-tag'),/noindex/);
+ const page=await fetch(f.base+'/library-share');assert.equal(page.status,200);assert.match(await page.text(),/Shared Library/);assert.match(page.headers.get('x-robots-tag'),/noindex/);
 });

@@ -1,3 +1,4 @@
+import {assertLibraryScope} from './library-scope.mjs';
 import {randomUUID} from 'node:crypto';
 import path from 'node:path';
 import {pipeline} from 'node:stream/promises';
@@ -18,7 +19,7 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
   return folder;
  }
  const names=new Set(['browse','favorite','bookmark','resources','bulk','archive','history','undo']);
- return async({route,req,res,url,send,actor,role})=>{
+ return async({route,req,res,url,send,actor,role,scope})=>{
   if(!names.has(route))return false;
   const write=req.method==='POST';if(!['GET','POST'].includes(req.method))fail(405,'Method not allowed.');
   if(write)assertSameOrigin(req);
@@ -28,11 +29,11 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
   if(route==='browse'){
    const search=(url.searchParams.get('q')||'').slice(0,200),view=url.searchParams.get('view')||'all',kind=url.searchParams.get('type')||'all',offset=Math.max(0,Number(url.searchParams.get('offset'))||0),min=Math.max(0,Number(url.searchParams.get('min'))||0),max=Number(url.searchParams.get('max')||Number.MAX_SAFE_INTEGER),since=url.searchParams.get('since');
    if(!Number.isSafeInteger(offset)||offset>1e7||!Number.isFinite(max)||since&&!Number.isFinite(Date.parse(since)))fail(400,'Invalid search filters.');
-   const result=(await pool.query(`SELECT e.id,e.name,e.kind,e.drive,e.parent_id AS parent,e.size::float8 AS size,e.updated_at AS "updatedAt",coalesce(p.favorite,false) AS favorite,p.last_opened AS "lastOpened" FROM csquest_library_entries e LEFT JOIN csquest_library_preferences p ON p.entry_id=e.id AND p.user_id=$2 WHERE e.owner_id=$1 AND e.status='ready' AND position(lower($3) in lower(e.name))>0 AND ($4<>'favorites' OR p.favorite) AND ($4<>'recent' OR p.last_opened IS NOT NULL) AND e.size>=$6 AND e.size<=$7 AND ($8::timestamptz IS NULL OR e.updated_at>=$8) AND ($5='all' OR $5='folder' AND e.kind='folder' OR $5<>'folder' AND e.kind='file' AND lower(e.name) LIKE '%.'||$5) ORDER BY CASE WHEN $4='recent' THEN p.last_opened END DESC NULLS LAST,lower(e.name),e.id LIMIT 200 OFFSET $9`,[ownerId,actor.id,search,view,kind,min,max,since||null,offset])).rows;
+   const result=(await pool.query(`SELECT e.id,e.name,e.kind,e.drive,e.parent_id AS parent,e.size::float8 AS size,e.updated_at AS "updatedAt",coalesce(p.favorite,false) AS favorite,p.last_opened AS "lastOpened" FROM csquest_library_entries e LEFT JOIN csquest_library_preferences p ON p.entry_id=e.id AND p.user_id=$2 WHERE e.owner_id=$1 AND e.status='ready' AND ($10::uuid[] IS NULL OR e.id=ANY($10)) AND position(lower($3) in lower(e.name))>0 AND ($4<>'favorites' OR p.favorite) AND ($4<>'recent' OR p.last_opened IS NOT NULL) AND e.size>=$6 AND e.size<=$7 AND ($8::timestamptz IS NULL OR e.updated_at>=$8) AND ($5='all' OR $5='folder' AND e.kind='folder' OR $5<>'folder' AND e.kind='file' AND lower(e.name) LIKE '%.'||$5) ORDER BY CASE WHEN $4='recent' THEN p.last_opened END DESC NULLS LAST,lower(e.name),e.id LIMIT 200 OFFSET $9`,[ownerId,actor.id,search,view,kind,min,max,since||null,offset,scope?[...scope.ids]:null])).rows;
    send(200,{entries:result,nextOffset:result.length===200?offset+200:null});return true;
   }
   if(route==='favorite'||route==='bookmark'){
-   const id=write?body.id:url.searchParams.get('id'),e=await get(pool,id,ownerId);if(e.status!=='ready')fail(404,'File is not ready.');
+   const id=write?body.id:url.searchParams.get('id'),e=await get(pool,id,ownerId);assertLibraryScope(scope,e.id);if(e.status!=='ready')fail(404,'File is not ready.');
    if(!write){send(200,(await pool.query('SELECT favorite,position,speed,last_opened AS "lastOpened" FROM csquest_library_preferences WHERE user_id=$1 AND entry_id=$2',[actor.id,e.id])).rows[0]||{favorite:false,position:0,speed:1});return true;}
    if(route==='favorite'){
     if(typeof body.favorite!=='boolean')fail(400,'Choose a favorite setting.');await pool.query('INSERT INTO csquest_library_preferences(user_id,entry_id,favorite) VALUES($1,$2,$3) ON CONFLICT(user_id,entry_id) DO UPDATE SET favorite=excluded.favorite',[actor.id,e.id,body.favorite]);
@@ -41,7 +42,7 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
     await pool.query('INSERT INTO csquest_library_preferences(user_id,entry_id,position,speed,last_opened) VALUES($1,$2,$3,$4,now()) ON CONFLICT(user_id,entry_id) DO UPDATE SET position=excluded.position,speed=excluded.speed,last_opened=now()',[actor.id,e.id,position,speed]);
    }send(200,{ok:true});return true;
   }
-  if(route==='resources'){
+  if(route==='resources'){assertLibraryScope(scope,write?body.id:url.searchParams.get('id'));
    if(!write){send(200,{resources:(await pool.query('SELECT l.* FROM csquest_lesson_resources l JOIN csquest_library_entries e ON e.id=l.entry_id WHERE e.owner_id=$1 AND e.id=$2',[ownerId,url.searchParams.get('id')])).rows});return true;}
    if(!admin)fail(403,'Administrator access is required.');const e=await get(pool,body.id,ownerId);if(e.kind!=='file'||e.status!=='ready'||!Number.isInteger(body.lessonId)||body.lessonId<0||body.lessonId>100000)fail(400,'Choose a completed file and lesson.');
    if(!(await pool.query('SELECT id FROM csquest_courses WHERE id=$1',[body.courseId])).rowCount)fail(400,'Unknown subject.');
@@ -61,7 +62,7 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
   }
   const ids=route==='archive'?(url.searchParams.get('ids')||'').split(','):body.ids;
   if(!Array.isArray(ids)||!ids.length||ids.length>100||!ids.every(valid))fail(400,'Select 1–100 items.');
-  if(route==='archive'){
+  if(route==='archive'){for(const id of ids)assertLibraryScope(scope,id);
    const entries=(await pool.query("WITH RECURSIVE files AS (SELECT e.*,e.name AS archive_name,0 AS depth FROM csquest_library_entries e WHERE e.id=ANY($1::uuid[]) AND e.owner_id=$2 AND e.status='ready' UNION ALL SELECT e.*,f.archive_name||'/'||e.name,f.depth+1 FROM csquest_library_entries e JOIN files f ON e.parent_id=f.id WHERE e.owner_id=$2 AND e.status='ready' AND f.depth<100) SELECT DISTINCT ON(id) * FROM files ORDER BY id,depth LIMIT 10001",[ids,ownerId])).rows;
    if(!entries.length)fail(404,'No files found.');if(entries.length>10000)fail(413,'Select a smaller set of folders.');
    const zip=new yazl.ZipFile(),used=new Set();let current;
