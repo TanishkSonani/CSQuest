@@ -110,7 +110,7 @@ export function createAccounts({store,courses}){
     }
     fail(404,'Account action not found.');
    },{username:['register','login','recover'].includes(route)?usernameOf(body.username):undefined,sessionHash:digest(tokenOf(req)),readOnly:!write,scoreLearning:route==='data'&&write&&body.source!=='backup',courses});send(200,result);
-  }catch(e){send(e.status||500,{error:e.status?e.message:'Account storage is unavailable. Your browser copy has been kept.',...(e.code==='AUTH_REQUIRED'?{code:e.code}:{})});}
+  }catch(e){if(['23001','23503'].includes(e.code)&&e.constraint==='csquest_library_entries_owner_id_fkey'){res.removeHeader('Set-Cookie');send(409,{error:'Empty your private Library, including pending uploads and folders, before deleting this account.'});}else{if(!e.status)console.error('Account operation failed:',e.code||e.name,e.constraint||'');send(e.status||500,{error:e.status?e.message:'Account storage is unavailable. Your browser copy has been kept.',...(e.code==='AUTH_REQUIRED'?{code:e.code}:{})});}}
   return true;
  };
  handle.authorize=async req=>{const user=await store.sessionUser(digest(tokenOf(req)));if(!user)fail(401,'Please log in to your account.','AUTH_REQUIRED');return user;};

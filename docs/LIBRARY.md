@@ -1,0 +1,48 @@
+# Private Library
+
+Open **Library** in the sidebar or **More → Library** on mobile. The **This PC** overview follows File Explorer's layout while using CSQuest's theme. Boot has a **35 GiB** library allocation and Block has **125 GiB**. Select a drive to browse folders, search/sort files, switch list/grid views, upload, download, rename, or delete. Nonempty folders must be emptied first.
+
+The UI uses decimal **KB, MB, and GB** throughout. The original byte limits are unchanged: they display as **37.58 GB Boot** and **134.22 GB Block**. On desktop a single click selects a drive or item; double-click opens a drive, folder, or media file. Enter opens a focused item. Mobile uses one tap to open. Opening a drive replaces the overview with a directory explorer, breadcrumbs, an Up button, and a desktop folder navigation pane.
+
+Selecting a file on desktop shows its **Details** panel. Use the **Details** icon on mobile. Details include exact byte size and formatted size, extension/type, storage, folder location, creation/library-change dates, stored-file modification date, and allocated disk size where the OS supplies it. Supported media also exposes duration and video dimensions, read through the browser's metadata loader without transcoding. Folder details show child counts. Metadata unavailable to the browser is labeled unavailable.
+
+Each drive has its own persistent directory tree. Create nested folders such as `Block / Courses / Computer Networks / Week 1`, upload into the current folder, and use breadcrumbs to return to any parent. **Move to folder** moves a file or an entire folder subtree within its drive without duplicating file data. Self/descendant moves, duplicate names, and excessive nesting are rejected. Cross-drive moves are not included; download and upload to the other drive instead. Folders are stored as persistent parent-child records in PostgreSQL; disk objects use internal IDs to keep original names and platform paths isolated.
+
+**Refresh storage** reads fresh filesystem measurements. Each drive displays available library space and its allocation usage; expand **Storage details** for total filesystem capacity, system/other/unavailable usage, filesystem free space, and the protected platform buffer. Available space is the smaller of unused allocation and filesystem free space after the buffer and outstanding upload commitments. Existing platform usage is already excluded from filesystem free space.
+
+Before transferring file content, the browser checks the entire selection against fresh storage figures, then the server reserves the new batch atomically. If it cannot fit, or names conflict, none of the new batch starts. Transfers use 2 MiB chunks, remain hidden until complete, and support cancel/retry. Reloaded pages retain incomplete transfer references in session storage; reselect the same original file to resume. Pending reservations expire after 24 hours without a committed chunk. Refresh and write requests clean expired partial files and completed deletion tombstones.
+
+Pending transfers can also be recovered from the server when browser transfer state is lost. Before resuming, the browser checks SHA-256 fingerprints of up to the first and last 2 MB of committed data against the selected original file; this is a bounded identity check, not a checksum of the entire file. A shortened file is rejected instead of being padded with zeros. Shared local filesystems share upload reservations and the stricter platform buffer. Repeat cancel/delete requests are safe after a lost response.
+
+Audio reuses the podcast dock, including seeking and playback position. Its speed selector includes 0.5×, 0.75×, 1×, 1.5×, 2×, and 3× while preserving existing podcast speeds. Video uses a VLC-inspired player with seek, stop, skip, volume/mute, speed, fullscreen, and picture in picture where supported. Space toggles playback, arrow keys seek, F toggles fullscreen, and M toggles mute. Browser media is streamed directly with authenticated byte ranges; no server transcoding or media-processing dependency is installed. MP4/MKV files can be uploaded and downloaded; playback depends on browser container/codec support. If playback fails, download the original to open in VLC.
+
+## Setup
+
+Set `LIBRARY_OWNER_ID` to the existing owner's account UUID. Access fails closed when missing; ordinary learner accounts cannot list files, inspect host capacity, upload, or stream. On a local installation, add the UUID to the ignored `.env`, run `npm run db:migrate`, and restart. Local roots default to `runtime/library/boot` and `runtime/library/block`; these are development data and share the host filesystem. Back them up before clearing runtime files. Production roots must be durable directories outside release trees.
+
+On the current Ubuntu VM, deploy code/migrations with the normal pipeline, then run as an administrator:
+
+```bash
+sudo bash deploy/configure-library.sh OWNER_ACCOUNT_UUID
+sudo systemctl restart csquest
+```
+
+Run the script from the deployed release (or a reviewed copy). It creates `/var/lib/csquest-library` and `/srv/csquest-data/library` with service ownership and private permissions, configures the immutable owner UUID and systemd write permissions, and disables Nginx upload buffering without replacing TLS settings. It requires the existing distinct block mount and never formats or clears volumes. The 4 MB proxy request limit remains suitable for the bounded 2 MiB chunks. Root-owned provisioning changes require administrator execution; ordinary release deployment does not install root scripts automatically.
+
+The application verifies roots and mount identity for each operation. It never creates production roots or falls back onto Boot when Block is missing. Fixed allocations are application-wide and include in-progress file reservations. Platform buffers are `max(5 GiB, 10% of filesystem capacity)` on Boot and `max(15 GiB, 10%)` on Block. Filesystem usage from outside CSQuest can change at any time, so each chunk checks actual free space and may pause to protect the platform.
+
+Run **`npm run library:storage`** for a read-only JSON diagnostic using the same measurements and accounting as the API. On the VM run it as `csquest` from the active release, with the service's environment settings. It reports actual filesystem total/free bytes, current Library usage and reservations, buffers, quotas, decimal units, and whether both roots share a device. It creates no directories, deletes no partial files, and returns a nonzero exit code if a drive cannot be verified. Node's built-in `statfs`/file-stat APIs provide these measurements; no cloud API credentials, `df` subprocess, or additional disk utility package is required. Both mounted filesystems are measured independently in production; Boot measurement does not depend on Block being online. Missing/unverified Block storage has no fabricated capacity.
+
+The service-managed roots are opaque object stores. Do not add, rename, or edit their contents manually. PostgreSQL holds original names, folders, owner IDs, upload offsets, and sizes. Chunk writes are fsynced before recording their committed offset; retry truncates uncommitted tail data. Deletion first commits a tombstone, allowing cleanup after a crash. Ready files are immutable except their display names. Streamed data is never executable content and non-media files download as attachments.
+
+## Backups and recovery
+
+The normal database export includes Library metadata but does not copy file bytes. For a consistent backup, stop `csquest`, export the database and copy **both** library directories preserving opaque filenames, then restart. Store a verified copy off the VM. Restore the database and its matching binary snapshots together while the service is stopped, restore service ownership/private permissions, verify file counts/sizes and sample downloads, then start. Deployment backups alone are insufficient to recover uploaded files. Do not run automatic deletion of releases/backups as part of Library storage management.
+
+## Validation
+
+`node --test tests/library.test.mjs` checks authentication, owner isolation, origin protection, allocation accounting, batch rejection before file creation, concurrent reservations across two servers, resumable offsets, interrupted-write recovery, range/HEAD/download responses, missing mounts, expiration, cancellation, and zero-byte files. `node tests/library-browser.cjs` exercises desktop/mobile themes, folders/uploads/downloads, capacity rejection, the shared audio dock, and video controls against an isolated test schema and temporary storage.
+
+`node --test tests/library-edges.test.mjs` adds file corruption, shared-disk accounting, malformed input, lost browser state, duplicate chunks, a disconnected upload, storage pressure, folder races, hostile filenames, hard links, a killed/restarted server process, inode exhaustion, missing files, and selected-file metadata. `node tests/library-real-life-browser.cjs` checks six widths in both themes, details panels and decimal units, preflight rejection, loss of a committed response, resume identity checks, deleted folders, and real MP4 playback. Screenshots and JSON reports are saved under `qa-results/library-real-life`; they use temporary test data and small fixture quotas, not live VM capacity.
+
+Local development requires restarting the Node server after server module changes. Serving fresh browser assets from an old server can cause missing-module startup errors. Local test results do not replace post-deployment checks of Linux mounts, systemd permissions, Nginx, and actual uploaded MKV codecs.

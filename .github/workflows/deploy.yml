@@ -74,8 +74,13 @@ jobs:
           node --check scripts/server.mjs
           node --check src/platform/server.mjs
           node --check src/platform/social.mjs
+          node --check apps/web/public/library.js
+          node --check src/platform/library.mjs
+          node --check src/platform/storage.mjs
+          node --check scripts/library-storage.mjs
           bash -n deploy/deploy-release.sh
           bash -n deploy/configure-pipeline.sh
+          bash -n deploy/configure-library.sh
       - run: npm run validate
       - run: npm test
       - run: python3 tests/podcast_speech_test.py
