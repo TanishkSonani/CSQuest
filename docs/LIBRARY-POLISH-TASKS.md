@@ -50,3 +50,4 @@ Confirmed: Limited and Full learner access are both read only; Limited covers Ad
 - [x] Render folder icon tiles without boxes and remove file-type labels/columns from listings; keep type in Details.
 - [x] Contain long filenames with list ellipsis and two-line grid names, preserving full names in tooltips and Details.
 - [x] Validate list/grid layouts at six desktop/mobile sizes, public views, return navigation and existing Library operations with Playwright.
+- [x] Deploy and verify live desktop/mobile layouts, long names and return navigation; remove temporary QA files and session. Release `4531998`; CI passed all 218 tests.
