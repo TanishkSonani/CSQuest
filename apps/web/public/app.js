@@ -54,7 +54,7 @@ function sound(kind='correct'){
 }
 const visibleSubject=()=>loadingSubject||selectedSubject;
 const navItems=[['subjects','map','Subjects'],['learn','book','Learn'],['practice','target','Practice'],['errors','book','Practice errors'],['podcasts','sound','Podcasts'],['library','folder','Library'],['roadmap','map','Course map'],['progress','trophy','My progress'],['social','heart','Social']];
-const visibleNav=()=>[...navItems.filter(([id])=>id!=='library'||account.user?.libraryAccess),['help','book','Help'],...(account.user?.role==='admin'?[['admin','settings','Users & access'],['admin-reports','book','Reported issues']]:[])];
+const visibleNav=()=>[...navItems.filter(([id])=>id!=='library'||account.user?.libraryAccess),['help','book','Help'],...(account.user?.role==='admin'?[['admin','users','Users & access'],['admin-reports','book','Reported issues']]:[])];
 function mobileNavigation(){
  const primary=[['learn','book','Learn'],['practice','target','Practice'],['social','heart','Social'],['progress','trophy','Progress']];
  return `<nav class="mobile-nav" aria-label="Mobile navigation">${primary.map(([id,i,label])=>`<a href="#${id}" class="${route===id?'selected':''}" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${label}</span></a>`).join('')}<button type="button" data-action="more" aria-haspopup="dialog" class="${primary.some(i=>i[0]===route)?'':'selected'}">${icon('map')}<span>More</span></button></nav>`;
@@ -63,6 +63,7 @@ function openNavigation(){
  openDialog(`<div class="modal-heading"><div><span class="page-eyebrow">YOUR LEARNING SPACE</span><h2>Explore CSQuest</h2></div><button class="icon-button" data-action="close" aria-label="Close navigation">${icon('close')}</button></div><nav aria-label="More pages">${[...visibleNav(),['account','chip','My profile'],['settings','settings','Settings']].map(([id,i,label])=>`<a class="nav-item ${route===id?'selected':''}" href="#${id}" data-action="close" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${label}</span>${icon('chevron')}</a>`).join('')}</nav>`,'navigation-dialog');
 }
 function render(){
+  document.body.classList.remove('is-library-workspace');
   if(route==='library'&&!account.user?.libraryAccess||['admin','admin-reports'].includes(route)&&account.user?.role!=='admin')route='learn';
   const previousFocus=focusKey(document.activeElement);
   const dueReviews=progress.mistakes.filter(m=>m.due<=Date.now()&&m.status!=='resolved').length;
@@ -78,7 +79,7 @@ function render(){
  if(route==='social')mountSocial();
  mountPodcasts(subjects);
  mountLibrary();
- mountShellControls();
+ mountShellControls({library:route==='library'});
  mountPlatform(()=>({route,courseId:selectedSubject?.id,lessonId:session?.lesson?.id??null}));
  if(route==='learn'&&!loadingSubject){const key=selectedSubject.id+':'+activeUnit+':'+nextLesson()?.id;decorateLearningPath({autoScroll:key!==pathEntryKey});pathEntryKey=key;}else pathEntryKey=null;
  animatePage($('#main'),selectedSubject.id+':'+route+':'+(route==='learn'?activeUnit:''));

@@ -41,3 +41,12 @@ Production release: `fbc08c7d6af7ee60a316030c06eb14152840141d`. CI and deploymen
 No Recycle Bin. Metadata/notes retain Undo; permanently deleted file bytes do not.
 
 Confirmed: Limited and Full learner access are both read only; Limited covers Admin-selected locations, Full covers the whole Library. Public visitors may upload when the share permits it.
+
+## Full-screen Explorer follow-up
+
+- [x] Use the whole application viewport for Library, hiding learning statistics, sidebar and mobile learning navigation.
+- [x] Add one top-left Back control returning to the previous platform page, retaining that destination after reload.
+- [x] Give Users & access a people icon, distinct from the Settings gear.
+- [x] Render folder icon tiles without boxes and remove file-type labels/columns from listings; keep type in Details.
+- [x] Contain long filenames with list ellipsis and two-line grid names, preserving full names in tooltips and Details.
+- [x] Validate list/grid layouts at six desktop/mobile sizes, public views, return navigation and existing Library operations with Playwright.

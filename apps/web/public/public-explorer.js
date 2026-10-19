@@ -8,6 +8,7 @@ import {previewLibraryFile} from './library-organizer.js';
 import {explorerFiles,explorerTree,displayBytes,fileKind} from './explorer-layout.js';
 import {publicUploadQueue} from './public-upload-queue.js';
 const root=document.querySelector('[data-public-file]');let token='',data=null,selected=null,grid=false,query='',sort='name',queue=null,epoch=0,detailsOpen=innerWidth>1250;
+matchMedia('(max-width:1250px)').addEventListener('change',event=>{if(event.matches){detailsOpen=false;root?.querySelector('.library-browser-layout')?.classList.add('is-details-hidden');}});
 const expanded=new Set(),route=id=>'#'+token+(id?'/'+id:'');
 const fileUrl=(id,download=false)=>'/api/library/public-file?'+new URLSearchParams({token,id,...(download?{download:'1'}:{})});
 async function api(action,body){const [name,queryString]=action.split('?'),params=new URLSearchParams(queryString);params.set('token',token);const res=await fetch('/api/library/'+name+'?'+params,{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',headers:body?{'Content-Type':'application/json','X-CSQuest-Request':'1'}:{},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(60000)});let result;try{result=await res.json();}catch{throw Error('Unexpected server response. Refresh and try again.');}if(!res.ok)throw Object.assign(Error(result.error||'Shared Library unavailable.'),{status:res.status});return result;}
