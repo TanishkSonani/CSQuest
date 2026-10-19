@@ -5,7 +5,7 @@ import {pipeline} from 'node:stream/promises';
 import {readBody,assertSameOrigin} from './accounts.mjs';
 import {transaction} from './database.mjs';
 import {byteRange} from './podcasts.mjs';
-import {libraryDrives,inspectDrive,measureLibraryDrive,openLibraryFile,libraryError,CHUNK_BYTES} from './storage.mjs';
+import {libraryDrives,inspectDrive,measureLibraryDrive,openLibraryFile,libraryError,CHUNK_BYTES,RESUME_CHECK_BYTES} from './storage.mjs';
 
 const fail=(status,message)=>{throw libraryError(status,message);};
 const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -13,6 +13,7 @@ const filename=value=>{if(typeof value!=='string'||!value.trim()||value.length>2
 const publicEntry=e=>({id:e.id,drive:e.drive,parent:e.parent_id,name:e.name,kind:e.kind,size:Number(e.size),uploaded:Number(e.uploaded),status:e.status,createdAt:e.created_at,updatedAt:e.updated_at});
 const types={'.mp4':'video/mp4','.mkv':'video/x-matroska','.webm':'video/webm','.ogv':'video/ogg','.mov':'video/quicktime','.mp3':'audio/mpeg','.m4a':'audio/mp4','.aac':'audio/aac','.ogg':'audio/ogg','.opus':'audio/ogg','.wav':'audio/wav','.flac':'audio/flac'};
 export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.LIBRARY_OWNER_ID,inspect=inspectDrive}={}){
+ let receivingChunks=0;
  const rows=async(db,drive)=>(await db.query('SELECT * FROM csquest_library_entries WHERE drive=$1',[drive])).rows;
  const get=async(db,id,owner)=>{
   if(!uuid(id))fail(400,'Invalid file or folder ID.');
@@ -30,8 +31,8 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
   const handle=await openLibraryFile(drive,entry.id);
   try{
    if((await handle.stat()).size<size)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');
-   const ranges=[{start:0,length:Math.min(size,CHUNK_BYTES)}];
-   if(size>CHUNK_BYTES)ranges.push({start:size-Math.min(size,CHUNK_BYTES),length:Math.min(size,CHUNK_BYTES)});
+   const ranges=[{start:0,length:Math.min(size,RESUME_CHECK_BYTES)}];
+   if(size>RESUME_CHECK_BYTES)ranges.push({start:size-RESUME_CHECK_BYTES,length:RESUME_CHECK_BYTES});
    for(const range of ranges){
     const data=Buffer.alloc(range.length);let read=0;
     while(read<data.length){const result=await handle.read(data,read,data.length-read,range.start+read);if(!result.bytesRead)fail(409,'Upload data changed. Cancel this transfer and retry.');read+=result.bytesRead;}
@@ -48,6 +49,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
  }
  return async function handleLibrary({req,res,url,send,actor}){
   if(!url.pathname.startsWith('/api/library/'))return false;
+  let chunkSlot=false;
   try{
    if(!ownerId||actor.id!==ownerId)fail(403,'This private library is available to the platform owner.');
    const route=url.pathname.slice('/api/library/'.length);
@@ -110,7 +112,8 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     const start=range?.start??0,end=range?.end??size-1;
     res.writeHead(range?206:200,{...headers,'Content-Length':Math.max(0,end-start+1),...(range?{'Content-Range':`bytes ${start}-${end}/${size}`}:{})});
     if(req.method==='HEAD'||!size){await file.close();res.end();return true;}
-    try{await pipeline(file.createReadStream({start,end}),res);}catch{res.destroy();}return true;
+    // Larger bounded reads reduce filesystem/stream overhead without buffering a file.
+    try{await pipeline(file.createReadStream({start,end,highWaterMark:1024**2}),res);}catch{res.destroy();}return true;
    }
    if(route==='folders'){
     const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');await inspect(drive);
@@ -127,13 +130,31 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     const entries=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND parent_id IS NOT DISTINCT FROM $3::uuid AND status='ready' ORDER BY kind DESC,lower(name)",[actor.id,drive.id,folder])).rows.map(publicEntry);
     send(200,{entries,breadcrumbs});return true;
    }
+   // Receive the bounded body BEFORE borrowing a transaction connection or taking
+   // the shared capacity lock. Slow senders must not serialize all other transfers.
+   let chunkData;
+   if(route==='chunk'){
+    const entry=await get(pool,url.searchParams.get('id'),actor.id),offset=Number(url.searchParams.get('offset'));
+    if(entry.status!=='uploading')fail(409,'Upload is not active.');
+    if(!url.searchParams.has('offset')||!Number.isSafeInteger(offset)||offset!==Number(entry.uploaded))fail(409,'Upload offset changed. Resume from its saved position.');
+    const length=Number(req.headers['content-length']);
+    if(req.headers['content-length']!==undefined&&(!Number.isSafeInteger(length)||length>CHUNK_BYTES||offset+length>Number(entry.size)))fail(413,'Upload chunk is too large.');
+    if(receivingChunks>=8)fail(429,'Too many active upload chunks. Retry this transfer shortly.');
+    receivingChunks++;chunkSlot=true;
+    const chunks=[];let count=0;
+    for await(const chunk of req){count+=chunk.length;if(count>CHUNK_BYTES||offset+count>Number(entry.size))fail(413,'Upload chunk is too large.');chunks.push(chunk);}
+    if(!count)fail(400,'Upload chunk is empty.');
+    chunkData=Buffer.concat(chunks,count);
+   }
    const body=route==='chunk'?null:await readBody(req);
    const result=await transaction(pool,async db=>{
     let e,drive;
     if(['folder','upload','prepare'].includes(route)){drive=drives.find(d=>d.id===body.drive);if(!drive)fail(400,'Choose a drive.');}
     else{try{e=await get(db,route==='chunk'?url.searchParams.get('id'):body.id,actor.id);}catch(error){if(error.status===404&&['delete','cancel'].includes(route))return {ok:true};throw error;}drive=drives.find(d=>d.id===e.drive);}
     await lock(db);
-    await inspect(drive);await cleanup(db,drive,await rows(db,drive.id));
+    // Chunk commits still serialize capacity decisions and durable writes across
+    // processes, but never hold the lock while receiving network data.
+    await inspect(drive);if(route!=='chunk')await cleanup(db,drive,await rows(db,drive.id));
     if(e){try{e=await get(db,e.id,actor.id);}catch(error){if(error.status===404&&['delete','cancel'].includes(route))return {ok:true};throw error;}}
     if(route==='prepare'){
      if(!Array.isArray(body.files)||!body.files.length||body.files.length>100)fail(400,'Select between 1 and 100 files at a time.');
@@ -164,17 +185,16 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     }
     if(route==='chunk'){
      if(e.status!=='uploading')fail(409,'Upload is not active.');
+     if(new Date(e.expires_at).getTime()<Date.now())fail(409,'This upload expired. Cancel it and upload the original file again.');
      const offset=Number(url.searchParams.get('offset'));
      if(!url.searchParams.has('offset')||!Number.isSafeInteger(offset)||offset!==Number(e.uploaded))fail(409,'Upload offset changed. Resume from its saved position.');
-     const chunks=[];let count=0;
-     for await(const chunk of req){count+=chunk.length;if(count>CHUNK_BYTES||offset+count>Number(e.size))fail(413,'Upload chunk is too large.');chunks.push(chunk);}
-     if(!count)fail(400,'Upload chunk is empty.');
+     const count=chunkData.length;
      const usage=await measure(db,drive);
      if(!usage.writable||usage.free-count<usage.buffer)fail(507,'Upload paused to preserve space for the platform.');
      const location=path.join(drive.root,e.id);
      if(!offset){const fresh=await fs.open(location,'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await fresh?.close();}
      const handle=await openLibraryFile(drive,e.id,'r+');
-     try{if((await handle.stat()).size<offset)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await handle.truncate(offset);const data=Buffer.concat(chunks);let written=0;while(written<data.length){const part=await handle.write(data,written,data.length-written,offset+written);written+=part.bytesWritten;}await handle.sync();}finally{await handle.close();}
+     try{if((await handle.stat()).size<offset)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await handle.truncate(offset);let written=0;while(written<chunkData.length){const part=await handle.write(chunkData,written,chunkData.length-written,offset+written);written+=part.bytesWritten;}await handle.sync();}finally{await handle.close();}
      await db.query("UPDATE csquest_library_entries SET uploaded=$2,updated_at=now(),expires_at=now()+interval '24 hours' WHERE id=$1",[e.id,offset+count]);
      return {id:e.id,uploaded:offset+count};
     }
@@ -214,7 +234,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    const status=error.status||(error.code==='23505'?409:503);
    if(!error.status&&error.code!=='23505')console.error('Library operation failed:',error.code||error.message);
    send(status,{error:error.status?error.message:error.code==='23505'?'A file or folder with this name already exists.':'Library storage is unavailable. Please refresh and retry.'});
-  }
+  }finally{if(chunkSlot)receivingChunks--;}
   return true;
  };
 }

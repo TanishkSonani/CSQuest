@@ -32,4 +32,5 @@ PY
 nginx -t
 systemctl daemon-reload
 systemctl reload nginx
+bash "$(dirname -- "${BASH_SOURCE[0]}")/configure-library-transfers.sh"
 printf 'Library configured: Boot 35 GiB, Block 125 GiB. Restart csquest after deploying the Library code and migration.\n'

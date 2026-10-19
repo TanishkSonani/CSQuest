@@ -2,7 +2,9 @@
 
 The local app runs at **http://localhost:4173/#library**. The earlier startup failure was reproduced in Playwright: an old Node process returned HTTP 404 for `/shared/compiler-models.js`. Restarting the verified CSQuest process fixed the failure without changing user data.
 
-The automated suite passed **201 tests**, with two existing GCC-dependent checks skipped, including the storage diagnostic test. Destructive and fault scenarios use isolated PostgreSQL schemas and temporary files; they do not modify the owner's Library or learning records.
+The automated suite now passes **203 tests**, with two existing GCC-dependent checks skipped, including the storage diagnostic test. Destructive and fault scenarios use isolated PostgreSQL schemas and temporary files; they do not modify the owner's Library or learning records.
+
+The parallel-transfer update additionally passed a real **5,000,000,000-byte** and **4,000,000,000-byte** concurrent upload/download soak: both complete download SHA-256 hashes matched, resume offsets above 2 GB were preserved across server instances, and tail byte ranges beyond 4 GB were correct. Local uploads finished together in about 90 seconds and streaming download verification in about 48 seconds, with peak Node RSS of 298 MB. These are local integration measurements, not expected Internet speeds. The report is `qa-results/library-large-transfer/report.json`; all 9 GB of temporary data were removed after the check.
 
 Validated backend scenarios:
 
@@ -16,7 +18,7 @@ Validated backend scenarios:
 
 Playwright covers desktop/tablet/mobile widths **1440, 1280, 1024, 768, 390, and 360 pixels**, in light and dark themes. Checks include desktop select/double-click, mobile single-tap, directory navigation, long names, dialogs, selected-file details, decimal KB/MB/GB units, and no horizontal overflow. It also checks preflight rejection without upload chunks, the shared podcast audio dock, unsupported-video fallback, recovery after lost browser transfer state, wrong resume-file rejection, and a folder deleted from another tab.
 
-Native Edge recording supplies a real H.264 MP4 test file. The player is checked for all six requested speeds, play/pause/stop, keyboard control, volume/mute, and mobile dialog bounds. Video dimensions are read before playback through the Details panel.
+Native Edge recording supplies real H.264 MP4 test files in portrait and landscape aspect ratios. The player is checked for all twelve speeds from 0.25× to 3×, play/pause/stop, keyboard control, volume/mute, five mobile viewport sizes in both orientations, and fullscreen. Custom seek intervals of 3 and 600 seconds, invalid interval handling, start/end clamping, and saved settings are verified. Video dimensions are read before playback through the Details panel. Reports and screenshots are under `qa-results/library-video-mobile`.
 
 Reproduce:
 
@@ -25,6 +27,9 @@ npm.cmd test
 node --test tests/library-storage.test.mjs
 node tests/library-browser.cjs
 node tests/library-real-life-browser.cjs
+node tests/library-parallel-browser.cjs
+node tests/library-video-mobile-browser.cjs
+node tests/library-large-transfer.mjs
 node tests/podcasts-browser.cjs
 npm.cmd run library:storage
 ```

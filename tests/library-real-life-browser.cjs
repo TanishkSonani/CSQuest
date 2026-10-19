@@ -48,17 +48,17 @@ const path=require('node:path');
   await page.setViewportSize({width:1440,height:1000});await open('boot storage');
   // Drop the response after the first committed chunk, just as a connection loss can do.
   let injected=false;await page.route('**/api/library/chunk?**',async route=>{if(!injected){injected=true;await route.fetch();await route.abort('failed');}else await route.continue();});
-  const source=Buffer.alloc(5*1024**2+37,91);source.write('original file resume fingerprint');
+  const source=Buffer.alloc(11*1024**2+37,91);source.write('original file resume fingerprint');
   const sourceFile=path.join(f.directory,'resume-after-disconnect.bin');await fs.writeFile(sourceFile,source);const sourceDate=new Date('2026-01-01T12:00:00Z');await fs.utimes(sourceFile,sourceDate,sourceDate);
   await page.locator(selectors.upload).setInputFiles(sourceFile);await page.getByRole('button',{name:'RETRY',exact:true}).waitFor();await ready();
-  const transfer=(await f.db.store.pool.query("SELECT * FROM csquest_library_entries WHERE name='resume-after-disconnect.bin'")).rows[0];assert.equal(Number(transfer.uploaded),2*1024**2);
+  const transfer=(await f.db.store.pool.query("SELECT * FROM csquest_library_entries WHERE name='resume-after-disconnect.bin'")).rows[0];assert.equal(Number(transfer.uploaded),8*1024**2);
   await page.unroute('**/api/library/chunk?**');
   // Lose browser bookkeeping entirely: recovery must come from the server inventory.
   await page.evaluate(()=>sessionStorage.clear());await page.reload();await ready();await page.getByRole('button',{name:'CHOOSE FILE TO RESUME',exact:true}).waitFor();
   const wrong=Buffer.alloc(source.length,12);
   await fs.mkdir(path.join(f.directory,'wrong'));const wrongFile=path.join(f.directory,'wrong','resume-after-disconnect.bin');await fs.writeFile(wrongFile,wrong);await fs.utimes(wrongFile,sourceDate,sourceDate);
   const picker=page.waitForEvent('filechooser');await page.getByRole('button',{name:'CHOOSE FILE TO RESUME',exact:true}).click();await(await picker).setFiles(wrongFile);
-  await page.getByText('This file does not match the saved transfer.',{exact:false}).waitFor();assert.equal(Number((await f.db.store.pool.query('SELECT uploaded FROM csquest_library_entries WHERE id=$1',[transfer.id])).rows[0].uploaded),2*1024**2);
+  await page.getByText('This file does not match the saved transfer.',{exact:false}).waitFor();assert.equal(Number((await f.db.store.pool.query('SELECT uploaded FROM csquest_library_entries WHERE id=$1',[transfer.id])).rows[0].uploaded),8*1024**2);
   await open('boot storage');await page.locator(selectors.upload).setInputFiles(sourceFile);await page.getByRole('button',{name:'Open resume-after-disconnect.bin',exact:true}).waitFor();
   assert.deepEqual(await fs.readFile(path.join(f.drives[0].root,transfer.id)),source);results.push({resumeAfterLostResponse:true,recoveredWithoutSessionStorage:true,wrongFileRejected:true,bytesPreserved:true});
   // Simulate a different tab deleting the currently open folder.
@@ -76,12 +76,12 @@ const path=require('node:path');
   await page.locator(selectors.upload).setInputFiles({name,mimeType:media.type,buffer:Buffer.from(media.data,'base64')});await page.getByRole('button',{name:'Open '+name,exact:true}).waitFor();
   await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.locator('[data-lib-details]').getByText('160 × 90',{exact:true}).waitFor();await open(name);
   await page.waitForFunction(()=>Number.isFinite(document.querySelector('video')?.duration)&&document.querySelector('video').duration>0);
-  for(const speed of ['0.5','0.75','1','1.5','2','3']){await page.locator('[data-video-speed]').selectOption(speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
+  for(const speed of Array.from({length:12},(_,i)=>String((i+1)/4))){await page.locator('[data-video-speed]').selectOption(speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
   await page.getByRole('button',{name:'Stop video',exact:true}).click();await page.getByRole('button',{name:'Mute video',exact:true}).click();assert.equal(await page.locator('video').evaluate(v=>v.muted),true);
   await page.locator('[data-video-volume]').fill('0.35');assert.equal(await page.locator('video').evaluate(v=>v.volume),.35);
   await page.locator('video').focus();await page.keyboard.press('Space');await page.waitForFunction(()=>!document.querySelector('video').paused);await page.keyboard.press('Space');assert.equal(await page.locator('video').evaluate(v=>v.paused),true);
   for(const width of [1440,390,360]){await page.setViewportSize({width,height:width<650?844:1000});await page.screenshot({path:`${output}/video-${extension}-${width}.png`});assert.equal(await page.evaluate(()=>{const d=document.querySelector('.library-video-dialog').getBoundingClientRect();return d.left>=0&&d.right<=innerWidth;}),true);}
-  await page.getByRole('button',{name:'Close video',exact:true}).click();results.push({realVideo:extension,speeds:6,keyboard:true,volume:true});
+  await page.getByRole('button',{name:'Close video',exact:true}).click();results.push({realVideo:extension,speeds:12,keyboard:true,volume:true});
   assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({checkedAt:new Date().toISOString(),results,errors},null,2));console.log('Real-life Playwright checks passed:',JSON.stringify(results));
  }catch(error){if(page){await page.screenshot({path:output+'/failure.png',fullPage:true}).catch(()=>{});console.error('UI at failure:',(await page.locator('body').innerText().catch(()=>'' )).slice(-4500));}throw error;}
  finally{await browser?.close();await cleanup();}

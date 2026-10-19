@@ -83,6 +83,9 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
    send(missing?404:503,{error:missing?'Not available yet':'Database unavailable. Please try again shortly.'});
   }
  });
+ // Bounded Library chunks may share a slow uplink across four parallel files.
+ // Keep the header timeout unchanged; allow up to ten minutes to receive a body.
+ server.requestTimeout=600000;
  if(!providedStore)server.on('close',()=>store.pool.end());
  return server;
 }

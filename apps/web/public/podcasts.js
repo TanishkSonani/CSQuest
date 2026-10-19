@@ -1,6 +1,7 @@
 import {escapeHtml as h} from '/shared/engine.js';
 import {account} from './account-client.js';
 import {icon} from './icons.js';
+export const playbackSpeeds=Array.from({length:12},(_,i)=>(i+1)/4);
 
 const audio=new Audio();audio.preload='none';
 let catalog=null,catalogPromise,detail=null,owner=null,queue=[],rate=1,follow=true,activeTurn=-1,loadEpoch=0,pendingSeek=null,lastSave=0,error='',filter='all',query='',contextSubjects=[],openTranscriptPending=false;
@@ -44,7 +45,7 @@ async function loadCatalog(force=false){
 function ensureDock(){
  let root=document.querySelector('#podcast-player');if(root)return root;
  root=document.createElement('section');root.id='podcast-player';root.className='podcast-player';root.hidden=true;root.setAttribute('aria-label','Podcast player');
- root.innerHTML=`<div class="podcast-now"><span class="podcast-art" aria-hidden="true">${icon('sound')}</span><div><small data-podcast-now-course></small><a href="#podcasts" data-podcast-open-transcript data-podcast-now-title>Section podcast</a><small data-podcast-now-status role="status"></small><small data-podcast-now-chapter></small></div></div><div class="podcast-player-middle"><div class="podcast-transport">${control('previous','Previous episode',glyph('previous'))}${control('back','Back 15 seconds',glyph('back'),'podcast-skip')}${control('toggle','Play podcast',glyph('play'),'podcast-play')}${control('forward','Forward 15 seconds',glyph('forward'),'podcast-skip')}${control('next','Next episode',glyph('next'))}</div><div class="podcast-seek"><time data-podcast-elapsed>0:00</time><input type="range" min="0" max="1" value="0" step="0.1" aria-label="Podcast playback position" data-podcast-seek><time data-podcast-duration>0:00</time></div></div><div class="podcast-player-tools"><label>Speed<select data-podcast-speed aria-label="Playback speed">${[.5,.75,1,1.25,1.5,1.75,2,3].map(value=>`<option value="${value}" ${value===rate?'selected':''}>${value}×</option>`).join('')}</select></label><a class="text-button podcast-transcript-link" href="#podcasts" data-podcast-open-transcript aria-label="Open live transcript">${icon('book')}<span>TRANSCRIPT</span></a>${control('close','Close podcast player',icon('close'))}</div>`;
+ root.innerHTML=`<div class="podcast-now"><span class="podcast-art" aria-hidden="true">${icon('sound')}</span><div><small data-podcast-now-course></small><a href="#podcasts" data-podcast-open-transcript data-podcast-now-title>Section podcast</a><small data-podcast-now-status role="status"></small><small data-podcast-now-chapter></small></div></div><div class="podcast-player-middle"><div class="podcast-transport">${control('previous','Previous episode',glyph('previous'))}${control('back','Back 15 seconds',glyph('back'),'podcast-skip')}${control('toggle','Play podcast',glyph('play'),'podcast-play')}${control('forward','Forward 15 seconds',glyph('forward'),'podcast-skip')}${control('next','Next episode',glyph('next'))}</div><div class="podcast-seek"><time data-podcast-elapsed>0:00</time><input type="range" min="0" max="1" value="0" step="0.1" aria-label="Podcast playback position" data-podcast-seek><time data-podcast-duration>0:00</time></div></div><div class="podcast-player-tools"><label>Speed<select data-podcast-speed aria-label="Playback speed">${playbackSpeeds.map(value=>`<option value="${value}" ${value===rate?'selected':''}>${value}×</option>`).join('')}</select></label><a class="text-button podcast-transcript-link" href="#podcasts" data-podcast-open-transcript aria-label="Open live transcript">${icon('book')}<span>TRANSCRIPT</span></a>${control('close','Close podcast player',icon('close'))}</div>`;
  document.body.append(root);playerSizeObserver.observe(root);return root;
 }
 function savePosition(){if(!detail||!owner)return;try{localStorage.setItem(bookmarkKey(),JSON.stringify({id:detail.id,time:audio.currentTime||0,rate}));}catch{}}
@@ -121,7 +122,7 @@ export async function playLibraryAudio(file,driveName){
  const nextOwner=account.user?.id;if(!nextOwner)return;
  owner=nextOwner;audio.pause();savePosition();loadEpoch++;error='';queue=[];
  detail={library:true,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
- const saved=restorePosition();rate=[.5,.75,1,1.25,1.5,1.75,2,3].includes(saved?.rate)?saved.rate:rate;
+ const saved=restorePosition();rate=playbackSpeeds.includes(saved?.rate)?saved.rate:rate;
  document.dispatchEvent(new CustomEvent('csquest-audio-start'));
  audio.src='/api/library/file?id='+encodeURIComponent(file.id);audio.playbackRate=rate;pendingSeek=saved?.time||0;
  updateDock();renderLibrary();
@@ -132,7 +133,7 @@ function moveEpisode(delta){const index=queue.indexOf(detail?.id),id=queue[index
 function closePlayer(){savePosition();audio.pause();audio.removeAttribute('src');audio.load();detail=null;queue=[];activeTurn=-1;loadEpoch++;updateDock();renderLibrary();if('mediaSession' in navigator)navigator.mediaSession.metadata=null;}
 export function mountPodcasts(subjects){
  contextSubjects=subjects;const nextOwner=account.user?.id||null;
- if(nextOwner!==owner){closePlayer();owner=nextOwner;catalog=null;catalogPromise=null;error='';query='';filter='all';const saved=restorePosition();rate=[.5,.75,1,1.25,1.5,1.75,2,3].includes(saved?.rate)?saved.rate:1;}
+ if(nextOwner!==owner){closePlayer();owner=nextOwner;catalog=null;catalogPromise=null;error='';query='';filter='all';const saved=restorePosition();rate=playbackSpeeds.includes(saved?.rate)?saved.rate:1;}
  ensureDock();if(!owner)return;
  if(openTranscriptPending&&document.querySelector('.podcast-transcript'))openTranscript();
  if(document.querySelector('.podcast-library')){loadCatalog().catch(()=>{});if(detail&&!detail.library&&follow)openTranscript();}updateDock();

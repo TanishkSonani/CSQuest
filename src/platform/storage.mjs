@@ -3,7 +3,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 export const GiB=1024**3;
-export const CHUNK_BYTES=2*1024**2;
+export const CHUNK_BYTES=8*1024**2;
+export const RESUME_CHECK_BYTES=2*1024**2;
 export const libraryError=(status,message)=>Object.assign(new Error(message),{status});
 const localRoot=fileURLToPath(new URL('../../runtime/library/',import.meta.url));
 export function libraryDrives(){

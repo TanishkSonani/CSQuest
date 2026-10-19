@@ -44,7 +44,7 @@ const {randomUUID}=require('node:crypto');
   const wav=Buffer.alloc(44+16000);wav.write('RIFF');wav.writeUInt32LE(wav.length-8,4);wav.write('WAVEfmt ',8);wav.writeUInt32LE(16,16);wav.writeUInt16LE(1,20);wav.writeUInt16LE(1,22);wav.writeUInt32LE(8000,24);wav.writeUInt32LE(16000,28);wav.writeUInt16LE(2,32);wav.writeUInt16LE(16,34);wav.write('data',36);wav.writeUInt32LE(16000,40);
   await page.locator('[data-lib-upload]').setInputFiles({name:'quiet.wav',mimeType:'audio/wav',buffer:wav});await page.getByRole('button',{name:'Open quiet.wav',exact:true}).waitFor();await open('Open quiet.wav');
   await page.getByRole('region',{name:'Library audio player',exact:true}).waitFor();
-  const audioSpeeds=await page.locator('[data-podcast-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value)));for(const speed of [.5,.75,1,1.5,2,3])assert.ok(audioSpeeds.includes(speed));
+  const audioSpeeds=await page.locator('[data-podcast-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value)));assert.deepEqual(audioSpeeds,Array.from({length:12},(_,i)=>(i+1)/4));
   await page.locator('[data-podcast-speed]').selectOption('3');assert.equal(await page.locator('#podcast-player').count(),1);
   assert.equal(await page.locator('.podcast-transcript-link').isVisible(),false);
   // Generate real browser-supported media without a transcoder dependency.
@@ -57,7 +57,7 @@ const {randomUUID}=require('node:crypto');
   await open('Open Block storage');await page.getByText('A little room for everything.',{exact:true}).waitFor();
   await page.locator('[data-lib-upload]').setInputFiles({name:'sample.webm',mimeType:'video/webm',buffer:Buffer.from(videoBase64,'base64')});await page.getByRole('button',{name:'Open sample.webm',exact:true}).waitFor();await open('Open sample.webm');
   await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
-  assert.deepEqual(await page.locator('[data-video-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value))),[.5,.75,1,1.5,2,3]);
+  assert.deepEqual(await page.locator('[data-video-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value))),Array.from({length:12},(_,i)=>(i+1)/4));
   for(const speed of ['0.5','0.75','1','1.5','2','3']){await page.locator('[data-video-speed]').selectOption(speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
   await page.getByRole('button',{name:'Stop video',exact:true}).click();assert.equal(await page.locator('video').evaluate(v=>v.currentTime),0);
   await page.screenshot({path:'qa-results/library/video-light.png'});await page.getByRole('button',{name:'Close video',exact:true}).click();

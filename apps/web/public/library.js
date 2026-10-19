@@ -1,18 +1,41 @@
 import {escapeHtml as h} from '/shared/engine.js';
 import {account} from './account-client.js';
 import {icon} from './icons.js';
-import {playLibraryAudio,pauseSharedAudio} from './podcasts.js';
-
-const speeds=[.5,.75,1,1.5,2,3];
+import {playLibraryAudio,pauseSharedAudio,playbackSpeeds as speeds} from './podcasts.js';
 const fileUrl=(id,download=false)=>`/api/library/file?id=${encodeURIComponent(id)}${download?'&download=1':''}`;
 const mediaKind=name=>/\.(mp4|mkv|webm|ogv|mov)$/i.test(name)?'video':/\.(mp3|m4a|aac|ogg|opus|wav|flac)$/i.test(name)?'audio':'file';
 const bytes=n=>{if(!Number.isFinite(n))return '—';if(n<1000)return n+' B';const unit=Math.min(3,Math.floor(Math.log(n)/Math.log(1000)));return (n/1000**unit).toLocaleString(undefined,{maximumFractionDigits:unit===3?2:1})+' '+['B','KB','MB','GB'][unit];};
 export const formatLibraryBytes=bytes;
 const clock=n=>{n=Math.max(0,Math.floor(n||0));return (n>=3600?Math.floor(n/3600)+':':'')+String(Math.floor(n/60)%60).padStart(2,'0')+':'+String(n%60).padStart(2,'0');};
-let owner=null,drive=null,folder=null,volumes=null,checkedAt=null,entries=[],crumbs=[],allFolders=[],query='',sort='name',grid=false,busy=false,problem='',epoch=0,uploads=[],running=false,videoDialog=null,selectedDrive=null,selectedEntry=null,storageExpanded=false,selectedDetails=null,detailsBusy=false,detailsError='',detailsEpoch=0,metadataProbe=null;
+let owner=null,drive=null,folder=null,volumes=null,checkedAt=null,entries=[],crumbs=[],allFolders=[],query='',sort='name',grid=false,busy=false,problem='',epoch=0,uploads=[],videoDialog=null,selectedDrive=null,selectedEntry=null,storageExpanded=false,selectedDetails=null,detailsBusy=false,detailsError='',detailsEpoch=0,metadataProbe=null;
+const activeUploads=new Set(),parallelUploads=4;
+let transferPaint=null;
+let transferRefresh=null;
 const root=()=>document.querySelector('[data-library]');
 const storageKey=()=>`csquest:library-uploads:${owner}`;
-function remember(){try{sessionStorage.setItem(storageKey(),JSON.stringify(uploads.filter(u=>u.state!=='done'&&u.state!=='canceled').map(({file,controller,...u})=>u)));}catch{}}
+function remember(){try{sessionStorage.setItem(storageKey(),JSON.stringify(uploads.filter(u=>u.state!=='done'&&u.state!=='canceled').map(({file,controller,inFlight,startedAt,startedUploaded,...u})=>u)));}catch{}}
+const transferBytes=u=>Math.min(u.size,(u.uploaded||0)+(u.inFlight||0));
+function transferStatus(u){
+ if(u.state==='done')return 'Uploaded';if(u.state!=='uploading')return u.error||u.state;
+ const seconds=(performance.now()-u.startedAt)/1000,rate=(transferBytes(u)-(u.startedUploaded||0))/seconds;
+ return seconds>1&&rate>0?`Uploading · ${bytes(rate)}/s · ${clock((u.size-transferBytes(u))/rate)} left`:'Uploading';
+}
+function sendChunk(u,chunk){
+ return new Promise((resolve,reject)=>{
+  const xhr=new XMLHttpRequest(),signal=u.controller.signal;
+  const abort=()=>xhr.abort(),cleanup=()=>signal.removeEventListener('abort',abort);
+  xhr.open('PUT',`/api/library/chunk?id=${u.id}&offset=${u.uploaded}`);xhr.withCredentials=true;xhr.timeout=600000;
+  xhr.setRequestHeader('X-CSQuest-Request','1');xhr.setRequestHeader('Content-Type','application/octet-stream');
+  xhr.upload.onprogress=event=>{u.inFlight=event.loaded;if(!transferPaint)transferPaint=setTimeout(()=>{transferPaint=null;drawTransfers();},200);};
+  xhr.onload=()=>{cleanup();let result;try{result=JSON.parse(xhr.responseText);}catch{reject(Error('Unexpected upload response. Retry to resume.'));return;}if(xhr.status>=200&&xhr.status<300)resolve(result);else reject(Object.assign(Error(result.error||'Upload failed. Retry to resume.'),{status:xhr.status}));};
+  xhr.onerror=()=>{cleanup();reject(Error('Connection lost. Retry to resume from the saved position.'));};
+  xhr.ontimeout=()=>{cleanup();reject(Error('Upload timed out. Retry to resume from the saved position.'));};
+  xhr.onabort=()=>{cleanup();reject(new DOMException('Upload paused.','AbortError'));};
+  signal.addEventListener('abort',abort,{once:true});
+  if(signal.aborted){cleanup();reject(new DOMException('Upload paused.','AbortError'));return;}
+  xhr.send(chunk);
+ });
+}
 async function api(action,body,{method,signal}={}){
  const timeout=AbortSignal.timeout(60000);
  const response=await fetch('/api/library/'+action,{method:method||(body?'POST':'GET'),headers:{...(body&&method!=='PUT'?{'Content-Type':'application/json'}:{}),'X-CSQuest-Request':'1'},credentials:'same-origin',cache:'no-store',body:body?(method==='PUT'?body:JSON.stringify(body)):undefined,signal:signal?AbortSignal.any([signal,timeout]):timeout});
@@ -63,7 +86,7 @@ function filesMarkup(){
   return `<article class="library-file ${selectedEntry===e.id?'is-selected':''}" data-lib-entry="${e.id}"><button class="library-file-open ${kind}" data-lib-open="${e.id}" aria-label="Open ${h(e.name)}" title="Open ${h(e.name)}">${icon(glyph)}<span>${h(e.name)}<small>${kind==='folder'?'Folder':e.name.split('.').pop().toUpperCase()+' file'}</small></span></button><span class="library-file-size">${e.kind==='folder'?'—':bytes(e.size)}</span><time class="library-file-date">${new Date(e.updatedAt).toLocaleDateString()}</time><div class="library-file-actions">${e.kind==='file'?`<a class="library-small-button" href="${fileUrl(e.id,true)}" aria-label="Download ${h(e.name)}" title="Download">${icon('download')}</a>`:''}<button class="library-small-button" data-lib-info="${e.id}" aria-label="Details for ${h(e.name)}" title="Details">ⓘ</button><button class="library-small-button" data-lib-move="${e.id}" aria-label="Move ${h(e.name)}" title="Move to folder">${icon('arrow')}</button><button class="library-small-button" data-lib-rename="${e.id}" aria-label="Rename ${h(e.name)}" title="Rename">${icon('pencil')}</button><button class="library-small-button" data-lib-delete="${e.id}" aria-label="Delete ${h(e.name)}" title="Delete">${icon('close')}</button></div></article>`;
  }).join('')}</div>`;
 }
-function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(u.state==='done'?'Uploaded':u.error||u.state)} · ${bytes(u.uploaded||0)} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):u.uploaded||0}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${!['done','canceled'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
+function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${!['done','canceled'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
 function drawTransfers(){const node=root()?.querySelector('[data-lib-transfers]');if(node)node.innerHTML=transfersMarkup();remember();}
 function clearDetails(){
  detailsEpoch++;selectedEntry=null;selectedDetails=null;detailsBusy=false;detailsError='';
@@ -183,11 +206,20 @@ async function addFiles(files){
  }
  drawTransfers();processUploads();
 }
-async function processUploads(){
- if(running)return;running=true;const currentOwner=owner;
- try{
-  for(const u of uploads){
-   if(currentOwner!==owner)break;if(u.state!=='queued'||!u.file)continue;u.state='uploading';u.error='';u.controller=new AbortController();drawTransfers();
+function processUploads(){
+ if(!owner)return;
+ for(const u of uploads){
+  if(activeUploads.size>=parallelUploads)break;
+  if(u.state!=='queued'||!u.file||activeUploads.has(u))continue;
+  const currentOwner=owner;activeUploads.add(u);
+  uploadFile(u,currentOwner).finally(()=>{
+   activeUploads.delete(u);drawTransfers();processUploads();
+   if(currentOwner===owner&&!transferRefresh)transferRefresh=setTimeout(()=>{transferRefresh=null;refresh();},250);
+  });
+ }
+}
+async function uploadFile(u,currentOwner){
+   u.state='uploading';u.error='';u.controller=new AbortController();drawTransfers();
    try{
     let session;
     if(u.id){try{session=await api('upload?id='+u.id,null,{signal:u.controller.signal});}catch(e){if(e.status!==404)throw e;u.id=null;}}
@@ -198,20 +230,18 @@ async function processUploads(){
      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),b=>b.toString(16).padStart(2,'0')).join('');
      if(digest!==check.sha256)throw Error('This file does not match the saved transfer. Choose the original file, or cancel this transfer to start again.');
     }
-    u.uploaded=session.uploaded;drawTransfers();
+    u.uploaded=session.uploaded;u.inFlight=0;u.startedAt=performance.now();u.startedUploaded=u.uploaded;drawTransfers();
     if(session.status!=='ready'){
      while(u.uploaded<u.size){
       if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');
       const chunk=u.file.slice(u.uploaded,Math.min(u.size,u.uploaded+session.chunkBytes));
-      const result=await api(`chunk?id=${u.id}&offset=${u.uploaded}`,chunk,{method:'PUT',signal:u.controller.signal});u.uploaded=result.uploaded;drawTransfers();
+      const result=await sendChunk(u,chunk);u.uploaded=result.uploaded;u.inFlight=0;drawTransfers();
      }
      if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');await api('complete',{id:u.id},{signal:u.controller.signal});
     }
     u.state='done';u.uploaded=u.size;
    }catch(e){if(u.state!=='canceled'){u.state='paused';u.error=e.name==='AbortError'?'Upload paused. Retry to resume.':e.message;}}
-   finally{delete u.controller;drawTransfers();}
-  }
- }finally{running=false;if(currentOwner===owner)await refresh();if(owner&&uploads.some(u=>u.state==='queued'))processUploads();}
+   finally{u.inFlight=0;delete u.controller;drawTransfers();}
 }
 async function cancelUpload(u){
  u.state='canceled';u.controller?.abort();drawTransfers();
@@ -223,8 +253,15 @@ function playVideo(file){
  pauseSharedAudio();videoDialog?.close();
  const dialog=document.createElement('dialog');videoDialog=dialog;dialog.className='library-video-dialog';dialog.setAttribute('aria-label',file.name);
  let saved={};try{saved=JSON.parse(localStorage.getItem(videoKey(file.id))||'{}');}catch{}
+ const preferencesKey=`csquest:library-video-settings:${owner}`;let skipSeconds=10;
+ try{const value=JSON.parse(localStorage.getItem(preferencesKey)||'{}').skipSeconds;if(Number.isInteger(value)&&value>=1&&value<=600)skipSeconds=value;}catch{}
  dialog.innerHTML=`<section class="library-video-player"><header><span class="library-video-cone" aria-hidden="true">${icon('video')}</span><div><small>CSQUEST LIBRARY</small><h2>${h(file.name)}</h2></div><button class="icon-button" data-video-close aria-label="Close video">${icon('close')}</button></header><div class="library-video-stage"><video playsinline preload="metadata" tabindex="0" aria-label="${h(file.name)}" src="${fileUrl(file.id)}"></video></div><p class="library-video-message" role="status" data-video-message>Loading video…</p><div class="library-video-controls"><div class="library-video-timeline"><time data-video-time>00:00 / 00:00</time><input type="range" min="0" max="1" value="0" step=".1" aria-label="Video playback position" data-video-seek></div><div class="library-video-buttons"><button class="library-video-play" data-video-action="play" aria-label="Play video">▶</button><button data-video-action="back" aria-label="Back 10 seconds">−10s</button><button data-video-action="forward" aria-label="Forward 10 seconds">+10s</button><button data-video-action="stop" aria-label="Stop video">■</button><label>Speed<select data-video-speed>${speeds.map(s=>`<option value="${s}" ${s===(saved.rate||1)?'selected':''}>${s}×</option>`).join('')}</select></label><label class="library-video-volume">Volume<input type="range" min="0" max="1" step=".05" value="1" aria-label="Video volume" data-video-volume></label><button data-video-action="mute" aria-label="Mute video">${icon('sound')}</button><button data-video-action="pip" aria-label="Picture in picture">▣</button><button data-video-action="fullscreen" aria-label="Fullscreen video">⛶</button><a href="${fileUrl(file.id,true)}" aria-label="Download video">${icon('download')}</a></div><p class="library-video-hints">Space: play/pause · ← →: seek · F: fullscreen · M: mute</p></div></section>`;
  const previous=document.activeElement;document.body.append(dialog);dialog.showModal();const video=dialog.querySelector('video'),player=dialog.querySelector('.library-video-player');let lastSave=0;
+ const skipLabel=document.createElement('label');skipLabel.className='library-video-skip';skipLabel.innerHTML='Skip (s)<input type="number" min="1" max="600" step="1" inputmode="numeric" aria-label="Skip interval in seconds" data-video-skip>';
+ dialog.querySelector('[data-video-action=stop]').after(skipLabel);
+ const skipInput=skipLabel.querySelector('input');skipInput.value=skipSeconds;
+ function updateSkip(){for(const [name,sign,label] of [['back','−','Back'],['forward','+','Forward']]){const button=dialog.querySelector(`[data-video-action=${name}]`);button.textContent=sign+skipSeconds+'s';button.setAttribute('aria-label',`${label} ${skipSeconds} seconds`);}}
+ updateSkip();
  const message=text=>dialog.querySelector('[data-video-message]').textContent=text;
  function persist(){try{localStorage.setItem(videoKey(file.id),JSON.stringify({time:video.currentTime||0,rate:video.playbackRate}));}catch{}}
  function update(){
@@ -234,15 +271,17 @@ function playVideo(file){
  }
  async function action(name){try{
   if(name==='play'){if(video.paused)await video.play();else video.pause();}
-  if(name==='back'||name==='forward')video.currentTime=Math.max(0,Math.min(video.duration||0,video.currentTime+(name==='back'?-10:10)));
+  if(name==='back'||name==='forward'){const end=Number.isFinite(video.duration)?video.duration:video.seekable.length?video.seekable.end(video.seekable.length-1):0;video.currentTime=Math.max(0,Math.min(end,video.currentTime+(name==='back'?-skipSeconds:skipSeconds)));}
   if(name==='stop'){video.pause();video.currentTime=0;}
   if(name==='mute'){video.muted=!video.muted;dialog.querySelector('[data-video-action=mute]').setAttribute('aria-label',video.muted?'Unmute video':'Mute video');}
-  if(name==='fullscreen'){if(document.fullscreenElement)await document.exitFullscreen();else await player.requestFullscreen();}
+  if(name==='fullscreen'){if(document.fullscreenElement)await document.exitFullscreen();else if(player.requestFullscreen)await player.requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();else message('Fullscreen is unavailable in this browser. Rotate your phone to watch in landscape.');}
   if(name==='pip'&&document.pictureInPictureEnabled){if(document.pictureInPictureElement)await document.exitPictureInPicture();else await video.requestPictureInPicture();}
  }catch{message('Playback could not start. Try Play, or download this file to open it in VLC.');}update();}
  dialog.querySelector('[data-video-close]').onclick=()=>dialog.close();dialog.querySelectorAll('[data-video-action]').forEach(b=>b.onclick=()=>action(b.dataset.videoAction));
  dialog.querySelector('[data-video-seek]').oninput=e=>{video.currentTime=Number(e.target.value);};
  dialog.querySelector('[data-video-speed]').onchange=e=>{video.playbackRate=Number(e.target.value);persist();};
+ skipInput.oninput=()=>{const value=Number(skipInput.value);if(!skipInput.validity.valid||!Number.isInteger(value)||value<1||value>600)return;skipSeconds=value;updateSkip();if(dialog.querySelector('[data-video-message]').textContent==='Choose a skip interval from 1 to 600 seconds.')message('');try{localStorage.setItem(preferencesKey,JSON.stringify({skipSeconds}));}catch{}};
+ skipInput.onchange=()=>{if(!skipInput.validity.valid||!skipInput.value){skipInput.value=skipSeconds;message('Choose a skip interval from 1 to 600 seconds.');}};
  dialog.querySelector('[data-video-volume]').oninput=e=>{video.volume=Number(e.target.value);};
  dialog.querySelector('[data-video-action=pip]').hidden=!document.pictureInPictureEnabled;
  video.addEventListener('loadedmetadata',()=>{video.playbackRate=speeds.includes(saved.rate)?saved.rate:1;if(saved.time&&saved.time<video.duration-2)video.currentTime=saved.time;message('');update();video.play().catch(()=>message('Press Play to start watching.'));});
@@ -251,7 +290,7 @@ function playVideo(file){
  for(const name of ['timeupdate','play','pause','ended'])video.addEventListener(name,update);
  video.onclick=()=>action('play');video.ondblclick=()=>action('fullscreen');
  dialog.addEventListener('keydown',e=>{if(e.target.closest('input,select,button,a')||e.altKey||e.ctrlKey||e.metaKey)return;const keys={' ':'play',ArrowLeft:'back',ArrowRight:'forward',f:'fullscreen',m:'mute'};if(keys[e.key]){e.preventDefault();action(keys[e.key]);}});
- dialog.addEventListener('close',()=>{persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null,selectedDrive=null,selectedEntry=null,storageExpanded=false,selectedDetails=null,detailsBusy=false,detailsError='',detailsEpoch=0,metadataProbe=null;if(previous?.isConnected)previous.focus();});
+ dialog.addEventListener('close',()=>{persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
 }
 document.addEventListener('csquest-audio-start',()=>videoDialog?.querySelector('video')?.pause());
 window.addEventListener('account-status',()=>{if(owner&&account.user?.id!==owner){uploads.forEach(u=>u.controller?.abort());remember();videoDialog?.close();clearDetails();document.querySelectorAll('.library-form-dialog').forEach(d=>d.close());epoch++;owner=null;entries=[];crumbs=[];allFolders=[];volumes=null;checkedAt=null;uploads=[];busy=false;}});

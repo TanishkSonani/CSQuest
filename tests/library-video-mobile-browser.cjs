@@ -1,0 +1,50 @@
+const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs/promises');
+(async()=>{
+ const {libraryFixture}=await import('./library-fixture.mjs');let cleanup,browser,page;
+ const f=await libraryFixture({after:fn=>cleanup=fn},{courses:true,quota:64*1024**2});
+ const output='qa-results/library-video-mobile';await fs.mkdir(output,{recursive:true});
+ try{
+  browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
+  const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,reducedMotion:'reduce'});await context.addCookies([{name:'csquest_session',value:f.token,url:f.base}]);
+  page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(f.base+'/#library');await page.locator('[data-lib-action=refresh]:enabled').waitFor();
+  // Real MP4s in both aspect ratios. Record concurrently for enough seekable time.
+  const media=await page.evaluate(async()=>Promise.all([[160,90],[90,160]].map(async([width,height])=>{
+   const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d'),stream=canvas.captureStream(10),parts=[];
+   const type=['video/mp4;codecs=avc1.42001E','video/mp4'].find(t=>MediaRecorder.isTypeSupported(t));if(!type)throw Error('MP4 recording is required for this integration check');
+   const recorder=new MediaRecorder(stream,{mimeType:type});recorder.ondataavailable=e=>parts.push(e.data);const stopped=new Promise(r=>recorder.onstop=r);recorder.start();
+   for(let i=0;i<120;i++){ctx.fillStyle=i%2?'#447744':'#99bbaa';ctx.fillRect(0,0,width,height);ctx.fillStyle='#ffffff';ctx.font='20px sans-serif';ctx.fillText(String(i),10,30);await new Promise(r=>setTimeout(r,100));}
+   recorder.stop();await stopped;stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(parts).arrayBuffer());let binary='';for(const byte of data)binary+=String.fromCharCode(byte);return {width,height,type,data:btoa(binary)};
+  })));
+  const json=async response=>{assert.equal(response.status(),200,await response.text());return response.json();};
+  for(const video of media){
+   const name=video.width>video.height?'landscape.mp4':'portrait.mp4',buffer=Buffer.from(video.data,'base64'),u=await json(await context.request.post(f.base+'/api/library/upload',{headers:{'X-CSQuest-Request':'1'},data:{drive:'boot',name,size:buffer.length}}));
+   await json(await context.request.put(f.base+`/api/library/chunk?id=${u.id}&offset=0`,{headers:{'X-CSQuest-Request':'1','Content-Type':'application/octet-stream'},data:buffer}));await json(await context.request.post(f.base+'/api/library/complete',{headers:{'X-CSQuest-Request':'1'},data:{id:u.id}}));
+  }
+  await page.getByRole('button',{name:'Open boot storage',exact:true}).click();await page.getByRole('button',{name:'Open landscape.mp4',exact:true}).waitFor();
+  const speeds=Array.from({length:12},(_,i)=>(i+1)/4),results=[];
+  for(const name of ['landscape.mp4','portrait.mp4']){
+   await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
+   await page.getByRole('button',{name:'Stop video',exact:true}).click();
+   assert.deepEqual(await page.locator('[data-video-speed] option').evaluateAll(options=>options.map(o=>Number(o.value))),speeds);
+   for(const speed of speeds){await page.locator('[data-video-speed]').selectOption(String(speed));assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),speed);}
+   await page.locator('[data-video-skip]').fill('3');await page.getByRole('button',{name:'Forward 3 seconds',exact:true}).click();assert.ok(Math.abs(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)-3)<.15);
+   await page.getByRole('button',{name:'Back 3 seconds',exact:true}).click();assert.ok(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)<.15);
+   await page.locator('[data-video-skip]').fill('600');await page.getByRole('button',{name:'Forward 600 seconds',exact:true}).click();assert.ok(await page.locator('.library-video-dialog video').evaluate(v=>Math.abs(v.currentTime-v.duration))<.15);await page.getByRole('button',{name:'Back 600 seconds',exact:true}).click();
+   await page.locator('[data-video-skip]').fill('0');await page.locator('[data-video-skip]').blur();assert.equal(await page.locator('[data-video-skip]').inputValue(),'600');await page.locator('[data-video-skip]').fill('3');
+   await page.locator('.library-video-dialog video').focus();await page.keyboard.press('ArrowRight');assert.ok(Math.abs(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)-3)<.15);await page.keyboard.press('ArrowLeft');
+   for(const [width,height] of [[390,844],[360,640],[844,390],[650,360],[568,320]]){
+    await page.setViewportSize({width,height});
+    const geometry=await page.evaluate(()=>{const d=document.querySelector('.library-video-dialog'),v=d.querySelector('video'),controls=d.querySelector('.library-video-controls'),rect=d.getBoundingClientRect(),vr=v.getBoundingClientRect(),cr=controls.getBoundingClientRect();return {fits:rect.left>=0&&rect.right<=innerWidth+1&&rect.top>=0&&rect.bottom<=innerHeight+1,controls:cr.bottom<=innerHeight+1,videoHeight:vr.height,contains:getComputedStyle(v).objectFit,overflow:d.scrollWidth>d.clientWidth+1};});
+    assert.ok(geometry.fits,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.controls,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.videoHeight>50);assert.equal(geometry.contains,'contain');assert.equal(geometry.overflow,false);
+    await page.screenshot({path:`${output}/${name}-${width}x${height}.png`});results.push({name,width,height,...geometry});
+   }
+   await page.getByRole('button',{name:'Fullscreen video',exact:true}).click();await page.waitForFunction(()=>!!document.fullscreenElement);assert.equal(await page.locator('.library-video-player').evaluate(p=>p===document.fullscreenElement),true);await page.screenshot({path:`${output}/${name}-fullscreen.png`});await page.getByRole('button',{name:'Fullscreen video',exact:true}).click();
+   await page.getByRole('button',{name:'Close video',exact:true}).click();
+   await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));assert.equal(await page.locator('[data-video-skip]').inputValue(),'3');assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),3);await page.getByRole('button',{name:'Close video',exact:true}).click();
+  }
+  assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({results,speeds,customSkip:true,fullscreen:true,persisted:true,errors},null,2));console.log('Mobile video checks passed: real portrait/landscape MP4s, five viewports, fullscreen, custom skips, keyboard, persistence, and all twelve speeds.');
+ }catch(error){if(page)await page.screenshot({path:output+'/failure.png'}).catch(()=>{});throw error;}
+ finally{await browser?.close();await cleanup();}
+})().catch(error=>{console.error(error);process.exitCode=1;});
