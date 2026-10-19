@@ -2,6 +2,7 @@ import {escapeHtml as h} from '/shared/engine.js';
 import {account} from './account-client.js';
 import {icon} from './icons.js';
 import {manageLibraryAccess} from './library-access.js';
+import {mountLibraryOrganizer,mountFileExtras,showLibraryUndo,previewLibraryFile} from './library-organizer.js';
 import {playLibraryAudio,pauseSharedAudio,playbackSpeeds as speeds} from './podcasts.js';
 const fileUrl=(id,download=false)=>`/api/library/file?id=${encodeURIComponent(id)}${download?'&download=1':''}`;
 const mediaKind=name=>/\.(mp4|mkv|webm|ogv|mov)$/i.test(name)?'video':/\.(mp3|m4a|aac|ogg|opus|wav|flac)$/i.test(name)?'audio':'file';
@@ -11,16 +12,18 @@ const clock=n=>{n=Math.max(0,Math.floor(n||0));return (n>=3600?Math.floor(n/3600
 let owner=null,drive=null,folder=null,volumes=null,checkedAt=null,entries=[],crumbs=[],allFolders=[],query='',sort='name',grid=false,busy=false,problem='',epoch=0,uploads=[],videoDialog=null,selectedDrive=null,selectedEntry=null,storageExpanded=false,selectedDetails=null,detailsBusy=false,detailsError='',detailsEpoch=0,metadataProbe=null;
 const activeUploads=new Set(),parallelUploads=4;
 let accessRole=null;
-const canWrite=()=>accessRole==='owner'||accessRole==='editor';
+const canWrite=()=>accessRole==='owner';
 const canManage=()=>accessRole==='owner';
 let transferPaint=null;
 let transferRefresh=null;
+let trayExpanded=false,selectedFiles=new Set(),conflictMode='keep',lastUndo=null;
 const root=()=>document.querySelector('[data-library]');
 const storageKey=()=>`csquest:library-uploads:${owner}`;
-function remember(){try{sessionStorage.setItem(storageKey(),JSON.stringify(uploads.filter(u=>u.state!=='done'&&u.state!=='canceled').map(({file,controller,inFlight,startedAt,startedUploaded,...u})=>u)));}catch{}}
+function remember(){try{sessionStorage.setItem(storageKey(),JSON.stringify(uploads.filter(u=>!['done','canceled','skipped'].includes(u.state)).map(({file,controller,inFlight,startedAt,startedUploaded,...u})=>u)));}catch{}}
 const transferBytes=u=>Math.min(u.size,(u.uploaded||0)+(u.inFlight||0));
 function transferStatus(u){
  if(u.state==='done')return 'Uploaded';if(u.state==='queued')return `Queued · position ${uploads.filter(t=>t.state==='queued').indexOf(u)+1} · starts automatically`;
+ if(u.state==='skipped')return 'Skipped · existing file kept';if(u.state==='waiting')return navigator.onLine?'Retrying automatically…':'Waiting for connection…';
  if(u.state!=='uploading')return u.error||u.state;
  const seconds=(performance.now()-u.startedAt)/1000,rate=(transferBytes(u)-(u.startedUploaded||0))/seconds;
  return seconds>1&&rate>0?`Uploading · ${bytes(rate)}/s · ${clock((u.size-transferBytes(u))/rate)} left`:'Uploading';
@@ -33,8 +36,8 @@ function sendChunk(u,chunk){
   xhr.setRequestHeader('X-CSQuest-Request','1');xhr.setRequestHeader('Content-Type','application/octet-stream');
   xhr.upload.onprogress=event=>{u.inFlight=event.loaded;if(!transferPaint)transferPaint=setTimeout(()=>{transferPaint=null;drawTransfers();},200);};
   xhr.onload=()=>{cleanup();let result;try{result=JSON.parse(xhr.responseText);}catch{reject(Error('Unexpected upload response. Retry to resume.'));return;}if(xhr.status>=200&&xhr.status<300)resolve(result);else reject(Object.assign(Error(result.error||'Upload failed. Retry to resume.'),{status:xhr.status}));};
-  xhr.onerror=()=>{cleanup();reject(Error('Connection lost. Retry to resume from the saved position.'));};
-  xhr.ontimeout=()=>{cleanup();reject(Error('Upload timed out. Retry to resume from the saved position.'));};
+  xhr.onerror=()=>{cleanup();reject(Object.assign(Error('Connection lost. Retrying from the saved position.'),{retryable:true}));};
+  xhr.ontimeout=()=>{cleanup();reject(Object.assign(Error('Upload timed out. Retrying from the saved position.'),{retryable:true}));};
   xhr.onabort=()=>{cleanup();reject(new DOMException('Upload paused.','AbortError'));};
   signal.addEventListener('abort',abort,{once:true});
   if(signal.aborted){cleanup();reject(new DOMException('Upload paused.','AbortError'));return;}
@@ -44,7 +47,7 @@ function sendChunk(u,chunk){
 async function api(action,body,{method,signal}={}){
  const timeout=AbortSignal.timeout(60000);
  const response=await fetch('/api/library/'+action,{method:method||(body?'POST':'GET'),headers:{...(body&&method!=='PUT'?{'Content-Type':'application/json'}:{}),'X-CSQuest-Request':'1'},credentials:'same-origin',cache:'no-store',body:body?(method==='PUT'?body:JSON.stringify(body)):undefined,signal:signal?AbortSignal.any([signal,timeout]):timeout});
- let value;try{value=await response.json();}catch{throw Object.assign(Error('The server returned an unexpected response. Refresh and retry.'),{status:response.status});}if(!response.ok)throw Object.assign(Error(value.error||'Library request failed.'),{status:response.status});return value;
+ let value;try{value=await response.json();}catch{throw Object.assign(Error('The server returned an unexpected response. Refresh and retry.'),{status:response.status});}if(!response.ok)throw Object.assign(Error(value.error||'Library request failed.'),{status:response.status});if(value.undoId)showLibraryUndo(api,value.undoId,refresh);return value;
 }
 export function libraryView(){return '<section class="library" data-library aria-label="Private file library"><div class="loading-state" role="status">Opening your library…</div></section>';}
 export function mountLibrary(){
@@ -55,7 +58,8 @@ export function mountLibrary(){
   try{uploads=JSON.parse(sessionStorage.getItem(storageKey())||'[]').map(u=>({...u,state:'paused',error:'Choose this file again to resume.'}));}catch{uploads=[];}
   videoDialog?.close();
  }
- if(!root())return;
+ drawTransfers();
+ if(!root()){if(accessRole===null&&uploads.length&&account.user?.libraryAccess)refresh().then(()=>{processUploads();drawTransfers();});return;}
  draw();refresh();
 }
 function driveCard(v){
@@ -83,7 +87,9 @@ function draw(){
  const picker=el.querySelector('[data-lib-upload]');if(picker)picker.onchange=()=>{const files=[...picker.files];picker.value='';addFiles(files);};
  if(!canWrite()){picker?.closest('label').remove();el.querySelector('[data-lib-action=folder]')?.remove();}
  if(canManage()){const button=document.createElement('button');button.className='btn secondary library-manage';button.dataset.libAction='access';button.textContent='MANAGE ACCESS';el.querySelector('.library-heading').append(button);}
+ mountLibraryOrganizer({api,entries,drive,folder,admin:canManage(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});
  if(accessRole&&accessRole!=='owner'){el.querySelector('.page-eyebrow').textContent='LIBRARY · SHARED WITH YOU';const status=el.querySelector('.library-status span');status.textContent=(canWrite()?'Editor access':'Viewer access')+' · '+status.textContent;}
+ if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel:el.querySelector('[data-lib-details]'),admin:canManage()});
  const details=el.querySelector('.library-storage-details');if(details)details.ontoggle=()=>{if(details.isConnected)storageExpanded=details.open;};
 }
 
@@ -95,8 +101,15 @@ function filesMarkup(){
   return `<article class="library-file ${selectedEntry===e.id?'is-selected':''}" data-lib-entry="${e.id}"><button class="library-file-open ${kind}" data-lib-open="${e.id}" aria-label="Open ${h(e.name)}" title="Open ${h(e.name)}">${icon(glyph)}<span>${h(e.name)}<small>${kind==='folder'?'Folder':e.name.split('.').pop().toUpperCase()+' file'}</small></span></button><span class="library-file-size">${e.kind==='folder'?'—':bytes(e.size)}</span><time class="library-file-date">${new Date(e.updatedAt).toLocaleDateString()}</time><div class="library-file-actions">${e.kind==='file'?`<a class="library-small-button" href="${fileUrl(e.id,true)}" aria-label="Download ${h(e.name)}" title="Download">${icon('download')}</a>`:''}<button class="library-small-button" data-lib-info="${e.id}" aria-label="Details for ${h(e.name)}" title="Details">ⓘ</button>${canWrite()?`<button class="library-small-button" data-lib-move="${e.id}" aria-label="Move ${h(e.name)}" title="Move to folder">${icon('arrow')}</button><button class="library-small-button" data-lib-rename="${e.id}" aria-label="Rename ${h(e.name)}" title="Rename">${icon('pencil')}</button><button class="library-small-button" data-lib-delete="${e.id}" aria-label="Delete ${h(e.name)}" title="Delete">${icon('close')}</button>`:''}</div></article>`;
  }).join('')}</div>`;
 }
-function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${!['done','canceled'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
-function drawTransfers(){const node=root()?.querySelector('[data-lib-transfers]');if(node)node.innerHTML=transfersMarkup();remember();}
+function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${['uploading','queued','waiting'].includes(u.state)?`<button class="library-small-button" data-lib-pause="${i}" aria-label="Pause upload of ${h(u.name)}">Ⅱ</button>`:''}${u.state==='queued'?`<button class="library-small-button" data-lib-prioritize="${i}" aria-label="Prioritize ${h(u.name)}">↑</button>`:''}${!['done','canceled','skipped'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
+function drawTransfers(){
+ const node=root()?.querySelector('[data-lib-transfers]');if(node)node.innerHTML=transfersMarkup();remember();
+ let tray=document.querySelector('[data-library-tray]');
+ if(!owner||owner!==account.user?.id||!uploads.some(u=>!['done','canceled','skipped'].includes(u.state))){tray?.remove();return;}
+ if(!tray){tray=document.createElement('aside');tray.className='library-global-tray';tray.dataset.libraryTray='';tray.setAttribute('aria-label','Upload activity');document.body.append(tray);}
+ const active=uploads.filter(u=>u.state==='uploading').length,queued=uploads.filter(u=>u.state==='queued').length,paused=uploads.filter(u=>['paused','waiting'].includes(u.state)).length;
+ tray.innerHTML=`<button data-lib-action="tray" aria-expanded="${trayExpanded}">${icon('upload')} ${active} uploading · ${queued} queued${paused?' · '+paused+' paused / waiting':''} ${trayExpanded?'▾':'▴'}</button><div data-tray-body ${trayExpanded?'':'hidden'}><div class="button-row"><button class="btn secondary" data-lib-action="pause-all">PAUSE ALL</button><button class="btn secondary" data-lib-action="resume-all">RESUME ALL</button></div>${transfersMarkup()}</div>`;
+}
 function clearDetails(){
  detailsEpoch++;selectedEntry=null;selectedDetails=null;detailsBusy=false;detailsError='';
  if(metadataProbe){clearTimeout(metadataProbe.timer);metadataProbe.element.removeAttribute('src');metadataProbe.element.load();metadataProbe=null;}
@@ -121,9 +134,9 @@ function detailsMarkup(){
   fields.push(['Duration',Number.isFinite(detail.duration)?clock(detail.duration):detail.mediaInfoState==='loading'?'Reading…':'Unavailable in this browser']);
   if(detail.width&&detail.height)fields.push(['Resolution',`${detail.width} × ${detail.height}`]);
  }
- return heading+`<dl class="library-metadata">${fields.map(([label,value])=>`<div><dt>${h(label)}</dt><dd>${h(String(value))}</dd></div>`).join('')}</dl><div class="button-row"><button class="btn secondary" data-lib-action="details-open">${kind==='audio'||kind==='video'?'PLAY FILE':kind==='folder'?'OPEN FOLDER':'OPEN FILE'}</button>${detail.kind==='file'?`<a class="btn secondary" href="${fileUrl(detail.id,true)}">${icon('download')} DOWNLOAD FILE</a>`:''}${canManage()&&detail.kind==='file'?'<button class="btn secondary" data-lib-action="share">SHARE FILE</button>':''}</div>`;
+ return heading+`<dl class="library-metadata">${fields.map(([label,value])=>`<div><dt>${h(label)}</dt><dd>${h(String(value))}</dd></div>`).join('')}</dl><div class="button-row"><button class="btn secondary" data-lib-action="details-open">${kind==='audio'||kind==='video'?'PLAY FILE':kind==='folder'?'OPEN FOLDER':'OPEN FILE'}</button>${detail.kind==='file'?`<a class="btn secondary" href="${fileUrl(detail.id,true)}">${icon('download')} DOWNLOAD FILE</a>`:''}${canManage()?'<button class="btn secondary" data-lib-action="share">SHARE '+(detail.kind==='folder'?'DIRECTORY':'FILE')+'</button>':''}</div>`;
 }
-function renderDetails(){const panel=root()?.querySelector('[data-lib-details]');if(panel){panel.hidden=!selectedEntry;panel.innerHTML=detailsMarkup();}}
+function renderDetails(){const panel=root()?.querySelector('[data-lib-details]');if(panel){panel.hidden=!selectedEntry;panel.innerHTML=detailsMarkup();if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel,admin:canManage()});}}
 async function loadDetails(id){
  const ticket=++detailsEpoch;detailsBusy=true;detailsError='';selectedDetails=null;
  if(metadataProbe){clearTimeout(metadataProbe.timer);metadataProbe.element.removeAttribute('src');metadataProbe.element.load();metadataProbe=null;}
@@ -160,9 +173,9 @@ async function refresh(){
 }
 async function navigate(nextDrive,nextFolder=null){drive=nextDrive;folder=nextFolder;query='';entries=[];crumbs=[];allFolders=[];clearDetails();selectedDrive=nextDrive;await refresh();}
 const tapToOpen=()=>matchMedia('(pointer:coarse)').matches||innerWidth<=650;
-function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(e.kind==='folder')navigate(drive,e.id);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else{const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
+function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(e.kind==='folder')navigate(drive,e.id);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else if(/\.(pdf|png|jpe?g|gif|webp|avif)$/i.test(e.name)){api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});previewLibraryFile(e);}else{api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
 function selectEntry(id){const changed=selectedEntry!==id;selectedEntry=id;root()?.querySelectorAll('[data-lib-entry]').forEach(row=>{const selected=row.dataset.libEntry===id;row.classList.toggle('is-selected',selected);row.querySelector('[data-lib-open]')?.setAttribute('aria-pressed',String(selected));});if(changed||!selectedDetails&&!detailsBusy)loadDetails(id);}
-function matchingTransfer(file,targetDrive,targetFolder){return uploads.find(u=>u.state==='paused'&&u.drive===targetDrive&&u.parent===targetFolder&&u.name===file.name&&u.size===file.size&&(u.lastModified==null||u.lastModified===file.lastModified));}
+function matchingTransfer(file,targetDrive,targetFolder){return uploads.find(u=>u.state==='paused'&&u.drive===targetDrive&&u.parent===targetFolder&&(u.originalName||u.name)===file.name&&u.size===file.size&&(u.lastModified==null||u.lastModified===file.lastModified));}
 function formDialog(title,initial,onSubmit,{deleting=false}={}){
  const dialog=document.createElement('dialog');dialog.className='library-form-dialog';dialog.setAttribute('aria-label',title);
  dialog.innerHTML=`<form><div class="modal-heading"><h2>${h(title)}</h2><button type="button" class="icon-button" data-form-close aria-label="Close">${icon('close')}</button></div>${deleting?`<p>Permanently delete <strong>${h(initial)}</strong>? This cannot be undone.</p>`:`<label>Name<input name="name" value="${h(initial)}" maxlength="200" required autocomplete="off"></label>`}<p role="alert" data-form-error></p><div class="button-row"><button type="button" class="btn secondary" data-form-close>CANCEL</button><button type="submit" class="btn">${deleting?'DELETE':'SAVE'}</button></div></form>`;
@@ -200,13 +213,13 @@ async function addFiles(files){
   for(const [target,size] of needed){
    const volume=volumes.find(v=>v.id===target);
    if(!volume?.online)throw Error(`${volume?.name||target} is unavailable. No uploads were started.`);
-   if(size>volume.available)throw Error(`Upload cannot start: ${bytes(size)} required, but ${volume.name} has ${bytes(volume.available)} available. No files from this selection were started.`);
+   if(size>volume.available&&conflictMode!=='skip')throw Error(`Upload cannot start: ${bytes(size)} required, but ${volume.name} has ${bytes(volume.available)} available. No files from this selection were started.`);
   }
   const fresh=files.filter(file=>!matchingTransfer(file,targetDrive,targetFolder));
   if(fresh.length){
-   const batch=await api('prepare',{drive:targetDrive,parent:targetFolder,files:fresh.map(f=>({name:f.name,size:f.size}))});
+   const batch=await api('prepare',{drive:targetDrive,parent:targetFolder,conflict:conflictMode,files:fresh.map(f=>({name:f.name,size:f.size,path:f.webkitRelativePath||undefined}))});
    if(requestOwner!==owner)return;
-   fresh.forEach((file,i)=>prepared.push({file,name:file.name,size:file.size,lastModified:file.lastModified,drive:targetDrive,parent:targetFolder,uploaded:0,state:'queued',id:batch.uploads[i].id}));
+   fresh.forEach((file,i)=>prepared.push({file,name:batch.uploads[i].name,originalName:file.name,size:file.size,lastModified:file.lastModified,drive:targetDrive,parent:batch.uploads[i].parent||targetFolder,uploaded:0,state:batch.uploads[i].skipped?'skipped':'queued',id:batch.uploads[i].id}));
   }
   problem='';draw();
  }catch(e){if(requestOwner===owner){problem=e.message;draw();}return;}
@@ -234,7 +247,7 @@ async function uploadFile(u,currentOwner){
    try{
     let session;
     if(u.id){try{session=await api('upload?id='+u.id,null,{signal:u.controller.signal});}catch(e){if(e.status!==404)throw e;u.id=null;}}
-    if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');
+    if(u.state==='canceled'||u.state==='paused'||currentOwner!==owner)throw Error('Canceled');
     if(!u.id){session=await api('upload',{drive:u.drive,parent:u.parent,name:u.name,size:u.size},{signal:u.controller.signal});u.id=session.id;}
     for(const check of session.resumeChecks||[]){
      const data=await u.file.slice(check.start,check.start+check.length).arrayBuffer();
@@ -251,7 +264,11 @@ async function uploadFile(u,currentOwner){
      if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');await api('complete',{id:u.id},{signal:u.controller.signal});
     }
     u.state='done';u.uploaded=u.size;
-   }catch(e){if(u.state!=='canceled'){u.state='paused';u.error=e.name==='AbortError'?'Upload paused. Retry to resume.':e.message;}}
+   }catch(e){if(!['canceled','paused'].includes(u.state)){
+    const retryable=e.retryable||e instanceof TypeError||e.name==='TimeoutError'||[408,429,500,502,503,504].includes(e.status);
+    if(retryable&&(u.retryCount||0)<5&&currentOwner===owner){u.state='waiting';u.error='Retrying automatically…';u.retryCount=(u.retryCount||0)+1;setTimeout(()=>{if(u.state==='waiting'&&currentOwner===owner){if(navigator.onLine){u.state='queued';processUploads();}drawTransfers();}},Math.min(30000,1000*2**u.retryCount));}
+    else{u.state='paused';u.error=e.name==='AbortError'?'Upload paused. Retry to resume.':e.message;}
+   }}
    finally{u.inFlight=0;delete u.controller;drawTransfers();}
 }
 async function cancelUpload(u){
@@ -267,17 +284,25 @@ export function playVideo(file){
  const preferencesKey=`csquest:library-video-settings:${owner}`;let skipSeconds=10;
  try{const value=JSON.parse(localStorage.getItem(preferencesKey)||'{}').skipSeconds;if(Number.isInteger(value)&&value>=1&&value<=600)skipSeconds=value;}catch{}
  dialog.innerHTML=`<section class="library-video-player"><header><span class="library-video-cone" aria-hidden="true">${icon('video')}</span><div><small>CSQUEST LIBRARY</small><h2>${h(file.name)}</h2></div><button class="icon-button" data-video-close aria-label="Close video">${icon('close')}</button></header><div class="library-video-stage"><video playsinline preload="metadata" tabindex="0" aria-label="${h(file.name)}" src="${h(file.url||fileUrl(file.id))}"></video></div><p class="library-video-message" role="status" data-video-message>Loading video…</p><div class="library-video-controls"><div class="library-video-timeline"><time data-video-time>00:00 / 00:00</time><input type="range" min="0" max="1" value="0" step=".1" aria-label="Video playback position" data-video-seek></div><div class="library-video-buttons"><button class="library-video-play" data-video-action="play" aria-label="Play video">▶</button><button data-video-action="back" aria-label="Back 10 seconds">−10s</button><button data-video-action="forward" aria-label="Forward 10 seconds">+10s</button><button data-video-action="stop" aria-label="Stop video">■</button><label>Speed<select data-video-speed>${speeds.map(s=>`<option value="${s}" ${s===(saved.rate||1)?'selected':''}>${s}×</option>`).join('')}</select></label><label class="library-video-volume">Volume<input type="range" min="0" max="1" step=".05" value="1" aria-label="Video volume" data-video-volume></label><button data-video-action="mute" aria-label="Mute video">${icon('sound')}</button><button data-video-action="pip" aria-label="Picture in picture">▣</button><button data-video-action="fullscreen" aria-label="Fullscreen video">⛶</button><a href="${h(file.downloadUrl||fileUrl(file.id,true))}" aria-label="Download video">${icon('download')}</a></div><p class="library-video-hints">Space: play/pause · ← →: seek · F: fullscreen · M: mute</p></div></section>`;
- const previous=document.activeElement;document.body.append(dialog);dialog.showModal();const video=dialog.querySelector('video'),player=dialog.querySelector('.library-video-player');let lastSave=0;
+ const previous=document.activeElement;document.body.append(dialog);dialog.showModal();const video=dialog.querySelector('video'),player=dialog.querySelector('.library-video-player');let lastSave=0,bookmarkReady=false;
  const skipLabel=document.createElement('label');skipLabel.className='library-video-skip';skipLabel.innerHTML='Skip (s)<input type="number" min="1" max="600" step="1" inputmode="numeric" aria-label="Skip interval in seconds" data-video-skip>';
  dialog.querySelector('[data-video-action=stop]').after(skipLabel);
  const skipInput=skipLabel.querySelector('input');skipInput.value=skipSeconds;
- function updateSkip(){for(const [name,sign,label] of [['back','−','Back'],['forward','+','Forward']]){const button=dialog.querySelector(`[data-video-action=${name}]`);button.textContent=sign+skipSeconds+'s';button.setAttribute('aria-label',`${label} ${skipSeconds} seconds`);}}
+ function updateSkip(){for(const [name,label] of [['back','Back'],['forward','Forward']]){const button=dialog.querySelector(`[data-video-action=${name}]`);button.innerHTML=icon(name==='back'?'skip-back':'skip-forward')+`<span>${skipSeconds}s</span>`;button.setAttribute('aria-label',`${label} ${skipSeconds} seconds`);}}
  updateSkip();
+ const speedSelect=dialog.querySelector('[data-video-speed]'),speedLabel=speedSelect.closest('label');speedLabel.className='library-video-speed';speedLabel.innerHTML=`Speed<input type="range" min="0.25" max="3" step="0.25" value="${speeds.includes(saved.rate)?saved.rate:1}" data-video-speed aria-label="Video playback speed"><output data-video-speed-value>${speeds.includes(saved.rate)?saved.rate:1}×</output>`;
+ dialog.querySelector('[data-video-action=stop]').innerHTML=icon('player-stop');dialog.querySelector('[data-video-action=pip]').innerHTML=icon('player-pip');dialog.querySelector('[data-video-action=fullscreen]').innerHTML=icon('player-fullscreen');
+ let controlsTimer,keyboardControls=false,wakingControls=false;
+ function showControls(event){if(event?.type==='pointerdown')wakingControls=player.classList.contains('is-controls-hidden');if(event?.type==='keydown')keyboardControls=true;else if(event?.type?.startsWith('pointer')||event?.type==='touchstart')keyboardControls=false;clearTimeout(controlsTimer);player.classList.remove('is-controls-hidden');if(!video.paused&&!video.ended)controlsTimer=setTimeout(()=>{if(!keyboardControls||!player.querySelector('.library-video-controls')?.contains(document.activeElement))player.classList.add('is-controls-hidden');},3000);}
+ for(const event of ['pointermove','pointerdown','touchstart','keydown','focusin'])player.addEventListener(event,showControls,{passive:event!=='keydown'});
+ video.addEventListener('playing',showControls);video.addEventListener('pause',()=>{clearTimeout(controlsTimer);player.classList.remove('is-controls-hidden');});
+ const fullscreenChanged=()=>{const active=!!document.fullscreenElement;dialog.querySelector('[data-video-action=fullscreen]').innerHTML=icon(active?'player-exit-fullscreen':'player-fullscreen');dialog.querySelector('[data-video-action=fullscreen]').setAttribute('aria-label',active?'Exit fullscreen':'Fullscreen video');showControls();};document.addEventListener('fullscreenchange',fullscreenChanged);
+ const bookmarkPromise=account.user?.id&&!file.url?api('bookmark?id='+file.id).catch(()=>null):Promise.resolve(null);
  const message=text=>dialog.querySelector('[data-video-message]').textContent=text;
- function persist(){try{localStorage.setItem(videoKey(file.id),JSON.stringify({time:video.currentTime||0,rate:video.playbackRate}));}catch{}}
+ function persist(){if(!bookmarkReady)return;try{localStorage.setItem(videoKey(file.id),JSON.stringify({time:video.currentTime||0,rate:video.playbackRate}));}catch{}if(account.user?.id&&!file.url)fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:file.id,position:video.currentTime||0,speed:video.playbackRate}),keepalive:true}).catch(()=>{});}
  function update(){
   const duration=Number.isFinite(video.duration)?video.duration:0,seek=dialog.querySelector('[data-video-seek]');seek.max=duration||1;seek.value=video.currentTime||0;seek.setAttribute('aria-valuetext',clock(video.currentTime)+' of '+clock(duration));
-  dialog.querySelector('[data-video-time]').textContent=clock(video.currentTime)+' / '+clock(duration);const play=dialog.querySelector('[data-video-action=play]');play.textContent=video.paused?'▶':'Ⅱ';play.setAttribute('aria-label',video.paused?'Play video':'Pause video');
+  dialog.querySelector('[data-video-time]').textContent=clock(video.currentTime)+' / '+clock(duration);const play=dialog.querySelector('[data-video-action=play]');play.innerHTML=icon(video.paused?'player-play':'player-pause');play.setAttribute('aria-label',video.paused?'Play video':'Pause video');
   if(Date.now()-lastSave>5000){lastSave=Date.now();persist();}
  }
  async function action(name){try{
@@ -290,28 +315,34 @@ export function playVideo(file){
  }catch{message('Playback could not start. Try Play, or download this file to open it in VLC.');}update();}
  dialog.querySelector('[data-video-close]').onclick=()=>dialog.close();dialog.querySelectorAll('[data-video-action]').forEach(b=>b.onclick=()=>action(b.dataset.videoAction));
  dialog.querySelector('[data-video-seek]').oninput=e=>{video.currentTime=Number(e.target.value);};
- dialog.querySelector('[data-video-speed]').onchange=e=>{video.playbackRate=Number(e.target.value);persist();};
+ const setSpeed=e=>{video.playbackRate=Number(e.target.value);dialog.querySelector('[data-video-speed-value]').textContent=video.playbackRate+'×';persist();};dialog.querySelector('[data-video-speed]').oninput=setSpeed;dialog.querySelector('[data-video-speed]').onchange=setSpeed;
  skipInput.oninput=()=>{const value=Number(skipInput.value);if(!skipInput.validity.valid||!Number.isInteger(value)||value<1||value>600)return;skipSeconds=value;updateSkip();if(dialog.querySelector('[data-video-message]').textContent==='Choose a skip interval from 1 to 600 seconds.')message('');try{localStorage.setItem(preferencesKey,JSON.stringify({skipSeconds}));}catch{}};
  skipInput.onchange=()=>{if(!skipInput.validity.valid||!skipInput.value){skipInput.value=skipSeconds;message('Choose a skip interval from 1 to 600 seconds.');}};
  dialog.querySelector('[data-video-volume]').oninput=e=>{video.volume=Number(e.target.value);};
  dialog.querySelector('[data-video-action=pip]').hidden=!document.pictureInPictureEnabled;
- video.addEventListener('loadedmetadata',()=>{video.playbackRate=speeds.includes(saved.rate)?saved.rate:1;if(saved.time&&saved.time<video.duration-2)video.currentTime=saved.time;message('');update();video.play().catch(()=>message('Press Play to start watching.'));});
+ video.addEventListener('loadedmetadata',async()=>{const bookmark=await bookmarkPromise;if(!dialog.isConnected)return;if(bookmark){saved={time:bookmark.position,rate:bookmark.speed};}video.playbackRate=speeds.includes(saved.rate)?saved.rate:1;dialog.querySelector('[data-video-speed]').value=video.playbackRate;dialog.querySelector('[data-video-speed-value]').textContent=video.playbackRate+'×';if(saved.time&&saved.time<video.duration-2)video.currentTime=saved.time;bookmarkReady=true;message('');update();video.play().catch(()=>message('Press Play to start watching.'));});
  video.addEventListener('error',()=>message('This browser cannot play this container or codec. Download the original file and open it in VLC.'));
  video.addEventListener('waiting',()=>message('Buffering…'));video.addEventListener('playing',()=>message(''));
  for(const name of ['timeupdate','play','pause','ended'])video.addEventListener(name,update);
- video.onclick=()=>action('play');video.ondblclick=()=>action('fullscreen');
- dialog.addEventListener('keydown',e=>{if(e.target.closest('input,select,button,a')||e.altKey||e.ctrlKey||e.metaKey)return;const keys={' ':'play',ArrowLeft:'back',ArrowRight:'forward',f:'fullscreen',m:'mute'};if(keys[e.key]){e.preventDefault();action(keys[e.key]);}});
- dialog.addEventListener('close',()=>{persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
+ video.onclick=()=>{if(wakingControls){wakingControls=false;showControls();return;}action('play');};video.ondblclick=()=>action('fullscreen');
+ dialog.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea,a')||e.key===' '&&e.target.closest('button')||e.altKey||e.ctrlKey||e.metaKey)return;const keys={' ':'play',ArrowLeft:'back',ArrowRight:'forward',f:'fullscreen',m:'mute'};if(keys[e.key]){e.preventDefault();action(keys[e.key]);}});
+ dialog.addEventListener('close',()=>{clearTimeout(controlsTimer);document.removeEventListener('fullscreenchange',fullscreenChanged);persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
 }
 document.addEventListener('csquest-audio-start',()=>videoDialog?.querySelector('video')?.pause());
 window.addEventListener('account-status',()=>{if(owner&&account.user?.id!==owner){uploads.forEach(u=>u.controller?.abort());remember();videoDialog?.close();clearDetails();document.querySelectorAll('.library-form-dialog').forEach(d=>d.close());epoch++;owner=null;entries=[];crumbs=[];allFolders=[];volumes=null;checkedAt=null;uploads=[];busy=false;}});
+window.addEventListener('online',()=>{for(const u of uploads)if(u.state==='waiting'){u.state='queued';}processUploads();drawTransfers();});
 document.addEventListener('click',event=>{
- const node=event.target.closest('[data-library]');if(!node)return;
+ const node=event.target.closest('[data-library],[data-library-tray]');if(!node)return;
  const button=event.target.closest('button');if(!button)return;
  const act=button.dataset.libAction;
+ if(act==='tray'){trayExpanded=!trayExpanded;drawTransfers();return;}
+ if(act==='pause-all'){for(const u of uploads)if(['uploading','queued','waiting'].includes(u.state)){u.state='paused';u.error='Paused by you.';u.controller?.abort();}drawTransfers();return;}
+ if(act==='resume-all'){for(const u of uploads)if(u.state==='paused'&&u.file){u.state='queued';u.error='';u.retryCount=0;}processUploads();drawTransfers();return;}
+ if(button.hasAttribute('data-lib-pause')){const u=uploads[Number(button.dataset.libPause)];u.state='paused';u.error='Paused by you.';u.controller?.abort();drawTransfers();return;}
+ if(button.hasAttribute('data-lib-prioritize')){const index=Number(button.dataset.libPrioritize),u=uploads[index];uploads.splice(index,1);uploads.unshift(u);drawTransfers();return;}
  if(act==='refresh'){refresh();return;}
  if(act==='access'){manageLibraryAccess(api);return;}
- if(act==='share'){const item=selectedDetails||entries.find(e=>e.id===selectedEntry);if(canManage()&&item?.kind==='file')manageLibraryAccess(api,item);return;}
+ if(act==='share'){const item=selectedDetails||entries.find(e=>e.id===selectedEntry);if(canManage()&&item)manageLibraryAccess(api,item);return;}
  if(act==='home'){navigate(null);return;}
  if(button.hasAttribute('data-lib-drive')){if(tapToOpen()||event.detail===0)navigate(button.dataset.libDrive);else{selectedDrive=button.dataset.libDrive;root().querySelectorAll('[data-lib-drive]').forEach(card=>{const selected=card.dataset.libDrive===selectedDrive;card.classList.toggle('is-current',selected);card.setAttribute('aria-pressed',String(selected));});}return;}
  if(button.hasAttribute('data-lib-nav-drive')){navigate(button.dataset.libNavDrive);return;}
@@ -327,11 +358,12 @@ document.addEventListener('click',event=>{
  if(button.dataset.libMove){const e=entries.find(e=>e.id===button.dataset.libMove);if(e)moveDialog(e);return;}
  if(button.dataset.libDelete){const e=entries.find(e=>e.id===button.dataset.libDelete);formDialog('Delete '+(e.kind==='folder'?'folder':'file'),e.name,async()=>{await api('delete',{id:e.id});window.dispatchEvent(new CustomEvent('library-file-removed',{detail:e.id}));},{deleting:true});return;}
  if(button.hasAttribute('data-lib-cancel')){cancelUpload(uploads[Number(button.dataset.libCancel)]);return;}
- if(button.hasAttribute('data-lib-retry')){const u=uploads[Number(button.dataset.libRetry)];if(u.file){u.state='queued';processUploads();}else{const picker=document.createElement('input');picker.type='file';picker.onchange=()=>{const f=picker.files[0];if(f&&f.name===u.name&&f.size===u.size&&(u.lastModified==null||f.lastModified===u.lastModified)){u.file=f;u.state='queued';processUploads();}else{u.error='Choose the same original file to resume.';drawTransfers();}};picker.click();}return;}
+ if(button.hasAttribute('data-lib-retry')){const u=uploads[Number(button.dataset.libRetry)];u.retryCount=0;if(u.file){u.state='queued';processUploads();}else{const picker=document.createElement('input');picker.type='file';picker.onchange=()=>{const f=picker.files[0];if(f&&f.name===(u.originalName||u.name)&&f.size===u.size&&(u.lastModified==null||f.lastModified===u.lastModified)){u.file=f;u.state='queued';processUploads();}else{u.error='Choose the same original file to resume.';drawTransfers();}};picker.click();}return;}
  if(button.hasAttribute('data-lib-dismiss')){uploads.splice(Number(button.dataset.libDismiss),1);drawTransfers();}
 });
-document.addEventListener('input',e=>{if(e.target.matches('[data-lib-search]')){query=e.target.value;root().querySelector('[data-lib-files]').innerHTML=filesMarkup();}});
-document.addEventListener('change',e=>{if(e.target.matches('[data-lib-sort]')){sort=e.target.value;root().querySelector('[data-lib-files]').innerHTML=filesMarkup();}});
+function repaintFiles(){root().querySelector('[data-lib-files]').innerHTML=filesMarkup();mountLibraryOrganizer({api,entries,drive,folder,admin:canManage(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});}
+document.addEventListener('input',e=>{if(e.target.matches('[data-lib-search]')){query=e.target.value;repaintFiles();}});
+document.addEventListener('change',e=>{if(e.target.matches('[data-lib-sort]')){sort=e.target.value;repaintFiles();}});
 document.addEventListener('dragover',e=>{if(e.target.closest('.library-explorer')&&drive&&canWrite()){e.preventDefault();e.dataTransfer.dropEffect='copy';}});
 document.addEventListener('drop',e=>{if(e.target.closest('.library-explorer')&&drive&&canWrite()){e.preventDefault();addFiles([...e.dataTransfer.files]);}});
 

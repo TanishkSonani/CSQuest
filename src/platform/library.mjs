@@ -5,12 +5,13 @@ import {readBody,assertSameOrigin} from './accounts.mjs';
 import {transaction} from './database.mjs';
 import {streamLibraryFile,libraryMediaTypes as types} from './library-files.mjs';
 import {createLibraryAccess} from './library-access.mjs';
+import {createLibraryTools,recordLibraryUndo} from './library-tools.mjs';
 import {libraryDrives,inspectDrive,measureLibraryDrive,openLibraryFile,libraryError,CHUNK_BYTES,RESUME_CHECK_BYTES} from './storage.mjs';
 
 const fail=(status,message)=>{throw libraryError(status,message);};
 const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
 const filename=value=>{if(typeof value!=='string'||!value.trim()||value.length>200||/[\x00-\x1f\x7f/\\]/.test(value)||['.','..'].includes(value.trim()))fail(400,'Use a name of 1–200 characters without slashes or control characters.');return value.trim();};
-const publicEntry=e=>({id:e.id,drive:e.drive,parent:e.parent_id,name:e.name,kind:e.kind,size:Number(e.size),uploaded:Number(e.uploaded),status:e.status,createdAt:e.created_at,updatedAt:e.updated_at});
+const publicEntry=e=>({id:e.id,drive:e.drive,parent:e.parent_id,name:e.final_name||e.name,kind:e.kind,size:Number(e.size),uploaded:Number(e.uploaded),status:e.status,createdAt:e.created_at,updatedAt:e.updated_at});
 export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.LIBRARY_OWNER_ID,inspect=inspectDrive}={}){
  let receivingChunks=0;
  const rows=async(db,drive)=>(await db.query('SELECT * FROM csquest_library_entries WHERE drive=$1',[drive])).rows;
@@ -23,6 +24,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
  // A single lock also protects local roots that share one physical filesystem.
  const lock=db=>db.query("SELECT pg_advisory_xact_lock(hashtextextended('csquest:library:storage',0))");
  const sharing=createLibraryAccess({pool,ownerId,drives,inspect,lock});
+ const tools=createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,cleanup,rows,sharing});
  async function measure(db,drive){
   return measureLibraryDrive(drive,drives,(await db.query('SELECT * FROM csquest_library_entries')).rows,inspect);
  }
@@ -42,7 +44,8 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
   }finally{await handle.close();}
  }
  async function cleanup(db,drive,entries){
-  for(const e of entries.filter(e=>e.status==='deleting'||e.status==='uploading'&&new Date(e.expires_at).getTime()<Date.now())){
+  const lookup=new Map(entries.map(e=>[e.id,e])),depth=e=>{let n=0;while(e?.parent_id&&n<100){n++;e=lookup.get(e.parent_id);}return n;};
+  for(const e of entries.filter(e=>e.status==='deleting'||e.status==='uploading'&&new Date(e.expires_at).getTime()<Date.now()).sort((a,b)=>depth(b)-depth(a))){
    if(e.kind==='file')await fs.unlink(path.join(drive.root,e.id)).catch(error=>{if(error.code!=='ENOENT')throw error;});
    await db.query('DELETE FROM csquest_library_entries WHERE id=$1',[e.id]);
   }
@@ -54,6 +57,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    const route=url.pathname.slice('/api/library/'.length);
    if(await sharing.publicRequest({route,req,res,url,send}))return true;
    const role=await sharing.role(pool,actor);
+   if(await tools({route,req,res,url,send,actor,role}))return true;
    const methods={access:['GET','POST'],'access-remove':['POST'],'public-links':['GET','POST'],'public-link-remove':['POST'],storage:['GET'],uploads:['GET'],details:['GET'],list:['GET'],folders:['GET'],folder:['POST'],move:['POST'],prepare:['POST'],upload:['GET','POST'],chunk:['PUT'],complete:['POST'],cancel:['POST'],rename:['POST'],delete:['POST'],file:['GET','HEAD']};
    if(!methods[route])fail(404,'Library action not found.');
    if(!methods[route].includes(req.method))fail(405,'Method not allowed.');
@@ -151,12 +155,34 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     if(route==='prepare'){
      if(!Array.isArray(body.files)||!body.files.length||body.files.length>100)fail(400,'Select between 1 and 100 files at a time.');
      const folder=await parent(db,body.parent,drive.id,ownerId);
-     const files=body.files.map(f=>{if(!f||!Number.isSafeInteger(f.size)||f.size<0)fail(400,'Invalid file size.');return {name:filename(f.name),size:f.size};});
-     const total=files.reduce((sum,f)=>sum+f.size,0),usage=await measure(db,drive);
+     const files=[];let baseDepth=0,ancestor=folder;while(ancestor){baseDepth++;ancestor=(await get(db,ancestor,ownerId)).parent_id;}
+     for(const f of body.files){
+      if(!f||!Number.isSafeInteger(f.size)||f.size<0)fail(400,'Invalid file size.');
+      let destination=folder,name=filename(f.name);const segments=f.path?String(f.path).split('/'):[];
+      if(baseDepth+segments.length>99||segments.some(s=>!s||s==='.'||s==='..'||s.includes('\\')))fail(400,'Invalid directory path.');
+      if(segments.length&&segments.at(-1)!==name)fail(400,'Directory filename does not match.');
+      for(const segment of segments.slice(0,-1)){
+       const label=filename(segment),found=(await db.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND parent_id IS NOT DISTINCT FROM $3::uuid AND lower(name)=lower($4)",[ownerId,drive.id,destination,label])).rows[0];
+       if(found){if(found.kind!=='folder'||found.status!=='ready')fail(409,'A file conflicts with an uploaded directory.');destination=found.id;}else{destination=(await db.query("INSERT INTO csquest_library_entries(id,owner_id,drive,parent_id,name,kind) VALUES($1,$2,$3,$4,$5,'folder') RETURNING id",[randomUUID(),ownerId,drive.id,destination,label])).rows[0].id;}
+      }
+      const existing=(await db.query('SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND parent_id IS NOT DISTINCT FROM $3::uuid AND lower(name)=lower($4)',[ownerId,drive.id,destination,name])).rows[0];
+      let replaceId=null,finalName=null,skip=false;
+      if(existing){
+       if(body.conflict==='skip')skip=true;
+       else if(body.conflict==='keep'){const ext=path.extname(name),stem=name.slice(0,name.length-ext.length);let i=2;do{name=filename(stem.slice(0,170)+` (${i++})`+ext);}while((await db.query('SELECT id FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND parent_id IS NOT DISTINCT FROM $3::uuid AND lower(name)=lower($4)',[ownerId,drive.id,destination,name])).rowCount);}
+       else if(body.conflict==='replace'&&existing.kind==='file'&&existing.status==='ready'){replaceId=existing.id;finalName=existing.name;name='upload-'+randomUUID();}
+       else fail(409,'A file or folder with this name already exists.');
+      }
+      files.push({name,size:f.size,parent:destination,replaceId,finalName,skip});
+     }
+     const total=files.filter(f=>!f.skip).reduce((sum,f)=>sum+f.size,0),usage=await measure(db,drive);
      if(!usage.writable||!Number.isSafeInteger(total)||total>usage.available)fail(507,'The selected files exceed the available library space. No uploads were started.');
      const prepared=[];
      for(const file of files){
-      const entry=(await db.query("INSERT INTO csquest_library_entries(id,owner_id,drive,parent_id,name,kind,size,status,expires_at) VALUES($1,$2,$3,$4,$5,'file',$6,'uploading',now()+interval '24 hours') RETURNING *",[randomUUID(),ownerId,drive.id,folder,file.name,file.size])).rows[0];
+      if(file.skip){prepared.push({skipped:true,name:file.name,size:file.size});continue;}
+      const duplicate=prepared.some(p=>!p.skipped&&p.parent===file.parent&&p.name.toLowerCase()===file.name.toLowerCase());if(duplicate)fail(409,'This selection contains duplicate filenames.');
+      const entry=(await db.query("INSERT INTO csquest_library_entries(id,owner_id,drive,parent_id,name,kind,size,status,expires_at) VALUES($1,$2,$3,$4,$5,'file',$6,'uploading',now()+interval '24 hours') RETURNING *",[randomUUID(),ownerId,drive.id,file.parent,file.name,file.size])).rows[0];
+      await db.query('UPDATE csquest_library_entries SET parent_id=$2,replace_id=$3,final_name=$4 WHERE id=$1',[entry.id,file.parent,file.replaceId,file.finalName]);entry.parent_id=file.parent;entry.final_name=file.finalName;
       prepared.push({...publicEntry(entry),chunkBytes:CHUNK_BYTES});
      }
      return {uploads:prepared};
@@ -195,6 +221,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      if(e.status!=='uploading'||Number(e.uploaded)!==Number(e.size))fail(409,'Upload has not finished.');
      if(Number(e.size)===0){const h=await fs.open(path.join(drive.root,e.id),'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await h?.close();}
      const h=await openLibraryFile(drive,e.id,'r+');try{if((await h.stat()).size<Number(e.size))fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await h.truncate(Number(e.size));await h.sync();}finally{await h.close();}
+     if(e.replace_id){const original=await get(db,e.replace_id,ownerId);if(original.status!=='ready'||original.parent_id!==e.parent_id||original.name!==e.final_name)fail(409,'The original file changed. Cancel and retry this replacement.');await db.query("UPDATE csquest_library_entries SET name=$2,status='deleting' WHERE id=$1",[original.id,'replaced-'+original.id]);await db.query('UPDATE csquest_library_entries SET name=final_name,final_name=NULL,replace_id=NULL WHERE id=$1',[e.id]);for(const table of ['csquest_library_public_links','csquest_lesson_resources','csquest_resource_notes','csquest_library_preferences'])await db.query(`UPDATE ${table} SET entry_id=$1 WHERE entry_id=$2`,[e.id,original.id]);}
      const entry=(await db.query("UPDATE csquest_library_entries SET status='ready',expires_at=NULL,updated_at=now() WHERE id=$1 RETURNING *",[e.id])).rows[0];return publicEntry(entry);
     }
     if(route==='move'){
@@ -205,11 +232,11 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
       const height=Number((await db.query('WITH RECURSIVE subtree AS (SELECT id,0 AS depth FROM csquest_library_entries WHERE id=$1 UNION ALL SELECT e.id,s.depth+1 FROM csquest_library_entries e JOIN subtree s ON e.parent_id=s.id WHERE e.kind=\'folder\' AND s.depth<100) SELECT max(depth) AS height FROM subtree',[e.id])).rows[0].height);
       if(depth+height>=99)fail(400,'Folder nesting limit reached.');
      }
-     const moved=(await db.query('UPDATE csquest_library_entries SET parent_id=$2,updated_at=now() WHERE id=$1 RETURNING *',[e.id,target])).rows[0];return publicEntry(moved);
+     const moved=(await db.query('UPDATE csquest_library_entries SET parent_id=$2,updated_at=now() WHERE id=$1 RETURNING *',[e.id,target])).rows[0];return {...publicEntry(moved),undoId:await recordLibraryUndo(db,actor,[{id:e.id,name:e.name,parent:e.parent_id}],[{id:e.id,name:e.name,parent:target}],'Move '+e.name)};
     }
     if(route==='rename'){
      if(e.status!=='ready')fail(409,'Finish the upload first.');
-     const entry=(await db.query('UPDATE csquest_library_entries SET name=$2,updated_at=now() WHERE id=$1 RETURNING *',[e.id,filename(body.name)])).rows[0];return publicEntry(entry);
+     const entry=(await db.query('UPDATE csquest_library_entries SET name=$2,updated_at=now() WHERE id=$1 RETURNING *',[e.id,filename(body.name)])).rows[0];return {...publicEntry(entry),undoId:await recordLibraryUndo(db,actor,[{id:e.id,name:e.name,parent:e.parent_id}],[{id:e.id,name:entry.name,parent:e.parent_id}],'Rename '+e.name)};
     }
     if(route==='cancel'&&e.status!=='uploading')fail(409,'Upload is no longer active.');
     if(e.kind==='folder'&&(await db.query('SELECT 1 FROM csquest_library_entries WHERE parent_id=$1 LIMIT 1',[e.id])).rowCount)fail(409,'Empty this folder before deleting it.');
@@ -217,7 +244,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     await db.query("UPDATE csquest_library_entries SET status='deleting' WHERE id=$1",[e.id]);return {ok:true};
    });
    // Perform tombstone cleanup in a new transaction after the mark is durable.
-   if(['cancel','delete'].includes(route)){
+   if(['cancel','delete','complete'].includes(route)){
     await transaction(pool,async db=>{const e=(await db.query('SELECT * FROM csquest_library_entries WHERE id=$1 AND owner_id=$2',[body.id,ownerId])).rows[0];if(!e)return;const drive=drives.find(d=>d.id===e.drive);await lock(db);await inspect(drive);await cleanup(db,drive,await rows(db,drive.id));});
    }
    send(200,result);

@@ -8,6 +8,7 @@ import {handleSocial} from './social.mjs';
 import {prepareContent,sendContent} from './http-content.mjs';
 import {createPodcasts} from './podcasts.mjs';
 import {createLibrary} from './library.mjs';
+import {createPlatformTools} from './platform-tools.mjs';
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
@@ -16,6 +17,8 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
  const store=providedStore||createStore();
  const podcasts=createPodcasts({store,directory:podcastDirectory});
  const library=createLibrary({pool:store.pool,...libraryOptions});
+ const ownerId=libraryOptions?.ownerId||process.env.LIBRARY_OWNER_ID;
+ const platform=createPlatformTools({pool:store.pool,ownerId});
  const assets=new Map(),bundles=new Map();
  const server=http.createServer(async(req,res)=>{
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
@@ -28,12 +31,13 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
    }
    const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/');
    if(dynamic){
-    const courses=await store.courses(),accounts=createAccounts({store,courses});
+    const courses=await store.courses(),accounts=createAccounts({store,courses,ownerId,adminId:process.env.PLATFORM_ADMIN_ID||ownerId});
     if(await accounts(req,res,url,send))return;
-    if(!url.pathname.startsWith('/api/social/')&&!url.pathname.startsWith('/api/library/')&&!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
+    if(!['/api/social/','/api/library/','/api/admin/','/api/help/','/api/study/'].some(prefix=>url.pathname.startsWith(prefix))&&!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
     if(url.pathname==='/subjects.js'){sendContent(req,res,await prepareContent(`export const subjects=${JSON.stringify(publicCourses(courses))};\n`),'text/javascript; charset=utf-8',{publicAsset:true});return;}
     let actor;
     try{actor=await accounts.authorize(req);}catch(e){send(e.status||503,{error:e.status===401?'Please log in to your account.':'Account service unavailable',code:e.status===401?'AUTH_REQUIRED':'AUTH_UNAVAILABLE'});return;}
+    if(await platform({req,res,url,send,actor}))return;
     if(await handleSocial({store,actor,req,url,send,courses}))return;
     if(await library({req,res,url,send,actor}))return;
     if(await podcasts({req,res,url,send,courses}))return;

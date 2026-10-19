@@ -6,6 +6,8 @@ const store=createStore();
 try{
  const courses=await store.courses();
  if(!courses.length)throw new Error('No courses imported. Run npm run db:import first.');
+ const adminId=process.env.PLATFORM_ADMIN_ID||process.env.LIBRARY_OWNER_ID;
+ if(adminId)await store.pool.query("UPDATE csquest_users SET role='admin' WHERE id=$1",[adminId]);
  const server=createServer({store});
  server.listen(port,host,()=>console.log(`CS Quest: http://${host}:${port} (PostgreSQL)`));
  const stop=()=>server.close(async()=>{await store.pool.end();process.exit(0);});

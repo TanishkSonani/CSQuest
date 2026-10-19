@@ -3,7 +3,7 @@ import {pipeline} from 'node:stream/promises';
 import {byteRange} from './podcasts.mjs';
 import {openLibraryFile,libraryError} from './storage.mjs';
 
-export const libraryMediaTypes={'.mp4':'video/mp4','.mkv':'video/x-matroska','.webm':'video/webm','.ogv':'video/ogg','.mov':'video/quicktime','.mp3':'audio/mpeg','.m4a':'audio/mp4','.aac':'audio/aac','.ogg':'audio/ogg','.opus':'audio/ogg','.wav':'audio/wav','.flac':'audio/flac'};
+export const libraryMediaTypes={'.pdf':'application/pdf','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.gif':'image/gif','.avif':'image/avif','.mp4':'video/mp4','.mkv':'video/x-matroska','.webm':'video/webm','.ogv':'video/ogg','.mov':'video/quicktime','.mp3':'audio/mpeg','.m4a':'audio/mp4','.aac':'audio/aac','.ogg':'audio/ogg','.opus':'audio/ogg','.wav':'audio/wav','.flac':'audio/flac'};
 export async function streamLibraryFile({req,res,url,entry,drive,inspect}){
  await inspect(drive);
  const file=await openLibraryFile(drive,entry.id);

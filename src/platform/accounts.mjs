@@ -1,6 +1,7 @@
 import {randomBytes,randomUUID,createHash,scrypt as derive,timingSafeEqual} from 'node:crypto';
 import {promisify} from 'node:util';
 import {avatarIds} from '../../packages/learning/avatars.js';
+import {userPermissions,adminIdentity} from './permissions.mjs';
 const scrypt=promisify(derive),digest=value=>createHash('sha256').update(value).digest('hex');
 const fail=(status,message,code)=>{throw Object.assign(new Error(message),{status,code});};
 const passwordValid=value=>typeof value==='string'&&value.length>=15&&value.length<=128;
@@ -31,7 +32,7 @@ export function assertSameOrigin(req){
  const origin=req.headers.origin,expectedOrigin=`${(req.headers['x-forwarded-proto']||(req.socket.encrypted?'https':'http')).split(',')[0].trim()}://${req.headers.host}`;
  if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==expectedOrigin)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
 }
-export function createAccounts({store,courses}){
+export function createAccounts({store,courses,adminId=adminIdentity(),ownerId=process.env.LIBRARY_OWNER_ID}){
  const keys=new Set(['csquest-subject','csquest-theme','csquest-preferences',...courses.flatMap(c=>[c.storageKey,'csquest-drafts-'+c.id])]);
  const publicUser=user=>({id:user.id,username:user.username,displayName:user.displayName,avatar:user.avatar,createdAt:user.createdAt,lastLoginAt:user.lastLoginAt});
  const snapshot=user=>({user:publicUser(user),data:user.data,revision:user.revision,updatedAt:user.updatedAt});
@@ -105,11 +106,13 @@ export function createAccounts({store,courses}){
       user.password=await hashPassword(body.newPassword);db.sessions=db.sessions.filter(s=>s.userId!==user.id);startSession(db,user,res,body.remember===true);return {ok:true};
      }
      if(route==='recovery-code'){const recoveryCode=randomBytes(18).toString('hex');user.recoveryHash=digest(recoveryCode);return {recoveryCode};}
-     if(route==='delete'){if(body.username!==user.username)fail(400,'Type your username to confirm deletion.');db.users=db.users.filter(u=>u.id!==user.id);}
+     if(route==='delete'){if(user.id===adminId)fail(409,'The configured platform administrator manages the Library and cannot delete this account.');if(body.username!==user.username)fail(400,'Type your username to confirm deletion.');db.users=db.users.filter(u=>u.id!==user.id);}
      db.sessions=db.sessions.filter(s=>s.userId!==user.id);clearCookie(res);return {ok:true};
     }
     fail(404,'Account action not found.');
-   },{username:['register','login','recover'].includes(route)?usernameOf(body.username):undefined,sessionHash:digest(tokenOf(req)),readOnly:!write,scoreLearning:route==='data'&&write&&body.source!=='backup',courses});send(200,result);
+   },{username:['register','login','recover'].includes(route)?usernameOf(body.username):undefined,sessionHash:digest(tokenOf(req)),readOnly:!write,scoreLearning:route==='data'&&write&&body.source!=='backup',courses});
+   if(result.user){const stored=(await store.pool.query('SELECT role FROM csquest_users WHERE id=$1',[result.user.id])).rows[0];Object.assign(result.user,await userPermissions(store.pool,{...result.user,role:stored?.role},{adminId,ownerId}));}
+   send(200,result);
   }catch(e){if(['23001','23503'].includes(e.code)&&e.constraint==='csquest_library_entries_owner_id_fkey'){res.removeHeader('Set-Cookie');send(409,{error:'Empty your private Library, including pending uploads and folders, before deleting this account.'});}else{if(!e.status)console.error('Account operation failed:',e.code||e.name,e.constraint||'');send(e.status||500,{error:e.status?e.message:'Account storage is unavailable. Your browser copy has been kept.',...(e.code==='AUTH_REQUIRED'?{code:e.code}:{})});}}
   return true;
  };

@@ -27,8 +27,8 @@ const fs=require('node:fs/promises');
   for(const name of ['landscape.mp4','portrait.mp4']){
    await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
    await page.getByRole('button',{name:'Stop video',exact:true}).click();
-   assert.deepEqual(await page.locator('[data-video-speed] option').evaluateAll(options=>options.map(o=>Number(o.value))),speeds);
-   for(const speed of speeds){await page.locator('[data-video-speed]').selectOption(String(speed));assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),speed);}
+   assert.equal(await page.locator('[data-video-speed]').getAttribute('step'),'0.25');
+   for(const speed of speeds){await page.locator('[data-video-speed]').evaluate((e,value)=>{e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));},String(speed));assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),speed);}
    await page.locator('[data-video-skip]').fill('3');await page.getByRole('button',{name:'Forward 3 seconds',exact:true}).click();assert.ok(Math.abs(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)-3)<.15);
    await page.getByRole('button',{name:'Back 3 seconds',exact:true}).click();assert.ok(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)<.15);
    await page.locator('[data-video-skip]').fill('600');await page.getByRole('button',{name:'Forward 600 seconds',exact:true}).click();assert.ok(await page.locator('.library-video-dialog video').evaluate(v=>Math.abs(v.currentTime-v.duration))<.15);await page.getByRole('button',{name:'Back 600 seconds',exact:true}).click();
@@ -40,7 +40,19 @@ const fs=require('node:fs/promises');
     assert.ok(geometry.fits,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.controls,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.videoHeight>50);assert.equal(geometry.contains,'contain');assert.equal(geometry.overflow,false);
     await page.screenshot({path:`${output}/${name}-${width}x${height}.png`});results.push({name,width,height,...geometry});
    }
-   await page.getByRole('button',{name:'Fullscreen video',exact:true}).click();await page.waitForFunction(()=>!!document.fullscreenElement);assert.equal(await page.locator('.library-video-player').evaluate(p=>p===document.fullscreenElement),true);await page.screenshot({path:`${output}/${name}-fullscreen.png`});await page.getByRole('button',{name:'Fullscreen video',exact:true}).click();
+   await page.setViewportSize({width:390,height:844});
+   await page.getByRole('button',{name:'Stop video',exact:true}).click();
+   await page.locator('[data-video-speed]').evaluate(e=>{e.value=1;e.dispatchEvent(new Event('input',{bubbles:true}));});
+   await page.getByRole('button',{name:'Play video',exact:true}).click();
+   await page.waitForFunction(()=>document.querySelector('.library-video-player').classList.contains('is-controls-hidden'));
+   await page.locator('.library-video-dialog video').dispatchEvent('pointerdown');
+   await page.locator('.library-video-dialog video').dispatchEvent('click');
+   assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.paused),false,'First tap reveals controls without pausing');
+   assert.equal(await page.locator('.library-video-player').evaluate(e=>e.classList.contains('is-controls-hidden')),false);
+   await page.getByRole('button',{name:'Pause video',exact:true}).click();await page.waitForTimeout(3200);
+   assert.equal(await page.locator('.library-video-player').evaluate(e=>e.classList.contains('is-controls-hidden')),false,'Controls stay visible while paused');
+   await page.locator('[data-video-speed]').evaluate(e=>{e.value=3;e.dispatchEvent(new Event('input',{bubbles:true}));});
+   await page.getByRole('button',{name:'Fullscreen video',exact:true}).click();await page.waitForFunction(()=>!!document.fullscreenElement);assert.equal(await page.locator('.library-video-player').evaluate(p=>p===document.fullscreenElement),true);await page.screenshot({path:`${output}/${name}-fullscreen.png`});await page.locator('[data-video-action=fullscreen]').click();
    await page.getByRole('button',{name:'Close video',exact:true}).click();
    await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));assert.equal(await page.locator('[data-video-skip]').inputValue(),'3');assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),3);await page.getByRole('button',{name:'Close video',exact:true}).click();
   }

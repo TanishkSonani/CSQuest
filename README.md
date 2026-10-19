@@ -42,7 +42,7 @@ Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The s
 
 ## Deploying on an Oracle Cloud VM
 
-**Library** adds a private, File Explorer inspired file manager with separate **35 GiB Boot** and **125 GiB Block** allocations, live storage refresh, upload preflight, resumable transfers, downloads, shared podcast audio playback, and a VLC-inspired video player. See [Library setup and usage](docs/LIBRARY.md) for owner configuration, production provisioning, codec support, and backups.
+**Library** adds a File Explorer inspired file manager with separate **35 GiB Boot** and **125 GiB Block** allocations (displayed in GB), live storage refresh, upload preflight, four parallel transfers with a global queue, directories, previews, ZIP downloads, favorites, notes, lesson resources and playback bookmarks. Admins manage Library files and learner visibility; signup creates Learners. Public links share files or directory trees. **Help** tracks personal issue reports and **Admin** manages users and report responses. The shared podcast audio dock and VLC-inspired video player support 0.25×–3× playback. See [Library setup and usage](docs/LIBRARY.md) for permissions, provisioning, Undo limits, codec support and backups.
 
 Run the Node.js application as a persistent systemd service behind Nginx, with PostgreSQL on the VM or a separate database host. The repository includes service and proxy templates in `deploy/`. See [Oracle Cloud deployment](docs/ORACLE_CLOUD.md) for Ubuntu VM setup, HTTPS, data transfer, updates and backups.
 

@@ -1,4 +1,12 @@
 const paths={
+ 'player-play':'<path d="m8 5 11 7-11 7z" fill="currentColor" stroke="none"/>',
+ 'player-pause':'<rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor" stroke="none"/><rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor" stroke="none"/>',
+ 'player-stop':'<rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor" stroke="none"/>',
+ 'skip-back':'<path d="m10 5-7 7 7 7m10-14-7 7 7 7"/>',
+ 'skip-forward':'<path d="m4 5 7 7-7 7m10-14 7 7-7 7"/>',
+ 'player-fullscreen':'<path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/>',
+ 'player-exit-fullscreen':'<path d="M3 9h6V3m6 0v6h6M9 21v-6H3m12 6v-6h6"/>',
+ 'player-pip':'<rect x="2" y="4" width="20" height="16" rx="2"/><rect x="12" y="11" width="8" height="7" rx="1" fill="currentColor" stroke="none"/>',
  folder:'<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"/>',
  drive:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 13h18m-5 3h2"/><circle cx="7" cy="16" r="1"/>',
  refresh:'<path d="M20 7v5h-5M4 17v-5h5m-4-4a8 8 0 0 1 13-3l2 3M4 16l2 3a8 8 0 0 0 13-3"/>',

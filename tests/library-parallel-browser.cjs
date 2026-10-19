@@ -16,19 +16,19 @@ const fs=require('node:fs/promises');
   });
   const files=Array.from({length:6},(_,i)=>({name:`parallel-${i}.bin`,mimeType:'application/octet-stream',buffer:Buffer.alloc(128*1024,i+1)}));
   await page.locator('[data-lib-upload]').setInputFiles(files);
-  await page.waitForFunction(()=>document.querySelectorAll('.library-transfer').length===6&&[...document.querySelectorAll('.library-transfer small')].filter(n=>n.textContent.startsWith('Uploading')).length===4);
+  await page.waitForFunction(()=>document.querySelectorAll('[data-library] .library-transfer').length===6&&[...document.querySelectorAll('[data-library] .library-transfer small')].filter(n=>n.textContent.startsWith('Uploading')).length===4);
   for(let attempt=0;started<4&&attempt<200;attempt++)await page.waitForTimeout(50);
   assert.equal(started,4);assert.equal(maximum,4);
-  assert.equal(await page.getByText('Queued · position 1 · starts automatically',{exact:false}).count(),1);
+  assert.equal(await page.locator('[data-library]').getByText('Queued · position 1 · starts automatically',{exact:false}).count(),1);
   releaseFirst();for(let attempt=0;started<5&&attempt<200;attempt++)await page.waitForTimeout(50);
   assert.equal(started,5,'A queued file starts after one finishes, while the other three remain active');
   // Add a new selection while the first batch is still active.
   await page.locator('[data-lib-upload]').setInputFiles({name:'added-while-uploading.bin',mimeType:'application/octet-stream',buffer:Buffer.from('new selection')});
-  await page.waitForFunction(()=>document.querySelectorAll('.library-transfer').length===7);assert.equal(started,5);
+  await page.waitForFunction(()=>document.querySelectorAll('[data-library] .library-transfer').length===7);assert.equal(started,5);
   await fs.mkdir('qa-results/library-parallel',{recursive:true});await page.screenshot({path:'qa-results/library-parallel/desktop-active.png',fullPage:true});
   await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'qa-results/library-parallel/mobile-active.png',fullPage:true});
   release();await page.getByRole('button',{name:'Open added-while-uploading.bin',exact:true}).waitFor();
-  await page.waitForFunction(()=>[...document.querySelectorAll('.library-transfer small')].every(n=>n.textContent.startsWith('Uploaded')));
+  await page.waitForFunction(()=>[...document.querySelectorAll('[data-library] .library-transfer small')].every(n=>n.textContent.startsWith('Uploaded')));
   assert.ok(maximum<=4);assert.equal(started,7);
   const entries=(await f.db.store.pool.query("SELECT * FROM csquest_library_entries WHERE kind='file' ORDER BY name")).rows;assert.equal(entries.length,7);assert.ok(entries.every(e=>e.status==='ready'));
   for(const file of files){const row=entries.find(e=>e.name===file.name),response=await context.request.get(f.base+'/api/library/file?id='+row.id+'&download=1');assert.deepEqual(await response.body(),file.buffer);}

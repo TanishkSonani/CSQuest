@@ -48,7 +48,7 @@ function ensureDock(){
  root.innerHTML=`<div class="podcast-now"><span class="podcast-art" aria-hidden="true">${icon('sound')}</span><div><small data-podcast-now-course></small><a href="#podcasts" data-podcast-open-transcript data-podcast-now-title>Section podcast</a><small data-podcast-now-status role="status"></small><small data-podcast-now-chapter></small></div></div><div class="podcast-player-middle"><div class="podcast-transport">${control('previous','Previous episode',glyph('previous'))}${control('back','Back 15 seconds',glyph('back'),'podcast-skip')}${control('toggle','Play podcast',glyph('play'),'podcast-play')}${control('forward','Forward 15 seconds',glyph('forward'),'podcast-skip')}${control('next','Next episode',glyph('next'))}</div><div class="podcast-seek"><time data-podcast-elapsed>0:00</time><input type="range" min="0" max="1" value="0" step="0.1" aria-label="Podcast playback position" data-podcast-seek><time data-podcast-duration>0:00</time></div></div><div class="podcast-player-tools"><label>Speed<select data-podcast-speed aria-label="Playback speed">${playbackSpeeds.map(value=>`<option value="${value}" ${value===rate?'selected':''}>${value}×</option>`).join('')}</select></label><a class="text-button podcast-transcript-link" href="#podcasts" data-podcast-open-transcript aria-label="Open live transcript">${icon('book')}<span>TRANSCRIPT</span></a>${control('close','Close podcast player',icon('close'))}</div>`;
  document.body.append(root);playerSizeObserver.observe(root);return root;
 }
-function savePosition(){if(!detail||!owner)return;try{localStorage.setItem(bookmarkKey(),JSON.stringify({id:detail.id,time:audio.currentTime||0,rate}));}catch{}}
+function savePosition(){if(!detail||!owner||pendingSeek!==null)return;try{localStorage.setItem(bookmarkKey(),JSON.stringify({id:detail.id,time:audio.currentTime||0,rate}));}catch{}if(detail.library&&!detail.publicShare&&account.user?.id)fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:detail.entryId,position:audio.currentTime||0,speed:rate}),keepalive:true}).catch(()=>{});}
 function restorePosition(){try{return JSON.parse(localStorage.getItem(bookmarkKey())||'null');}catch{return null;}}
 function updateDock(){
  const dock=ensureDock();dock.hidden=!detail;document.documentElement.classList.toggle('has-podcast-player',!!detail);
@@ -121,8 +121,10 @@ export function pauseSharedAudio(){audio.pause();}
 export async function playLibraryAudio(file,driveName){
  const nextOwner=account.user?.id||(file.publicShare?'public':null);if(!nextOwner)return;
  owner=nextOwner;audio.pause();savePosition();loadEpoch++;error='';queue=[];
- detail={library:true,publicShare:!!file.publicShare,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
- const saved=restorePosition();rate=playbackSpeeds.includes(saved?.rate)?saved.rate:rate;
+ detail={library:true,entryId:file.id,publicShare:!!file.publicShare,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
+ let saved=restorePosition();const ticket=loadEpoch;
+ if(!file.publicShare&&account.user?.id)try{const response=await fetch('/api/library/bookmark?id='+encodeURIComponent(file.id));if(response.ok){const remote=await response.json();saved={time:remote.position,rate:remote.speed};}}catch{}
+ if(ticket!==loadEpoch)return;rate=playbackSpeeds.includes(saved?.rate)?saved.rate:rate;
  document.dispatchEvent(new CustomEvent('csquest-audio-start'));
  audio.src=file.url||'/api/library/file?id='+encodeURIComponent(file.id);audio.playbackRate=rate;pendingSeek=saved?.time||0;
  updateDock();renderLibrary();

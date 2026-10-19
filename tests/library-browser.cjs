@@ -57,8 +57,8 @@ const {randomUUID}=require('node:crypto');
   await open('Open Block storage');await page.getByText('A little room for everything.',{exact:true}).waitFor();
   await page.locator('[data-lib-upload]').setInputFiles({name:'sample.webm',mimeType:'video/webm',buffer:Buffer.from(videoBase64,'base64')});await page.getByRole('button',{name:'Open sample.webm',exact:true}).waitFor();await open('Open sample.webm');
   await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
-  assert.deepEqual(await page.locator('[data-video-speed] option').evaluateAll(opts=>opts.map(o=>Number(o.value))),Array.from({length:12},(_,i)=>(i+1)/4));
-  for(const speed of ['0.5','0.75','1','1.5','2','3']){await page.locator('[data-video-speed]').selectOption(speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
+  assert.equal(await page.locator('[data-video-speed]').getAttribute('type'),'range');assert.equal(await page.locator('[data-video-speed]').getAttribute('min'),'0.25');assert.equal(await page.locator('[data-video-speed]').getAttribute('max'),'3');
+  for(const speed of ['0.5','0.75','1','1.5','2','3']){await page.locator('[data-video-speed]').evaluate((e,value)=>{e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));},speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
   await page.getByRole('button',{name:'Stop video',exact:true}).click();assert.equal(await page.locator('video').evaluate(v=>v.currentTime),0);
   await page.screenshot({path:'qa-results/library/video-light.png'});await page.getByRole('button',{name:'Close video',exact:true}).click();
   await page.evaluate(()=>{document.documentElement.dataset.theme='dark';localStorage.setItem('csquest-theme','dark');});
