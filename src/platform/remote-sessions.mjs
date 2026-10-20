@@ -48,23 +48,24 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
     if(req.headers.origin!==expectedOrigin(req))fail(403,'Invalid session origin.');
     const accounts=createAccounts({store,courses:[],ownerId});actor=await accounts.authorize(req);admin(actor);s=await session(req,actor,match[1]||match[2]);
     if(match[1]&&s.kind!=='firefox'||match[2]&&s.kind!=='terminal')fail(404,'Session not found.');
-    await broker.request('POST','/session/'+s.id+'/attach',identity(req,actor));claimed=true;
+    const claim=await broker.request('POST','/session/'+s.id+'/attach',identity(req,actor));claimed=true;
     // A closed tab during asynchronous authorization must not leave an attached process.
     if(socket.destroyed){await stop(req,actor,s.id).catch(()=>{});return;}
     wss.handleUpgrade(req,socket,head,ws=>{
-     clients.add(ws);let alive=true,closed=false,backend,queue=[],queued=0;
-     const cleanup=()=>{if(closed)return;closed=true;clearInterval(timer);clients.delete(ws);backend?.destroy?.();if(backend instanceof WebSocket)backend.terminate();if(ws.readyState!==WebSocket.CLOSED)ws.terminate();stop(req,actor,s.id).catch(()=>{});};
+     clients.add(ws);let lastPong=Date.now(),lastAuthorized=Date.now(),checking=false,closed=false,backend,queue=[],queued=0;
+     const connection={...identity(req,actor),connectionId:claim.connectionId};
+     const cleanup=(reason='Connection closed',terminate=false)=>{if(closed)return;closed=true;clearInterval(timer);clients.delete(ws);console.info('VM session transport:',reason,s.kind,s.id);backend?.destroy?.();if(backend instanceof WebSocket)backend.terminate();if(ws.readyState!==WebSocket.CLOSED)ws.terminate();(terminate?stop(req,actor,s.id):broker.request('POST','/session/'+s.id+'/detach',connection)).catch(()=>{});};
      // Slow clients should slow the producer, rather than build a frame backlog
      // and terminate the whole browser when the old 2 MB threshold is reached.
      const send=data=>{if(ws.readyState!==WebSocket.OPEN)return;ws.send(data,{binary:true},error=>{if(error){cleanup();return;}if(ws.bufferedAmount<128*1024)backend?.resume?.();});if(ws.bufferedAmount>512*1024)backend?.pause?.();};
-     const timer=setInterval(async()=>{if(!alive){cleanup();return;}alive=false;ws.ping();try{const current=await createAccounts({store,courses:[],ownerId}).authorize(req);admin(current);await broker.request('POST','/session/'+s.id+'/lease',identity(req,current));}catch{cleanup();}},10000);timer.unref();
-     ws.on('pong',()=>alive=true);ws.on('close',cleanup);ws.on('error',cleanup);
+     const timer=setInterval(async()=>{if(closed||checking)return;if(Date.now()-lastPong>45000){cleanup('Heartbeat timed out');return;}checking=true;try{if(ws.readyState===WebSocket.OPEN)ws.ping();const current=await createAccounts({store,courses:[],ownerId}).authorize(req);admin(current);await broker.request('POST','/session/'+s.id+'/connection-lease',{...identity(req,current),connectionId:claim.connectionId});lastAuthorized=Date.now();}catch(e){if([401,403,404,410].includes(e.status))cleanup('Access/session check rejected ('+e.status+')',true);else if(e.status===409)cleanup('Connection replaced');else if(Date.now()-lastAuthorized>45000)cleanup('Session verification unavailable');}finally{checking=false;}},10000);timer.unref();
+     ws.on('pong',()=>lastPong=Date.now());ws.on('close',()=>cleanup('Client disconnected'));ws.on('error',()=>cleanup('Client transport error'));
      if(s.kind==='firefox'){
-      backend=net.connect(s.port,'127.0.0.1');backend.setNoDelay(true);backend.on('data',send);backend.on('close',cleanup);backend.on('error',cleanup);
+      backend=net.connect(s.port,'127.0.0.1');backend.setNoDelay(true);backend.on('data',send);backend.on('close',()=>cleanup('Browser process disconnected',true));backend.on('error',()=>cleanup('Browser transport failed',true));
       ws.on('message',data=>{if(backend.writableLength>2*1024**2)cleanup();else backend.write(data);});
      }else{
       backend=new WebSocket('ws://127.0.0.1:'+s.port+url.pathname,'tty',{perMessageDeflate:false,maxPayload:256*1024});
-      backend.on('open',()=>{for(const data of queue)backend.send(data,{binary:true});queue=[];queued=0;});backend.on('message',send);backend.on('close',cleanup);backend.on('error',cleanup);
+      backend.on('open',()=>{for(const data of queue)backend.send(data,{binary:true});queue=[];queued=0;});backend.on('message',send);backend.on('close',()=>cleanup('Terminal process disconnected',true));backend.on('error',()=>cleanup('Terminal transport failed',true));
       ws.on('message',data=>{if(backend.readyState===WebSocket.OPEN){if(backend.bufferedAmount>2*1024**2)cleanup();else backend.send(data,{binary:true});}else{queued+=data.length;if(queued>256*1024)cleanup();else queue.push(data);}});
      }
     });

@@ -26,7 +26,7 @@ async function start(body){
    s.password=randomBytes(6).toString('base64');const file=directory+'/password';const child=execFile('/usr/bin/tigervncpasswd',['-f'],{encoding:'buffer'});const output=[];child.stdout.on('data',c=>output.push(c));await new Promise((resolve,reject)=>{child.on('error',reject);child.on('exit',code=>code?reject(Error('Cannot initialize VNC authentication')):resolve());child.stdin.end(s.password+'\n');});await fs.writeFile(file,Buffer.concat(output),{mode:0o600});await fs.chown(file,identities.get(user),identities.get(user));
   }
   const home='/var/lib/csquest-remote/'+(s.kind==='firefox'?'firefox':'terminal');
-  const properties={User:user,Group:user,BindsTo:'csquest-remote.service',After:'csquest-remote.service',Slice:'csquest-remote.slice',MemoryMax:s.kind==='firefox'?'3G':'1G',TasksMax:s.kind==='firefox'?'1024':'256',NoNewPrivileges:'yes',PrivateTmp:'yes',TemporaryFileSystem:'/tmp:rw,size=128M /var/tmp:rw,size=32M',ProtectSystem:'strict',ProtectHome:'yes',ProtectProc:'invisible',ProcSubset:'all',RestrictSUIDSGID:'yes',RestrictRealtime:'yes',ProtectKernelTunables:'yes',ProtectKernelModules:'yes',ProtectControlGroups:'yes',UMask:'0077',KillMode:'control-group',TimeoutStopSec:'5s',RuntimeMaxSec:'4h',ReadWritePaths:home+' '+directory,InaccessiblePaths:'-/opt/csquest -/srv/csquest-data -/var/lib/csquest-library -/var/lib/postgresql',WorkingDirectory:home};
+  const properties={User:user,Group:user,BindsTo:'csquest-remote.service',After:'csquest-remote.service',Slice:'csquest-remote.slice',MemoryMax:s.kind==='firefox'?'4G':'1G',TasksMax:s.kind==='firefox'?'2048':'256',NoNewPrivileges:'yes',PrivateTmp:'yes',TemporaryFileSystem:'/tmp:rw,size=512M /var/tmp:rw,size=128M',ProtectSystem:'strict',ProtectHome:'yes',ProtectProc:'invisible',ProcSubset:'all',RestrictSUIDSGID:'yes',RestrictRealtime:'yes',ProtectKernelTunables:'yes',ProtectKernelModules:'yes',ProtectControlGroups:'yes',UMask:'0077',KillMode:'control-group',TimeoutStopSec:'5s',RuntimeMaxSec:'4h',ReadWritePaths:home+' '+directory,InaccessiblePaths:'-/opt/csquest -/srv/csquest-data -/var/lib/csquest-library -/var/lib/postgresql',WorkingDirectory:home};
   const args=['--quiet','--collect','--unit='+s.unit,...Object.entries(properties).flatMap(([k,v])=>['--property='+k+'='+v]),'--setenv=HOME='+home,'--setenv=LANG=C.UTF-8','/usr/bin/python3','/opt/csquest-remote/worker.py',s.kind,id,String(s.port)];
   await run('/usr/bin/systemd-run',args,{timeout:10000});
   let ready=false;for(let attempt=0;attempt<60;attempt++){if(s.stopping)break;ready=await new Promise(resolve=>{const c=net.connect(s.port,'127.0.0.1');c.setTimeout(100);c.once('connect',()=>{c.destroy();resolve(true);});c.once('error',()=>resolve(false));c.once('timeout',()=>{c.destroy();resolve(false);});});if(ready)break;await new Promise(r=>setTimeout(r,150));}
@@ -38,14 +38,16 @@ const server=http.createServer(async(req,res)=>{const send=(status,value)=>{res.
  if(req.method!=='POST')fail(405,'Method not allowed.');let n=0,chunks=[];for await(const c of req){n+=c.length;if(n>4096)fail(413,'Request too large.');chunks.push(c);}const body=JSON.parse(Buffer.concat(chunks).toString());
  if(req.url==='/start'){const s=await start(body);send(200,{id:s.id,kind:s.kind,password:s.password});return;}
  if(req.url==='/maintenance'){if(sessions.size)fail(409,'Remote applications are still running.');maintenance=true;send(200,{ok:true});return;}
- const match=req.url.match(/^\/session\/([a-f0-9-]{36})\/(inspect|attach|lease|stop)$/),s=match&&sessions.get(match[1]);if(!s||s.actorId!==body.actorId||s.binding!==body.binding)fail(404,'Session not found.');
+ const match=req.url.match(/^\/session\/([a-f0-9-]{36})\/(inspect|attach|lease|stop|detach|connection-lease)$/),s=match&&sessions.get(match[1]);if(!s||s.actorId!==body.actorId||s.binding!==body.binding)fail(404,'Session not found.');
  if(match[2]==='stop'){await stop(s);send(200,{ok:true});return;}
  if(s.stopping)fail(410,'Session has closed.');
- if(match[2]==='attach'){if(s.attached)fail(409,'This session is already connected in another tab.');s.attached=true;}
- s.lastSeen=Date.now();send(200,{id:s.id,kind:s.kind,port:s.port});
+ if(match[2]==='detach'){if(body.connectionId===s.connectionId){s.attached=false;s.connectionId=null;}s.lastSeen=Date.now();send(200,{ok:true});return;}
+ if(match[2]==='attach'){if(s.attached&&Date.now()-s.connectionSeen<20000)fail(409,'This session is already connected in another tab.');s.attached=true;s.connectionId=randomUUID();s.connectionSeen=Date.now();}
+ if(match[2]==='connection-lease'){if(!s.attached||body.connectionId!==s.connectionId)fail(409,'This connection has been replaced.');s.connectionSeen=Date.now();}
+ s.lastSeen=Date.now();send(200,{id:s.id,kind:s.kind,port:s.port,...(match[2]==='attach'?{connectionId:s.connectionId}:{})});
  }catch(e){if(!e.status)console.error('Remote broker operation failed:',e.code||e.name);send(e.status||503,{error:e.status?e.message:'Remote application could not start. Please retry.'});}});
 server.requestTimeout=5000;server.headersTimeout=5000;
 await fs.mkdir('/run/csquest-remote',{recursive:true,mode:0o711});await fs.chown('/run/csquest-remote',0,group);await fs.chmod('/run/csquest-remote',0o711);await fs.unlink(socket).catch(e=>{if(e.code!=='ENOENT')throw e;});
 await new Promise(r=>server.listen(socket,r));await fs.chown(socket,0,group);await fs.chmod(socket,0o660);
-setInterval(()=>{for(const s of sessions.values())if(Date.now()-s.lastSeen>30000)stop(s).catch(()=>{});},5000).unref();
+setInterval(()=>{for(const s of sessions.values())if(Date.now()-s.lastSeen>90000)stop(s).catch(()=>{});},5000).unref();
 async function shutdown(){server.close();await Promise.all([...sessions.values()].map(stop));process.exit();}process.on('SIGTERM',shutdown);process.on('SIGINT',shutdown);

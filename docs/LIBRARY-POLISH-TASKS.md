@@ -99,3 +99,5 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Buffering/loading spinner and compact dismissible status popups over the video, preserving the video layout.
 
 - [x] Remote browser RCA: fix task/thread exhaustion, CPU throttling and slow-client relay termination; install H.264 codecs, bound display workload, and replace visible legacy app URLs with clean workspace routes. Validate native public-site browsing plus local auth/desktop/mobile regression checks.
+
+- [x] Set Firefox to 4 GB RAM; recover its VM session across transient platform/transport restarts, with connection-token protection and specific authorization/session errors.
