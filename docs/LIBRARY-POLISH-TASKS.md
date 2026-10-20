@@ -92,3 +92,4 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Separate unprivileged identities, bounded homes, CPU/RAM limits and metadata/private-service restrictions.
 - [x] Nginx WebSocket setup and idle-time Firefox security updates.
 - [x] Local desktop/mobile Playwright and actual VM preview GUI/terminal/cleanup checks.
+- [x] Linux learning terminal: start at the VM filesystem root, user/hostname prompt, persistent practice folders and readable host system information; verified through real ttyd sessions.

@@ -29,5 +29,5 @@ $('#remote-auth').onsubmit=async event=>{event.preventDefault();const button=eve
 try{
  if(!['firefox','terminal'].includes(kind))throw Error('Open Firefox or Terminal from Library → Boot storage.');
  const status=await api('status');if(!status.enabled||!status.ready)throw Error(status.error||'Remote sessions are not ready.');
- $('#remote-heading').textContent='Launch '+label;$('#remote-message').textContent=kind==='firefox'?'Browse using Firefox on your VM.':'Open an interactive Linux shell on your VM. This account has no sudo privileges.';$('#remote-auth').hidden=false;$('#remote-state').textContent='Ready';$('#remote-password').focus();
+ $('#remote-heading').textContent='Launch '+label;$('#remote-message').textContent=kind==='firefox'?'Browse using Firefox on your VM.':'Explore the VM filesystem with Bash. Start at /, or use ~/linux-practice for saved exercises. This Linux account has no sudo privileges.';$('#remote-auth').hidden=false;$('#remote-state').textContent='Ready';$('#remote-password').focus();
 }catch(e){$('#remote-heading').textContent='Session unavailable';$('#remote-message').textContent=e.message;$('#remote-state').textContent='Not running';}

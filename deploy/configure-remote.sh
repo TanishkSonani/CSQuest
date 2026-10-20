@@ -62,6 +62,7 @@ apparmor_parser -r /etc/apparmor.d/csquest-remote-firefox
 fi
 install -m 644 "$base/remote-broker.mjs" /opt/csquest-remote/broker.mjs
 install -m 644 "$base/remote-worker.py" /opt/csquest-remote/worker.py
+install -m 644 "$base/terminal.bashrc" /opt/csquest-remote/terminal.bashrc
 install -m 755 "$base/remote-network.sh" /opt/csquest-remote/network.sh
 install -m 755 "$base/update-remote-firefox.sh" /usr/local/sbin/csquest-update-firefox
 install -m 644 "$base/csquest-remote.service" "$base/csquest-remote.slice" "$base/csquest-remote-network.service" /etc/systemd/system/

@@ -5,10 +5,26 @@ if kind not in ('firefox', 'terminal') or not port.isdigit():
     raise SystemExit(1)
 home = os.environ['HOME']
 if kind == 'terminal':
+    # Start in the real VM filesystem, rather than an apparently empty home.
+    # Keep exercises persistent without overwriting anything the user created.
+    practice = os.path.join(home, 'linux-practice')
+    for directory in ('documents', 'scripts', 'notes'):
+        os.makedirs(os.path.join(practice, directory), exist_ok=True)
+    try:
+        with open(os.path.join(practice, 'README.txt'), 'x') as guide:
+            guide.write('Linux practice on your VM\n\n'
+                'Try: pwd; ls /; cd ~/linux-practice; ls\n'
+                'mkdir exercises\ncd exercises\n'
+                'printf "Hello Linux\\n" > hello.txt\ncat hello.txt\n'
+                'Use man ls, help cd, and Tab for completion.\n'
+                'Your home persists between sessions. System directories are read-only.\n')
+    except FileExistsError:
+        pass
+    os.chdir('/')
     os.execv('/usr/bin/ttyd', ['ttyd', '-i', '127.0.0.1', '-p', port,
         '-W', '-m', '1', '-o', '-b', '/api/remote/view/' + session_id + '/terminal',
         '-t', 'disableLeaveAlert=true', '-t', 'titleFixed=CSQuest VM Terminal',
-        '/bin/bash', '--noprofile', '--norc', '-i'])
+        '/bin/bash', '--noprofile', '--rcfile', '/opt/csquest-remote/terminal.bashrc', '-i'])
 display = ':' + str(int(port) + 100)
 environment = dict(os.environ, DISPLAY=display, MOZ_ENABLE_WAYLAND='0')
 children = []
