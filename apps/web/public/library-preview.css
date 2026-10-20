@@ -16,8 +16,20 @@
 .library-video-player .library-video-stage video{width:100%;height:100%;max-height:100%;object-fit:contain}
 .library-video-player>header,.library-video-player .library-video-controls{position:absolute;left:0;right:0;z-index:2;background:color-mix(in srgb,var(--surface) 92%,transparent);transition:opacity .2s,visibility .2s}
 .library-video-player>header{top:0}.library-video-player .library-video-controls{bottom:0;max-height:calc(100% - 60px);overflow:auto;overscroll-behavior:contain}
-.library-video-player .library-video-message{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);z-index:3;text-align:center;pointer-events:none}
+.library-video-player .library-video-message{position:absolute;left:50%;right:auto;top:76px;transform:translateX(-50%);z-index:4;width:min(420px,calc(100% - 32px));max-height:40dvh;overflow:auto;margin:0;display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 28px #0005;font-size:12px;line-height:1.5;pointer-events:auto}
+.library-video-player .library-video-message[hidden]{display:none}.library-video-message>span{flex:1;min-width:0;overflow-wrap:anywhere}
+.video-notice-dismiss{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px;padding:4px;border:0;border-radius:6px;background:var(--surface-alt);color:var(--ink);cursor:pointer}.video-notice-dismiss .icon{width:18px;height:18px}.video-notice-dismiss:focus-visible{outline:2px solid var(--green-dark);outline-offset:2px}
 .library-video-player.is-controls-hidden>header,.library-video-player.is-controls-hidden .library-video-controls{opacity:0;visibility:hidden;pointer-events:none}
 .library-video-player:fullscreen{height:100dvh}
+.library-video-seek{position:relative;flex:1;min-width:0;height:24px;display:flex;align-items:center}
+.video-buffer-track{position:absolute;left:8px;right:8px;top:10px;height:4px;border-radius:4px;overflow:hidden;background:var(--border);pointer-events:none}
+.video-buffer-ranges span,.video-buffer-played{position:absolute;top:0;bottom:0}.video-buffer-ranges span{background:color-mix(in srgb,var(--ink) 32%,var(--surface))}.video-buffer-played{left:0;background:var(--green-dark)}
+.library-video-seek input[type=range]{appearance:none;-webkit-appearance:none;position:relative;z-index:1;display:block;width:100%;height:24px;margin:0;padding:0;background:transparent;cursor:pointer}
+.library-video-seek input::-webkit-slider-runnable-track{height:4px;background:transparent}.library-video-seek input::-moz-range-track{height:4px;background:transparent}.library-video-seek input::-moz-range-progress{background:transparent}
+.library-video-seek input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;border:0;border-radius:50%;background:var(--green-dark)}.library-video-seek input::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--green-dark)}
+.video-loading-indicator{position:absolute;inset:0;z-index:1;display:grid;place-items:center;pointer-events:none}.video-loading-indicator[hidden]{display:none}
+.video-loading-spinner{width:46px;height:46px;border:4px solid #ffffff45;border-top-color:#fff;border-radius:50%;box-shadow:0 0 14px #0004;animation:video-buffer-spin .8s linear infinite}
+@keyframes video-buffer-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.video-loading-spinner{animation:none}}
 @media(max-width:650px){.library-preview-dialog{width:100vw;height:100dvh;max-height:100dvh;border-radius:0;border:0;margin:0}.library-preview-dialog header{padding:8px;gap:6px}.library-preview-dialog header strong{font-size:12px}.preview-file-icon{display:none}.preview-tool{min-width:32px;height:32px}.preview-toolbar{padding:6px;gap:5px}.preview-divider{margin:0 2px}.preview-text-tool{padding:0 7px;font-size:10px}.library-preview-viewer>footer{font-size:9px;padding:8px;flex-wrap:wrap}.library-preview-viewer>footer>span:last-child{display:none}}
 @media(orientation:landscape) and (max-height:500px){.library-preview-dialog header{padding:5px 10px}.library-preview-dialog header small{display:none}.preview-toolbar{padding:4px}.library-preview-viewer>footer{padding:4px 10px}.preview-center{padding:8px 12px}}

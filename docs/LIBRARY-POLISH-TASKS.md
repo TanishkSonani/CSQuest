@@ -95,3 +95,5 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Linux learning terminal: start at the VM filesystem root, user/hostname prompt, persistent practice folders and readable host system information; verified through real ttyd sessions.
 
 - [x] Video title/controls overlay a fixed video stage in normal/fullscreen views; keyboard shortcuts preserve hidden controls. Playwright verified real portrait/landscape MP4s at six desktop/mobile sizes.
+- [x] Browser-managed video preloading with Data Saver support and actual buffered ranges on the seek timeline. No duplicate fetch or whole-file JavaScript allocation.
+- [x] Buffering/loading spinner and compact dismissible status popups over the video, preserving the video layout.

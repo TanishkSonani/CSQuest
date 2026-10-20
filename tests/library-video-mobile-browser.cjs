@@ -18,14 +18,25 @@ const fs=require('node:fs/promises');
    recorder.stop();await stopped;stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(parts).arrayBuffer());let binary='';for(const byte of data)binary+=String.fromCharCode(byte);return {width,height,type,data:btoa(binary)};
   })));
   const json=async response=>{assert.equal(response.status(),200,await response.text());return response.json();};
-  for(const video of media){
-   const name=video.width>video.height?'landscape.mp4':'portrait.mp4',buffer=Buffer.from(video.data,'base64'),u=await json(await context.request.post(f.base+'/api/library/upload',{headers:{'X-CSQuest-Request':'1'},data:{drive:'boot',name,size:buffer.length}}));
+  for(const video of [...media,{name:'unplayable.mp4',data:Buffer.from('Invalid video for playback error QA').toString('base64')}]){
+   const name=video.name||(video.width>video.height?'landscape.mp4':'portrait.mp4'),buffer=Buffer.from(video.data,'base64'),u=await json(await context.request.post(f.base+'/api/library/upload',{headers:{'X-CSQuest-Request':'1'},data:{drive:'boot',name,size:buffer.length}}));
    await json(await context.request.put(f.base+`/api/library/chunk?id=${u.id}&offset=0`,{headers:{'X-CSQuest-Request':'1','Content-Type':'application/octet-stream'},data:buffer}));await json(await context.request.post(f.base+'/api/library/complete',{headers:{'X-CSQuest-Request':'1'},data:{id:u.id}}));
   }
   await page.getByRole('button',{name:'Open boot storage',exact:true}).click();await page.getByRole('button',{name:'Open landscape.mp4',exact:true}).waitFor();
   const speeds=Array.from({length:12},(_,i)=>(i+1)/4),results=[];
   for(const name of ['landscape.mp4','portrait.mp4']){
-   await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
+   // Exercise preloading even when browser autoplay policy blocks playback.
+   await page.evaluate(()=>{window.qaNativePlay=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){return Promise.reject(new DOMException('Autoplay blocked for QA','NotAllowedError'));};Object.defineProperty(navigator,'connection',{configurable:true,value:Object.assign(new EventTarget(),{saveData:false})});});
+   let releaseMedia;const mediaReady=new Promise(resolve=>releaseMedia=resolve),delayMedia=async route=>{await mediaReady;await route.continue();};await page.route('**/api/library/file?*',delayMedia);
+   await page.getByRole('button',{name:'Open '+name,exact:true}).click();
+   try{await page.locator('.video-loading-indicator').waitFor({state:'visible'});assert.equal(await page.locator('[data-video-message]').textContent(),'','Loading uses a spinner instead of buffering text');await page.screenshot({path:`${output}/${name}-loading-spinner.png`});}finally{releaseMedia();}
+   await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));await page.unroute('**/api/library/file?*',delayMedia);
+   await page.waitForFunction(()=>{const v=document.querySelector('.library-video-dialog video');return v?.buffered.length&&v.buffered.end(0)>2&&document.querySelector('.video-buffer-ranges span');});
+   assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.paused&&v.preload==='auto'),true,'Video buffers ahead even before playback starts');
+   assert.ok(await page.locator('.video-buffer-ranges span').first().evaluate(e=>e.getBoundingClientRect().width>0),'Timeline displays actually buffered media');
+   await page.locator('.video-loading-indicator').waitFor({state:'hidden'});
+   await page.evaluate(()=>{navigator.connection.saveData=true;navigator.connection.dispatchEvent(new Event('change'));});assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.preload),'metadata','Respect Data Saver changes');
+   await page.evaluate(()=>{navigator.connection.saveData=false;navigator.connection.dispatchEvent(new Event('change'));HTMLMediaElement.prototype.play=window.qaNativePlay;});assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.preload),'auto');
    await page.getByRole('button',{name:'Stop video',exact:true}).click();
    assert.equal(await page.locator('[data-video-speed]').getAttribute('step'),'0.25');
    for(const speed of speeds){await page.locator('[data-video-speed]').evaluate((e,value)=>{e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));},String(speed));assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),speed);}
@@ -71,7 +82,9 @@ const fs=require('node:fs/promises');
    await page.getByRole('button',{name:'Close video',exact:true}).click();
    await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));assert.equal(await page.locator('[data-video-skip]').inputValue(),'3');assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),3);await page.getByRole('button',{name:'Close video',exact:true}).click();
   }
-  assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({results,speeds,customSkip:true,fullscreen:true,persisted:true,stableOverlayBounds:true,hiddenKeyboardControls:true,errors},null,2));console.log('Mobile video checks passed: real portrait/landscape MP4s, six desktop/mobile viewports, stable overlays, hidden keyboard seeking/fullscreen, custom skips, persistence, and all twelve speeds.');
+  await page.getByRole('button',{name:'Open unplayable.mp4',exact:true}).click();await page.locator('[data-video-message]').waitFor({state:'visible'});assert.match(await page.locator('[data-video-message]>span').textContent(),/cannot play/);await page.locator('.video-loading-indicator').waitFor({state:'hidden'});
+  const notice=await page.locator('[data-video-message]').boundingBox(),beforeDismiss=await page.locator('.library-video-stage').boundingBox();assert.ok(notice.width<=420&&notice.x>=0&&notice.x+notice.width<=390);await page.screenshot({path:output+'/playback-error-popup.png'});await page.getByRole('button',{name:'Dismiss video message',exact:true}).click();assert.equal(await page.locator('[data-video-message]').isVisible(),false);assert.deepEqual(await page.locator('.library-video-stage').boundingBox(),beforeDismiss);await page.getByRole('button',{name:'Close video',exact:true}).click();
+  assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({results,speeds,customSkip:true,fullscreen:true,persisted:true,stableOverlayBounds:true,hiddenKeyboardControls:true,prebufferBeforePlayback:true,dataSaver:true,loadingSpinner:true,dismissiblePopup:true,errors},null,2));console.log('Video checks passed: MP4 prebuffering, Data Saver, loading spinner, dismissible playback errors, six desktop/mobile viewports, stable overlays, keyboard shortcuts and all twelve speeds.');
  }catch(error){if(page)await page.screenshot({path:output+'/failure.png'}).catch(()=>{});throw error;}
  finally{await browser?.close();await cleanup();}
 })().catch(error=>{console.error(error.message.split('\n')[0]);console.error(error.stack?.split('\n').find(line=>line.includes('library-video-mobile-browser.cjs'))?.trim()||'');process.exitCode=1;});
