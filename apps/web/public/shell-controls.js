@@ -1,4 +1,4 @@
-import {account} from './account-client.js';
+import {account,signOut} from './account-client.js';
 import {icon} from './icons.js';
 const key=()=>`csquest:sidebar:${account.user?.id||'guest'}`;
 let previousPage=null;
@@ -10,6 +10,7 @@ export function mountShellControls({library=false}={}){
   if(previousPage&&previousPage!=='library')try{sessionStorage.setItem(returnKey(),previousPage);}catch{}
   let target='learn';try{target=sessionStorage.getItem(returnKey())||target;}catch{}
   if(!/^(subjects|learn|practice|errors|podcasts|roadmap|progress|social|help|account|settings|admin|admin-reports)$/.test(target))target='learn';
+  if(account.user?.libraryOnly){const logout=document.createElement('button');logout.className='library-workspace-back';logout.textContent='Sign out';logout.onclick=()=>signOut();document.querySelector('#main')?.prepend(logout);return;}
   const back=document.createElement('a');back.href='#'+target;back.className='library-workspace-back';back.setAttribute('aria-label','Back to previous page');back.innerHTML=icon('back')+'<span>Back</span>';document.querySelector('#main')?.prepend(back);
  }
  previousPage=library?'library':current;

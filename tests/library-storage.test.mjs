@@ -12,7 +12,7 @@ test('storage diagnostic reads actual disks without deleting expired uploads and
  const upload=await f.ok(await f.req('upload',{drive:'boot',name:'diagnostic-partial.bin',size:8}));await f.ok(await f.req(`chunk?id=${upload.id}&offset=0`,Buffer.from('data'),{method:'PUT'}));
  await f.db.store.pool.query("UPDATE csquest_library_entries SET expires_at=now()-interval '1 minute' WHERE id=$1",[upload.id]);
  const connection=new URL(f.db.store.pool.options.connectionString),schema=f.db.store.pool.options.options.match(/search_path=(\w+)/)[1];connection.searchParams.set('options','-c search_path='+schema);
- const env={...process.env,DATABASE_URL:connection.href,NODE_ENV:'development',LIBRARY_BOOT_ROOT:f.drives[0].root,LIBRARY_BLOCK_ROOT:f.drives[1].root};
+ const env={...process.env,LIBRARY_OBJECT_BUCKET:'',DATABASE_URL:connection.href,NODE_ENV:'development',LIBRARY_BOOT_ROOT:f.drives[0].root,LIBRARY_BLOCK_ROOT:f.drives[1].root};
  const result=await run(process.execPath,['scripts/library-storage.mjs'],{env,windowsHide:true});const diagnostic=JSON.parse(result.stdout);
  assert.equal(diagnostic.sharedFilesystem,true);assert.equal(diagnostic.drives.length,2);
  assert.deepEqual(diagnostic.drives.map(d=>d.quota),[35*1024**3,125*1024**3]);

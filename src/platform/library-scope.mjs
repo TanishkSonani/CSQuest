@@ -10,7 +10,19 @@ export async function libraryScope(db,actor,ownerId){
  return {ids:new Set(entries.map(e=>e.id)),roots:new Set(roots),drives:new Set(scopes.map(s=>s.drive)),scopes};
 }
 export function assertLibraryScope(scope,id){if(scope&&!scope.ids.has(id))throw Object.assign(Error('This location is outside your Library access.'),{status:404});}
+export async function libraryWriteScope(db,actor,ownerId){
+ const user=(await db.query('SELECT role FROM csquest_users WHERE id=$1',[actor.id])).rows[0];
+ if(actor.id===ownerId||isPlatformAdmin({...actor,role:user?.role}))return null;
+ const grant=(await db.query('SELECT level,scopes,can_write FROM csquest_library_access WHERE owner_id=$1 AND user_id=$2',[ownerId,actor.id])).rows[0];
+ if(grant?.level==='full'&&grant.can_write)return null;
+ const scopes=(grant?.scopes||[]).filter(s=>s.canWrite===true),roots=scopes.filter(s=>s.entryId).map(s=>s.entryId),drives=scopes.filter(s=>!s.entryId).map(s=>s.drive);
+ const entries=(await db.query("WITH RECURSIVE writable AS (SELECT id FROM csquest_library_entries WHERE owner_id=$1 AND (id=ANY($2::uuid[]) OR drive=ANY($3::text[]) AND parent_id IS NULL) UNION SELECT e.id FROM csquest_library_entries e JOIN writable w ON e.parent_id=w.id WHERE e.owner_id=$1) SELECT id FROM writable",[ownerId,roots,drives])).rows;
+ return {ids:new Set(entries.map(e=>e.id)),drives:new Set(drives)};
+}
+export const canWriteLocation=(scope,drive,parent)=>!scope||(parent?scope.ids.has(parent):scope.drives.has(drive));
+export function assertLocationWrite(scope,drive,parent){if(!canWriteLocation(scope,drive,parent))throw Object.assign(Error('You do not have write access to this location.'),{status:403});}
+export function assertEntryWrite(scope,entry){assertLocationWrite(scope,entry.drive,entry.parent_id??entry.parent);if(scope&&!scope.ids.has(entry.id))throw Object.assign(Error('You do not have write access to this item.'),{status:403});}
 export async function validateLibraryScopes(db,ownerId,scopes){
  if(!Array.isArray(scopes)||!scopes.length||scopes.length>100)throw Object.assign(Error('Select at least one drive or directory for limited access.'),{status:400});
- const result=[];for(const s of scopes){if(!s||!['boot','block'].includes(s.drive)||s.entryId&&!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(s.entryId))throw Object.assign(Error('Invalid Library location.'),{status:400});if(s.entryId&&!(await db.query("SELECT id FROM csquest_library_entries WHERE id=$1 AND owner_id=$2 AND drive=$3 AND kind='folder' AND status='ready'",[s.entryId,ownerId,s.drive])).rowCount)throw Object.assign(Error('Choose an existing directory.'),{status:400});result.push({drive:s.drive,entryId:s.entryId||null});}return result;
+ const result=[];for(const s of scopes){if(!s||!['boot','block','object'].includes(s.drive)||s.entryId&&!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(s.entryId))throw Object.assign(Error('Invalid Library location.'),{status:400});if(s.entryId&&!(await db.query("SELECT id FROM csquest_library_entries WHERE id=$1 AND owner_id=$2 AND drive=$3 AND kind='folder' AND status='ready'",[s.entryId,ownerId,s.drive])).rowCount)throw Object.assign(Error('Choose an existing directory.'),{status:400});result.push({drive:s.drive,entryId:s.entryId||null,canWrite:s.canWrite===true});}return result;
 }

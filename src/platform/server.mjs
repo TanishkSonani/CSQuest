@@ -11,7 +11,7 @@ import {createLibrary} from './library.mjs';
 import {createPlatformTools} from './platform-tools.mjs';
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.wasm':'application/wasm','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
 const publicCourses=courses=>courses.map(({sourceFolder,builder,...course})=>course);
 export function createServer({store:providedStore,podcastDirectory,libraryOptions}={}){
  const store=providedStore||createStore();
@@ -37,6 +37,7 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
     if(url.pathname==='/subjects.js'){sendContent(req,res,await prepareContent(`export const subjects=${JSON.stringify(publicCourses(courses))};\n`),'text/javascript; charset=utf-8',{publicAsset:true});return;}
     let actor;
     try{actor=await accounts.authorize(req);}catch(e){send(e.status||503,{error:e.status===401?'Please log in to your account.':'Account service unavailable',code:e.status===401?'AUTH_REQUIRED':'AUTH_UNAVAILABLE'});return;}
+    if(actor.account_type==='library'&&actor.role!=='admin'&&actor.id!==ownerId&&!url.pathname.startsWith('/api/library/')&&!url.pathname.startsWith('/api/help/')&&url.pathname!=='/api/study/notes'){send(403,{error:'This account has Library access only.'});return;}
     if(await platform({req,res,url,send,actor}))return;
     if(await handleSocial({store,actor,req,url,send,courses}))return;
     if(await library({req,res,url,send,actor}))return;
@@ -74,7 +75,9 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
    }
    if(!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
    let file;
-   if(url.pathname.startsWith('/shared/')||url.pathname==='/packages/learning/instructional-notes.js'){
+   if(url.pathname.startsWith('/vendor/pdfjs/')){
+    const relative=url.pathname.slice('/vendor/pdfjs/'.length);if(!/^(build\/pdf(?:\.worker)?\.mjs|(?:cmaps|standard_fonts|wasm)\/[A-Za-z0-9_.-]+)$/.test(relative)){send(404,{error:'Not available'});return;}file=path.join(root,'node_modules','pdfjs-dist',relative);
+   }else if(url.pathname.startsWith('/shared/')||url.pathname==='/packages/learning/instructional-notes.js'){
     const match=url.pathname.replace('/packages/learning/','/shared/').match(/^\/shared\/(instructional-notes|teaching-models|toc-models|compiler-models|engine|worked-examples|experience|activity|lesson-journey|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');

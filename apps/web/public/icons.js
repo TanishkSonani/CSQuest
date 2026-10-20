@@ -1,4 +1,5 @@
 const paths={
+ image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 17 6-6 4 4 3-3 5 5"/>',
  users:'<circle cx="9" cy="7" r="4"/><path d="M2 21v-3a7 7 0 0 1 14 0v3m1-18a4 4 0 0 1 0 8m3 10v-3a7 7 0 0 0-3-5"/>',
  back:'<path d="m10 5-7 7 7 7m-7-7h18"/>',
  'player-play':'<path d="m8 5 11 7-11 7z" fill="currentColor" stroke="none"/>',

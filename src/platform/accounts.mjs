@@ -111,7 +111,7 @@ export function createAccounts({store,courses,adminId=adminIdentity(),ownerId=pr
     }
     fail(404,'Account action not found.');
    },{username:['register','login','recover'].includes(route)?usernameOf(body.username):undefined,sessionHash:digest(tokenOf(req)),readOnly:!write,deletingAccount:route==='delete'&&write,adminId,scoreLearning:route==='data'&&write&&body.source!=='backup',courses});
-   if(result.user){const stored=(await store.pool.query('SELECT role FROM csquest_users WHERE id=$1',[result.user.id])).rows[0];Object.assign(result.user,await userPermissions(store.pool,{...result.user,role:stored?.role},{adminId,ownerId}));}
+   if(result.user){const stored=(await store.pool.query('SELECT role,account_type FROM csquest_users WHERE id=$1',[result.user.id])).rows[0];Object.assign(result.user,await userPermissions(store.pool,{...result.user,role:stored?.role,account_type:stored?.account_type},{adminId,ownerId}));}
    send(200,result);
   }catch(e){if(['23001','23503'].includes(e.code)&&e.constraint==='csquest_library_entries_owner_id_fkey'){res.removeHeader('Set-Cookie');send(409,{error:'Empty your private Library, including pending uploads and folders, before deleting this account.'});}else{if(!e.status)console.error('Account operation failed:',e.code||e.name,e.constraint||'');send(e.status||500,{error:e.status?e.message:'Account storage is unavailable. Your browser copy has been kept.',...(e.code==='AUTH_REQUIRED'?{code:e.code}:{})});}}
   return true;

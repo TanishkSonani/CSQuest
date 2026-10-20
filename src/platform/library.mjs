@@ -1,4 +1,7 @@
-import {libraryScope,assertLibraryScope} from './library-scope.mjs';
+import {writeObjectChunk,completeObjectUpload,OBJECT_PART_BYTES} from './object-upload.mjs';
+import {syncObjectInventory} from './object-inventory.mjs';
+import {refreshDriveSettings,handleDriveSettings} from './library-drive-settings.mjs';
+import {libraryScope,assertLibraryScope,libraryWriteScope,assertLocationWrite,assertEntryWrite,canWriteLocation} from './library-scope.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {randomUUID,createHash} from 'node:crypto';
@@ -14,6 +17,7 @@ const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}
 const filename=value=>{if(typeof value!=='string'||!value.trim()||value.length>200||/[\x00-\x1f\x7f/\\]/.test(value)||['.','..'].includes(value.trim()))fail(400,'Use a name of 1–200 characters without slashes or control characters.');return value.trim();};
 const publicEntry=e=>({id:e.id,drive:e.drive,parent:e.parent_id,name:e.final_name||e.name,kind:e.kind,size:Number(e.size),uploaded:Number(e.uploaded),status:e.status,createdAt:e.created_at,updatedAt:e.updated_at});
 export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.LIBRARY_OWNER_ID,inspect=inspectDrive}={}){
+ for(const drive of drives.filter(d=>d.kind==='object'))drive.objectStore.setKeyResolver?.(async id=>(await pool.query("SELECT object_key FROM csquest_library_entries WHERE id=$1 AND owner_id=$2 AND drive='object'",[id,ownerId])).rows[0]?.object_key);
  let receivingChunks=0;
  const rows=async(db,drive)=>(await db.query('SELECT * FROM csquest_library_entries WHERE drive=$1',[drive])).rows;
  const get=async(db,id,owner)=>{
@@ -31,6 +35,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
  }
  async function resumeChecks(entry,drive){
   const size=Number(entry.uploaded);if(!size)return [];
+  if(drive.kind==='object')return entry.object_upload?.checks||[];
   const handle=await openLibraryFile(drive,entry.id);
   try{
    if((await handle.stat()).size<size)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');
@@ -47,6 +52,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
  async function cleanup(db,drive,entries){
   const lookup=new Map(entries.map(e=>[e.id,e])),depth=e=>{let n=0;while(e?.parent_id&&n<100){n++;e=lookup.get(e.parent_id);}return n;};
   for(const e of entries.filter(e=>e.status==='deleting'||e.status==='uploading'&&new Date(e.expires_at).getTime()<Date.now()).sort((a,b)=>depth(b)-depth(a))){
+   if(drive.kind==='object'&&(e.kind==='file'||e.object_key))await drive.objectStore.remove(e.id,e.object_upload);
    if(e.kind==='file')await fs.unlink(path.join(drive.root,e.id)).catch(error=>{if(error.code!=='ENOENT')throw error;});
    await db.query('DELETE FROM csquest_library_entries WHERE id=$1',[e.id]);
   }
@@ -56,11 +62,14 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
   let chunkSlot=false;
   try{
    const rawRoute=url.pathname.slice('/api/library/'.length);
+   await refreshDriveSettings(pool,drives);
    if(await sharing.publicRequest({route:rawRoute,req,res,url,send}))return true;
    const publicContext=await sharing.authorizeUpload({route:rawRoute,req,res,url});
    const route=publicContext?.route||rawRoute;if(publicContext)actor={id:ownerId};
    const role=publicContext?.readOnly?'viewer':await sharing.role(pool,actor),scope=publicContext?.readOnly?{ids:publicContext.ids}:await libraryScope(pool,actor,ownerId);
-   if(await tools({route,req,res,url,send,actor,role,scope}))return true;
+   const writeScope=await libraryWriteScope(pool,actor,ownerId);
+   if(!publicContext&&await handleDriveSettings({route,req,send,actor,role,pool,drives,lock,ownerId}))return true;
+   if(await tools({route,req,res,url,send,actor,role,scope,writeScope}))return true;
    const methods={access:['GET','POST'],'access-remove':['POST'],'public-links':['GET','POST'],'public-link-remove':['POST'],storage:['GET'],uploads:['GET'],details:['GET'],list:['GET'],folders:['GET'],folder:['POST'],move:['POST'],prepare:['POST'],upload:['GET','POST'],chunk:['PUT'],complete:['POST'],cancel:['POST'],rename:['POST'],delete:['POST'],file:['GET','HEAD']};
    if(!methods[route])fail(404,'Library action not found.');
    if(!methods[route].includes(req.method))fail(405,'Method not allowed.');
@@ -71,22 +80,24 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     const volumes=[];
     for(const drive of drives.filter(d=>!scope||scope.drives.has(d.id))){
      try{
+      if(drive.kind==='object')await syncObjectInventory({pool,ownerId,drive,lock});
       const volume=await transaction(pool,async db=>{
        await lock(db);
        await inspect(drive);await cleanup(db,drive,await rows(db,drive.id));
        return measure(db,drive);
       });volumes.push(volume);
-     }catch(error){console.error('Library drive unavailable:',drive.id,error.code||error.message);volumes.push({id:drive.id,name:drive.name,quota:drive.quota,online:false,error:'Drive unavailable. Check its mount and service permissions.'});}
+     }catch(error){console.error('Library drive unavailable:',drive.id,error.code||error.message);volumes.push({id:drive.id,name:drive.name,quota:drive.quota,kind:drive.kind||'disk',bucket:drive.bucket,online:false,error:'Drive unavailable. Check its mount and service permissions.'});}
     }
-    const shared=volumes.length===2&&volumes.every(v=>v.online)&&volumes[0].device===volumes[1].device;
-    send(200,{role,drives:volumes.map(({device,...v})=>({...v,...(role!=='owner'?{total:null,free:null,buffer:null}:{}),shared})),checkedAt:new Date().toISOString(),chunkBytes:CHUNK_BYTES});return true;
+    const disks=volumes.filter(v=>v.kind!=='object'),shared=disks.length>1&&disks.every(v=>v.online&&v.device===disks[0].device);
+    send(200,{role,drives:volumes.map(({device,...v})=>({...v,canWrite:canWriteLocation(writeScope,v.id,null),...(role!=='owner'?{total:null,free:null,buffer:null}:{}),shared})),checkedAt:new Date().toISOString(),chunkBytes:CHUNK_BYTES});return true;
    }
    if(route==='uploads'){
     const pending=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND status='uploading' AND expires_at>now() ORDER BY created_at",[ownerId])).rows.map(publicEntry);
-    send(200,{uploads:pending});return true;
+    send(200,{uploads:pending.filter(e=>canWriteLocation(writeScope,e.drive,e.parent))});return true;
    }
    if(route==='upload'&&req.method==='GET'){
     const entry=await get(pool,url.searchParams.get('id'),ownerId);
+    assertLocationWrite(writeScope,entry.drive,entry.parent_id);
     if(entry.kind!=='file')fail(400,'Choose an uploaded file.');
     if(entry.status!=='uploading'&&entry.status!=='ready')fail(404,'Upload is no longer available.');
     const drive=drives.find(d=>d.id===entry.drive);await inspect(drive);
@@ -116,7 +127,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    if(route==='folders'){
     const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');if(scope&&!scope.drives.has(drive.id))fail(404,'This drive is outside your Library access.');await inspect(drive);
     const folders=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND kind='folder' AND status='ready' ORDER BY lower(name)",[ownerId,drive.id])).rows.map(publicEntry);
-    send(200,{folders:folders.filter(f=>!scope||scope.ids.has(f.id)).map(f=>({...f,parent:scope&&!scope.ids.has(f.parent)?null:f.parent}))});return true;
+    send(200,{rootWritable:canWriteLocation(writeScope,drive.id,null),folders:folders.filter(f=>!scope||scope.ids.has(f.id)).map(f=>({...f,canWrite:canWriteLocation(writeScope,f.drive,f.id),parent:scope&&!scope.ids.has(f.parent)?null:f.parent}))});return true;
    }
    if(route==='list'){
     const drive=drives.find(d=>d.id===url.searchParams.get('drive'));if(!drive)fail(400,'Choose a drive.');if(scope&&!scope.drives.has(drive.id))fail(404,'This drive is outside your Library access.');await inspect(drive);
@@ -126,13 +137,14 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      if(depth>=100)fail(400,'Folder nesting limit reached.');const e=await get(pool,ancestor,ownerId);if(!scope||scope.ids.has(e.id))breadcrumbs.unshift({id:e.id,name:e.name});ancestor=e.parent_id;
     }
     const entries=(await pool.query("SELECT * FROM csquest_library_entries WHERE owner_id=$1 AND drive=$2 AND (parent_id IS NOT DISTINCT FROM $3::uuid OR $3::uuid IS NULL AND id=ANY($4::uuid[])) AND status='ready' ORDER BY kind DESC,lower(name)",[ownerId,drive.id,folder,scope?[...scope.roots]:[]])).rows.map(publicEntry);
-    send(200,{entries:entries.filter(e=>!scope||scope.ids.has(e.id)),breadcrumbs});return true;
+    send(200,{entries:entries.filter(e=>!scope||scope.ids.has(e.id)).map(e=>({...e,canWrite:canWriteLocation(writeScope,e.drive,e.parent)})),canWrite:canWriteLocation(writeScope,drive.id,folder),breadcrumbs});return true;
    }
    // Receive the bounded body BEFORE borrowing a transaction connection or taking
    // the shared capacity lock. Slow senders must not serialize all other transfers.
    let chunkData;
    if(route==='chunk'){
     const entry=await get(pool,url.searchParams.get('id'),ownerId),offset=Number(url.searchParams.get('offset'));
+    assertLocationWrite(await libraryWriteScope(pool,actor,ownerId),entry.drive,entry.parent_id);
     if(entry.status!=='uploading')fail(409,'Upload is not active.');
     if(!url.searchParams.has('offset')||!Number.isSafeInteger(offset)||offset!==Number(entry.uploaded))fail(409,'Upload offset changed. Resume from its saved position.');
     const length=Number(req.headers['content-length']);
@@ -149,12 +161,14 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     let e,drive;
     if(['folder','upload','prepare'].includes(route)){drive=drives.find(d=>d.id===body.drive);if(!drive)fail(400,'Choose a drive.');}
     else{try{e=await get(db,route==='chunk'?url.searchParams.get('id'):body.id,ownerId);}catch(error){if(error.status===404&&['delete','cancel'].includes(route))return {ok:true};throw error;}drive=drives.find(d=>d.id===e.drive);}
-    await lock(db);
+    if(['chunk','complete'].includes(route)&&drive.kind==='object')await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',['csquest:library:entry:'+e.id]);else await lock(db);
     await sharing.assertWrite(db,actor);
     if(publicContext)await sharing.assertUpload(db,publicContext,e);
+    const currentWrite=await libraryWriteScope(db,actor,ownerId);
+    if(e)assertEntryWrite(currentWrite,e);else assertLocationWrite(currentWrite,drive.id,body.parent||null);
     // Chunk commits still serialize capacity decisions and durable writes across
     // processes, but never hold the lock while receiving network data.
-    await inspect(drive);if(route!=='chunk')await cleanup(db,drive,await rows(db,drive.id));
+    await inspect(drive);if(!['chunk','complete'].includes(route))await cleanup(db,drive,await rows(db,drive.id));
     if(e){try{e=await get(db,e.id,ownerId);}catch(error){if(error.status===404&&['delete','cancel'].includes(route))return {ok:true};throw error;}}
     if(route==='prepare'){
      if(!Array.isArray(body.files)||!body.files.length||body.files.length>100)fail(400,'Select between 1 and 100 files at a time.');
@@ -162,6 +176,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      const files=[];let baseDepth=0,ancestor=folder;while(ancestor){baseDepth++;ancestor=(await get(db,ancestor,ownerId)).parent_id;}
      for(const f of body.files){
       if(!f||!Number.isSafeInteger(f.size)||f.size<0)fail(400,'Invalid file size.');
+      if(drive.kind==='object'&&f.size>OBJECT_PART_BYTES*10000)fail(413,'This file exceeds the Object Storage multipart limit.');
       let destination=folder,name=filename(f.name);const segments=f.path?String(f.path).split('/'):[];
       if(baseDepth+segments.length>99||segments.some(s=>!s||s==='.'||s==='..'||s.includes('\\')))fail(400,'Invalid directory path.');
       if(segments.length&&segments.at(-1)!==name)fail(400,'Directory filename does not match.');
@@ -195,6 +210,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     }
     if(route==='folder'||route==='upload'){
      const name=filename(body.name),folder=await parent(db,body.parent,drive.id,ownerId),id=randomUUID();
+     if(route==='upload'&&drive.kind==='object'&&body.size>OBJECT_PART_BYTES*10000)fail(413,'This file exceeds the Object Storage multipart limit.');
      if(route==='upload')await sharing.checkCaps(db,drive,[{parent:folder,size:body.size}]);
      if(route==='folder'){
       // Bound the depth of the complete tree, not just its displayed breadcrumb.
@@ -216,6 +232,13 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      const count=chunkData.length;
      const usage=await measure(db,drive);
      if(!usage.writable||usage.free-count<usage.buffer)fail(507,'Upload paused to preserve space for the platform.');
+     if(drive.kind==='object'){
+      const state=await writeObjectChunk(drive,e,chunkData,offset);
+      if(publicContext)await sharing.assertUpload(db,publicContext,e);
+      assertEntryWrite(await libraryWriteScope(db,actor,ownerId),e);
+      await db.query("UPDATE csquest_library_entries SET object_upload=$3,uploaded=$2,updated_at=now(),expires_at=now()+interval '24 hours' WHERE id=$1",[e.id,offset+count,state]);
+      return {id:e.id,uploaded:offset+count};
+     }
      const location=path.join(drive.root,e.id);
      if(!offset){const fresh=await fs.open(location,'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await fresh?.close();}
      const handle=await openLibraryFile(drive,e.id,'r+');
@@ -226,14 +249,17 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     if(route==='complete'){
      if(e.status==='ready')return publicEntry(e);
      if(e.status!=='uploading'||Number(e.uploaded)!==Number(e.size))fail(409,'Upload has not finished.');
+     if(drive.kind==='object'){await completeObjectUpload(drive,e);if(publicContext)await sharing.assertUpload(db,publicContext,e);assertEntryWrite(await libraryWriteScope(db,actor,ownerId),e);}
+     else {
      if(Number(e.size)===0){const h=await fs.open(path.join(drive.root,e.id),'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await h?.close();}
      const h=await openLibraryFile(drive,e.id,'r+');try{if((await h.stat()).size<Number(e.size))fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await h.truncate(Number(e.size));await h.sync();}finally{await h.close();}
+     }
      if(e.replace_id){const original=await get(db,e.replace_id,ownerId);if(original.status!=='ready'||original.parent_id!==e.parent_id||original.name!==e.final_name)fail(409,'The original file changed. Cancel and retry this replacement.');await db.query("UPDATE csquest_library_entries SET name=$2,status='deleting' WHERE id=$1",[original.id,'replaced-'+original.id]);await db.query('UPDATE csquest_library_entries SET name=final_name,final_name=NULL,replace_id=NULL WHERE id=$1',[e.id]);for(const table of ['csquest_library_public_links','csquest_lesson_resources','csquest_resource_notes','csquest_library_preferences'])await db.query(`UPDATE ${table} SET entry_id=$1 WHERE entry_id=$2`,[e.id,original.id]);}
      const entry=(await db.query("UPDATE csquest_library_entries SET status='ready',expires_at=NULL,updated_at=now() WHERE id=$1 RETURNING *",[e.id])).rows[0];return publicEntry(entry);
     }
     if(route==='move'){
      if(e.status!=='ready')fail(409,'Finish the upload first.');
-     const target=await parent(db,body.parent,drive.id,ownerId);let ancestor=target,depth=0;
+     const target=await parent(db,body.parent,drive.id,ownerId);assertLocationWrite(currentWrite,drive.id,target);let ancestor=target,depth=0;
      while(ancestor){if(ancestor===e.id)fail(400,'A folder cannot be moved inside itself or a subfolder.');if(++depth>=99)fail(400,'Folder nesting limit reached.');ancestor=(await get(db,ancestor,ownerId)).parent_id;}
      if(e.kind==='folder'){
       const height=Number((await db.query('WITH RECURSIVE subtree AS (SELECT id,0 AS depth FROM csquest_library_entries WHERE id=$1 UNION ALL SELECT e.id,s.depth+1 FROM csquest_library_entries e JOIN subtree s ON e.parent_id=s.id WHERE e.kind=\'folder\' AND s.depth<100) SELECT max(depth) AS height FROM subtree',[e.id])).rows[0].height);
@@ -252,7 +278,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    });
    // Perform tombstone cleanup in a new transaction after the mark is durable.
    if(['cancel','delete','complete'].includes(route)){
-    await transaction(pool,async db=>{const e=(await db.query('SELECT * FROM csquest_library_entries WHERE id=$1 AND owner_id=$2',[body.id,ownerId])).rows[0];if(!e)return;const drive=drives.find(d=>d.id===e.drive);await lock(db);await inspect(drive);await cleanup(db,drive,await rows(db,drive.id));});
+    await transaction(pool,async db=>{const e=(await db.query('SELECT * FROM csquest_library_entries WHERE id=$1 AND owner_id=$2',[body.id,ownerId])).rows[0];if(!e)return;const drive=drives.find(d=>d.id===e.drive);await lock(db);await inspect(drive);await cleanup(db,drive,await rows(db,drive.id));if(route==='complete'&&drive.kind==='object')await fs.unlink(path.join(drive.root,e.id)).catch(error=>{if(error.code!=='ENOENT')throw error;});});
    }
    send(200,result);
   }catch(error){

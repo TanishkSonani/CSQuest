@@ -11,8 +11,8 @@ export function createLibraryAccess({pool,ownerId,drives,inspect,lock}){
   if(!ownerId||!actor?.id)fail(403,'This private library is available to the platform owner.');
   const user=(await db.query('SELECT role FROM csquest_users WHERE id=$1',[actor.id])).rows[0];
   if(actor.id===ownerId||isPlatformAdmin({...actor,role:user?.role}))return 'owner';
-  const value=(await db.query('SELECT role FROM csquest_library_access WHERE owner_id=$1 AND user_id=$2',[ownerId,actor.id])).rows[0]?.role;
-  if(!value)fail(403,'Ask an administrator to grant your account Library access.');return 'viewer';
+  const value=(await db.query('SELECT role,can_write,scopes FROM csquest_library_access WHERE owner_id=$1 AND user_id=$2',[ownerId,actor.id])).rows[0];
+  if(!value)fail(403,'Ask an administrator to grant your account Library access.');return value.can_write||(value.scopes||[]).some(s=>s.canWrite===true)?'editor':'viewer';
  }
  async function assertWrite(db,actor){if(await role(db,actor)==='viewer')fail(403,'Your Library access is view only.');}
  const publicRequest=publicLibrary.request;

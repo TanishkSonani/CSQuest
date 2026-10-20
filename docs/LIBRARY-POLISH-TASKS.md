@@ -40,7 +40,7 @@ Production release: `fbc08c7d6af7ee60a316030c06eb14152840141d`. CI and deploymen
 
 No Recycle Bin. Metadata/notes retain Undo; permanently deleted file bytes do not.
 
-Confirmed: Limited and Full learner access are both read only; Limited covers Admin-selected locations, Full covers the whole Library. Public visitors may upload when the share permits it.
+Original requirement (superseded by the later location read/write request): Limited and Full learner access were both read only; Limited covers Admin-selected locations, Full covers the whole Library. Public visitors may upload when the share permits it.
 
 ## Full-screen Explorer follow-up
 
@@ -70,3 +70,14 @@ Confirmed: Limited and Full learner access are both read only; Limited covers Ad
 - [x] Validate locally with Playwright at five sizes in both themes, including search submission and sharing forms; retain the bounded-pane regression checks.
 
 User requested commit and push only for this follow-up; deployment verification was intentionally not performed.
+
+
+## Object drive, viewers and location permissions
+
+- [x] Discover and configure existing private Stuff bucket; VM instance-principal IAM, local CLI config, credentials excluded from Git.
+- [x] Object drive with default 20 decimal GB and persisted Admin GUI capacity.
+- [x] Index existing bucket content in place, native multipart, bounded staging, streaming/ranges and quota preflight.
+- [x] Improve image/PDF viewers and hide video title with controls.
+- [x] Admin-created Library-only accounts, direct Library login and backend learning isolation.
+- [x] Per-user drive/directory read-only or read/write permissions with inherited scope and revocation enforcement.
+- [x] Local API and desktop/mobile Playwright validation; no deployment verification requested.

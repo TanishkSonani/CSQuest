@@ -38,7 +38,7 @@ runtime/              Ignored process IDs, logs, and live progress snapshots
 tooling/              Ignored downloaded dependencies, models, and archives
 ```
 
-Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool and serves browser assets directly. No frontend build is required.
+Node.js **22.13 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool and serves browser assets directly. No frontend build is required.
 
 ## Deploying on an Oracle Cloud VM
 

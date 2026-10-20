@@ -9,7 +9,7 @@ import {capacity,GiB,inspectDrive,libraryDrives} from '../src/platform/storage.m
 import {testStore} from './database-helper.mjs';
 
 test('library caps allocations at 35 / 125 GiB, excludes system consumption once, and protects pending transfers',()=>{
- assert.deepEqual(libraryDrives().map(d=>d.quota),[35*GiB,125*GiB]);
+ assert.deepEqual(libraryDrives().filter(d=>d.id!=='object').map(d=>d.quota),[35*GiB,125*GiB]);
  const boot={id:'boot',name:'Boot',quota:35*GiB,reserve:5*GiB},block={id:'block',name:'Block',quota:125*GiB,reserve:15*GiB};
  assert.equal(capacity(boot,{total:50*GiB,free:43*GiB},[]).available,35*GiB);
  assert.equal(capacity(block,{total:150*GiB,free:142*GiB},[]).available,125*GiB);
