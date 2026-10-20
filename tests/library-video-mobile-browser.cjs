@@ -34,10 +34,12 @@ const fs=require('node:fs/promises');
    await page.locator('[data-video-skip]').fill('600');await page.getByRole('button',{name:'Forward 600 seconds',exact:true}).click();assert.ok(await page.locator('.library-video-dialog video').evaluate(v=>Math.abs(v.currentTime-v.duration))<.15);await page.getByRole('button',{name:'Back 600 seconds',exact:true}).click();
    await page.locator('[data-video-skip]').fill('0');await page.locator('[data-video-skip]').blur();assert.equal(await page.locator('[data-video-skip]').inputValue(),'600');await page.locator('[data-video-skip]').fill('3');
    await page.locator('.library-video-dialog video').focus();await page.keyboard.press('ArrowRight');assert.ok(Math.abs(await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime)-3)<.15);await page.keyboard.press('ArrowLeft');
-   for(const [width,height] of [[390,844],[360,640],[844,390],[650,360],[568,320]]){
+   for(const [width,height] of [[1440,900],[390,844],[360,640],[844,390],[650,360],[568,320]]){
     await page.setViewportSize({width,height});
     const geometry=await page.evaluate(()=>{const d=document.querySelector('.library-video-dialog'),v=d.querySelector('video'),controls=d.querySelector('.library-video-controls'),rect=d.getBoundingClientRect(),vr=v.getBoundingClientRect(),cr=controls.getBoundingClientRect();return {fits:rect.left>=0&&rect.right<=innerWidth+1&&rect.top>=0&&rect.bottom<=innerHeight+1,controls:cr.bottom<=innerHeight+1,videoHeight:vr.height,contains:getComputedStyle(v).objectFit,overflow:d.scrollWidth>d.clientWidth+1};});
     assert.ok(geometry.fits,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.controls,JSON.stringify({name,width,height,geometry}));assert.ok(geometry.videoHeight>50);assert.equal(geometry.contains,'contain');assert.equal(geometry.overflow,false);
+    const overlay=await page.evaluate(()=>{const p=document.querySelector('.library-video-player'),v=p.querySelector('video'),stage=p.querySelector('.library-video-stage'),controls=p.querySelector('.library-video-controls');const rect=()=>{const r=v.getBoundingClientRect();return [r.x,r.y,r.width,r.height];};const visible=rect(),sr=stage.getBoundingClientRect(),cr=controls.getBoundingClientRect();p.classList.add('is-controls-hidden');const hidden=rect();p.classList.remove('is-controls-hidden');return {visible,hidden,position:getComputedStyle(controls).position,overlaps:cr.top>=sr.top&&cr.bottom<=sr.bottom+1};});
+    assert.deepEqual(overlay.visible,overlay.hidden,'Showing controls must not resize or move the video');assert.equal(overlay.position,'absolute');assert.ok(overlay.overlaps);
     await page.screenshot({path:`${output}/${name}-${width}x${height}.png`});results.push({name,width,height,...geometry});
    }
    await page.setViewportSize({width:390,height:844});
@@ -46,6 +48,17 @@ const fs=require('node:fs/promises');
    await page.getByRole('button',{name:'Play video',exact:true}).click();
    await page.waitForFunction(()=>document.querySelector('.library-video-player').classList.contains('is-controls-hidden'));
    assert.equal(await page.locator('.library-video-player>header').isVisible(),false,'Video title hides with playback controls');
+   await page.locator('.library-video-dialog video').focus();
+   const beforeSeek=await page.locator('.library-video-dialog video').evaluate(v=>v.currentTime);
+   await page.keyboard.press('ArrowRight');await page.waitForTimeout(250);
+   assert.ok(await page.locator('.library-video-dialog video').evaluate((v,t)=>v.currentTime>=t+2.8,beforeSeek),'Hidden keyboard shortcut still seeks');
+   assert.equal(await page.locator('.library-video-player').evaluate(e=>e.classList.contains('is-controls-hidden')),true,'Keyboard seeking and resumed playback must not reveal controls');
+   await page.keyboard.press('ArrowLeft');await page.waitForTimeout(250);
+   assert.equal(await page.locator('.library-video-player>header').isVisible(),false,'Backward seeking keeps title hidden');
+   await page.keyboard.press('f');await page.waitForFunction(()=>!!document.fullscreenElement);
+   assert.equal(await page.locator('.library-video-player').evaluate(e=>e.classList.contains('is-controls-hidden')),true,'Keyboard fullscreen keeps controls hidden');
+   const fullscreenBounds=await page.locator('.library-video-stage').boundingBox();await page.locator('.library-video-player').evaluate(e=>e.classList.remove('is-controls-hidden'));assert.deepEqual(await page.locator('.library-video-stage').boundingBox(),fullscreenBounds,'Fullscreen overlays do not resize the stage');await page.locator('.library-video-player').evaluate(e=>e.classList.add('is-controls-hidden'));
+   await page.keyboard.press('f');await page.waitForFunction(()=>!document.fullscreenElement);
    await page.locator('.library-video-dialog video').dispatchEvent('pointerdown');
    await page.locator('.library-video-dialog video').dispatchEvent('click');
    assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.paused),false,'First tap reveals controls without pausing');
@@ -58,7 +71,7 @@ const fs=require('node:fs/promises');
    await page.getByRole('button',{name:'Close video',exact:true}).click();
    await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));assert.equal(await page.locator('[data-video-skip]').inputValue(),'3');assert.equal(await page.locator('.library-video-dialog video').evaluate(v=>v.playbackRate),3);await page.getByRole('button',{name:'Close video',exact:true}).click();
   }
-  assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({results,speeds,customSkip:true,fullscreen:true,persisted:true,errors},null,2));console.log('Mobile video checks passed: real portrait/landscape MP4s, five viewports, fullscreen, custom skips, keyboard, persistence, and all twelve speeds.');
+  assert.deepEqual(errors,[]);await fs.writeFile(output+'/report.json',JSON.stringify({results,speeds,customSkip:true,fullscreen:true,persisted:true,stableOverlayBounds:true,hiddenKeyboardControls:true,errors},null,2));console.log('Mobile video checks passed: real portrait/landscape MP4s, six desktop/mobile viewports, stable overlays, hidden keyboard seeking/fullscreen, custom skips, persistence, and all twelve speeds.');
  }catch(error){if(page)await page.screenshot({path:output+'/failure.png'}).catch(()=>{});throw error;}
  finally{await browser?.close();await cleanup();}
-})().catch(error=>{console.error(error);process.exitCode=1;});
+})().catch(error=>{console.error(error.message.split('\n')[0]);console.error(error.stack?.split('\n').find(line=>line.includes('library-video-mobile-browser.cjs'))?.trim()||'');process.exitCode=1;});

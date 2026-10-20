@@ -93,3 +93,5 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Nginx WebSocket setup and idle-time Firefox security updates.
 - [x] Local desktop/mobile Playwright and actual VM preview GUI/terminal/cleanup checks.
 - [x] Linux learning terminal: start at the VM filesystem root, user/hostname prompt, persistent practice folders and readable host system information; verified through real ttyd sessions.
+
+- [x] Video title/controls overlay a fixed video stage in normal/fullscreen views; keyboard shortcuts preserve hidden controls. Playwright verified real portrait/landscape MP4s at six desktop/mobile sizes.
