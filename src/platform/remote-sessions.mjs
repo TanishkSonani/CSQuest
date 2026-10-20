@@ -39,6 +39,7 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
  }
  function attach(server){
   server.on('upgrade',async(req,socket,head)=>{
+   socket.setNoDelay(true);
    socket.on('error',()=>{});
    const url=new URL(req.url,'http://localhost'),match=url.pathname.match(/^\/api\/remote\/(?:stream\/([a-f0-9-]+)|view\/([a-f0-9-]+)\/terminal\/ws)$/);
    if(!match){socket.end('HTTP/1.1 404 Not Found\r\nConnection: close\r\n\r\n');return;}
@@ -53,11 +54,13 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
     wss.handleUpgrade(req,socket,head,ws=>{
      clients.add(ws);let alive=true,closed=false,backend,queue=[],queued=0;
      const cleanup=()=>{if(closed)return;closed=true;clearInterval(timer);clients.delete(ws);backend?.destroy?.();if(backend instanceof WebSocket)backend.terminate();if(ws.readyState!==WebSocket.CLOSED)ws.terminate();stop(req,actor,s.id).catch(()=>{});};
-     const send=data=>{if(ws.bufferedAmount>2*1024**2){cleanup();return;}if(ws.readyState===WebSocket.OPEN)ws.send(data,{binary:true});};
+     // Slow clients should slow the producer, rather than build a frame backlog
+     // and terminate the whole browser when the old 2 MB threshold is reached.
+     const send=data=>{if(ws.readyState!==WebSocket.OPEN)return;ws.send(data,{binary:true},error=>{if(error){cleanup();return;}if(ws.bufferedAmount<128*1024)backend?.resume?.();});if(ws.bufferedAmount>512*1024)backend?.pause?.();};
      const timer=setInterval(async()=>{if(!alive){cleanup();return;}alive=false;ws.ping();try{const current=await createAccounts({store,courses:[],ownerId}).authorize(req);admin(current);await broker.request('POST','/session/'+s.id+'/lease',identity(req,current));}catch{cleanup();}},10000);timer.unref();
      ws.on('pong',()=>alive=true);ws.on('close',cleanup);ws.on('error',cleanup);
      if(s.kind==='firefox'){
-      backend=net.connect(s.port,'127.0.0.1');backend.on('data',send);backend.on('close',cleanup);backend.on('error',cleanup);
+      backend=net.connect(s.port,'127.0.0.1');backend.setNoDelay(true);backend.on('data',send);backend.on('close',cleanup);backend.on('error',cleanup);
       ws.on('message',data=>{if(backend.writableLength>2*1024**2)cleanup();else backend.write(data);});
      }else{
       backend=new WebSocket('ws://127.0.0.1:'+s.port+url.pathname,'tty',{perMessageDeflate:false,maxPayload:256*1024});

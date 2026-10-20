@@ -6,7 +6,7 @@ test "$(uname -m)" = aarch64
 base=$(cd "$(dirname "$0")" && pwd)
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-tools openbox ttyd dbus-x11 libgtk-3-0 libdbus-glib-1-2 libasound2t64 fonts-dejavu-core curl xz-utils iptables
+apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-tools openbox ttyd dbus-x11 libgtk-3-0 libdbus-glib-1-2 libasound2t64 libavcodec60 fonts-dejavu-core curl xz-utils iptables
 install -d -m 755 /opt/csquest-remote /var/lib/csquest-remote
 for kind in browser terminal; do
     user=csquest-$kind

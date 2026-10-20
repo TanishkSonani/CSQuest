@@ -1,4 +1,6 @@
-const $=s=>document.querySelector(s),kind=new URL(location.href).searchParams.get('app'),label=kind==='firefox'?'Firefox':'Terminal';
+const $=s=>document.querySelector(s),kind=location.pathname==='/workspace/browser'?'firefox':location.pathname==='/workspace/terminal'?'terminal':new URL(location.href).searchParams.get('app'),label=kind==='firefox'?'Firefox':'Terminal';
+// Preserve old bookmarks while giving every session a clean address.
+if(location.pathname==='/remote.html'&&['firefox','terminal'].includes(kind))history.replaceState(null,'',kind==='firefox'?'/workspace/browser':'/workspace/terminal');
 let session=null,rfb=null,ended=false,leaseTimer=null;
 document.title=label+' · CSQuest VM';$('#remote-title').textContent=label;
 async function api(path,body,{keepalive=false}={}){const res=await fetch('/api/remote/'+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json','X-CSQuest-Request':'1'}:{},body:body?JSON.stringify(body):undefined,credentials:'same-origin',cache:'no-store',keepalive});const result=await res.json();if(!res.ok)throw Error(result.error||'Remote session unavailable.');return result;}
@@ -17,7 +19,8 @@ async function launch(password){
   if(kind==='firefox'){
    const {default:RFB}=await import('/vendor/novnc/core/rfb.js');if(ended)return;
    const url=new URL('/api/remote/stream/'+result.id,location.href);url.protocol=location.protocol==='https:'?'wss:':'ws:';
-   rfb=new RFB($('#remote-screen'),url.href,{credentials:{password:result.password}});rfb.scaleViewport=true;rfb.resizeSession=true;rfb.viewOnly=false;
+   rfb=new RFB($('#remote-screen'),url.href,{credentials:{password:result.password}});rfb.scaleViewport=true;rfb.resizeSession=true;rfb.viewOnly=false;rfb.qualityLevel=5;rfb.compressionLevel=2;
+   $('#remote-screen').classList.add('remote-browser-screen');
    rfb.addEventListener('connect',()=>$('#remote-state').textContent='Running on VM');rfb.addEventListener('disconnect',()=>{stop();finish('Firefox disconnected. Its VM session has been stopped.');});
    const tools=document.createElement('div');tools.className='remote-viewer-tools';for(const [text,action] of [['CTRL+ALT+DEL',()=>rfb.sendCtrlAltDel()],['PASTE',async()=>{const text=await navigator.clipboard.readText().catch(()=>null);if(text!==null)rfb.clipboardPasteFrom(text);}]] ){const b=document.createElement('button');b.textContent=text;b.onclick=action;tools.append(b);}$('#remote-fullscreen').before(tools);
   }else{

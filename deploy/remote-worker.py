@@ -39,7 +39,7 @@ children.append(subprocess.Popen(['/usr/bin/Xtigervnc', display,
     '-rfbport', port, '-localhost', 'yes', '-SecurityTypes', 'VncAuth',
     '-PasswordFile', '/run/csquest-remote/' + session_id + '/password',
     '-geometry', '1280x800', '-depth', '24', '-nolisten', 'tcp',
-    '-desktop', 'CSQuest Firefox', '-AlwaysShared'], env=environment))
+    '-desktop', 'CSQuest Browser', '-FrameRate', '30', '-AlwaysShared'], env=environment))
 for _ in range(60):
     if os.path.exists('/tmp/.X11-unix/X' + display[1:]):
         break

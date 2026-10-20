@@ -87,7 +87,7 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');
    }else{
-    const web=path.join(root,'apps','web','public');file=path.resolve(web,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname==='/library-share'?'/library-share.html':url.pathname));
+    const web=path.join(root,'apps','web','public');file=path.resolve(web,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname==='/library-share'?'/library-share.html':['/workspace/browser','/workspace/terminal'].includes(url.pathname)?'/remote.html':url.pathname));
     if(url.pathname==='/library-share'||url.pathname==='/library-share.html'){res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');}
     if(!file.startsWith(web+path.sep)){send(403,{error:'Invalid path'});return;}
    }
