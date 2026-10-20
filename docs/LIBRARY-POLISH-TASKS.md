@@ -61,3 +61,12 @@ Confirmed: Limited and Full learner access are both read only; Limited covers Ad
 - [x] Make the header share the current directory when inside one, rather than silently targeting the drive. Show explicit scope and require acknowledgement for whole-drive links.
 - [x] Regress password-protected Block directory sharing against sibling COA listing, file, archive, URL and upload escapes.
 - [x] Deploy release `92a3d71` (219 CI tests passed) and verify live private/public pane scrolling and closed Details in both themes on desktop/mobile/landscape. Verify GUI-created password-protected directory links reject the real sibling COA directory's listing, archive and upload requests. Remove temporary QA directory/link and verification session.
+
+## Library controls formatting
+
+- [x] Normalize text inputs, dropdowns, checkbox sizing, focus states and responsive sharing-form alignment without changing operations.
+- [x] Label and align the global search filters; match expandable Search and Storage details headers and format the storage table.
+- [x] Align Back with the Library page title on desktop and mobile.
+- [x] Validate locally with Playwright at five sizes in both themes, including search submission and sharing forms; retain the bounded-pane regression checks.
+
+User requested commit and push only for this follow-up; deployment verification was intentionally not performed.
