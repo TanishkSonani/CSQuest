@@ -1,0 +1,20 @@
+[Unit]
+Description=CSQuest private remote session broker
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/node /opt/csquest-remote/broker.mjs
+Restart=on-failure
+RestartSec=3
+RuntimeDirectory=csquest-remote
+RuntimeDirectoryMode=0711
+UMask=0077
+TimeoutStopSec=20
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/csquest-remote /var/lib/csquest-remote
+
+[Install]
+WantedBy=multi-user.target

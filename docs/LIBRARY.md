@@ -113,3 +113,8 @@ Native OCI multipart upload aggregates browser chunks into 16 MiB parts. Up to f
 ## Viewers
 
 Images open in a themed viewport with zoom, fit, rotation and pan. PDFs use a lazy-loaded PDF.js canvas viewer with page navigation, zoom, rotation, fullscreen and password handling. The authenticated preview byte endpoint retains ranges and avoids a native PDF download, including interference from download managers. Video titles hide and return with playback controls. Viewers adapt to portrait and landscape mobile screens.
+
+
+## VM application launchers
+
+Administrators can launch Firefox or Terminal from virtual application icons at the Boot drive root. Each opens a new authenticated tab and starts only after password confirmation. Closing the tab stops its process group; a lease timeout handles broken connections. These icons are not files and are excluded from learner/public views. See [Remote sessions](REMOTE_SESSIONS.md) for permissions, limits, persistent homes and maintenance.

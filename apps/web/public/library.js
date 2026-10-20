@@ -1,3 +1,4 @@
+import {mountRemoteLaunchers} from './remote-launchers.js';
 import {openDriveSettings} from './library-drive-settings.js';
 import {explorerContextMenu} from './explorer-context-menu.js';
 import {libraryNotepad} from './library-notepad.js';
@@ -98,6 +99,7 @@ function draw(){
  mountLibraryOrganizer({api,entries,drive,folder,admin:canWrite(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});
  mountPrivateExplorer({drive,folder,detailsOpen,volumes,folders:allFolders,crumbs,selected:selectedEntry,admin:canManage(),writable:canWrite(),navigate,shareDrive:()=>{const v=volumes?.find(v=>v.id===(drive||selectedDrive))||volumes?.[0];if(folder)manageLibraryAccess(api,{kind:'folder',id:folder,drive,name:crumbs.at(-1)?.name||'Current directory'});else if(v)manageLibraryAccess(api,{kind:'drive',drive:v.id,name:v.name});}});
  if(accessRole&&accessRole!=='owner'){el.querySelector('.page-eyebrow').textContent='LIBRARY · SHARED WITH YOU';const status=el.querySelector('.library-status span');status.textContent=(canWrite()?'Editor access':'Viewer access')+' · '+status.textContent;}
+ mountRemoteLaunchers({drive,folder,admin:canManage()});
  mountPrivateContext();
  if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel:el.querySelector('[data-lib-details]'),admin:canManage()});
  const details=el.querySelector('.library-storage-details');if(details)details.ontoggle=()=>{if(details.isConnected)storageExpanded=details.open;};
@@ -369,7 +371,7 @@ document.addEventListener('click',event=>{
  if(button.hasAttribute('data-lib-retry')){const u=uploads[Number(button.dataset.libRetry)];u.retryCount=0;if(u.file){u.state='queued';processUploads();}else{const picker=document.createElement('input');picker.type='file';picker.onchange=()=>{const f=picker.files[0];if(f&&f.name===(u.originalName||u.name)&&f.size===u.size&&(u.lastModified==null||f.lastModified===u.lastModified)){u.file=f;u.state='queued';processUploads();}else{u.error='Choose the same original file to resume.';drawTransfers();}};picker.click();}return;}
  if(button.hasAttribute('data-lib-dismiss')){uploads.splice(Number(button.dataset.libDismiss),1);drawTransfers();}
 });
-function repaintFiles(){root().querySelector('[data-lib-files]').innerHTML=filesMarkup();mountLibraryOrganizer({api,entries,drive,folder,admin:canWrite(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});}
+function repaintFiles(){root().querySelector('[data-lib-files]').innerHTML=filesMarkup();mountLibraryOrganizer({api,entries,drive,folder,admin:canWrite(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});mountRemoteLaunchers({drive,folder,admin:canManage()});}
 document.addEventListener('input',e=>{if(e.target.matches('[data-lib-search]')){query=e.target.value;repaintFiles();}});
 document.addEventListener('change',e=>{if(e.target.matches('[data-lib-sort]')){sort=e.target.value;repaintFiles();}});
 document.addEventListener('dragover',e=>{if(e.target.closest('.library-explorer')&&drive&&canWrite()){e.preventDefault();e.dataTransfer.dropEffect='copy';}});

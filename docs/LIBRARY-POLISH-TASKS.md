@@ -81,3 +81,14 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Admin-created Library-only accounts, direct Library login and backend learning isolation.
 - [x] Per-user drive/directory read-only or read/write permissions with inherited scope and revocation enforcement.
 - [x] Local API and desktop/mobile Playwright validation; no deployment verification requested.
+
+
+## VM applications
+
+- [x] Native ARM64 Firefox on Boot and real VM Bash terminal with admin-only Boot launch icons.
+- [x] Independent new tabs; password confirmation; launch only the chosen application.
+- [x] Authenticated HTTP/WebSocket integration, session ownership and role rechecks.
+- [x] Stop complete process groups on tab close, plus lease expiry for crashes/network loss.
+- [x] Separate unprivileged identities, bounded homes, CPU/RAM limits and metadata/private-service restrictions.
+- [x] Nginx WebSocket setup and idle-time Firefox security updates.
+- [x] Local desktop/mobile Playwright and actual VM preview GUI/terminal/cleanup checks.
