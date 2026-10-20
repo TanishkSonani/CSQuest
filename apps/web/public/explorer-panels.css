@@ -1,0 +1,85 @@
+/* Bounded panes: the folder tree, files and optional information scroll separately. */
+.library-browser-layout{grid-template-columns:220px minmax(0,1fr) 260px;grid-template-rows:minmax(0,1fr);min-height:0;overflow:hidden}
+.library-browser-layout.is-details-hidden{grid-template-columns:220px minmax(0,1fr)}
+.library-heading,.library-status,.library-toolbar,.explorer-address,.library-folder-status{flex-shrink:0}
+.library [data-library-search]{flex-shrink:0;max-height:35dvh;overflow:auto;padding:0 10px}
+.library-browser-layout .library-sidebar{height:100%;max-height:100%;min-height:0;overflow:auto;overscroll-behavior:contain;background:var(--surface);padding:8px 6px!important;scrollbar-width:thin}
+.library-browser-layout .explorer-details-pane{height:100%;min-height:0;max-height:100%;overscroll-behavior:contain}
+.library-browser-layout .library-explorer{background:var(--surface)}
+.library-browser-layout .library-folder-status{font-size:10px;min-height:32px;padding:7px 12px;gap:8px}
+.library-browser-layout .library-file-head{min-height:34px;padding-top:6px;padding-bottom:6px;letter-spacing:.04em}
+.library-files:not(.is-grid) .library-file{min-height:42px;padding-top:5px;padding-bottom:5px;border-bottom:1px solid color-mix(in srgb,var(--border) 55%,transparent)}
+.library-files:not(.is-grid) .library-file-open>span{font-size:12px;font-weight:600}
+.library-files:not(.is-grid) .library-file-selector{top:14px}
+.library-browser-layout .explorer-address{min-height:44px;background:var(--surface-alt)}
+.library-browser-layout .explorer-command-bar{min-height:42px;padding-top:4px;padding-bottom:4px}
+.explorer-command:focus-visible,.library-tree-folder:focus-visible,.explorer-tree-branch>summary:focus-visible{outline:2px solid var(--green-dark);outline-offset:-2px}
+/* 4Pane-style tree connectors, with one aligned disclosure/icon column per level. */
+.library-sidebar .library-location{display:flex;align-items:center;gap:8px;min-height:34px;padding:7px 10px;border-radius:5px;background:transparent;font-size:11px;font-weight:700}
+.library-sidebar button:hover,.library-sidebar .is-current{background:transparent}
+.library-sidebar [data-lib-nav-drive].is-current{background:var(--accent-light);color:var(--accent);box-shadow:inset 3px 0 var(--accent)}
+.library-sidebar [data-lib-nav-drive]:not(.is-current):hover{background:transparent;color:var(--accent)}
+.library-tree{--tree-line:color-mix(in srgb,var(--muted) 55%,transparent);margin:0 0 8px 16px;padding:0 0 0 2px}
+.explorer-tree-node{position:relative;padding-left:14px;min-width:0}
+.explorer-tree-node:before{content:'';position:absolute;left:5px;top:0;bottom:0;border-left:1px dotted var(--tree-line);pointer-events:none}
+.explorer-tree-node:last-child:before{bottom:auto;height:16px}
+.explorer-tree-node:after{content:'';position:absolute;left:5px;top:16px;width:9px;border-top:1px dotted var(--tree-line);pointer-events:none}
+.explorer-tree-branch>summary,.explorer-tree-leaf{display:flex;align-items:center;min-width:0;min-height:32px;padding:0;list-style:none}
+.explorer-tree-branch>summary:before{display:none}
+.explorer-tree-branch>summary::-webkit-details-marker{display:none}
+.explorer-tree-branch>.explorer-tree-children{margin:0 0 0 8px;padding:0;border:0}
+.explorer-tree-toggle{display:grid;place-items:center;flex:0 0 16px;width:16px;height:28px;color:var(--muted)}
+.explorer-tree-toggle .icon{width:11px;height:11px;stroke-width:2;transition:transform .12s}
+.explorer-tree-branch[open]>summary>.explorer-tree-toggle .icon{transform:rotate(90deg)}
+.library-sidebar .library-tree-folder{flex:1;min-width:0;min-height:32px;padding:6px 3px!important;gap:6px;border-radius:0;background:transparent!important;font-size:11px!important;font-weight:500;color:var(--ink);line-height:20px}
+.library-sidebar .library-tree-folder .icon{width:16px;height:16px;flex-shrink:0;stroke-width:1.8}
+.library-sidebar .library-tree-folder.is-current{color:var(--accent);font-weight:800;box-shadow:none}
+.library-sidebar .library-tree-folder:hover span{text-decoration:underline;text-underline-offset:3px}
+.library-sidebar .library-tree-folder span{min-width:0;text-overflow:ellipsis}
+.public-share-scope{padding:12px;border:1px solid var(--border);border-left:3px solid var(--green-dark);border-radius:6px;margin:12px 0;background:var(--surface-alt)}
+.public-share-scope strong{font-size:12px;overflow-wrap:anywhere}
+.public-share-scope p{font-size:12px;line-height:1.6;margin:8px 0 0}
+/* Shared spaces use the same pane constraints; unlock/error pages retain their form layout. */
+.library-share-page:has([data-public-explorer]){height:100dvh;min-height:0;padding:12px 16px 0;display:flex;flex-direction:column;overflow:hidden}
+.library-share-page:has([data-public-explorer]) .library-share-brand{width:100%;max-width:none;flex-shrink:0;margin:0 0 12px;min-height:24px}
+.library-share-card:has([data-public-explorer]){display:flex;flex-direction:column;flex:1;min-height:0;max-width:none;width:100%;padding:0;margin:0;border:0;border-radius:0;overflow:hidden;background:transparent}
+.public-explorer{display:flex;flex-direction:column;flex:1;min-height:0;max-width:none;width:100%;margin:0;overflow:auto}
+.public-explorer:has(.library-browser-layout){overflow:hidden}
+.public-explorer .library-heading{padding:4px 8px}
+.public-explorer .library-heading{flex-direction:row;align-items:center}
+.public-explorer .library-heading .page-eyebrow,.public-explorer .library-heading .page-description{display:none}
+.public-explorer .library-heading h1{margin:0;font-size:23px}
+.public-explorer .library-status{margin:8px;padding:0}
+.public-explorer [data-public-message]{flex-shrink:0;max-height:15dvh;overflow:auto;margin:0 8px;font-size:12px}
+.public-explorer [data-public-message]:empty{display:none}
+.public-explorer .library-browser-layout{flex:1;min-height:0}
+.public-explorer .library-sidebar>.library-location.is-drive{background:var(--accent-light);color:var(--accent);box-shadow:inset 3px 0 var(--accent)}
+.public-explorer .library-folder-status{margin:0}
+.library-share-card .library-toolbar .button-row{margin:0;gap:8px}
+.library-share-card .library-toolbar .btn{font-size:9px}
+.public-explorer .explorer-command-bar>.library-filter{flex:1;min-width:160px;width:auto;margin:0;gap:5px}
+.public-explorer .explorer-command-bar>.library-filter>label{flex:1;min-width:0}
+.public-explorer .explorer-command-bar>.library-filter input{width:100%}
+.public-explorer .explorer-command-bar>.library-filter select{width:75px}
+@media(max-width:1250px){
+ .library-browser-layout,.library-browser-layout.is-details-hidden{grid-template-columns:190px minmax(0,1fr)}
+ .library-browser-layout .explorer-details-pane{position:absolute;top:0;bottom:0;right:0;grid-column:auto;height:auto}
+}
+@media(max-width:800px) and (min-width:651px){.library-browser-layout,.library-browser-layout.is-details-hidden{grid-template-columns:175px minmax(0,1fr)}}
+@media(max-width:650px){
+ .library-browser-layout,.library-browser-layout.is-details-hidden{display:grid!important;grid-template-columns:minmax(0,1fr);min-height:0}
+ .library-browser-layout>.library-explorer{grid-column:1;grid-row:1}
+ .explorer-address .library-breadcrumb{flex:1 1 0%;min-height:32px;min-width:0}
+ .explorer-address>.library-filter{flex-basis:100%}
+ .library-browser-layout .explorer-details-pane{position:fixed;top:50px;bottom:12px;right:8px;height:auto;max-height:none}
+ .library-share-page:has([data-public-explorer]){padding:8px 0 0}
+ .library-share-page:has([data-public-explorer]) .library-share-brand{padding:0 10px;margin-bottom:6px}
+ .public-explorer .library-heading h1{font-size:18px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+ .public-explorer .library-heading>div{min-width:0;flex:1;width:auto}
+ .public-explorer .library-heading .btn{flex:0 0 auto;min-height:32px;padding:6px 8px;font-size:9px}
+ .public-explorer .library-heading{flex-wrap:nowrap}
+ .public-explorer .library-status{font-size:10px}
+ .public-explorer .library-toolbar .button-row{width:auto}
+ .public-explorer .library-toolbar .button-row .btn{width:auto;font-size:8px;padding:6px}
+ .public-explorer .explorer-command-bar>.library-filter{flex-basis:100%;width:100%}
+}

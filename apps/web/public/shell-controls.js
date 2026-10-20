@@ -3,9 +3,6 @@ import {icon} from './icons.js';
 const key=()=>`csquest:sidebar:${account.user?.id||'guest'}`;
 let previousPage=null;
 const returnKey=()=>`csquest:library-return:${account.user?.id||'guest'}`;
-matchMedia('(max-width:1250px)').addEventListener('change',event=>{
- if(event.matches)document.querySelector('[data-library] .library-browser-layout')?.classList.add('is-details-hidden');
-});
 export function mountShellControls({library=false}={}){
  document.body.classList.toggle('is-library-workspace',library);
  const current=location.hash.slice(1)||'learn';

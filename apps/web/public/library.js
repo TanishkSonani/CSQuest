@@ -17,7 +17,10 @@ const activeUploads=new Set(),parallelUploads=4;
 let accessRole=null;
 const canWrite=()=>accessRole==='owner';
 const canManage=()=>accessRole==='owner';
+let detailsOpen=false;
 const expandedFolders=new Set();
+function setDetailsOpen(open){detailsOpen=open;root()?.querySelector(".library-browser-layout")?.classList.toggle("is-details-hidden",!open);root()?.querySelector("[data-lib-command=details]")?.setAttribute("aria-pressed",String(open));}
+matchMedia("(max-width:1250px)").addEventListener("change",event=>{if(event.matches)setDetailsOpen(false);});
 let transferPaint=null;
 let transferRefresh=null;
 let completionCollapsed=false;
@@ -56,6 +59,7 @@ async function api(action,body,{method,signal}={}){
 }
 export function libraryView(){return '<section class="library" data-library aria-label="Private file library"><div class="loading-state" role="status">Opening your library…</div></section>';}
 export function mountLibrary(){
+ detailsOpen=false;
  const next=account.user?.id||null;
  if(next!==owner){
   accessRole=null;
@@ -89,7 +93,7 @@ function draw(){
  if(!canWrite()){picker?.closest('label').remove();el.querySelector('[data-lib-action=folder]')?.remove();}
  if(canManage()){const button=document.createElement('button');button.className='btn secondary library-manage';button.dataset.libAction='access';button.textContent='MANAGE ACCESS';el.querySelector('.library-heading').append(button);}
  mountLibraryOrganizer({api,entries,drive,folder,admin:canManage(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});
- mountPrivateExplorer({drive,folder,volumes,folders:allFolders,crumbs,selected:selectedEntry,admin:canManage(),navigate,shareDrive:()=>{const v=volumes?.find(v=>v.id===(drive||selectedDrive))||volumes?.[0];if(v)manageLibraryAccess(api,{kind:'drive',drive:v.id,name:v.name});}});
+ mountPrivateExplorer({drive,folder,detailsOpen,volumes,folders:allFolders,crumbs,selected:selectedEntry,admin:canManage(),navigate,shareDrive:()=>{const v=volumes?.find(v=>v.id===(drive||selectedDrive))||volumes?.[0];if(folder)manageLibraryAccess(api,{kind:'folder',id:folder,drive,name:crumbs.at(-1)?.name||'Current directory'});else if(v)manageLibraryAccess(api,{kind:'drive',drive:v.id,name:v.name});}});
  if(accessRole&&accessRole!=='owner'){el.querySelector('.page-eyebrow').textContent='LIBRARY · SHARED WITH YOU';const status=el.querySelector('.library-status span');status.textContent=(canWrite()?'Editor access':'Viewer access')+' · '+status.textContent;}
  mountPrivateContext();
  if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel:el.querySelector('[data-lib-details]'),admin:canManage()});
@@ -334,7 +338,7 @@ document.addEventListener('click',event=>{
  const button=event.target.closest('button');if(!button)return;
  const act=button.dataset.libAction;
  if(act==='clear-completed'){uploads=uploads.filter(u=>!['done','canceled','skipped'].includes(u.state));drawTransfers();return;}
- if(button.dataset.libCommand){const action=button.dataset.libCommand,id=button.dataset.libTarget,entry=entries.find(e=>e.id===id),ids=selectedExplorerIds();if(action==='details'){root().querySelector('.library-browser-layout')?.classList.toggle('is-details-hidden');return;}if(action==='open'&&id){openEntry(id);return;}if(action==='download'){const a=document.createElement('a');a.href=ids.length===1&&entry?.kind==='file'?fileUrl(id,true):'/api/library/archive?ids='+ids.join(',');a.click();return;}if(action==='rename'&&entry){formDialog('Rename',entry.name,name=>api('rename',{id:entry.id,name}));return;}if(action==='share'&&entry){manageLibraryAccess(api,entry);return;}if(action==='move'){root().querySelector('[data-bulk-move]')?.click();return;}if(action==='delete'){root().querySelector('[data-bulk-delete]')?.click();return;}return;}
+ if(button.dataset.libCommand){const action=button.dataset.libCommand,id=button.dataset.libTarget,entry=entries.find(e=>e.id===id),ids=selectedExplorerIds();if(action==='details'){setDetailsOpen(!detailsOpen);return;}if(action==='open'&&id){openEntry(id);return;}if(action==='download'){const a=document.createElement('a');a.href=ids.length===1&&entry?.kind==='file'?fileUrl(id,true):'/api/library/archive?ids='+ids.join(',');a.click();return;}if(action==='rename'&&entry){formDialog('Rename',entry.name,name=>api('rename',{id:entry.id,name}));return;}if(action==='share'&&entry){manageLibraryAccess(api,entry);return;}if(action==='move'){root().querySelector('[data-bulk-move]')?.click();return;}if(action==='delete'){root().querySelector('[data-bulk-delete]')?.click();return;}return;}
  if(act==='tray'){trayExpanded=!trayExpanded;drawTransfers();return;}
  if(act==='pause-all'){for(const u of uploads)if(['uploading','queued','waiting'].includes(u.state)){u.state='paused';u.error='Paused by you.';u.controller?.abort();}drawTransfers();return;}
  if(act==='resume-all'){for(const u of uploads)if(u.state==='paused'&&u.file){u.state='queued';u.error='';u.retryCount=0;}processUploads();drawTransfers();return;}
@@ -348,9 +352,9 @@ document.addEventListener('click',event=>{
  if(button.hasAttribute('data-lib-nav-drive')){navigate(button.dataset.libNavDrive);return;}
  if(act==='up'){if(folder)navigate(drive,crumbs.at(-2)?.id||null);else navigate(null);return;}
  if(button.hasAttribute('data-lib-folder')){navigate(button.dataset.libTargetDrive||drive,button.dataset.libFolder||null);return;}
- if(act==='details-close'){root().querySelector('.library-browser-layout')?.classList.add('is-details-hidden');root().querySelector('[data-lib-command=details]')?.focus();return;}
+ if(act==='details-close'){setDetailsOpen(false);root().querySelector('[data-lib-command=details]')?.focus();return;}
  if(act==='details-open'){if(selectedEntry)openEntry(selectedEntry);return;}
- if(button.dataset.libInfo){selectEntry(button.dataset.libInfo);root().querySelector('.library-browser-layout')?.classList.remove('is-details-hidden');return;}
+ if(button.dataset.libInfo){selectEntry(button.dataset.libInfo);setDetailsOpen(true);return;}
  if(act==='view'){grid=!grid;draw();return;}
  if(act==='folder'){const target={drive,parent:folder};formDialog('New folder','',name=>api('folder',{...target,name}));return;}
  if(button.dataset.libOpen){if(tapToOpen()||event.detail===0)openEntry(button.dataset.libOpen);else selectEntry(button.dataset.libOpen);return;}
@@ -372,4 +376,4 @@ document.addEventListener('dblclick',event=>{if(tapToOpen()||!event.target.close
 document.addEventListener('toggle',event=>{const branch=event.target.closest?.('[data-tree-branch]');if(branch)branch.open?expandedFolders.add(branch.dataset.treeBranch):expandedFolders.delete(branch.dataset.treeBranch);},true);
 
 async function openTextFile(entry){if(entry.size>2*1024**2){problem='Notepad previews text files up to 2 MB. Download larger files to edit them.';draw();return;}try{const response=await fetch(fileUrl(entry.id));if(!response.ok)throw Error('This text file could not be opened.');const text=await response.text();libraryNotepad({name:entry.name,text,readOnly:!canManage(),location:[drive,...crumbs.map(c=>c.name)].join(' / '),save:async file=>{const previous=conflictMode;try{if(file.name===entry.name)conflictMode='replace';return await addFiles([file]);}finally{conflictMode=previous;}}});}catch(error){problem=error.message;draw();}}
-function mountPrivateContext(){const host=root()?.querySelector('.library-explorer');if(!host)return;const command=(name,id)=>{selectEntry(id);const b=root().querySelector('[data-lib-command="'+name+'"]');b?.click();};explorerContextMenu(host,{selection:()=>selectedEntry,select:selectEntry,open:openEntry,download:id=>command('download',id),...(canManage()?{rename:id=>command('rename',id),move:id=>command('move',id),remove:id=>command('delete',id),share:id=>command('share',id),newDirectory:()=>root().querySelector('[data-lib-action=folder]')?.click(),newText:()=>libraryNotepad({location:[drive,...crumbs.map(c=>c.name)].join(' / '),save:file=>addFiles([file])}),upload:()=>root().querySelector('[data-lib-upload]')?.click()}:{}),details:id=>{selectEntry(id);root().querySelector('.library-browser-layout')?.classList.remove('is-details-hidden');},refresh});}
+function mountPrivateContext(){const host=root()?.querySelector('.library-explorer');if(!host)return;const command=(name,id)=>{selectEntry(id);const b=root().querySelector('[data-lib-command="'+name+'"]');b?.click();};explorerContextMenu(host,{selection:()=>selectedEntry,select:selectEntry,open:openEntry,download:id=>command('download',id),...(canManage()?{rename:id=>command('rename',id),move:id=>command('move',id),remove:id=>command('delete',id),share:id=>command('share',id),newDirectory:()=>root().querySelector('[data-lib-action=folder]')?.click(),newText:()=>libraryNotepad({location:[drive,...crumbs.map(c=>c.name)].join(' / '),save:file=>addFiles([file])}),upload:()=>root().querySelector('[data-lib-upload]')?.click()}:{}),details:id=>{selectEntry(id);setDetailsOpen(true);},refresh});}

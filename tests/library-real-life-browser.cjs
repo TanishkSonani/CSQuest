@@ -75,7 +75,7 @@ const path=require('node:path');
   });
   const extension=media.type.includes('mp4')?'mp4':'webm',name='native-browser-sample.'+extension;
   await page.locator(selectors.upload).setInputFiles({name,mimeType:media.type,buffer:Buffer.from(media.data,'base64')});await page.getByRole('button',{name:'Open '+name,exact:true}).waitFor();
-  await page.getByRole('button',{name:'Open '+name,exact:true}).click();await page.locator('[data-lib-details]').getByText('160 × 90',{exact:true}).waitFor();await open(name);
+  await selectFile(page,name,true);await page.locator('[data-lib-details]').getByText('160 × 90',{exact:true}).waitFor();await open(name);
   await page.waitForFunction(()=>Number.isFinite(document.querySelector('video')?.duration)&&document.querySelector('video').duration>0);
   for(const speed of Array.from({length:12},(_,i)=>String((i+1)/4))){await page.locator('[data-video-speed]').evaluate((e,value)=>{e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));},speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
   await page.getByRole('button',{name:'Stop video',exact:true}).click();await page.getByRole('button',{name:'Mute video',exact:true}).click();assert.equal(await page.locator('video').evaluate(v=>v.muted),true);

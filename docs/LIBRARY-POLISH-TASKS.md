@@ -51,3 +51,12 @@ Confirmed: Limited and Full learner access are both read only; Limited covers Ad
 - [x] Contain long filenames with list ellipsis and two-line grid names, preserving full names in tooltips and Details.
 - [x] Validate list/grid layouts at six desktop/mobile sizes, public views, return navigation and existing Library operations with Playwright.
 - [x] Deploy and verify live desktop/mobile layouts, long names and return navigation; remove temporary QA files and session. Release `4531998`; CI passed all 218 tests.
+
+## Dolphin / 4Pane presentation and directory-share correction
+
+- [x] Keep Details closed until explicitly opened, including after selection and refresh.
+- [x] Bound private/public Explorer panes to the viewport; scroll contents, tree and Details independently while retaining the toolbar and status bar.
+- [x] Add aligned disclosure controls, indented connector lines and text-only current-folder emphasis; reserve sidebar background highlighting for the active drive.
+- [x] Retain the existing light/dark theme and file operations; validate large directories, long names and desktop/mobile/landscape with Playwright.
+- [x] Make the header share the current directory when inside one, rather than silently targeting the drive. Show explicit scope and require acknowledgement for whole-drive links.
+- [x] Regress password-protected Block directory sharing against sibling COA listing, file, archive, URL and upload escapes.
