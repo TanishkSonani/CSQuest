@@ -101,3 +101,5 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Remote browser RCA: fix task/thread exhaustion, CPU throttling and slow-client relay termination; install H.264 codecs, bound display workload, and replace visible legacy app URLs with clean workspace routes. Validate native public-site browsing plus local auth/desktop/mobile regression checks.
 
 - [x] Set Firefox to 4 GB RAM; recover its VM session across transient platform/transport restarts, with connection-token protection and specific authorization/session errors.
+
+- [x] Restore remote launch availability; remove the updater service-stop wildcard, add interrupted-update recovery and an independent minute health timer, and verify automatic service recovery plus both native launch transports on the VM.

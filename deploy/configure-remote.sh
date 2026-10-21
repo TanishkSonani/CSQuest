@@ -65,8 +65,10 @@ install -m 644 "$base/remote-worker.py" /opt/csquest-remote/worker.py
 install -m 644 "$base/terminal.bashrc" /opt/csquest-remote/terminal.bashrc
 install -m 755 "$base/remote-network.sh" /opt/csquest-remote/network.sh
 install -m 755 "$base/update-remote-firefox.sh" /usr/local/sbin/csquest-update-firefox
+install -m 755 "$base/check-remote.sh" /usr/local/sbin/csquest-check-remote
 install -m 644 "$base/csquest-remote.service" "$base/csquest-remote.slice" "$base/csquest-remote-network.service" /etc/systemd/system/
 install -m 644 "$base/csquest-remote-update.service" "$base/csquest-remote-update.timer" /etc/systemd/system/
+install -m 644 "$base/csquest-remote-health.service" "$base/csquest-remote-health.timer" /etc/systemd/system/
 install -d /etc/systemd/system/csquest-remote.service.d
 cat > /etc/systemd/system/csquest-remote.service.d/mounts.conf <<'UNIT'
 [Unit]
@@ -77,4 +79,5 @@ UNIT
 systemctl daemon-reload
 systemctl enable --now csquest-remote-network.service csquest-remote.service
 systemctl enable --now csquest-remote-update.timer
+systemctl enable --now csquest-remote-health.timer
 printf '\nRemote session services installed. Set REMOTE_SESSION_SOCKET=/run/csquest-remote/broker.sock in the application environment.\n'
