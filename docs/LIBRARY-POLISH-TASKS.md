@@ -103,3 +103,6 @@ User requested commit and push only for this follow-up; deployment verification 
 - [x] Set Firefox to 4 GB RAM; recover its VM session across transient platform/transport restarts, with connection-token protection and specific authorization/session errors.
 
 - [x] Restore remote launch availability; remove the updater service-stop wildcard, add interrupted-update recovery and an independent minute health timer, and verify automatic service recovery plus both native launch transports on the VM.
+
+- [x] VLC-style video bar: centered skip/play-pause, no Stop button, buffered seek track, elapsed time on the left and clickable total/remaining time on the right.
+- [x] Click-only vertical speed/volume popups, compact skip settings, and timestamp preview while hovering the seek bar; preserve overlay size, keyboard shortcuts, fullscreen and public playback.

@@ -60,7 +60,7 @@ const {randomUUID}=require('node:crypto');
   await page.waitForFunction(()=>Number.isFinite(document.querySelector('.library-video-dialog video')?.duration));
   assert.equal(await page.locator('[data-video-speed]').getAttribute('type'),'range');assert.equal(await page.locator('[data-video-speed]').getAttribute('min'),'0.25');assert.equal(await page.locator('[data-video-speed]').getAttribute('max'),'3');
   for(const speed of ['0.5','0.75','1','1.5','2','3']){await page.locator('[data-video-speed]').evaluate((e,value)=>{e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));},speed);assert.equal(await page.locator('video').evaluate(v=>v.playbackRate),Number(speed));}
-  await page.getByRole('button',{name:'Stop video',exact:true}).click();assert.equal(await page.locator('video').evaluate(v=>v.currentTime),0);
+  await page.locator('video').evaluate(v=>{v.pause();v.currentTime=0;});assert.equal(await page.locator('video').evaluate(v=>v.currentTime),0);
   await page.screenshot({path:'qa-results/library/video-light.png'});await page.getByRole('button',{name:'Close video',exact:true}).click();
   await page.evaluate(()=>{document.documentElement.dataset.theme='dark';localStorage.setItem('csquest-theme','dark');});
   await page.screenshot({path:'qa-results/library/desktop-dark.png',fullPage:true});
