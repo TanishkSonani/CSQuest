@@ -1,0 +1,146 @@
+/* Shared finishing layer for the existing CSQuest palette and native controls. */
+:root{
+ --control-accent:var(--green-dark);--control-mark:#fff;--control-radius:10px;
+ --control-border:color-mix(in srgb,var(--muted) 70%,var(--border));
+ scrollbar-color:var(--control-border) var(--surface-alt);
+}
+:root[data-theme=dark]{--control-mark:#182b26}
+
+:where(button,input,select,textarea,option,optgroup){font-family:var(--font)}
+:where(textarea){line-height:1.6;resize:vertical}
+:where(fieldset){min-width:0;border:1px solid var(--border);border-radius:10px;padding:14px}
+:where(legend){padding:0 6px;font-weight:800;color:var(--muted)}
+:where(input,select,textarea){accent-color:var(--control-accent);caret-color:var(--ink)}
+:where(input,textarea)::placeholder{color:var(--muted);opacity:1}
+:where(select option,select optgroup){background:var(--surface);color:var(--ink)}
+:root :is(button,a,input,select,textarea,summary,[tabindex]):focus-visible{
+ outline:2px solid var(--blue);outline-offset:3px;
+}
+:where(button,input,select,textarea):disabled{cursor:not-allowed}
+:where(input,select,textarea):disabled{opacity:.55}
+::selection{background:var(--green-light);color:var(--ink)}
+.btn:not(.primary,.secondary,.red-button){
+ background:var(--action);border:1px solid var(--action-edge);border-bottom:3px solid var(--action-edge);color:var(--control-mark);
+}
+.btn:not(.primary,.secondary,.red-button):disabled{background:var(--surface-alt);border-color:var(--border);color:var(--muted)}
+
+/* Keep platform, login, social and Explorer checkboxes on the same visual system. */
+:root input:is([type=checkbox],[type=radio]){
+ appearance:none;display:inline-grid;place-content:center;box-sizing:border-box;
+ width:18px;height:18px;min-width:18px;min-height:18px;max-width:18px;max-height:18px;
+ flex:0 0 18px;margin:0;padding:0;border:1.5px solid var(--control-border);border-radius:5px;
+ background:var(--surface);color:var(--control-mark);vertical-align:middle;cursor:pointer;
+ box-shadow:none;transition:background-color .12s,border-color .12s;
+}
+:root input:is([type=checkbox],[type=radio])::before{
+ content:'';display:block;width:11px;height:11px;background:currentColor;opacity:0;
+ clip-path:polygon(12% 45%,0 60%,39% 95%,100% 18%,84% 5%,36% 67%);
+}
+:root input:is([type=checkbox],[type=radio]):is(:checked,:indeterminate){
+ background:var(--control-accent);border-color:var(--control-accent);
+}
+:root input:is([type=checkbox],[type=radio]):is(:checked,:indeterminate)::before{opacity:1}
+:root input[type=checkbox]:indeterminate::before{clip-path:inset(42% 0 round 1px)}
+:root input[type=radio]{border-radius:50%}
+:root input[type=radio]::before{width:8px;height:8px;clip-path:none;border-radius:50%}
+:root input:is([type=checkbox],[type=radio]):disabled{cursor:not-allowed;opacity:.45}
+.check-label,.scope-choice{cursor:pointer}
+.check-label input{margin-top:2px}
+
+/* A theme-colored chevron while retaining native keyboard and option selection. */
+:root select:not([multiple]):not([size]){
+ appearance:none;padding-right:32px!important;
+ /* Older page-specific background shorthands must not erase the shared arrow. */
+ background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%)!important;
+ background-position:calc(100% - 15px) 50%,calc(100% - 10px) 50%!important;background-size:5px 5px!important;background-repeat:no-repeat!important;
+ text-overflow:ellipsis;cursor:pointer;
+}
+:root select:disabled{cursor:not-allowed}
+:where(input[type=file])::file-selector-button{
+ font:inherit;font-weight:800;color:var(--green-dark);background:var(--surface-alt);
+ border:1px solid var(--control-border);border-radius:8px;padding:8px 12px;margin-right:10px;cursor:pointer;
+}
+:where(input[type=search])::-webkit-search-cancel-button{cursor:pointer}
+:where(input[type=date],input[type=month],input[type=time]){font-variant-numeric:tabular-nums}
+:where(progress){accent-color:var(--control-accent);border:0;border-radius:99px;overflow:hidden;background:var(--surface-alt)}
+:where(progress)::-webkit-progress-bar{background:var(--surface-alt);border-radius:99px}
+:where(progress)::-webkit-progress-value{background:var(--control-accent);border-radius:99px}
+:where(progress)::-moz-progress-bar{background:var(--control-accent);border-radius:99px}
+
+/* The switch track stays compact inside its 44px touch target. */
+.settings-card .toggle{
+ position:relative;isolation:isolate;width:56px;height:44px;min-width:56px;min-height:44px;
+ padding:0;background:transparent;border:0;border-radius:12px;
+}
+.settings-card .toggle::before{
+ content:'';position:absolute;inset:7px 0;border-radius:99px;background:var(--control-border);z-index:-1;
+}
+.settings-card .toggle.on{background:transparent}
+.settings-card .toggle.on::before{background:var(--control-accent)}
+.settings-card .toggle>span{
+ position:absolute;left:4px;top:11px;width:22px;height:22px;border-radius:50%;
+ background:var(--surface);box-shadow:0 1px 3px #0003;transform:none;
+}
+.settings-card .toggle.on>span{transform:translateX(26px);background:var(--control-mark)}
+
+/* Administration and its dialogs use the same cards, fields and spacing as profiles. */
+[data-admin-content]>h2{margin:24px 0 14px}
+[data-admin-content]>[data-create-admin]{margin-right:8px}
+[data-admin-search]{display:flex;align-items:flex-end;gap:12px;margin:20px 0}
+[data-admin-content] [data-admin-search] label{flex:1;margin:0;min-width:0}
+:is(.platform-dialog,[data-admin-content]) label{font-weight:800;color:var(--ink)}
+:is(.platform-dialog,[data-admin-content]) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea){
+ border:1px solid var(--control-border);border-radius:var(--control-radius);background-color:var(--surface-alt);
+ font-family:var(--font);font-weight:600;color:var(--ink);line-height:1.5;
+}
+:is(.platform-dialog,[data-admin-content]) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select){min-height:44px}
+.platform-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea){width:100%}
+.platform-dialog label:has(>input:is([type=checkbox],[type=radio])){flex-direction:row;align-items:center;gap:10px;min-height:32px}
+.platform-dialog :is(.button-row,[data-dialog-body] form>.btn){margin-top:18px}
+.platform-dialog .button-row{display:flex;flex-wrap:wrap;gap:10px}
+.platform-dialog [data-dialog-error]:empty,[data-admin-error]:empty{display:none}
+.platform-dialog [data-dialog-error]:not(:empty),[data-admin-error]:not(:empty){
+ padding:12px 14px;border:1px solid color-mix(in srgb,var(--red) 55%,var(--border));
+ border-radius:10px;background:color-mix(in srgb,var(--red) 7%,var(--surface));color:var(--ink);overflow-wrap:anywhere;
+}
+.platform-table-scroll{border:1px solid var(--border);border-radius:12px;background:var(--surface);scrollbar-color:var(--control-border) var(--surface-alt)}
+.platform-table-scroll th{background:var(--surface-alt);font-weight:900;color:var(--muted);white-space:nowrap}
+.platform-table-scroll :is(th,td){vertical-align:middle;padding:14px 16px}
+.platform-table-scroll :is(th,td):first-child{width:50px;text-align:center}
+.platform-table-scroll tr:last-child td{border-bottom:0}
+.platform-table-scroll tbody tr:has(input:checked){background:var(--green-light)}
+.platform-table-scroll td:has([data-user-delete]){white-space:nowrap}
+.platform-table-scroll td strong{overflow-wrap:anywhere}
+.platform-table-scroll td select{width:100%;min-width:100px}
+.platform-table-scroll .btn{min-height:38px;padding:8px 12px}
+.platform-table-scroll input[type=checkbox]{vertical-align:middle}
+.platform-report form label{min-width:0}
+.platform-report textarea{font:inherit}
+:root .library-share-page{background:var(--canvas)}
+:root .library-share-page>[data-public-file]{background:transparent}
+.public-unlock form{display:grid;gap:16px}
+.public-unlock label{display:grid;gap:8px;font-size:13px;font-weight:800}
+.public-unlock form>.btn{justify-self:start}
+:root .public-unlock input{min-height:44px;font-size:16px}
+
+@media(hover:hover){
+ :root input:is([type=checkbox],[type=radio]):not(:disabled):hover{border-color:var(--control-accent);box-shadow:0 0 0 3px var(--green-light)}
+ .platform-table-scroll tbody tr:not(:has(input:checked)):hover{background:var(--surface-alt)}
+}
+@media(max-width:650px){
+ [data-admin-search]{gap:8px;align-items:flex-end}
+ [data-admin-content]>:is([data-create-admin],[data-create-library]){margin:4px 6px 4px 0}
+ .platform-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea),[data-admin-search] input{font-size:16px}
+ .platform-dialog .button-row>.btn{flex:1}
+ .platform-report form{grid-template-columns:minmax(0,1fr)}
+ .platform-table-scroll{margin-right:0}
+}
+@media(prefers-reduced-motion:reduce){:root input:is([type=checkbox],[type=radio]){transition:none}}
+@media(forced-colors:active){
+ :root input:is([type=checkbox],[type=radio]){appearance:auto;forced-color-adjust:auto}
+ :root input:is([type=checkbox],[type=radio])::before{display:none}
+ :root select:not([multiple]):not([size]){appearance:auto;background-image:none!important}
+ .settings-card .toggle::before{border:1px solid ButtonText;background:Canvas}
+ .settings-card .toggle.on::before{background:Highlight}
+ .settings-card .toggle>span{background:ButtonText}
+}
