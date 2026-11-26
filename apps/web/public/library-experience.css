@@ -1,0 +1,54 @@
+/* Stable transfer viewport: progress updates never replace the scroll container. */
+.library-global-tray{display:flex;flex-direction:column;overflow:hidden;max-height:min(70dvh,620px);padding:0;overscroll-behavior:contain}
+.library-global-tray>button{flex-shrink:0;padding:14px 16px;min-height:48px;border-bottom:1px solid var(--border)}
+.library-global-tray [data-tray-body]{overflow:auto;min-height:0;max-height:calc(70dvh - 60px);padding:10px 12px;overscroll-behavior:contain;overflow-anchor:none;scrollbar-gutter:stable;touch-action:pan-y}
+.library-global-tray [data-tray-body][hidden]{display:none}
+.library-global-tray [data-tray-body]>.button-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.library-global-tray [data-tray-body]>.button-row>.btn{min-height:34px;padding:7px 9px;font-size:10px}
+.library-global-tray .library-transfer{min-width:0;overflow-anchor:none}
+.library-global-tray .library-transfer>div{min-width:0;flex:1}
+.library-global-tray .library-transfer strong{display:block;overflow-wrap:anywhere;word-break:break-word}
+.library-global-tray .library-transfer small{overflow-wrap:anywhere}
+.library-global-tray .library-transfer>.btn{font-size:10px;max-width:110px;white-space:normal;padding:8px}
+.library-tools-toolbar{display:flex;align-items:center;gap:8px 18px;min-height:34px;margin:0 12px;flex-shrink:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+.library-tools-toolbar>.text-button{flex-shrink:0;min-height:34px;font-size:11px;white-space:nowrap}
+.library-experience-dialog{width:min(1000px,calc(100vw - 24px));max-width:1000px;scrollbar-gutter:stable}
+.library-experience-dialog h3{margin-top:22px;font-size:16px}
+.library-experience-dialog .platform-table-scroll{max-width:100%;margin:12px 0 20px}
+.library-experience-dialog .platform-table-scroll :is(th,td):first-child{width:auto;text-align:left}
+.library-experience-dialog .platform-table-scroll td{overflow-wrap:anywhere;max-width:300px}
+.library-experience-dialog .platform-table-scroll small{font-size:11px}
+.library-experience-dialog .platform-table-scroll .text-button{font-size:10px;white-space:nowrap}
+.library-continue-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.library-continue-list>button{text-align:left;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface-alt);color:var(--ink);min-width:0;overflow-wrap:anywhere}
+.library-continue-list small{display:block;margin-top:5px;color:var(--muted);line-height:1.5}
+.library-continue-list progress{width:100%;height:5px;display:block;margin-top:10px}
+.library-playlist{border:1px solid var(--border);border-radius:12px;margin:12px 0;padding:12px;background:var(--surface-alt)}
+.library-playlist>summary{cursor:pointer;font-weight:800;overflow-wrap:anywhere}
+.library-playlist ol{padding-left:20px}
+.library-playlist li{display:flex;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.library-playlist li>span{flex:1;min-width:0;overflow-wrap:anywhere}
+.library-playlist li>button{flex-shrink:0;width:32px;height:32px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--ink)}
+.library-insight-group{padding:8px 12px;border:1px solid var(--border);border-radius:12px;margin:10px 0}
+.video-settings-popover{overflow-y:auto;overscroll-behavior:contain}
+.library-video-player .video-settings-popover{width:min(300px,calc(100% - 16px));align-items:stretch}
+.podcast-player .audio-settings-panel{max-height:min(65dvh,520px);overflow-y:auto;overscroll-behavior:contain}
+.video-track-settings,.library-queue-controls{display:grid;gap:12px;border-top:1px solid var(--border);padding-top:12px;margin-top:12px;font-size:12px;min-width:0}
+.video-track-settings label,.library-queue-controls label{display:grid;gap:6px;min-width:0}
+.video-track-settings :is(select,input),.library-queue-controls select{max-width:100%;width:100%;min-width:0;font:inherit;color:var(--ink);background-color:var(--surface-alt);border:1px solid var(--border);border-radius:7px;min-height:34px;padding:6px 8px}
+.video-track-settings input[type=file]{font-size:11px}
+.video-track-settings small{font-size:10px;line-height:1.5;color:var(--muted);white-space:normal}
+.library-queue-controls>.check-label{display:flex;align-items:center;gap:8px}
+.library-queue-controls>div{display:flex;gap:8px}
+.library-queue-controls button{font:inherit;padding:7px 9px;border:1px solid var(--border);border-radius:7px;background:var(--surface-alt);color:var(--ink)}
+.audio-settings-panel .library-queue-controls{width:100%}
+.audio-settings-panel .library-queue-controls select{max-width:240px}
+@media(max-width:650px){
+ .library-global-tray{max-height:60dvh;bottom:calc(12px + env(safe-area-inset-bottom));width:calc(100vw - 20px);right:10px}
+ body:not(.is-library-workspace):not(.library-share-page) .library-global-tray{bottom:calc(85px + env(safe-area-inset-bottom))}
+ .library-global-tray [data-tray-body]{max-height:calc(60dvh - 60px)}
+ .library-tools-toolbar{gap:14px;margin:0 8px}
+ .library-continue-list{grid-template-columns:minmax(0,1fr)}
+ .library-experience-dialog .platform-table-scroll table{min-width:600px}
+ .video-track-settings :is(select,input),.library-queue-controls select{font-size:16px}
+}

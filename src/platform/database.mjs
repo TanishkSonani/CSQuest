@@ -1,5 +1,6 @@
 import './env.mjs';
 import pg from 'pg';
+import {AsyncLocalStorage} from 'node:async_hooks';
 import {freshActivity} from './social-metrics.mjs';
 import {deleteAccount} from './account-deletion.mjs';
 
@@ -10,9 +11,10 @@ export function createPool(connectionString=process.env.DATABASE_URL,options={})
  return pool;
 }
 
+export const databaseActor=new AsyncLocalStorage();
 export async function transaction(pool,task){
  const client=await pool.connect();
- try{await client.query('BEGIN');const result=await task(client);await client.query('COMMIT');return result;}
+ try{await client.query('BEGIN');const actor=databaseActor.getStore();if(actor)await client.query("SELECT set_config('csquest.actor_id',$1,true),set_config('csquest.actor_name',$2,true)",[actor.id||'',actor.username||actor.displayName||'Public visitor']);const result=await task(client);await client.query('COMMIT');return result;}
  catch(error){await client.query('ROLLBACK');throw error;}
  finally{client.release();}
 }

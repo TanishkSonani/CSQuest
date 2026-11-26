@@ -6,6 +6,7 @@ import yazl from 'yazl';
 import {readBody,assertSameOrigin} from './accounts.mjs';
 import {transaction} from './database.mjs';
 import {openLibraryFile,libraryError} from './storage.mjs';
+import {recordLibraryActivity} from './library-experience.mjs';
 const fail=(s,m)=>{throw libraryError(s,m);};
 const valid=x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 export async function recordLibraryUndo(db,actor,before,after,label){
@@ -34,12 +35,13 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
   }
   if(route==='favorite'||route==='bookmark'){
    const id=write?body.id:url.searchParams.get('id'),e=await get(pool,id,ownerId);assertLibraryScope(scope,e.id);if(e.status!=='ready')fail(404,'File is not ready.');
-   if(!write){send(200,(await pool.query('SELECT favorite,position,speed,last_opened AS "lastOpened" FROM csquest_library_preferences WHERE user_id=$1 AND entry_id=$2',[actor.id,e.id])).rows[0]||{favorite:false,position:0,speed:1});return true;}
+   if(!write){send(200,(await pool.query('SELECT favorite,position,speed,duration,completed,document_page AS page,document_pages AS pages,last_opened AS "lastOpened" FROM csquest_library_preferences WHERE user_id=$1 AND entry_id=$2',[actor.id,e.id])).rows[0]||{favorite:false,position:0,speed:1,page:1,pages:0});return true;}
    if(route==='favorite'){
     if(typeof body.favorite!=='boolean')fail(400,'Choose a favorite setting.');await pool.query('INSERT INTO csquest_library_preferences(user_id,entry_id,favorite) VALUES($1,$2,$3) ON CONFLICT(user_id,entry_id) DO UPDATE SET favorite=excluded.favorite',[actor.id,e.id,body.favorite]);
    }else{
     const position=Number(body.position||0),speed=Number(body.speed||1);if(!Number.isFinite(position)||position<0||position>1e8||!Number.isFinite(speed)||speed<.25||speed>3)fail(400,'Invalid playback position or speed.');
-    await pool.query('INSERT INTO csquest_library_preferences(user_id,entry_id,position,speed,last_opened) VALUES($1,$2,$3,$4,now()) ON CONFLICT(user_id,entry_id) DO UPDATE SET position=excluded.position,speed=excluded.speed,last_opened=now()',[actor.id,e.id,position,speed]);
+    const duration=Number(body.duration||0);if(!Number.isFinite(duration)||duration<0||duration>1e8)fail(400,'Invalid media duration.');
+    await pool.query('INSERT INTO csquest_library_preferences(user_id,entry_id,position,speed,duration,completed,last_opened) VALUES($1,$2,$3,$4,$5,$6,now()) ON CONFLICT(user_id,entry_id) DO UPDATE SET position=excluded.position,speed=excluded.speed,duration=CASE WHEN excluded.duration>0 THEN excluded.duration ELSE csquest_library_preferences.duration END,completed=excluded.completed,last_opened=now()',[actor.id,e.id,position,speed,duration,body.completed===true]);
    }send(200,{ok:true});return true;
   }
   if(route==='resources'){assertLibraryScope(scope,write?body.id:url.searchParams.get('id'));
@@ -64,6 +66,7 @@ export function createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,
   const ids=route==='archive'?(url.searchParams.get('ids')||'').split(','):body.ids;
   if(!Array.isArray(ids)||!ids.length||ids.length>100||!ids.every(valid))fail(400,'Select 1–100 items.');
   if(route==='archive'){for(const id of ids)assertLibraryScope(scope,id);
+   await recordLibraryActivity(pool,{ownerId,action:'archive_download_started',details:{ids}});
    const entries=(await pool.query("WITH RECURSIVE files AS (SELECT e.*,e.name AS archive_name,0 AS depth FROM csquest_library_entries e WHERE e.id=ANY($1::uuid[]) AND e.owner_id=$2 AND e.status='ready' UNION ALL SELECT e.*,f.archive_name||'/'||e.name,f.depth+1 FROM csquest_library_entries e JOIN files f ON e.parent_id=f.id WHERE e.owner_id=$2 AND e.status='ready' AND f.depth<100) SELECT DISTINCT ON(id) * FROM files ORDER BY id,depth LIMIT 10001",[ids,ownerId])).rows;
    if(!entries.length)fail(404,'No files found.');if(entries.length>10000)fail(413,'Select a smaller set of folders.');
    const zip=new yazl.ZipFile(),used=new Set();let current;

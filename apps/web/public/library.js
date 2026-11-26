@@ -1,3 +1,7 @@
+import {mountLibraryExperience} from './library-experience.js';
+import {setPlaybackQueue,setQueueCurrent,advanceQueue,mountQueueControls,isLibraryMedia} from './library-playback-queue.js';
+import {mountVideoTracks} from './video-tracks.js';
+import {renderTransferView,readTransfers,saveTransfers,chunkChecksum,manifestChecksum} from './transfer-view.js';
 import {mountRemoteLaunchers} from './remote-launchers.js';
 import {attachVideoBuffer} from './video-buffer.js';
 import {openDriveSettings} from './library-drive-settings.js';
@@ -31,21 +35,23 @@ let completionCollapsed=false;
 let trayExpanded=false,selectedFiles=new Set(),conflictMode='keep',lastUndo=null;
 const root=()=>document.querySelector('[data-library]');
 const storageKey=()=>`csquest:library-uploads:${owner}`;
-function remember(){try{sessionStorage.setItem(storageKey(),JSON.stringify(uploads.filter(u=>!['done','canceled','skipped'].includes(u.state)).map(({file,controller,inFlight,startedAt,startedUploaded,...u})=>u)));}catch{}}
+function remember(){saveTransfers(storageKey(),uploads);}
+
 const transferBytes=u=>Math.min(u.size,(u.uploaded||0)+(u.inFlight||0));
 function transferStatus(u){
- if(u.state==='done')return 'Uploaded';if(u.state==='queued')return `Queued · position ${uploads.filter(t=>t.state==='queued').indexOf(u)+1} · starts automatically`;
+ if(u.state==='verifying')return 'Verifying upload integrity';if(u.state==='done')return u.verified?'Uploaded and verified':'Uploaded';if(u.state==='queued')return `Queued · position ${uploads.filter(t=>t.state==='queued').indexOf(u)+1} · starts automatically`;
  if(u.state==='skipped')return 'Skipped · existing file kept';if(u.state==='waiting')return navigator.onLine?'Retrying automatically…':'Waiting for connection…';
- if(u.state!=='uploading')return u.error||u.state;
+ if(u.state!=='uploading')return u.error||u.state;if(u.checking)return 'Checking saved file data';
  const seconds=(performance.now()-u.startedAt)/1000,rate=(transferBytes(u)-(u.startedUploaded||0))/seconds;
  return seconds>1&&rate>0?`Uploading · ${bytes(rate)}/s · ${clock((u.size-transferBytes(u))/rate)} left`:'Uploading';
 }
-function sendChunk(u,chunk){
+async function sendChunk(u,chunk){
+ const digest=await chunkChecksum(chunk);
  return new Promise((resolve,reject)=>{
   const xhr=new XMLHttpRequest(),signal=u.controller.signal;
   const abort=()=>xhr.abort(),cleanup=()=>signal.removeEventListener('abort',abort);
   xhr.open('PUT',`/api/library/chunk?id=${u.id}&offset=${u.uploaded}`);xhr.withCredentials=true;xhr.timeout=600000;
-  xhr.setRequestHeader('X-CSQuest-Request','1');xhr.setRequestHeader('Content-Type','application/octet-stream');
+  xhr.setRequestHeader('X-CSQuest-Request','1');xhr.setRequestHeader('X-CSQuest-Chunk-SHA256',digest);xhr.setRequestHeader('Content-Type','application/octet-stream');
   xhr.upload.onprogress=event=>{u.inFlight=event.loaded;if(!transferPaint)transferPaint=setTimeout(()=>{transferPaint=null;drawTransfers();},200);};
   xhr.onload=()=>{cleanup();let result;try{result=JSON.parse(xhr.responseText);}catch{reject(Error('Unexpected upload response. Retry to resume.'));return;}if(xhr.status>=200&&xhr.status<300)resolve(result);else reject(Object.assign(Error(result.error||'Upload failed. Retry to resume.'),{status:xhr.status}));};
   xhr.onerror=()=>{cleanup();reject(Object.assign(Error('Connection lost. Retrying from the saved position.'),{retryable:true}));};
@@ -68,7 +74,7 @@ export function mountLibrary(){
  if(next!==owner){
   accessRole=null;
   uploads.forEach(u=>u.controller?.abort());epoch++;owner=next;drive=null;folder=null;entries=[];allFolders=[];volumes=null;checkedAt=null;problem='';clearDetails();selectedDrive=null;
-  try{uploads=JSON.parse(sessionStorage.getItem(storageKey())||'[]').map(u=>({...u,state:'paused',error:'Choose this file again to resume.'}));}catch{uploads=[];}
+  uploads=readTransfers(storageKey());
   videoDialog?.close();
  }
  drawTransfers();
@@ -92,7 +98,7 @@ function draw(){
  <section class="library-explorer card" aria-label="File explorer"><nav class="library-breadcrumb" aria-label="Library location"><button data-lib-action="up" aria-label="Go up one directory" title="Go up one directory">↑</button><button data-lib-action="home">${icon('folder')} This PC</button><span>/</span><button data-lib-folder="" data-lib-target-drive="${drive}">${h(current?.name||drive)}</button>${crumbs.map(c=>`<span>/</span><button data-lib-folder="${c.id}">${h(c.name)}</button>`).join('')}</nav>
  <div class="library-toolbar"><div class="button-row"><label class="btn library-upload-label">${icon('upload')} UPLOAD FILES<input type="file" multiple data-lib-upload aria-label="Upload files"></label><button class="btn secondary" data-lib-action="folder">${icon('folder')} NEW FOLDER</button></div><div class="library-filter"><label><span class="sr-only">Search this folder</span><input type="search" data-lib-search placeholder="Search this folder" value="${h(query)}"></label><label><span class="sr-only">Sort files</span><select data-lib-sort><option value="name" ${sort==='name'?'selected':''}>Name</option><option value="size" ${sort==='size'?'selected':''}>Size</option><option value="date" ${sort==='date'?'selected':''}>Latest first</option></select></label><button class="library-view-button" data-lib-action="view" aria-label="${grid?'Switch to list view':'Switch to grid view'}">${grid?'☷':'▦'}</button></div></div>
  <div data-lib-files>${filesMarkup()}</div><p class="library-folder-status">${entries.length} item${entries.length===1?'':'s'} · ${h(current?.name||drive)} · ${tapToOpen()?'Tap':'Double-click'} to open</p></section></div>`}
- <section class="library-details" data-lib-details aria-label="Selected item details" ${selectedEntry?'':'hidden'}>${detailsMarkup()}</section><section class="library-transfers" data-lib-transfers aria-label="File transfers">${transfersMarkup()}</section>`;
+ <section class="library-details" data-lib-details aria-label="Selected item details" ${selectedEntry?'':'hidden'}>${detailsMarkup()}</section>`;
  const picker=el.querySelector('[data-lib-upload]');if(picker)picker.onchange=()=>{const files=[...picker.files];picker.value='';addFiles(files);};
  if(!canWrite()){picker?.closest('label').remove();el.querySelector('[data-lib-action=folder]')?.remove();}
  if(canManage()&&volumes?.some(d=>d.kind==='object')){const settings=document.createElement('button');settings.className='btn secondary';settings.dataset.libAction='drive-settings';settings.textContent='STORAGE SETTINGS';el.querySelector('.library-heading').append(settings);}
@@ -101,21 +107,22 @@ function draw(){
  mountPrivateExplorer({drive,folder,detailsOpen,volumes,folders:allFolders,crumbs,selected:selectedEntry,admin:canManage(),writable:canWrite(),navigate,shareDrive:()=>{const v=volumes?.find(v=>v.id===(drive||selectedDrive))||volumes?.[0];if(folder)manageLibraryAccess(api,{kind:'folder',id:folder,drive,name:crumbs.at(-1)?.name||'Current directory'});else if(v)manageLibraryAccess(api,{kind:'drive',drive:v.id,name:v.name});}});
  if(accessRole&&accessRole!=='owner'){el.querySelector('.page-eyebrow').textContent='LIBRARY · SHARED WITH YOU';const status=el.querySelector('.library-status span');status.textContent=(canWrite()?'Editor access':'Viewer access')+' · '+status.textContent;}
  mountRemoteLaunchers({drive,folder,admin:canManage()});
+ mountLibraryExperience({api,root:el,admin:canManage(),entries,selectedIds:selectedExplorerIds,navigate,selectEntry,openFile:openLibraryItem,transfers:restoreTransferCenter});
  mountPrivateContext();
  if(selectedDetails)mountFileExtras({api,file:selectedDetails,panel:el.querySelector('[data-lib-details]'),admin:canManage()});
  const details=el.querySelector('.library-storage-details');if(details)details.ontoggle=()=>{if(details.isConnected)storageExpanded=details.open;};
 }
 
 function filesMarkup(){return explorerFiles(entries,{selected:selectedEntry,query,sort,grid});}
-function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':u.drive==='object'?'Object':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${['uploading','queued','waiting'].includes(u.state)?`<button class="library-small-button" data-lib-pause="${i}" aria-label="Pause upload of ${h(u.name)}">Ⅱ</button>`:''}${u.state==='queued'?`<button class="library-small-button" data-lib-prioritize="${i}" aria-label="Prioritize ${h(u.name)}">↑</button>`:''}${!['done','canceled','skipped'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
+function transfersMarkup(){return uploads.length?`<h2 class="library-section-label">${icon('upload')} Transfers · up to ${parallelUploads} files at once</h2>${uploads.map((u,i)=>`<article class="library-transfer" data-transfer-id="${h(u.id)}"><div><strong>${h(u.name)}</strong><small>${h(transferStatus(u))} · ${bytes(transferBytes(u))} / ${bytes(u.size)} · ${u.drive==='boot'?'Boot':u.drive==='object'?'Object':'Block'}</small><progress max="${Math.max(1,u.size)}" value="${u.state==='done'?Math.max(1,u.size):transferBytes(u)}" aria-label="Upload progress for ${h(u.name)}"></progress></div>${u.state==='paused'?`<button class="btn secondary" data-lib-retry="${i}">${u.file?'RETRY':'CHOOSE FILE TO RESUME'}</button>`:''}${['uploading','queued','waiting'].includes(u.state)?`<button class="library-small-button" data-lib-pause="${i}" aria-label="Pause upload of ${h(u.name)}">Ⅱ</button>`:''}${u.state==='queued'?`<button class="library-small-button" data-lib-prioritize="${i}" aria-label="Prioritize ${h(u.name)}">↑</button>`:''}${!['done','canceled','skipped','verifying'].includes(u.state)?`<button class="library-small-button" data-lib-cancel="${i}" aria-label="Cancel upload of ${h(u.name)}">${icon('close')}</button>`:u.state==='verifying'?'':`<button class="library-small-button" data-lib-dismiss="${i}" aria-label="Dismiss transfer">${icon('close')}</button>`}</article>`).join('')}`:'';}
 function drawTransfers(){
- if(uploads.length&&uploads.every(u=>['done','canceled','skipped'].includes(u.state))&&!completionCollapsed){trayExpanded=false;completionCollapsed=true;}
- const node=root()?.querySelector('[data-lib-transfers]');if(node)node.innerHTML=transfersMarkup();remember();
+
+ remember();
  let tray=document.querySelector('[data-library-tray]');
  if(!owner||owner!==account.user?.id||!uploads.length){tray?.remove();return;}
  if(!tray){tray=document.createElement('aside');tray.className='library-global-tray';tray.dataset.libraryTray='';tray.setAttribute('aria-label','Upload activity');document.body.append(tray);}
  const active=uploads.filter(u=>u.state==='uploading').length,queued=uploads.filter(u=>u.state==='queued').length,paused=uploads.filter(u=>['paused','waiting'].includes(u.state)).length;
- tray.innerHTML=`<button data-lib-action="tray" aria-expanded="${trayExpanded}">${icon('upload')} ${active} uploading · ${queued} queued · ${uploads.filter(u=>u.state==='done').length} complete${paused?' · '+paused+' paused / waiting':''} ${trayExpanded?'▾':'▴'}</button><div data-tray-body ${trayExpanded?'':'hidden'}><div class="button-row"><button class="btn secondary" data-lib-action="clear-completed">CLEAR COMPLETED</button><button class="btn secondary" data-lib-action="pause-all">PAUSE ALL</button><button class="btn secondary" data-lib-action="resume-all">RESUME ALL</button></div>${transfersMarkup()}</div>`;
+ renderTransferView(tray,`<button data-lib-action="tray" aria-expanded="${trayExpanded}">${icon('upload')} ${active} uploading · ${queued} queued · ${uploads.filter(u=>u.state==='done').length} complete${paused?' · '+paused+' paused / waiting':''} ${trayExpanded?'▾':'▴'}</button><div data-tray-body ${trayExpanded?'':'hidden'}><div class="button-row"><button class="btn secondary" data-lib-action="clear-completed">CLEAR COMPLETED</button><button class="btn secondary" data-lib-action="pause-all">PAUSE ALL</button><button class="btn secondary" data-lib-action="resume-all">RESUME ALL</button></div>${transfersMarkup()}</div>`);
 }
 function clearDetails(){
  detailsEpoch++;selectedEntry=null;selectedDetails=null;detailsBusy=false;detailsError='';
@@ -133,7 +140,7 @@ function detailsMarkup(){
  if(detail.kind==='file'){
   fields.push(['Size',`${bytes(detail.size)} (${detail.size.toLocaleString()} bytes)`]);
   if(detail.sizeOnDisk!==null)fields.push(['Size on disk',bytes(detail.sizeOnDisk)]);
-  if(detail.mediaType)fields.push(['Media type',detail.mediaType]);
+  if(detail.mediaType)fields.push(['Media type',detail.mediaType]);fields.push(['Upload integrity',detail.integrityVerified?'SHA-256 chunks verified':'No verified upload checksum']);
  }else fields.push(['Contains',`${detail.folderCount} folders, ${detail.fileCount} files`]);
  fields.push(['Added to Library',detailDate(detail.createdAt)],['Last library change',detailDate(detail.updatedAt)]);
  if(detail.fileModifiedAt)fields.push(['Stored file modified',detailDate(detail.fileModifiedAt)]);
@@ -180,9 +187,9 @@ async function refresh(){
 }
 async function navigate(nextDrive,nextFolder=null){drive=nextDrive;folder=nextFolder;query='';entries=[];crumbs=[];allFolders=[];clearDetails();selectedDrive=nextDrive;await refresh();}
 const tapToOpen=()=>matchMedia('(pointer:coarse)').matches||innerWidth<=650;
-function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(e.kind==='folder')navigate(drive,e.id);else if(/\.txt$/i.test(e.name))openTextFile(e);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else if(/\.(pdf|png|jpe?g|gif|webp|avif)$/i.test(e.name)){api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});previewLibraryFile(e);}else{api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
+function openEntry(id){const e=entries.find(e=>e.id===id);if(!e)return;if(isLibraryMedia(e))setPlaybackQueue([...entries].sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true})),{current:e.id,label:crumbs.at(-1)?.name||'Folder'});if(e.kind==='folder')navigate(drive,e.id);else if(/\.txt$/i.test(e.name))openTextFile(e);else if(mediaKind(e.name)==='audio')playLibraryAudio(e,volumes.find(v=>v.id===drive).name);else if(mediaKind(e.name)==='video')playVideo(e);else if(/\.(pdf|png|jpe?g|gif|webp|avif)$/i.test(e.name)){api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});previewLibraryFile(e);}else{api('bookmark',{id:e.id,position:0,speed:1}).catch(()=>{});const a=document.createElement('a');a.href=fileUrl(e.id,true);a.click();}}
 function selectEntry(id){updateExplorerSelection([id]);const changed=selectedEntry!==id;selectedEntry=id;root()?.querySelectorAll('[data-lib-entry]').forEach(row=>{const selected=row.dataset.libEntry===id;row.classList.toggle('is-selected',selected);row.querySelector('[data-lib-open]')?.setAttribute('aria-pressed',String(selected));});if(changed||!selectedDetails&&!detailsBusy)loadDetails(id);document.dispatchEvent(new CustomEvent('library-entry-selected',{detail:{id}}));}
-function matchingTransfer(file,targetDrive,targetFolder){return uploads.find(u=>u.state==='paused'&&u.drive===targetDrive&&u.parent===targetFolder&&(u.originalName||u.name)===file.name&&u.size===file.size&&(u.lastModified==null||u.lastModified===file.lastModified));}
+function matchingTransfer(file,targetDrive,targetFolder){return uploads.find(u=>u.state==='paused'&&u.drive===targetDrive&&u.parent===targetFolder&&(u.originalName||u.name)===file.name&&u.size===file.size);}
 function formDialog(title,initial,onSubmit,{deleting=false}={}){
  const dialog=document.createElement('dialog');dialog.className='library-form-dialog';dialog.setAttribute('aria-label',title);
  dialog.innerHTML=`<form><div class="modal-heading"><h2>${h(title)}</h2><button type="button" class="icon-button" data-form-close aria-label="Close">${icon('close')}</button></div>${deleting?`<p>Permanently delete <strong>${h(initial)}</strong>? This cannot be undone.</p>`:`<label>Name<input name="name" value="${h(initial)}" maxlength="200" required autocomplete="off"></label>`}<p role="alert" data-form-error></p><div class="button-row"><button type="button" class="btn secondary" data-form-close>CANCEL</button><button type="submit" class="btn">${deleting?'DELETE':'SAVE'}</button></div></form>`;
@@ -256,36 +263,49 @@ async function uploadFile(u,currentOwner){
     if(u.id){try{session=await api('upload?id='+u.id,null,{signal:u.controller.signal});}catch(e){if(e.status!==404)throw e;u.id=null;}}
     if(u.state==='canceled'||u.state==='paused'||currentOwner!==owner)throw Error('Canceled');
     if(!u.id){session=await api('upload',{drive:u.drive,parent:u.parent,name:u.name,size:u.size},{signal:u.controller.signal});u.id=session.id;}
-    for(const check of session.resumeChecks||[]){
+    u.checking=!!((session.chunks||[]).length||(session.resumeChecks||[]).length);drawTransfers();
+    for(const check of [...(session.chunks||[]).map(c=>({start:c.offset,length:c.length,sha256:c.sha256})),...(session.resumeChecks||[])]){
+     if(u.state!=='uploading'||u.controller.signal.aborted)throw new DOMException('Paused','AbortError');
      const data=await u.file.slice(check.start,check.start+check.length).arrayBuffer();
      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),b=>b.toString(16).padStart(2,'0')).join('');
      if(digest!==check.sha256)throw Error('This file does not match the saved transfer. Choose the original file, or cancel this transfer to start again.');
     }
-    u.uploaded=session.uploaded;u.inFlight=0;u.startedAt=performance.now();u.startedUploaded=u.uploaded;drawTransfers();
+    u.checking=false;u.uploaded=session.uploaded;u.inFlight=0;u.startedAt=performance.now();u.startedUploaded=u.uploaded;drawTransfers();
     if(session.status!=='ready'){
      while(u.uploaded<u.size){
       if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');
       const chunk=u.file.slice(u.uploaded,Math.min(u.size,u.uploaded+session.chunkBytes));
       const result=await sendChunk(u,chunk);u.uploaded=result.uploaded;u.inFlight=0;drawTransfers();
      }
-     if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');await api('complete',{id:u.id},{signal:u.controller.signal});
+     if(u.state==='canceled'||currentOwner!==owner)throw Error('Canceled');u.state='verifying';drawTransfers();const check=await api('upload?id='+u.id);const completed=await api('complete',{id:u.id,checksum:await manifestChecksum(check.chunks||[])},{signal:u.controller.signal});u.verified=completed.verified===true;
     }
-    u.state='done';u.uploaded=u.size;
+    u.state='done';u.uploaded=u.size;u.verified=!!session.verified||!!u.verified;
    }catch(e){if(!['canceled','paused'].includes(u.state)){
     const retryable=e.retryable||e instanceof TypeError||e.name==='TimeoutError'||[408,429,500,502,503,504].includes(e.status);
     if(retryable&&(u.retryCount||0)<5&&currentOwner===owner){u.state='waiting';u.error='Retrying automatically…';u.retryCount=(u.retryCount||0)+1;setTimeout(()=>{if(u.state==='waiting'&&currentOwner===owner){if(navigator.onLine){u.state='queued';processUploads();}drawTransfers();}},Math.min(30000,1000*2**u.retryCount));}
     else{u.state='paused';u.error=e.name==='AbortError'?'Upload paused. Retry to resume.':e.message;}
    }}
-   finally{u.inFlight=0;delete u.controller;drawTransfers();}
+   finally{u.inFlight=0;u.checking=false;delete u.controller;drawTransfers();}
 }
 async function cancelUpload(u){
  u.state='canceled';u.controller?.abort();drawTransfers();
  if(u.id)try{await api('cancel',{id:u.id});}catch(e){u.state='paused';u.error=e.message;drawTransfers();}
  await refresh();
 }
+async function restoreTransferCenter(){
+ try{
+  if(['owner','editor'].includes(accessRole)){
+   const result=await api('uploads');for(const upload of result.uploads)if(!uploads.some(u=>u.id===upload.id))uploads.push({...upload,originalName:upload.name,state:'paused',error:'Choose the original file to resume.'});
+  }
+  if(!uploads.length){problem='No unfinished transfers. Open a drive to upload files.';draw();return;}
+  trayExpanded=true;drawTransfers();
+ }catch(error){problem=error.message;draw();}
+}
+function openLibraryItem(file){if(mediaKind(file.name)==='video')playVideo(file);else if(mediaKind(file.name)==='audio'){videoDialog?.close();playLibraryAudio(file,'Library');}else previewLibraryFile(file);}
+window.addEventListener('library-media-open',event=>openLibraryItem(event.detail));
 function videoKey(id){return `csquest:library-video:${owner}:${id}`;}
 export function playVideo(file){
- pauseSharedAudio();videoDialog?.close();
+ setQueueCurrent(file);pauseSharedAudio();videoDialog?.close();
  const dialog=document.createElement('dialog');videoDialog=dialog;dialog.className='library-video-dialog';dialog.setAttribute('aria-label',file.name);
  let saved={};try{saved=JSON.parse(localStorage.getItem(videoKey(file.id))||'{}');}catch{}
  const preferencesKey=`csquest:library-video-settings:${owner}`;let skipSeconds=10;
@@ -330,10 +350,11 @@ export function playVideo(file){
  const fullscreenChanged=()=>{const active=!!document.fullscreenElement;dialog.querySelector('[data-video-action=fullscreen]').innerHTML=icon(active?'player-exit-fullscreen':'player-fullscreen');dialog.querySelector('[data-video-action=fullscreen]').setAttribute('aria-label',active?'Exit fullscreen':'Fullscreen video');resizePopups();scheduleControlsHide();};document.addEventListener('fullscreenchange',fullscreenChanged);
  const bookmarkPromise=account.user?.id&&!file.url?api('bookmark?id='+file.id).catch(()=>null):Promise.resolve(null);
  function message(text){const notice=dialog.querySelector('[data-video-message]');notice.replaceChildren();notice.hidden=!text;if(!text)return;const content=document.createElement('span');content.textContent=text;const dismiss=document.createElement('button');dismiss.type='button';dismiss.className='video-notice-dismiss';dismiss.setAttribute('aria-label','Dismiss video message');dismiss.innerHTML=icon('close');dismiss.onclick=()=>{const returnFocus=notice.contains(document.activeElement);notice.hidden=true;if(returnFocus)video.focus();};notice.append(content,dismiss);}
+ const disposeTracks=mountVideoTracks(video,dialog.querySelector('[data-video-panel=settings]'),message);mountQueueControls(dialog.querySelector('[data-video-panel=settings]'));
  const loadingIndicator=document.createElement('div');loadingIndicator.className='video-loading-indicator';loadingIndicator.hidden=true;loadingIndicator.setAttribute('role','status');loadingIndicator.setAttribute('aria-label','Loading video');loadingIndicator.innerHTML='<span class=video-loading-spinner aria-hidden=true></span>';player.querySelector('.library-video-stage').append(loadingIndicator);let loadingTimer;
  function loading(show){clearTimeout(loadingTimer);if(show)loadingTimer=setTimeout(()=>{if(dialog.isConnected)loadingIndicator.hidden=false;},200);else loadingIndicator.hidden=true;}
  loading(true);
- function persist(){if(!bookmarkReady)return;try{localStorage.setItem(videoKey(file.id),JSON.stringify({time:video.currentTime||0,rate:video.playbackRate}));}catch{}if(account.user?.id&&!file.url)fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:file.id,position:video.currentTime||0,speed:video.playbackRate}),keepalive:true}).catch(()=>{});}
+ function persist(){if(!bookmarkReady)return;try{localStorage.setItem(videoKey(file.id),JSON.stringify({time:video.currentTime||0,rate:video.playbackRate}));}catch{}if(account.user?.id&&!file.url)fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:file.id,position:video.currentTime||0,speed:video.playbackRate,duration:Number.isFinite(video.duration)?video.duration:0,completed:video.ended}),keepalive:true}).catch(()=>{});}
  function update(){
   const duration=Number.isFinite(video.duration)?video.duration:0,seek=dialog.querySelector('[data-video-seek]');seek.max=duration||1;seek.value=video.currentTime||0;seek.setAttribute('aria-valuetext',clock(video.currentTime)+' of '+clock(duration));
   dialog.querySelector('[data-video-time]').textContent=clock(video.currentTime);const durationButton=dialog.querySelector('[data-video-duration]');durationButton.querySelector('time').textContent=(showRemaining?'-':'')+clock(showRemaining?Math.max(0,duration-video.currentTime):duration);durationButton.setAttribute('aria-pressed',String(showRemaining));durationButton.setAttribute('aria-label',showRemaining?'Remaining video time. Click to show total duration':'Total video duration. Click to show remaining time');durationButton.title=showRemaining?'Show total duration':'Show remaining time';const play=dialog.querySelector('[data-video-action=play]');play.innerHTML=icon(video.paused?'player-play':'player-pause');play.setAttribute('aria-label',video.paused?'Play video':'Pause video');
@@ -362,7 +383,8 @@ export function playVideo(file){
  for(const name of ['timeupdate','play','pause','ended'])video.addEventListener(name,update);
  video.onclick=()=>{if(wakingControls){wakingControls=false;showControls();return;}action('play');};video.ondblclick=()=>action('fullscreen');
  dialog.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea,a')||e.key===' '&&e.target.closest('button')||e.altKey||e.ctrlKey||e.metaKey)return;const keys={' ':'play',ArrowLeft:'back',ArrowRight:'forward',f:'fullscreen',m:'mute'};if(keys[e.key]){e.preventDefault();action(keys[e.key]);}});
- dialog.addEventListener('close',()=>{loading(false);disposeBuffer();window.removeEventListener('resize',resizePopups);clearTimeout(controlsTimer);clearTimeout(feedbackTimer);document.removeEventListener('fullscreenchange',fullscreenChanged);persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
+ video.addEventListener('ended',()=>{persist();advanceQueue(1,{automatic:true});});
+ dialog.addEventListener('close',()=>{loading(false);disposeBuffer();disposeTracks();window.removeEventListener('resize',resizePopups);clearTimeout(controlsTimer);clearTimeout(feedbackTimer);document.removeEventListener('fullscreenchange',fullscreenChanged);persist();video.pause();video.removeAttribute('src');video.load();dialog.remove();if(videoDialog===dialog)videoDialog=null;if(previous?.isConnected)previous.focus();});
 }
 document.addEventListener('csquest-audio-start',()=>videoDialog?.querySelector('video')?.pause());
 window.addEventListener('account-status',()=>{if(owner&&account.user?.id!==owner){uploads.forEach(u=>u.controller?.abort());remember();videoDialog?.close();clearDetails();document.querySelectorAll('.library-form-dialog').forEach(d=>d.close());epoch++;owner=null;entries=[];crumbs=[];allFolders=[];volumes=null;checkedAt=null;uploads=[];busy=false;}});
@@ -397,7 +419,7 @@ document.addEventListener('click',event=>{
  if(button.dataset.libMove){const e=entries.find(e=>e.id===button.dataset.libMove);if(e)moveDialog(e);return;}
  if(button.dataset.libDelete){const e=entries.find(e=>e.id===button.dataset.libDelete);formDialog('Delete '+(e.kind==='folder'?'folder':'file'),e.name,async()=>{await api('delete',{id:e.id});window.dispatchEvent(new CustomEvent('library-file-removed',{detail:e.id}));},{deleting:true});return;}
  if(button.hasAttribute('data-lib-cancel')){cancelUpload(uploads[Number(button.dataset.libCancel)]);return;}
- if(button.hasAttribute('data-lib-retry')){const u=uploads[Number(button.dataset.libRetry)];u.retryCount=0;if(u.file){u.state='queued';processUploads();}else{const picker=document.createElement('input');picker.type='file';picker.onchange=()=>{const f=picker.files[0];if(f&&f.name===(u.originalName||u.name)&&f.size===u.size&&(u.lastModified==null||f.lastModified===u.lastModified)){u.file=f;u.state='queued';processUploads();}else{u.error='Choose the same original file to resume.';drawTransfers();}};picker.click();}return;}
+ if(button.hasAttribute('data-lib-retry')){const u=uploads[Number(button.dataset.libRetry)];u.retryCount=0;if(u.file){u.state='queued';processUploads();}else{const picker=document.createElement('input');picker.type='file';picker.onchange=()=>{const f=picker.files[0];if(f&&f.name===(u.originalName||u.name)&&f.size===u.size){u.file=f;u.state='queued';processUploads();}else{u.error='Choose the same original file to resume.';drawTransfers();}};picker.click();}return;}
  if(button.hasAttribute('data-lib-dismiss')){uploads.splice(Number(button.dataset.libDismiss),1);drawTransfers();}
 });
 function repaintFiles(){root().querySelector('[data-lib-files]').innerHTML=filesMarkup();mountLibraryOrganizer({api,entries,drive,folder,admin:canWrite(),refresh,navigate,selectEntry,addFiles,getConflict:()=>conflictMode,setConflict:value=>conflictMode=value});mountRemoteLaunchers({drive,folder,admin:canManage()});}

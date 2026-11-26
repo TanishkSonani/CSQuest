@@ -3,6 +3,7 @@ import path from 'node:path';
 import {readBody,assertSameOrigin,hashPassword,verifies} from './accounts.mjs';
 import {streamLibraryFile,libraryMediaTypes} from './library-files.mjs';
 import {measureLibraryDrive} from './storage.mjs';
+import {recordLibraryActivity} from './library-experience.mjs';
 const hash=x=>createHash('sha256').update(x).digest('hex');
 const fail=(status,message)=>{throw Object.assign(Error(message),{status});};
 const uuid=x=>typeof x==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(x);
@@ -31,7 +32,7 @@ export function createPublicLibrary({pool,ownerId,drives,inspect}){
   if(!['GET','HEAD'].includes(req.method))fail(405,'Method not allowed.');const link=await linkFor(pool,req,url),inventory=(await rows(pool,link)).filter(e=>e.status==='ready'),id=url.searchParams.get('id');if(id&&!uuid(id))fail(404,'Shared item not found.');
   const chosen=id?inventory.find(e=>e.id===id):link.entry_id?inventory.find(e=>e.id===link.entry_id):null;if(id&&!chosen)fail(404,'Shared item not found.');
   const drive=drives.find(d=>d.id===link.drive),root={id:link.entry_id||null,kind:link.entry_kind||'drive',name:link.entry_name||drive.name,drive:link.drive};
-  if(route==='public-file'){if(chosen?.kind!=='file')fail(400,'Choose a shared file.');await streamLibraryFile({req,res,url,entry:chosen,drive,inspect});return true;}
+  if(route==='public-file'){if(chosen?.kind!=='file')fail(400,'Choose a shared file.');if(req.method==='GET'&&url.searchParams.get('download')==='1'&&(!req.headers.range||/^bytes=0-/.test(req.headers.range)))await recordLibraryActivity(pool,{ownerId,action:'public_download_started',entry:chosen,details:{linkId:link.id}});await streamLibraryFile({req,res,url,entry:chosen,drive,inspect});return true;}
   const breadcrumbs=[],lookup=new Map(inventory.map(e=>[e.id,e]));let ancestor=chosen;for(let n=0;ancestor&&n<100;n++){breadcrumbs.unshift({id:ancestor.id,name:ancestor.name});if(ancestor.id===link.entry_id)break;ancestor=lookup.get(ancestor.parent_id);}
   const result={root,id:chosen?.id||null,parent:chosen&&lookup.has(chosen.parent_id)?chosen.parent_id:null,kind:chosen?.kind||'drive',drive:link.drive,name:chosen?.name||drive.name,breadcrumbs,allowUpload:link.allow_upload&&root.kind!=='file',expiresAt:link.expires_at};
   if(chosen?.kind==='file'){Object.assign(result,{size:Number(chosen.size),createdAt:chosen.created_at,updatedAt:chosen.updated_at,mediaType:libraryMediaTypes[path.extname(chosen.name).toLowerCase()]||null});}

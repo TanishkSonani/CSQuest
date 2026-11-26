@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createAccounts} from './accounts.mjs';
-import {createStore} from './database.mjs';
+import {createStore,databaseActor} from './database.mjs';
 import {handleSocial} from './social.mjs';
 import {prepareContent,sendContent} from './http-content.mjs';
 import {createPodcasts} from './podcasts.mjs';
@@ -29,7 +29,7 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
    // Only these capability-token routes bypass platform login. Each resolves
    // a currently active public link before returning any metadata or file bytes.
    if(['public-info','public-file','public-unlock','public-prepare','public-folder','public-upload','public-chunk','public-complete','public-cancel','public-archive'].map(x=>'/api/library/'+x).includes(url.pathname)){
-    await library({req,res,url,send,actor:null});return;
+    await databaseActor.run({username:'Public visitor'},()=>library({req,res,url,send,actor:null}));return;
    }
    const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/');
    if(dynamic){
@@ -41,9 +41,9 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
     try{actor=await accounts.authorize(req);}catch(e){send(e.status||503,{error:e.status===401?'Please log in to your account.':'Account service unavailable',code:e.status===401?'AUTH_REQUIRED':'AUTH_UNAVAILABLE'});return;}
     if(actor.account_type==='library'&&actor.role!=='admin'&&actor.id!==ownerId&&!url.pathname.startsWith('/api/library/')&&!url.pathname.startsWith('/api/help/')&&url.pathname!=='/api/study/notes'){send(403,{error:'This account has Library access only.'});return;}
     if(await remote.handle({req,res,url,send,actor}))return;
-    if(await platform({req,res,url,send,actor}))return;
+    if(await databaseActor.run(actor,()=>platform({req,res,url,send,actor})))return;
     if(await handleSocial({store,actor,req,url,send,courses}))return;
-    if(await library({req,res,url,send,actor}))return;
+    if(await databaseActor.run(actor,()=>library({req,res,url,send,actor})))return;
     if(await podcasts({req,res,url,send,courses}))return;
     if(url.pathname==='/api/subjects'){send(200,publicCourses(courses));return;}
     if(url.pathname.startsWith('/api/')){

@@ -51,7 +51,7 @@ const path=require('node:path');
   let injected=false;await page.route('**/api/library/chunk?**',async route=>{if(!injected){injected=true;await route.fetch();await route.abort('failed');}else await route.continue();});
   const source=Buffer.alloc(11*1024**2+37,91);source.write('original file resume fingerprint');
   const sourceFile=path.join(f.directory,'resume-after-disconnect.bin');await fs.writeFile(sourceFile,source);const sourceDate=new Date('2026-01-01T12:00:00Z');await fs.utimes(sourceFile,sourceDate,sourceDate);
-  await page.locator(selectors.upload).setInputFiles(sourceFile);await page.waitForFunction(()=>document.querySelector('[data-library] [data-lib-pause]')&&document.querySelector('[data-library] [data-lib-transfers]').textContent.includes('Retrying automatically'));await page.locator('[data-library-tray] [data-lib-pause]').click();await page.getByRole('button',{name:'RETRY',exact:true}).waitFor();await ready();
+  await page.locator(selectors.upload).setInputFiles(sourceFile);await page.waitForFunction(()=>document.querySelector('[data-library-tray] [data-lib-pause]')&&document.querySelector('[data-library-tray] [data-tray-body]').textContent.includes('Retrying automatically'));await page.locator('[data-library-tray] [data-lib-pause]').click();await page.getByRole('button',{name:'RETRY',exact:true}).waitFor();await ready();
   const transfer=(await f.db.store.pool.query("SELECT * FROM csquest_library_entries WHERE name='resume-after-disconnect.bin'")).rows[0];assert.equal(Number(transfer.uploaded),8*1024**2);
   await page.unroute('**/api/library/chunk?**');
   // Lose browser bookkeeping entirely: recovery must come from the server inventory.

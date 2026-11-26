@@ -1,3 +1,4 @@
+import {setQueueCurrent,advanceQueue,playbackQueue,mountQueueControls} from './library-playback-queue.js';
 import {escapeHtml as h} from '/shared/engine.js';
 import {account} from './account-client.js';
 import {icon} from './icons.js';
@@ -52,7 +53,7 @@ function ensureDock(){
  root.innerHTML=`<div class="podcast-now"><span class="podcast-art" aria-hidden="true">${icon('sound')}</span><div><small data-podcast-now-course></small><a href="#podcasts" data-podcast-open-transcript data-podcast-now-title>Section podcast</a><small data-podcast-now-status role="status"></small><small data-podcast-now-chapter></small></div></div><div class="podcast-player-middle"><div class="podcast-transport">${control('previous','Previous episode',glyph('previous'))}${control('back','Back 15 seconds',glyph('back'),'podcast-skip')}${control('toggle','Play podcast',glyph('play'),'podcast-play')}${control('forward','Forward 15 seconds',glyph('forward'),'podcast-skip')}${control('next','Next episode',glyph('next'))}</div><div class="podcast-seek"><time data-podcast-elapsed>0:00</time><input type="range" min="0" max="1" value="0" step="0.1" aria-label="Podcast playback position" data-podcast-seek><time data-podcast-duration>0:00</time></div></div><div class="podcast-player-tools"><details class="audio-settings"><summary aria-label="Audio settings">Settings <span data-audio-rate>${rate}×</span></summary><div class="audio-settings-panel"><label>Speed <output data-audio-speed-value>1×</output><input type="range" min="0.25" max="3" step="0.25" value="1" data-podcast-speed aria-label="Playback speed"></label><label>Skip interval (seconds)<input type="number" min="1" max="600" step="1" value="15" data-audio-skip aria-label="Audio skip interval in seconds"></label><label>Volume<input type="range" min="0" max="1" step="0.05" value="1" data-audio-volume aria-label="Audio volume"></label><button class="text-button" data-podcast-action="mute" aria-label="Mute audio">Mute</button></div></details><button class="podcast-control audio-mini-play" data-podcast-action="toggle" aria-label="Play podcast">${glyph('play')}</button><button class="podcast-control" data-podcast-action="minimize" aria-label="Minimize audio player">⌄</button><a class="text-button podcast-transcript-link" href="#podcasts" data-podcast-open-transcript aria-label="Open live transcript">${icon('book')}<span>TRANSCRIPT</span></a>${control('close','Close podcast player',icon('close'))}</div>`;
  document.body.append(root);playerSizeObserver.observe(root);return root;
 }
-function savePosition(force=false){if(!detail||!owner||pendingSeek!==null)return;try{localStorage.setItem(bookmarkKey(),JSON.stringify({id:detail.id,time:audio.currentTime||0,rate}));}catch{}if(detail.library&&!detail.publicShare&&account.user?.id&&(force===true||Date.now()-lastRemoteSave>2000)){lastRemoteSave=Date.now();fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:detail.entryId,position:audio.currentTime||0,speed:rate}),keepalive:true}).catch(()=>{});}}
+function savePosition(force=false){if(!detail||!owner||pendingSeek!==null)return;try{localStorage.setItem(bookmarkKey(),JSON.stringify({id:detail.id,time:audio.currentTime||0,rate}));}catch{}if(detail.library&&!detail.publicShare&&account.user?.id&&(force===true||Date.now()-lastRemoteSave>2000)){lastRemoteSave=Date.now();fetch('/api/library/bookmark',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({id:detail.entryId,position:audio.currentTime||0,speed:rate,duration:Number.isFinite(audio.duration)?audio.duration:0,completed:audio.ended}),keepalive:true}).catch(()=>{});}}
 function restorePosition(){try{return JSON.parse(localStorage.getItem(bookmarkKey())||'null');}catch{return null;}}
 function updateDock(){
  const dock=ensureDock();dock.hidden=!detail;document.documentElement.classList.toggle('has-podcast-player',!!detail);
@@ -66,7 +67,8 @@ function updateDock(){
  const status=dock.querySelector('[data-podcast-now-status]');status.textContent=error||(!detail.ready?'Audio being prepared':audio.paused?'Paused':detail.library?'Playing · Library audio':`Playing · ${queue.indexOf(detail.id)+1} of ${queue.length}`);
  dock.classList.toggle('is-playing',!audio.paused);dock.classList.toggle('is-following',follow);
  dock.querySelectorAll('[data-podcast-action=toggle]').forEach(play=>{play.disabled=!detail.ready;play.innerHTML=audio.paused?glyph('play'):glyph('pause');play.setAttribute('aria-label',audio.paused?'Play podcast':'Pause podcast');play.title=audio.paused?'Play podcast':'Pause podcast';});
- const index=queue.indexOf(detail.id);dock.querySelector('[data-podcast-action=previous]').disabled=index<=0;dock.querySelector('[data-podcast-action=next]').disabled=index<0||index>=queue.length-1;
+ const libraryQueue=playbackQueue(),index=detail.library?libraryQueue.index:queue.indexOf(detail.id),length=detail.library?libraryQueue.items.length:queue.length;dock.querySelector('[data-podcast-action=previous]').disabled=index<=0;dock.querySelector('[data-podcast-action=next]').disabled=index<0||index>=length-1;
+ dock.querySelector('[data-podcast-action=previous]').setAttribute('aria-label',detail.library?'Previous file':'Previous episode');dock.querySelector('[data-podcast-action=next]').setAttribute('aria-label',detail.library?'Next file':'Next episode');if(!detail.library)dock.querySelector('.library-queue-controls')?.remove();
  dock.querySelectorAll('[data-podcast-action=back],[data-podcast-action=forward],[data-podcast-seek]').forEach(el=>el.disabled=!detail.ready);
  dock.querySelector('[data-podcast-speed]').value=String(rate);dock.querySelector('[data-audio-rate]').textContent=rate+'×';dock.querySelector('[data-audio-speed-value]').textContent=rate+'×';dock.querySelector('[data-audio-skip]').value=audioSkip;dock.querySelector('[data-audio-volume]').value=audio.volume;const mute=dock.querySelector('[data-podcast-action=mute]');mute.textContent=audio.muted?'Unmute':'Mute';mute.setAttribute('aria-label',audio.muted?'Unmute audio':'Mute audio');for(const [action,label] of [['back','Back'],['forward','Forward']]){const button=dock.querySelector('[data-podcast-action='+action+']');button.innerHTML=glyph(action);button.setAttribute('aria-label',label+' '+audioSkip+' seconds');button.title=label+' '+audioSkip+' seconds';}updateTime();
 }
@@ -123,9 +125,11 @@ async function playEpisode(id,{source='library',preserveQueue=false,start=null,a
 }
 export function pauseSharedAudio(){audio.pause();}
 export async function playLibraryAudio(file,driveName){
+ setQueueCurrent(file);
  const nextOwner=account.user?.id||(file.publicShare?'public':null);if(!nextOwner)return;
  owner=nextOwner;audioPreferences();audio.pause();savePosition();loadEpoch++;error='';queue=[];
  detail={library:true,entryId:file.id,publicShare:!!file.publicShare,id:'library:'+file.id,title:file.name,courseName:'Library · '+driveName,ready:true,duration:0,chapters:[],turns:[]};
+ const queueContainer=ensureDock().querySelector('.audio-settings-panel');queueContainer.querySelector('.library-queue-controls')?.remove();mountQueueControls(queueContainer);
  let saved=restorePosition();const ticket=loadEpoch;
  if(!file.publicShare&&account.user?.id)try{const response=await fetch('/api/library/bookmark?id='+encodeURIComponent(file.id));if(response.ok){const remote=await response.json();saved={time:remote.position,rate:remote.speed};}}catch{}
  if(ticket!==loadEpoch)return;rate=playbackSpeeds.includes(saved?.rate)?saved.rate:rate;
@@ -135,7 +139,7 @@ export async function playLibraryAudio(file,driveName){
  if('mediaSession' in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:file.name,artist:'CSQuest Library',album:driveName});
  try{await audio.play();}catch{error='Press play to start, or download this file if its format is unsupported.';updateDock();}
 }
-function moveEpisode(delta){const index=queue.indexOf(detail?.id),id=queue[index+delta];if(id)playEpisode(id,{preserveQueue:true,start:0});}
+function moveEpisode(delta){if(detail?.library){advanceQueue(delta);return;}const index=queue.indexOf(detail?.id),id=queue[index+delta];if(id)playEpisode(id,{preserveQueue:true,start:0});}
 function closePlayer(){savePosition(true);audio.pause();audio.removeAttribute('src');audio.load();detail=null;queue=[];activeTurn=-1;loadEpoch++;updateDock();renderLibrary();if('mediaSession' in navigator)navigator.mediaSession.metadata=null;}
 export function mountPodcasts(subjects){
  contextSubjects=subjects;const nextOwner=account.user?.id||null;
@@ -172,7 +176,7 @@ document.addEventListener('keydown',event=>{
 });
 audio.addEventListener('timeupdate',updateTime);audio.addEventListener('loadedmetadata',()=>{if(pendingSeek!==null){audio.currentTime=Number.isFinite(audio.duration)?Math.min(pendingSeek,Math.max(0,audio.duration-.1)):pendingSeek;pendingSeek=null;}updateTime();});
 for(const event of ['play','pause','ratechange'])audio.addEventListener(event,()=>{if('mediaSession' in navigator)navigator.mediaSession.playbackState=audio.paused?'paused':'playing';updateDock();});
-audio.addEventListener('ended',()=>{savePosition();const index=queue.indexOf(detail?.id);if(index>=0&&index<queue.length-1)moveEpisode(1);else{error=detail?.library?'Playback finished.':'You reached the end of this playlist.';updateDock();}});
+audio.addEventListener('ended',()=>{savePosition(true);if(detail?.library&&advanceQueue(1,{automatic:true}))return;const index=queue.indexOf(detail?.id);if(index>=0&&index<queue.length-1)moveEpisode(1);else{error=detail?.library?'Playback finished.':'You reached the end of this playlist.';updateDock();}});
 audio.addEventListener('error',()=>{if(detail?.ready&&audio.getAttribute('src')){error='Audio could not load. Check your connection and try again.';updateDock();}});
 window.addEventListener('pagehide',()=>savePosition(true));
 window.addEventListener('library-file-removed',event=>{if(detail?.id==='library:'+event.detail)closePlayer();});

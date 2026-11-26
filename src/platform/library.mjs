@@ -1,4 +1,6 @@
 import {writeObjectChunk,completeObjectUpload,OBJECT_PART_BYTES} from './object-upload.mjs';
+import {recordChunk,verifyManifest,uploadChunks,checksum} from './upload-integrity.mjs';
+import {createLibraryExperience,recordLibraryActivity} from './library-experience.mjs';
 import {syncObjectInventory} from './object-inventory.mjs';
 import {refreshDriveSettings,handleDriveSettings} from './library-drive-settings.mjs';
 import {libraryScope,assertLibraryScope,libraryWriteScope,assertLocationWrite,assertEntryWrite,canWriteLocation} from './library-scope.mjs';
@@ -30,6 +32,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
  const lock=db=>db.query("SELECT pg_advisory_xact_lock(hashtextextended('csquest:library:storage',0))");
  const sharing=createLibraryAccess({pool,ownerId,drives,inspect,lock});
  const tools=createLibraryTools({pool,ownerId,drives,inspect,lock,get,parent,cleanup,rows,sharing});
+ const experience=createLibraryExperience({pool,ownerId,drives,get,sharing});
  async function measure(db,drive){
   return measureLibraryDrive(drive,drives,(await db.query('SELECT * FROM csquest_library_entries')).rows,inspect);
  }
@@ -69,6 +72,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    const role=publicContext?.readOnly?'viewer':await sharing.role(pool,actor),scope=publicContext?.readOnly?{ids:publicContext.ids}:await libraryScope(pool,actor,ownerId);
    const writeScope=await libraryWriteScope(pool,actor,ownerId);
    if(!publicContext&&await handleDriveSettings({route,req,send,actor,role,pool,drives,lock,ownerId}))return true;
+   if(!publicContext&&await experience({route,req,res,url,send,actor,role,scope}))return true;
    if(await tools({route,req,res,url,send,actor,role,scope,writeScope}))return true;
    const methods={access:['GET','POST'],'access-remove':['POST'],'public-links':['GET','POST'],'public-link-remove':['POST'],storage:['GET'],uploads:['GET'],details:['GET'],list:['GET'],folders:['GET'],folder:['POST'],move:['POST'],prepare:['POST'],upload:['GET','POST'],chunk:['PUT'],complete:['POST'],cancel:['POST'],rename:['POST'],delete:['POST'],file:['GET','HEAD']};
    if(!methods[route])fail(404,'Library action not found.');
@@ -101,7 +105,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     if(entry.kind!=='file')fail(400,'Choose an uploaded file.');
     if(entry.status!=='uploading'&&entry.status!=='ready')fail(404,'Upload is no longer available.');
     const drive=drives.find(d=>d.id===entry.drive);await inspect(drive);
-    send(200,{...publicEntry(entry),chunkBytes:CHUNK_BYTES,resumeChecks:entry.status==='uploading'?await resumeChecks(entry,drive):[]});return true;
+    send(200,{...publicEntry(entry),verified:!!entry.integrity_checksum,chunks:await uploadChunks(pool,entry.id),chunkBytes:CHUNK_BYTES,resumeChecks:entry.status==='uploading'?await resumeChecks(entry,drive):[]});return true;
    }
    if(route==='details'){
     const entry=await get(pool,url.searchParams.get('id'),ownerId);assertLibraryScope(scope,entry.id);
@@ -109,7 +113,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
     const drive=drives.find(d=>d.id===entry.drive);await inspect(drive);
     const location=[];let ancestor=entry.parent_id;
     for(let depth=0;ancestor;depth++){if(depth>=100)fail(409,'Folder structure is invalid.');const p=await get(pool,ancestor,ownerId);if(!scope||scope.ids.has(p.id))location.unshift(p.name);ancestor=p.parent_id;}
-    const detail={...publicEntry(entry),driveName:drive.name,location,extension:entry.kind==='file'?path.extname(entry.name).toLowerCase():null,mediaType:types[path.extname(entry.name).toLowerCase()]||null};
+    const detail={...publicEntry(entry),driveName:drive.name,location,integrityVerified:!!entry.integrity_checksum,integrityChecksum:entry.integrity_checksum,extension:entry.kind==='file'?path.extname(entry.name).toLowerCase():null,mediaType:types[path.extname(entry.name).toLowerCase()]||null};
     if(entry.kind==='file'){
      const handle=await openLibraryFile(drive,entry.id);
      try{const stat=await handle.stat();if(stat.size!==Number(entry.size))fail(409,'Stored file size does not match its inventory.');detail.fileModifiedAt=stat.mtime.toISOString();detail.sizeOnDisk=Number.isFinite(stat.blocks)&&stat.blocks>0?stat.blocks*512:null;}finally{await handle.close();}
@@ -122,6 +126,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
    if(route==='file'){
     const e=await get(pool,url.searchParams.get('id'),ownerId);assertLibraryScope(scope,e.id);
     if(e.kind!=='file'||e.status!=='ready')fail(404,'File is not ready.');
+    if(req.method==='GET'&&url.searchParams.get('download')==='1'&&(!req.headers.range||/^bytes=0-/.test(req.headers.range)))await recordLibraryActivity(pool,{ownerId,action:'download_started',entry:e});
     await streamLibraryFile({req,res,url,entry:e,drive:drives.find(d=>d.id===e.drive),inspect});return true;
    }
    if(route==='folders'){
@@ -230,6 +235,7 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      const offset=Number(url.searchParams.get('offset'));
      if(!url.searchParams.has('offset')||!Number.isSafeInteger(offset)||offset!==Number(e.uploaded))fail(409,'Upload offset changed. Resume from its saved position.');
      const count=chunkData.length;
+     const digest=await recordChunk(db,e,offset,chunkData,req.headers['x-csquest-chunk-sha256']);
      const usage=await measure(db,drive);
      if(!usage.writable||usage.free-count<usage.buffer)fail(507,'Upload paused to preserve space for the platform.');
      if(drive.kind==='object'){
@@ -242,20 +248,21 @@ export function createLibrary({pool,drives=libraryDrives(),ownerId=process.env.L
      const location=path.join(drive.root,e.id);
      if(!offset){const fresh=await fs.open(location,'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await fresh?.close();}
      const handle=await openLibraryFile(drive,e.id,'r+');
-     try{if((await handle.stat()).size<offset)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await handle.truncate(offset);let written=0;while(written<chunkData.length){const part=await handle.write(chunkData,written,chunkData.length-written,offset+written);written+=part.bytesWritten;}await handle.sync();}finally{await handle.close();}
+     try{if((await handle.stat()).size<offset)fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await handle.truncate(offset);let written=0;while(written<chunkData.length){const part=await handle.write(chunkData,written,chunkData.length-written,offset+written);written+=part.bytesWritten;}await handle.sync();const stored=Buffer.alloc(count);let read=0;while(read<count){const part=await handle.read(stored,read,count-read,offset+read);if(!part.bytesRead)fail(409,'Stored upload chunk is incomplete.');read+=part.bytesRead;}if(checksum(stored)!==digest)fail(422,'Stored upload checksum mismatch. Retry this chunk.');}finally{await handle.close();}
      await db.query("UPDATE csquest_library_entries SET uploaded=$2,updated_at=now(),expires_at=now()+interval '24 hours' WHERE id=$1",[e.id,offset+count]);
      return {id:e.id,uploaded:offset+count};
     }
     if(route==='complete'){
-     if(e.status==='ready')return publicEntry(e);
+     if(e.status==='ready')return {...publicEntry(e),verified:!!e.integrity_checksum};
      if(e.status!=='uploading'||Number(e.uploaded)!==Number(e.size))fail(409,'Upload has not finished.');
+     const verifiedChecksum=await verifyManifest(db,e,body.checksum);
      if(drive.kind==='object'){await completeObjectUpload(drive,e);if(publicContext)await sharing.assertUpload(db,publicContext,e);assertEntryWrite(await libraryWriteScope(db,actor,ownerId),e);}
      else {
      if(Number(e.size)===0){const h=await fs.open(path.join(drive.root,e.id),'ax',0o600).catch(error=>{if(error.code!=='EEXIST')throw error;return null;});await h?.close();}
      const h=await openLibraryFile(drive,e.id,'r+');try{if((await h.stat()).size<Number(e.size))fail(409,'Upload data is missing or shortened. Cancel this transfer and upload the original file again.');await h.truncate(Number(e.size));await h.sync();}finally{await h.close();}
      }
-     if(e.replace_id){const original=await get(db,e.replace_id,ownerId);if(original.status!=='ready'||original.parent_id!==e.parent_id||original.name!==e.final_name)fail(409,'The original file changed. Cancel and retry this replacement.');await db.query("UPDATE csquest_library_entries SET name=$2,status='deleting' WHERE id=$1",[original.id,'replaced-'+original.id]);await db.query('UPDATE csquest_library_entries SET name=final_name,final_name=NULL,replace_id=NULL WHERE id=$1',[e.id]);for(const table of ['csquest_library_public_links','csquest_lesson_resources','csquest_resource_notes','csquest_library_preferences'])await db.query(`UPDATE ${table} SET entry_id=$1 WHERE entry_id=$2`,[e.id,original.id]);}
-     const entry=(await db.query("UPDATE csquest_library_entries SET status='ready',expires_at=NULL,updated_at=now() WHERE id=$1 RETURNING *",[e.id])).rows[0];return publicEntry(entry);
+     if(e.replace_id){const original=await get(db,e.replace_id,ownerId);if(original.status!=='ready'||original.parent_id!==e.parent_id||original.name!==e.final_name)fail(409,'The original file changed. Cancel and retry this replacement.');await db.query("UPDATE csquest_library_entries SET name=$2,status='deleting' WHERE id=$1",[original.id,'replaced-'+original.id]);await db.query('UPDATE csquest_library_entries SET name=final_name,final_name=NULL,replace_id=NULL WHERE id=$1',[e.id]);for(const table of ['csquest_library_public_links','csquest_lesson_resources','csquest_resource_notes','csquest_library_preferences'])await db.query(`UPDATE ${table} SET entry_id=$1 WHERE entry_id=$2`,[e.id,original.id]);await db.query('UPDATE csquest_library_playlists SET entry_ids=array_replace(entry_ids,$1::uuid,$2::uuid),updated_at=now() WHERE $1::uuid=ANY(entry_ids)',[original.id,e.id]);}
+     const entry=(await db.query("UPDATE csquest_library_entries SET status='ready',expires_at=NULL,updated_at=now(),integrity_checksum=$2 WHERE id=$1 RETURNING *",[e.id,verifiedChecksum])).rows[0];return {...publicEntry(entry),verified:!!verifiedChecksum};
     }
     if(route==='move'){
      if(e.status!=='ready')fail(409,'Finish the upload first.');

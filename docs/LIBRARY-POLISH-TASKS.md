@@ -106,3 +106,20 @@ User requested commit and push only for this follow-up; deployment verification 
 
 - [x] VLC-style video bar: centered skip/play-pause, no Stop button, buffered seek track, elapsed time on the left and clickable total/remaining time on the right.
 - [x] Click-only vertical speed/volume popups, compact skip settings, and timestamp preview while hovering the seek bar; preserve overlay size, keyboard shortcuts, fullscreen and public playback.
+
+## Transfer recovery and Library experience
+
+- [x] Reconcile private/public transfer rows in place, retaining scroll position and focus during progress updates. Use one compact tray with a fixed header and an independently scrolling body; remove the duplicate in-page transfer list.
+- [x] Persist unfinished jobs in browser local storage, migrate earlier session storage, and recover server-side reservations through Library > Transfers. Reopening requires selecting the source file again; resumed bytes are compared against saved SHA-256 chunks. Inactive reservations expire after 24 hours. Uploading cannot continue with the browser closed.
+- [x] Verify new upload chunks with client/server SHA-256, durable local write/readback or the existing Object Storage Content-MD5 checks, then validate a bounded chunk manifest before marking the upload verified. Preserve older in-progress transfers without falsely marking their untracked prefixes verified. Store no additional full-sized file copies.
+- [x] Add a sharing overview showing link scope, password/expiry, upload permissions, current usage, cap remaining and revocation. Existing token URLs remain unrecoverable; use Manage access to generate replacements.
+- [x] Add an administrator's read-only access simulation, including user search, effective drive/directory read/write permissions and paginated browsing. Recheck permissions on the server; never impersonate the selected user.
+- [x] Add storage insights for recursive folder sizes, largest files, checksum-matched duplicates or explicitly labelled name/size candidates, and unfinished upload reservations. Opening locations and cancelling pending uploads are explicit actions; the report never deletes ready files.
+- [x] Support external SRT/WebVTT subtitles up to 2 MB, subtitle delay, and audio-track selection when the browser exposes multiple tracks. Unsupported MKV codecs/tracks still require the original in VLC; no transcoder or permanent video renditions are introduced. Browser support: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/audioTracks
+- [x] Add Continue for unfinished videos/audio/PDFs, server-saved PDF page restoration and local fallback for public visitors. Filter results against current access; completed media and the final PDF page leave the collection.
+- [x] Add personal playlists with creation, renaming, ordering, removal and selected/folder media. Support previous/next files and optional automatic advancement across video and the existing audio player. Retain playlist references when a file is replaced; filter removed/inaccessible items at read time.
+- [x] Record upload/import, folder creation, move, rename, replacement, deletion, expired/cancelled uploads, grants/revocations, public-link changes and download requests in an admin activity feed. History starts with this schema update; download events describe request starts, not proof that a visitor saved a file. Database transactions carry actor identity and events retain names after file deletion.
+
+Schema: `010-library-experience.sql`, with the corresponding Alembic revision. No additional service, credentials or environment configuration is required.
+
+Validation: full automated suite (232 passed, 9 platform-specific skips), live private/public scrolling and recovery in Playwright, real PDF/image previews, subtitle cues/delay, video-to-audio advancement, admin tools in both themes on desktop/mobile, and the existing six-viewport video-player regression. Large Object Storage offsets above 4 GB remain exact without allocating an entire large file. The local database schema is migrated; production applies the migration through the normal release pipeline.
