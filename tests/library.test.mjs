@@ -52,7 +52,7 @@ test('library uploads, filesystem checks, authorization, reservations and range 
   const contenders=await Promise.all(bases.map((base,i)=>req('upload',{drive:'boot',parent:folder.id,name:'film'+i+'.mkv',size:80},{base})));
   assert.deepEqual(contenders.map(r=>r.status).sort(),[200,507]);
   const upload=await contenders.find(r=>r.status===200).json();assert.equal(upload.uploaded,0);
-  const protectedAccount=await fetch(bases[0]+'/api/account/delete',{method:'POST',headers:{cookie,'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'configured_owner',password:'a memorable library password'})});assert.equal(protectedAccount.status,409);assert.match((await protectedAccount.json()).error,/Library/);assert.ok((await fixture.store.pool.query('SELECT id FROM csquest_users WHERE id=$1',[ownerId])).rowCount);
+  const protectedAccount=await fetch(bases[0]+'/api/account/delete',{method:'POST',headers:{cookie,'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'configured_owner',password:'a memorable library password'})});assert.equal(protectedAccount.status,409);assert.match((await protectedAccount.json()).error,/last administrator/);assert.equal(protectedAccount.headers.get('set-cookie'),null);assert.ok((await fixture.store.pool.query('SELECT id FROM csquest_users WHERE id=$1',[ownerId])).rowCount);
   assert.equal((await req('file?id='+upload.id)).status,404);
   const data=Buffer.from(Array.from({length:80},(_,i)=>i));
   await json(await req(`chunk?id=${upload.id}&offset=0`,data.subarray(0,40),{method:'PUT'}));
