@@ -3,6 +3,7 @@ import {randomUUID,randomBytes,createHash} from 'node:crypto';
 import {readBody,assertSameOrigin,hashPassword} from './accounts.mjs';
 import {transaction} from './database.mjs';
 import {isPlatformAdmin,userPermissions} from './permissions.mjs';
+import {deleteAccount} from './account-deletion.mjs';
 const fail=(status,message)=>{throw Object.assign(Error(message),{status});};
 const uuid=x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const text=(value,max,label)=>{if(typeof value!=='string'||!value.trim()||value.trim().length>max)fail(400,`Enter ${label} (up to ${max} characters).`);return value.trim();};
@@ -31,6 +32,19 @@ export function createPlatformTools({pool,ownerId}){
       if(body.enabled)await db.query("INSERT INTO csquest_library_access(owner_id,user_id,role,level,scopes,can_write) VALUES($1,$2,'viewer',$3,$4,$5) ON CONFLICT(owner_id,user_id) DO UPDATE SET role='viewer',level=excluded.level,scopes=excluded.scopes,can_write=excluded.can_write",[ownerId,user.id,level,JSON.stringify(scopes),body.canWrite===true]);
       else await db.query('DELETE FROM csquest_library_access WHERE owner_id=$1 AND user_id=$2',[ownerId,user.id]);
      }
+    });send(200,{ok:true});return true;
+   }
+   if(route==='/api/admin/delete-user'&&write){
+    if(!uuid(body.userId)||typeof body.username!=='string')fail(400,'Choose an account and type its username to confirm deletion.');
+    if(body.userId===actor.id)fail(400,'Use Delete account in your profile to delete your own account.');
+    await transaction(pool,async db=>{
+     await db.query("SELECT pg_advisory_xact_lock(hashtextextended('csquest:admin-roles',0))");
+     const persisted=(await db.query('SELECT role FROM csquest_users WHERE id=$1 FOR UPDATE',[actor.id])).rows[0];
+     if(!persisted||actor.id!==rootId&&actor.id!==ownerId&&persisted.role!=='admin')fail(403,'Administrator access is required.');
+     const target=(await db.query('SELECT username FROM csquest_users WHERE id=$1 FOR UPDATE',[body.userId])).rows[0];
+     if(!target)fail(404,'This account no longer exists.');
+     if(body.username.trim().toLowerCase()!==target.username)fail(400,'Type the account username to confirm deletion.');
+     await deleteAccount(db,body.userId,{adminId:rootId,ownerId});
     });send(200,{ok:true});return true;
    }
    if(route==='/api/admin/create-user'&&write){

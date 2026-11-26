@@ -122,7 +122,8 @@ export function bindAccounts(callbacks){
    }else if(kind==='profile'){await updateProfile(body);hooks.render();hooks.toast('Profile updated.');}
    else if(kind==='logout-all'){await signOut(true,body.password);tab='login';await hooks.reloadUser();}
    else{
-    await flushAccount();if(account.conflict)throw Error('Resolve the saved-data conflict before changing account security.');
+    // Deletion deliberately discards progress; stale progress must not block it.
+    if(kind!=='delete'){await flushAccount();if(account.conflict)throw Error('Resolve the saved-data conflict before changing account security.');}
     const result=await accountRequest(kind,body);
     if(kind==='delete'){clearDeletedAccount();tab='login';await hooks.reloadUser();hooks.toast('Your account and its saved data were deleted.');}
     else if(result.recoveryCode)recoveryDialog(result.recoveryCode);
