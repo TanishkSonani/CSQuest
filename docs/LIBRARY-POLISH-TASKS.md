@@ -130,5 +130,6 @@ Validation: full automated suite (232 passed, 9 platform-specific skips), live p
 - [x] Adjust Firefox's memory allowance using platform traffic and actual available RAM, retaining host headroom and gradual reclaim. Show the current cap in the remote viewer; expose optional policy settings in `.env`.
 - [x] Preserve Firefox startup replacements through a fixed child supervisor and avoid automatic Troubleshoot Mode prompts after deliberately stopped sessions.
 - [x] Replace Library Delete icons with a bin in the toolbar, context menu and bulk actions; retain permanent deletion behavior.
+- [x] Raise new remote Firefox displays to a 60 FPS ceiling and add persistent Smooth video / Sharper text modes. Validate desktop/mobile layout, switching without restarting Firefox/audio, and reconnect cleanup. Actual FPS remains dependent on workload and connection.
 
 Validation: 239 automated tests passed (9 platform-specific skips), course validation, desktop/mobile Playwright sound and bin-icon checks, existing remote reconnect regression, and native Firefox diagnostic audio plus idle/busy memory-cap changes. Native dependencies and root-owned components were installed on the VM while sessions were idle.
