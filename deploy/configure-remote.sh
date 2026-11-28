@@ -6,7 +6,7 @@ test "$(uname -m)" = aarch64
 base=$(cd "$(dirname "$0")" && pwd)
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-tools openbox ttyd dbus-x11 libgtk-3-0 libdbus-glib-1-2 libasound2t64 libavcodec60 fonts-dejavu-core curl xz-utils iptables
+apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-tools openbox ttyd dbus-x11 libgtk-3-0 libdbus-glib-1-2 libasound2t64 libavcodec60 fonts-dejavu-core curl xz-utils iptables pulseaudio pulseaudio-utils
 install -d -m 755 /opt/csquest-remote /var/lib/csquest-remote
 for kind in browser terminal; do
     user=csquest-$kind
@@ -62,6 +62,8 @@ apparmor_parser -r /etc/apparmor.d/csquest-remote-firefox
 fi
 install -m 644 "$base/remote-broker.mjs" /opt/csquest-remote/broker.mjs
 install -m 644 "$base/remote-worker.py" /opt/csquest-remote/worker.py
+install -m 644 "$base/remote-memory.mjs" /opt/csquest-remote/remote-memory.mjs
+install -m 644 "$base/remote-audio.pa" /opt/csquest-remote/audio.pa
 install -m 644 "$base/terminal.bashrc" /opt/csquest-remote/terminal.bashrc
 install -m 755 "$base/remote-network.sh" /opt/csquest-remote/network.sh
 install -m 755 "$base/update-remote-firefox.sh" /usr/local/sbin/csquest-update-firefox

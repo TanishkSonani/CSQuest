@@ -10,7 +10,8 @@ status,s=call('/start',dict(identity,kind='firefox'));assert status==200,s
 path='/session/'+s['id']+'/'
 try:
  caps=subprocess.check_output(['systemctl','show','csquest-remote-'+s['id']+'.service','-p','MemoryMax','-p','TasksMax'],text=True)
- assert 'MemoryMax=4294967296' in caps and 'TasksMax=2048' in caps,caps
+ values=dict(line.split('=',1) for line in caps.strip().splitlines());total=int(next(line.split()[1] for line in open('/proc/meminfo') if line.startswith('MemTotal:')))*1024
+ assert 0<int(values['MemoryMax'])<total and values['TasksMax']=='2048',caps
  print(caps.strip(),flush=True)
  status,a=call(path+'attach',identity);assert status==200 and a['connectionId']
  assert call(path+'attach',identity)[0]==409
@@ -25,6 +26,6 @@ try:
  status,c=call(path+'attach',identity);assert status==200 and c['connectionId']!=b['connectionId']
  assert call(path+'connection-lease',dict(identity,connectionId=b['connectionId']))[0]==409
  assert call(path+'connection-lease',dict(identity,connectionId=c['connectionId']))[0]==200
- print('PASS: 4 GB cap, 2048 tasks, duplicate protection, stale detach safety, and reclaim after interrupted app heartbeat.',flush=True)
+ print('PASS: adaptive cap below physical RAM, 2048 tasks, duplicate protection, stale detach safety, and reclaim after interrupted app heartbeat.',flush=True)
 finally:
  call(path+'stop',identity)

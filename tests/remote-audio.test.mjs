@@ -1,0 +1,25 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import http from 'node:http';
+import {hashPassword} from '../src/platform/accounts.mjs';
+import {libraryFixture} from './library-fixture.mjs';
+import {fakeRemoteBroker} from './fake-remote-broker.mjs';
+import {createServer} from '../src/platform/server.mjs';
+test('VM audio requires admin, the launching login, the exact session and same origin; internal credentials stay private',async t=>{
+ let connections=0,closed=0;
+ const audio=http.createServer((req,res)=>{if(req.headers.authorization!=='Bearer internal-test-audio'){res.writeHead(403);res.end();return;}connections++;res.writeHead(200,{'Content-Type':'application/octet-stream'});res.write(Buffer.alloc(4096,32));const timer=setInterval(()=>res.write(Buffer.alloc(4096,32)),20);res.on('close',()=>{closed++;clearInterval(timer);});});await new Promise(r=>audio.listen(0,'127.0.0.1',r));t.after(()=>{audio.closeAllConnections();return new Promise(r=>audio.close(r));});
+ const broker=fakeRemoteBroker(1),f=await libraryFixture(t,{remoteBroker:broker}),password='a secure remote audio passphrase';await f.db.store.pool.query('UPDATE csquest_users SET password=$2 WHERE id=$1',[f.ownerId,await hashPassword(password)]);
+ const call=(path,body,headers={},signal)=>fetch(f.base+'/api/remote/'+path,{method:body?'POST':'GET',headers:{cookie:'csquest_session='+f.token,'Content-Type':'application/json','X-CSQuest-Request':'1',...headers},body:body?JSON.stringify(body):undefined,signal});
+ const started=await f.ok(await call('start',{kind:'firefox',password})),s=broker.sessions.get(started.id);s.audioPort=audio.address().port;s.audioToken='internal-test-audio';
+ assert.equal((await fetch(f.base+'/api/remote/audio/'+s.id)).status,401);
+ assert.equal((await call('audio/'+s.id,null,{Origin:'https://evil.example'})).status,403);
+ const other=await fetch(f.base+'/api/account/login',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'edge_owner',password})}),cookie=other.headers.get('set-cookie').split(';')[0];assert.equal((await call('audio/'+s.id,null,{cookie})).status,404);
+ const registration=await fetch(f.base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'audio_learner',displayName:'Learner',password})});assert.equal((await call('audio/'+s.id,null,{cookie:registration.headers.get('set-cookie').split(';')[0]})).status,403);
+ const lease=await f.ok(await call('session/'+s.id+'/lease',{}));assert.ok(!JSON.stringify(lease).includes('internal-test-audio'));assert.ok(!('port' in lease));assert.ok(!('audioPort' in started));
+ const controller=new AbortController(),response=await call('audio/'+s.id,null,{},controller.signal);assert.equal(response.status,200);assert.equal(response.headers.get('x-accel-buffering'),'no');assert.match(response.headers.get('cache-control'),/no-store/);const reader=response.body.getReader();assert.ok((await reader.read()).value.length>0);controller.abort();
+ for(let i=0;i<30&&!closed;i++)await new Promise(r=>setTimeout(r,20));assert.equal(connections,1);assert.equal(closed,1);assert.equal(broker.sessions.size,1,'Muting audio must not terminate Firefox');
+ const replacement=createServer({store:f.db.store,libraryOptions:{ownerId:f.ownerId,drives:f.drives},remoteBroker:broker});await new Promise(r=>replacement.listen(0,'127.0.0.1',r));t.after(()=>{replacement.closeAllConnections();return new Promise(r=>replacement.close(r));});
+ const resumed=await fetch('http://127.0.0.1:'+replacement.address().port+'/api/remote/audio/'+s.id,{headers:{cookie:'csquest_session='+f.token}}),resumedReader=resumed.body.getReader();await resumedReader.read();replacement.emit('shutdown');await resumedReader.read().catch(()=>{});await new Promise(r=>replacement.close(r));assert.equal(broker.sessions.size,1,'An app restart must leave the VM session alive');for(let i=0;i<30&&closed<2;i++)await new Promise(r=>setTimeout(r,20));assert.equal(closed,2,'Shutdown must release audio without waiting for the HTTP stream to end');
+ s.kind='terminal';assert.equal((await call('audio/'+s.id)).status,404);s.kind='firefox';delete s.audioPort;assert.equal((await call('audio/'+s.id)).status,503);
+ await f.ok(await call('session/'+s.id+'/stop',{}));
+});

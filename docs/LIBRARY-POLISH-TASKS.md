@@ -123,3 +123,12 @@ User requested commit and push only for this follow-up; deployment verification 
 Schema: `010-library-experience.sql`, with the corresponding Alembic revision. No additional service, credentials or environment configuration is required.
 
 Validation: full automated suite (232 passed, 9 platform-specific skips), live private/public scrolling and recovery in Playwright, real PDF/image previews, subtitle cues/delay, video-to-audio advancement, admin tools in both themes on desktop/mobile, and the existing six-viewport video-player regression. Large Object Storage offsets above 4 GB remain exact without allocating an entire large file. The local database schema is migrated; production applies the migration through the normal release pipeline.
+
+## Remote Firefox audio and adaptive memory
+
+- [x] Stream VM Firefox sound through the authenticated session, with mute/resume, bounded buffering and independent reconnect. Release the stream on tab closure and app restart.
+- [x] Adjust Firefox's memory allowance using platform traffic and actual available RAM, retaining host headroom and gradual reclaim. Show the current cap in the remote viewer; expose optional policy settings in `.env`.
+- [x] Preserve Firefox startup replacements through a fixed child supervisor and avoid automatic Troubleshoot Mode prompts after deliberately stopped sessions.
+- [x] Replace Library Delete icons with a bin in the toolbar, context menu and bulk actions; retain permanent deletion behavior.
+
+Validation: 239 automated tests passed (9 platform-specific skips), course validation, desktop/mobile Playwright sound and bin-icon checks, existing remote reconnect regression, and native Firefox diagnostic audio plus idle/busy memory-cap changes. Native dependencies and root-owned components were installed on the VM while sessions were idle.

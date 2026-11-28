@@ -5,16 +5,23 @@ import {WebSocketServer,WebSocket} from 'ws';
 import {readBody,assertSameOrigin,verifies,createAccounts} from './accounts.mjs';
 import {isPlatformAdmin} from './permissions.mjs';
 import {remoteBrokerClient} from './remote-broker-client.mjs';
+import {relayRemoteAudio} from './remote-audio.mjs';
 const fail=(status,message)=>{throw Object.assign(Error(message),{status});};
 const valid=id=>/^[a-f0-9-]{36}$/.test(id||'');
 const binding=req=>createHash('sha256').update((req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('csquest_session='))||'').digest('hex');
 const expectedOrigin=req=>`${(req.headers['x-forwarded-proto']||(req.socket.encrypted?'https':'http')).split(',')[0].trim()}://${req.headers.host}`;
 export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}){
- const clients=new Set(),wss=new WebSocketServer({noServer:true,maxPayload:256*1024,perMessageDeflate:false});
+ const clients=new Set(),audioClients=new Set(),wss=new WebSocketServer({noServer:true,maxPayload:256*1024,perMessageDeflate:false});
  function admin(actor){if(!isPlatformAdmin(actor)&&actor?.id!==ownerId)fail(403,'Only administrators can open VM sessions.');}
  const identity=(req,actor)=>({actorId:actor.id,binding:binding(req)});
  async function session(req,actor,id){if(!valid(id))fail(404,'Session not found.');return broker.request('POST','/session/'+id+'/inspect',identity(req,actor));}
  const stop=(req,actor,id)=>broker.request('POST','/session/'+id+'/stop',identity(req,actor));
+ let activeRequests=0,requestCount=0,peakRequests=0,metricsAt=Date.now();
+ function observeRequest(req,res){
+  if(!broker.metrics||req.url.startsWith('/api/remote/'))return;
+  requestCount++;activeRequests++;peakRequests=Math.max(peakRequests,activeRequests);let finished=false;
+  const finish=()=>{if(!finished){finished=true;activeRequests--;}};res.once('finish',finish);res.once('close',finish);
+ }
  async function handle({req,res,url,send,actor}){
   if(!url.pathname.startsWith('/api/remote/'))return false;
   try{
@@ -25,10 +32,18 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
     const key=createHash('sha256').update('remote:'+actor.id).digest('hex');if(await store.limit(key)>10)fail(429,'Too many launch attempts. Try again in 15 minutes.');
     const user=(await store.pool.query('SELECT password FROM csquest_users WHERE id=$1',[actor.id])).rows[0];if(!user||!await verifies(body.password,user.password))fail(401,'Enter your current CSQuest password to launch this session.');
     const fresh=await createAccounts({store,courses:[],ownerId}).authorize(req);admin(fresh);
-    const result=await broker.request('POST','/start',{kind:body.kind,...identity(req,fresh)});if(res.destroyed){await stop(req,fresh,result.id).catch(()=>{});return true;}send(200,{id:result.id,kind:result.kind,password:result.password});return true;
+    const result=await broker.request('POST','/start',{kind:body.kind,...identity(req,fresh)});if(res.destroyed){await stop(req,fresh,result.id).catch(()=>{});return true;}send(200,{id:result.id,kind:result.kind,password:result.password,memory:result.memory});return true;
    }
    const action=url.pathname.match(/^\/api\/remote\/session\/([a-f0-9-]+)\/(stop|lease)$/);
-   if(action&&req.method==='POST'){assertSameOrigin(req);const result=await broker.request('POST','/session/'+action[1]+'/'+action[2],identity(req,actor));send(200,result);return true;}
+   if(action&&req.method==='POST'){assertSameOrigin(req);const result=await broker.request('POST','/session/'+action[1]+'/'+action[2],identity(req,actor));send(200,{ok:true,memory:result.memory});return true;}
+   const audio=url.pathname.match(/^\/api\/remote\/audio\/([a-f0-9-]{36})$/);
+   if(audio&&req.method==='GET'){
+    if(req.headers.origin&&req.headers.origin!==expectedOrigin(req)||req.headers['sec-fetch-site']==='cross-site')fail(403,'Invalid session origin.');
+    const s=await session(req,actor,audio[1]);if(s.kind!=='firefox')fail(404,'Browser audio not found.');
+    if(req.aborted||res.destroyed)return true;
+    audioClients.add(res);res.once('close',()=>audioClients.delete(res));
+    relayRemoteAudio({req,res,send,session:s,authorize:async()=>{const fresh=await createAccounts({store,courses:[],ownerId}).authorize(req);admin(fresh);await session(req,fresh,s.id);}});return true;
+   }
    const terminal=url.pathname.match(/^\/api\/remote\/view\/([a-f0-9-]+)\/terminal\/(?:token)?$/);
    if(terminal&&req.method==='GET'){
     const s=await session(req,actor,terminal[1]);if(s.kind!=='terminal')fail(404,'Terminal session not found.');
@@ -38,6 +53,15 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
   }catch(e){send(e.status||503,{error:e.status?e.message:'Remote session service is unavailable.'});}return true;
  }
  function attach(server){
+  const disconnect=()=>{for(const response of audioClients)response.destroy();for(const ws of clients)ws.terminate();};
+  server.on('shutdown',disconnect);
+  let metricsTimer;
+  if(broker.metrics)server.on('listening',()=>{
+   metricsTimer=setInterval(()=>{
+    const now=Date.now(),body={active:activeRequests,rps:requestCount/Math.max(1,(now-metricsAt)/1000),peak:peakRequests,policy:{reserveGB:Number(process.env.REMOTE_SYSTEM_RESERVE_GB||2),busyGB:Number(process.env.REMOTE_BROWSER_BUSY_MEMORY_GB||4),maxGB:Number(process.env.REMOTE_BROWSER_MAX_MEMORY_GB||0),idleGraceSeconds:Number(process.env.REMOTE_IDLE_GRACE_SECONDS||60)}};
+    metricsAt=now;requestCount=0;peakRequests=activeRequests;broker.request('POST','/metrics',body).catch(()=>{});
+   },5000);metricsTimer.unref();
+  });
   server.on('upgrade',async(req,socket,head)=>{
    socket.setNoDelay(true);
    socket.on('error',()=>{});
@@ -71,7 +95,7 @@ export function createRemoteSessions({store,ownerId,broker=remoteBrokerClient()}
     });
    }catch(e){if(claimed)stop(req,actor,s.id).catch(()=>{});socket.end(`HTTP/1.1 ${e.status||503} Session unavailable\r\nConnection: close\r\n\r\n`);}
   });
-  server.on('close',()=>{for(const ws of clients)ws.terminate();wss.close();});
+  server.on('close',()=>{clearInterval(metricsTimer);disconnect();wss.close();});
  }
- return {handle,attach};
+ return {handle,attach,observeRequest};
 }

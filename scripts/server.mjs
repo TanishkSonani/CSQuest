@@ -11,6 +11,6 @@ try{
  if(configuredAdmins.length)await store.pool.query("UPDATE csquest_users SET role='admin' WHERE id=ANY($1::uuid[])",[configuredAdmins]);
  const server=createServer({store});
  server.listen(port,host,()=>console.log(`CS Quest: http://${host}:${port} (PostgreSQL)`));
- const stop=()=>server.close(async()=>{await store.pool.end();process.exit(0);});
+ const stop=()=>{server.emit('shutdown');server.close(async()=>{await store.pool.end();process.exit(0);});};
  process.on('SIGINT',stop);process.on('SIGTERM',stop);
 }catch(error){await store.pool.end();console.error('Cannot start CSQuest:',error.message);process.exitCode=1;}

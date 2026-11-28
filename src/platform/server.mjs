@@ -23,6 +23,7 @@ export function createServer({store:providedStore,podcastDirectory,libraryOption
  const remote=createRemoteSessions({store,ownerId,broker:remoteBroker});
  const assets=new Map(),bundles=new Map();
  const server=http.createServer(async(req,res)=>{
+  remote.observeRequest(req,res);
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
   try{
    const url=new URL(req.url,'http://127.0.0.1');

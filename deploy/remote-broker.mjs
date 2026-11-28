@@ -6,9 +6,27 @@ import fs from 'node:fs/promises';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {randomUUID,randomBytes} from 'node:crypto';
+import {memoryPolicy,validTelemetry,MiB} from './remote-memory.mjs';
 const run=promisify(execFile),sessions=new Map(),socket='/run/csquest-remote/broker.sock';let maintenance=false;
 const identities=new Map();for(const name of ['csquest','csquest-browser','csquest-terminal'])identities.set(name,Number((await run('/usr/bin/id',['-u',name])).stdout.trim()));
 const group=Number((await run('/usr/bin/id',['-g','csquest'])).stdout.trim());
+let telemetryAt=0,busyAt=Date.now(),governing=false,policy={reserveGB:2,busyGB:4,maxGB:0,idleGraceSeconds:60},sliceLimit=0;
+async function usage(s){try{return Number(await fs.readFile('/sys/fs/cgroup'+s.controlGroup+'/memory.current','utf8'));}catch{return 0;}}
+async function govern(){
+ if(governing)return;governing=true;
+ try{
+  const info=await fs.readFile('/proc/meminfo','utf8'),total=Number(info.match(/^MemTotal:\s+(\d+)/m)?.[1])*1024,available=Number(info.match(/^MemAvailable:\s+(\d+)/m)?.[1])*1024;
+  const browser=[...sessions.values()].find(s=>s.kind==='firefox'&&!s.stopping),terminal=[...sessions.values()].find(s=>s.kind==='terminal'&&!s.stopping);
+  const current=browser?await usage(browser):0,terminalBytes=terminal?await usage(terminal):0;
+  const budget=memoryPolicy({total,available,current,terminal:terminalBytes,busy:Date.now()-telemetryAt>15000||Date.now()-busyAt<policy.idleGraceSeconds*1000,...policy});
+  const aggregate=budget.aggregate<sliceLimit&&current+terminalBytes>budget.aggregate?sliceLimit:budget.aggregate;
+  if(Math.abs(sliceLimit-aggregate)>64*MiB){await run('/usr/bin/systemctl',['set-property','--runtime','csquest-remote.slice','MemoryHigh='+aggregate,'MemoryMax='+aggregate],{timeout:5000});sliceLimit=aggregate;}
+  if(browser?.controlGroup){
+   if(!browser.appliedMemory||Math.abs(browser.appliedMemory.max-budget.max)>64*MiB||Math.abs(browser.appliedMemory.high-budget.high)>64*MiB){await run('/usr/bin/systemctl',['set-property','--runtime',browser.unit,'MemoryHigh='+budget.high,'MemoryMax='+budget.max],{timeout:5000});browser.appliedMemory={max:budget.max,high:budget.high};}
+   browser.memory={...budget,...browser.appliedMemory,current};
+  }
+ }finally{governing=false;}
+}
 const fail=(status,message)=>{throw Object.assign(Error(message),{status});};
 async function stop(s){if(!s||s.stopping)return;s.stopping=true;await run('/usr/bin/systemctl',['stop',s.unit],{timeout:12000}).catch(()=>{});sessions.delete(s.id);await fs.rm('/run/csquest-remote/'+s.id,{recursive:true,force:true});console.log('Stopped remote '+s.kind+' '+s.id);}
 async function port(){const server=net.createServer();await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});const n=server.address().port;await new Promise(r=>server.close(r));return n;}
@@ -16,19 +34,23 @@ async function start(body){
  if(maintenance)fail(503,'Remote applications are being updated. Please retry shortly.');
  if(!['firefox','terminal'].includes(body.kind)||!(/^[a-f0-9-]{36}$/).test(body.actorId||'')||!(/^[a-f0-9]{64}$/).test(body.binding||''))fail(400,'Invalid session request.');
  if([...sessions.values()].some(s=>s.kind===body.kind))fail(409,'A '+body.kind+' session is already running. Close its tab before launching another.');
- const id=randomUUID(),user=body.kind==='firefox'?'csquest-browser':'csquest-terminal',s={id,kind:body.kind,actorId:body.actorId,binding:body.binding,port:await port(),unit:'csquest-remote-'+id+'.service',lastSeen:Date.now(),attached:false};
+ const viewPort=await port();let audioPort=body.kind==='firefox'?await port():0;while(audioPort&&audioPort===viewPort)audioPort=await port();
+ const id=randomUUID(),user=body.kind==='firefox'?'csquest-browser':'csquest-terminal',s={id,kind:body.kind,actorId:body.actorId,binding:body.binding,port:viewPort,audioPort,audioToken:body.kind==='firefox'?randomBytes(32).toString('hex'):null,unit:'csquest-remote-'+id+'.service',lastSeen:Date.now(),attached:false};
  // Reserve synchronously before the first process-launch await.
  if(maintenance)fail(503,'Remote applications are being updated. Please retry shortly.');
  if([...sessions.values()].some(s=>s.kind===body.kind))fail(409,'This application is already running.');sessions.set(id,s);
  const directory='/run/csquest-remote/'+id;await fs.mkdir(directory,{mode:0o700});await fs.chown(directory,identities.get(user),identities.get(user));
  try{
   if(s.kind==='firefox'){
+   await fs.writeFile(directory+'/audio-token',s.audioToken,{mode:0o600});await fs.chown(directory+'/audio-token',identities.get(user),identities.get(user));
    s.password=randomBytes(6).toString('base64');const file=directory+'/password';const child=execFile('/usr/bin/tigervncpasswd',['-f'],{encoding:'buffer'});const output=[];child.stdout.on('data',c=>output.push(c));await new Promise((resolve,reject)=>{child.on('error',reject);child.on('exit',code=>code?reject(Error('Cannot initialize VNC authentication')):resolve());child.stdin.end(s.password+'\n');});await fs.writeFile(file,Buffer.concat(output),{mode:0o600});await fs.chown(file,identities.get(user),identities.get(user));
   }
   const home='/var/lib/csquest-remote/'+(s.kind==='firefox'?'firefox':'terminal');
   const properties={User:user,Group:user,BindsTo:'csquest-remote.service',After:'csquest-remote.service',Slice:'csquest-remote.slice',MemoryMax:s.kind==='firefox'?'4G':'1G',TasksMax:s.kind==='firefox'?'2048':'256',NoNewPrivileges:'yes',PrivateTmp:'yes',TemporaryFileSystem:'/tmp:rw,size=512M /var/tmp:rw,size=128M',ProtectSystem:'strict',ProtectHome:'yes',ProtectProc:'invisible',ProcSubset:'all',RestrictSUIDSGID:'yes',RestrictRealtime:'yes',ProtectKernelTunables:'yes',ProtectKernelModules:'yes',ProtectControlGroups:'yes',UMask:'0077',KillMode:'control-group',TimeoutStopSec:'5s',RuntimeMaxSec:'4h',ReadWritePaths:home+' '+directory,InaccessiblePaths:'-/opt/csquest -/srv/csquest-data -/var/lib/csquest-library -/var/lib/postgresql',WorkingDirectory:home};
-  const args=['--quiet','--collect','--unit='+s.unit,...Object.entries(properties).flatMap(([k,v])=>['--property='+k+'='+v]),'--setenv=HOME='+home,'--setenv=LANG=C.UTF-8','/usr/bin/python3','/opt/csquest-remote/worker.py',s.kind,id,String(s.port)];
+  const args=['--quiet','--collect','--unit='+s.unit,...Object.entries(properties).flatMap(([k,v])=>['--property='+k+'='+v]),'--setenv=HOME='+home,'--setenv=LANG=C.UTF-8','/usr/bin/python3','/opt/csquest-remote/worker.py',s.kind,id,String(s.port),String(s.audioPort)];
   await run('/usr/bin/systemd-run',args,{timeout:10000});
+  s.controlGroup=(await run('/usr/bin/systemctl',['show',s.unit,'--property=ControlGroup','--value'])).stdout.trim();if(!s.controlGroup)throw Error('Session control group unavailable.');
+  await govern();
   let ready=false;for(let attempt=0;attempt<60;attempt++){if(s.stopping)break;ready=await new Promise(resolve=>{const c=net.connect(s.port,'127.0.0.1');c.setTimeout(100);c.once('connect',()=>{c.destroy();resolve(true);});c.once('error',()=>resolve(false));c.once('timeout',()=>{c.destroy();resolve(false);});});if(ready)break;await new Promise(r=>setTimeout(r,150));}
   if(!ready)throw Error('Application did not start.');s.lastSeen=Date.now();console.log('Started remote '+s.kind+' '+id+' actor '+s.actorId);return s;
  }catch(e){await stop(s);throw e;}
@@ -36,7 +58,8 @@ async function start(body){
 const server=http.createServer(async(req,res)=>{const send=(status,value)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(value));};try{
  if(req.url==='/health'&&req.method==='GET'){send(200,{ready:!maintenance});return;}
  if(req.method!=='POST')fail(405,'Method not allowed.');let n=0,chunks=[];for await(const c of req){n+=c.length;if(n>4096)fail(413,'Request too large.');chunks.push(c);}const body=JSON.parse(Buffer.concat(chunks).toString());
- if(req.url==='/start'){const s=await start(body);send(200,{id:s.id,kind:s.kind,password:s.password});return;}
+ if(req.url==='/metrics'){if(!validTelemetry(body))fail(400,'Invalid resource measurements.');telemetryAt=Date.now();if(body.active>0||body.rps>=.5||body.peak>=3)busyAt=telemetryAt;policy={...policy,...body.policy};send(200,{ok:true});return;}
+ if(req.url==='/start'){const s=await start(body);send(200,{id:s.id,kind:s.kind,password:s.password,memory:s.memory});return;}
  if(req.url==='/maintenance'){if(sessions.size)fail(409,'Remote applications are still running.');maintenance=true;send(200,{ok:true});return;}
  const match=req.url.match(/^\/session\/([a-f0-9-]{36})\/(inspect|attach|lease|stop|detach|connection-lease)$/),s=match&&sessions.get(match[1]);if(!s||s.actorId!==body.actorId||s.binding!==body.binding)fail(404,'Session not found.');
  if(match[2]==='stop'){await stop(s);send(200,{ok:true});return;}
@@ -44,10 +67,12 @@ const server=http.createServer(async(req,res)=>{const send=(status,value)=>{res.
  if(match[2]==='detach'){if(body.connectionId===s.connectionId){s.attached=false;s.connectionId=null;}s.lastSeen=Date.now();send(200,{ok:true});return;}
  if(match[2]==='attach'){if(s.attached&&Date.now()-s.connectionSeen<20000)fail(409,'This session is already connected in another tab.');s.attached=true;s.connectionId=randomUUID();s.connectionSeen=Date.now();}
  if(match[2]==='connection-lease'){if(!s.attached||body.connectionId!==s.connectionId)fail(409,'This connection has been replaced.');s.connectionSeen=Date.now();}
- s.lastSeen=Date.now();send(200,{id:s.id,kind:s.kind,port:s.port,...(match[2]==='attach'?{connectionId:s.connectionId}:{})});
+ s.lastSeen=Date.now();send(200,{id:s.id,kind:s.kind,port:s.port,memory:s.memory,...(match[2]==='inspect'?{audioPort:s.audioPort,audioToken:s.audioToken}:{}),...(match[2]==='attach'?{connectionId:s.connectionId}:{})});
  }catch(e){if(!e.status)console.error('Remote broker operation failed:',e.code||e.name);send(e.status||503,{error:e.status?e.message:'Remote application could not start. Please retry.'});}});
 server.requestTimeout=5000;server.headersTimeout=5000;
 await fs.mkdir('/run/csquest-remote',{recursive:true,mode:0o711});await fs.chown('/run/csquest-remote',0,group);await fs.chmod('/run/csquest-remote',0o711);await fs.unlink(socket).catch(e=>{if(e.code!=='ENOENT')throw e;});
+await govern();
 await new Promise(r=>server.listen(socket,r));await fs.chown(socket,0,group);await fs.chmod(socket,0o660);
 setInterval(()=>{for(const s of sessions.values())if(Date.now()-s.lastSeen>90000)stop(s).catch(()=>{});},5000).unref();
+setInterval(()=>govern().catch(error=>console.error('Remote memory controller:',error.code||error.name)),5000).unref();
 async function shutdown(){server.close();await Promise.all([...sessions.values()].map(stop));process.exit();}process.on('SIGTERM',shutdown);process.on('SIGINT',shutdown);
