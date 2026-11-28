@@ -1,80 +1,85 @@
 # CSQuest
 
-A local computer-science learning platform with topic-specific teaching, worked examples, interactive puzzles, XP, streaks, saved practice errors, and light/dark themes. Each subject keeps its own learning progress.
+CSQuest is a computer-science learning platform with designed lessons, worked examples, interactive puzzles and visual models. Learners can study at their own pace, revisit mistakes and track progress across subjects in light or dark themes.
 
-Saved rounds let you pause and continue after reloading. A practice hub offers quick warm-ups, mistake recovery, spaced review and weaker topics. Shared daily goals, weekly activity, earned milestones and reduced-motion settings help make learning a sustainable habit. See [learning experience improvements](docs/UX_IMPROVEMENTS.md).
+## Courses
 
-**Social** adds friend requests, side-by-side learner comparisons, friends/community weekly leaderboards, Bronze-to-Diamond leagues, XP races, shared team goals, invitations and activity updates. Public league participation is optional; private learning fields are never returned by social APIs. See [friends and competitions](docs/SOCIAL.md).
+All 11 subjects are available, with 2,592 designed lesson levels. Lessons combine concept explanations, predictions, interactive exploration and graded practice. Optional coding labs and workshops support further practice.
 
-**Login is required** to access lessons, transcripts and the learning portal. **My profile** adds accounts, automatic server saves, private progress tracking, 3D character avatars, recovery codes and full learning backups. Course completion is shown as a percentage. Existing guest progress can be brought into a new account. See [accounts and keyboard controls](docs/ACCOUNTS.md). PostgreSQL stores accounts, password hashes, sessions, progress, settings, drafts, course catalogs, lessons, transcripts and course status.
+| Subject | Lesson levels | Status |
+| --- | ---: | --- |
+| Computer Organization & Architecture | 105 | Available |
+| Digital Logic | 294 | Available |
+| C Programming | 204 | Available |
+| Data Structures | 303 | Available |
+| Algorithms | 510 | Available |
+| Operating Systems | 117 | Available |
+| Database Management Systems | 282 | Available |
+| Computer Networks | 138 | Available |
+| Theory of Computation | 438 | Available |
+| Compiler Design | 156 | Available |
+| General Aptitude | 45 | Available |
 
-Run `npm install` and `npm run db:setup` once, then double-click **Start CSQuest.cmd** and visit **http://localhost:4173**. Setup creates an isolated local PostgreSQL database and imports existing data. The launcher starts PostgreSQL, one shared server and one watcher that checks every subject once per minute. Access remains restricted to this PC. See [PostgreSQL setup and migration](docs/POSTGRESQL.md).
+## Platform features
 
-The repository contains scaffolds for all **11 subjects / 864 recordings** discovered under `K:\Gate\GO CSE`, including videos inside nested `Done` folders. COA, Digital Logic, C Programming and General Aptitude are available; the remaining subjects appear as **Coming Soon** until transcription and reviewed lessons are ready.
+- Learning: concept search, saved rounds, mistake recovery, spaced review, daily goals, XP, streaks and milestones.
+- Accounts: server-saved progress, avatars, recovery codes, backups and account deletion. Public registration creates learner accounts; administrators manage roles and location permissions.
+- Social: friends, optional community rankings, leagues, challenges and shared goals.
+- Library: an Explorer-style workspace with Boot, Block and Object drives, folders, parallel upload queues, resumable transfers, search, metadata, previews, playlists and activity history. Learner access is granted by an administrator. Public drives or folders can have passwords, upload permissions and capacity limits.
+- Media: podcast listening, image/PDF previews and audio/video playback with adjustable speed, seek controls, subtitles and saved position.
+- Remote workspace: administrator-only Firefox and VM Terminal launched from Library > Boot. Firefox includes audio streaming, adaptive RAM limits and Smooth video / Sharper text modes.
 
-| Available subject | Completed transcripts | Developed levels | Challenges |
-|---|---:|---:|---:|
-| Computer Organization & Architecture | 35 / 35 | 105 | 420 |
-| Digital Logic | 98 / 98 | 294 | 1,176 |
-| C Programming | 68 / 68 | 204 | 816 |
-| General Aptitude | 15 / 15 | 45 | 180 |
+## Run locally
 
-Aptitude includes interactive growth and price charts, percentage grids, ratio shares, work-rate bars, a moving journey, factor tiles, shape rotation/reflection, Venn diagrams, arrangement checks, number lines, and sentence/evidence explorers. Visual number puzzles support both sliders and typed answers. See [Aptitude content and verification](docs/APTITUDE.md).
+Install Node.js and PostgreSQL, then run:
 
-C Programming includes 16 animated visual labs and 68 complete program builders with draggable or tappable tokens. Trace aliases, recursive frames, array bounds, string terminators and allocated storage without mobile typing. See [C Programming content and verification](docs/C_PROGRAMMING.md).
-
-Existing COA and Digital Logic browser storage keys are preserved. The selected subject, global theme, XP, streaks, completed lessons, and practice errors continue to work. Original recordings remain on K:. Completed transcripts and lessons are local; existing material works without the recording drive or speech model. Machine transcripts can mishear numbers and formulas, so problems state explicit assumptions. Course lessons do not embed source recordings; uploaded audio and video can be played from Library.
-
-```text
-apps/web/             One browser UI for all subjects
-packages/learning/    Shared grading, progress, and worked examples
-src/platform/         Shared server and transcript import
-config/               Course discovery and manifest schema
-courses/<id>/         Manifest, content, authoring, and transcript data
-scripts/              CLI commands, Windows launcher, shared transcription
-tests/                Automated and browser checks
-docs/                 Architecture and authoring guides
-runtime/              Ignored process IDs, logs, and live progress snapshots
-tooling/              Ignored downloaded dependencies, models, and archives
+```powershell
+npm ci
+npm run db:setup
+npm start
 ```
 
-Node.js **22.13 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool and serves browser assets directly. No frontend build is required.
+Open **http://localhost:4173**. On Windows, **Start CSQuest.cmd** starts the local database, application and content watcher. **Start COA.cmd** is a compatibility shortcut. Configuration belongs in the ignored `.env`; use `.env.example` as a reference.
 
-## Deploying on an Oracle Cloud VM
+PostgreSQL stores accounts, sessions, learning progress, preferences, course content and Library metadata. Preserve `.env`, `.local-postgres`, private account records, Library files and database backups during maintenance.
 
-**Library** adds a File Explorer inspired file manager with separate **35 GiB Boot** and **125 GiB Block** allocations (displayed in GB), live storage refresh, upload preflight, four parallel transfers with a global queue, directories, previews, ZIP downloads, favorites, notes, lesson resources and playback bookmarks. Admins manage Library files and learner visibility; signup creates Learners. Public links share files or directory trees. **Help** tracks personal issue reports and **Admin** manages users and report responses. The Explorer includes a selection toolbar, editable address bar, expandable directory tree, right details pane, right-click New menu and a plain-text Notepad. Learner Library access is read only and can cover selected locations or the full Library. Public drive/directory spaces can require passwords, allow uploads and cap total space in GB/MB. Admins can create Admin accounts; last-Admin deletion is protected. The shared podcast audio dock and VLC-inspired video player support 0.25×–3× playback, configurable skips and compact controls. See [Library setup and usage](docs/LIBRARY.md) for permissions, provisioning, Undo limits, codec support and backups.
+## Repository
 
-Run the Node.js application as a persistent systemd service behind Nginx, with PostgreSQL on the VM or a separate database host. The repository includes service and proxy templates in `deploy/`. See [Oracle Cloud deployment](docs/ORACLE_CLOUD.md) for Ubuntu VM setup, HTTPS, data transfer, updates and backups.
+```text
+apps/web/public/      Browser UI, styles and assets
+packages/learning/    Grading, progress and interactive learning models
+src/platform/        Application server, permissions and persistence
+courses/<id>/        Subject manifests, designed lessons and course data
+scripts/             Application, database and maintenance commands
+migrations/          Versioned database schema
+alembic/             Hosted database migration support
+deploy/              VM services, proxy and release tooling
+tests/               Automated checks and browser QA
+docs/                Product, architecture and operations guides
+```
 
-Pushes to `main` run GitHub Actions checks and deploy passing commits to the VM. See [the automatic deployment pipeline](docs/PIPELINE.md) for release behavior, credentials, backups and recovery.
-
-Set `DATABASE_URL`, migrate the database, and import course content before starting the service. For production, set `NODE_ENV=production` and terminate HTTPS at Nginx. Keep Node.js and PostgreSQL bound to loopback when running on the same VM.
+## Common commands
 
 | Command | Purpose |
-|---|---|
-| `npm start` | Run the localhost server |
-| `npm run db:setup` | Create local PostgreSQL, migrate schema, import existing data |
-| `npm run db:local` | Start the isolated local database |
-| `npm run db:stop` | Stop the isolated local database |
-| `npm run db:migrate` | Apply pending PostgreSQL schema migrations |
-| `npm run db:import` | Publish course files and import legacy accounts without overwriting users |
-| `npm run db:export -- path/backup.dump` | Export all application data with checksums and table fingerprints |
-| `npm run db:restore -- path/backup.dump` | Restore into an empty database and verify transferred data |
-| `npm run db:verify -- path/backup.dump` | Compare restored table contents against the backup manifest |
-| `npm run watch` | Periodically import all registered subjects |
-| `npm run sync` | Import every subject once |
-| `npm run sync -- dl` | Import one subject |
-| `npm run catalog` | Refresh recursive recording discovery and counts |
-| `npm run build:lessons -- dl` | Rebuild a subject's generated lessons |
-| `npm run validate` | Validate course structure, publication, sources, and puzzles |
+| --- | --- |
+| `npm start` | Start the application |
+| `npm run db:setup` | Set up the isolated local database and import existing data |
+| `npm run db:local` / `npm run db:stop` | Start or stop the local database |
+| `npm run db:migrate` | Apply schema migrations |
+| `npm run db:import` | Publish course content while preserving existing users |
+| `npm run db:export -- path/backup.dump` | Export a database backup with verification metadata |
+| `npm run db:restore -- path/backup.dump` | Restore into an empty database |
+| `npm run db:verify -- path/backup.dump` | Verify restored data against the backup |
+| `npm run validate` | Validate course structure and exercises |
 | `npm test` | Run automated tests |
 
-For browser checks, run `npm ci --prefix tooling/browser-qa`, start the app, then run `node tests/browser.cjs` or `node tests/platform-browser.cjs`. Checks use Microsoft Edge installed on Windows; output goes to ignored `qa-results`.
+Browser checks use `tooling/browser-qa` and installed Microsoft Edge on Windows. Run `npm ci --prefix tooling/browser-qa`, then the relevant script under `tests/`. Reports and screenshots are disposable output in ignored `qa-results/`.
 
-Shared speech recognition is managed by `scripts/transcribe.py`. `python scripts/transcribe.py --list` lists subjects without loading a model. Transcription packages and the model already installed locally remain under ignored `tooling/transcription`; a fresh clone needs those dependencies installed separately before transcribing new recordings. Set `CSQUEST_SOURCE_ROOT` or a per-subject variable such as `COA_SOURCE`, `DL_SOURCE`, or `C_SOURCE` to override recording locations.
+## Documentation
 
-Subjects are discovered from their `course.json` files. New subjects reuse the existing UI, server, importer, watcher, and transcription tool. See [repository architecture](docs/ARCHITECTURE.md), [adding and publishing subjects](docs/ADDING_SUBJECTS.md), and [content authoring rules](docs/CONTENT_AUTHORING.md).
+- [Architecture](docs/ARCHITECTURE.md) and [lesson design](docs/CONTENT_AUTHORING.md)
+- [Accounts and roles](docs/ACCOUNTS.md), [social features](docs/SOCIAL.md) and [learning experience](docs/UX_IMPROVEMENTS.md)
+- [Library](docs/LIBRARY.md), [podcasts](docs/PODCASTS.md) and [remote workspace](docs/REMOTE_SESSIONS.md)
+- [PostgreSQL](docs/POSTGRESQL.md), [Oracle Cloud setup](docs/ORACLE_CLOUD.md) and [automatic deployment](docs/PIPELINE.md)
 
-Git excludes downloaded packages, model weights, npm dependencies, logs, process state, temporary files, and browser output. Historical staging copies and obsolete one-time scripts are retained locally in ignored `tooling/archive`. `Start COA.cmd` remains a compatibility shortcut for the shared platform.
-
-Live status snapshots are regenerated under `runtime/courses/<id>` from the versioned transcript inventories. Routine watcher checks leave course content unchanged. All 864 recording durations have been measured: **795.45 hours** of source audio; this inventory count includes subjects whose transcription has not started.
+Pushes to `main` run checks and deploy passing commits through GitHub Actions. Native root-owned VM components have separate provisioning steps documented in their operations guides. Keep credentials, private learner data and backups outside Git.

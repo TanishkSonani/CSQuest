@@ -1,17 +1,5 @@
-# Theory of Computation authoring
+# Theory of Computation lesson design
 
-Edit `topics.js` for topic-specific explanations, examples, misconceptions and
-model settings. `build-reviewed.mjs` produces the curriculum, three stages per
-topic and the coverage report from completed imported transcripts.
+The course provides designed lessons with clear objectives, beginner explanations, worked examples and interactive practice. Subject content lives under `../content`; shared learning models and grading live in `packages/learning` at the repository root.
 
-Run `node scripts/sync.mjs toc` from the repository root to import sources,
-rebuild and update the configured local PostgreSQL content. Run
-`node scripts/validate-courses.mjs`, `npm.cmd test` and
-`node tests/toc-browser.cjs` before deployment.
-
-The builder refuses incomplete source coverage. `--draft` can produce an
-unpublished preview during authoring; do not deploy that partial output with
-the full-course manifest. Do not substitute raw ASR formulas for the explicit
-mathematical rules in the teaching models.
-
-See `docs/TOC_TEACHING.md` for the teaching flow and simulator boundaries.
+Keep lesson identifiers and progress rules stable. State assumptions and model limits explicitly, and verify grading, keyboard controls, phone layouts and both themes before publication. Follow the platform [lesson design standards](../../../docs/CONTENT_AUTHORING.md).

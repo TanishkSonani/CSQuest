@@ -1,54 +1,39 @@
 # Repository architecture
 
+CSQuest uses a shared browser application, a Node.js HTTP server and PostgreSQL. Subject manifests define catalog identity and publication status. Designed lessons provide concept explanations, worked examples, interactive models and assessments.
+
 ```text
-apps/web/public/          Shared browser UI, styles, icons, and font assets
-packages/learning/       Shared grading, progress, practice history, worked examples
-src/platform/            HTTP server, PostgreSQL storage, transcript authoring/import
-migrations/              Versioned PostgreSQL schema
-config/                  Manifest discovery and course schema
-courses/<subject>/
-  course.json            Identity, publication status, source folder, optional builder
-  content/               Curriculum and browser-ready lessons
-  authoring/             Subject-specific definitions and content builders
-  data/
-    source-files.json    Recording discovery (including nested Done folders)
-    source-analysis/    Duration inventory, raw transcripts, completion markers
-    transcripts/        Imported, numbered timestamped transcripts
-    lesson-build.json   Optional generated-content coverage report
-  docs/                  Optional subject-specific study guides
-scripts/                 Thin CLI commands, Windows launcher, shared transcription tool
-tests/                   Platform integration, learning engine, subject content, browser QA
-docs/                    Architecture, authoring policy, source records, study guides
-runtime/                 Ignored process IDs, service logs, live course progress
-data/accounts/           Legacy account import source and migration backup
-.local-postgres/         Ignored isolated local PostgreSQL database cluster
-tooling/                 Local downloaded dependencies, models, historical artifacts
+apps/web/public/       Browser shell, learning UI, Library, media and remote viewer
+packages/learning/     Grading, progress, practice and educational models
+src/platform/         HTTP APIs, authentication, authorization and persistence
+courses/<subject>/    Manifest, content, subject definitions and course data
+migrations/           Versioned PostgreSQL schema
+scripts/              Application, database and maintenance entry points
+deploy/               Service definitions, proxy, release and native VM tooling
+tests/                Unit, integration, course and browser checks
+docs/                 Product and operations guides
 ```
 
-Authoring tools discover course folders from `course.json` and publish their output to PostgreSQL. The running server reads its course registry from PostgreSQL and supplies a catalog at `/api/subjects` and `/subjects.js`. Source-drive locations and builder paths stay on the server. Each subject retains its URL namespace and persistent storage key.
+## Content and progress
 
-The browser loads curriculum and lessons from PostgreSQL through `/courses/<id>/*.js`; shared puzzle code uses `/shared/*.js`. Status and numbered imported transcripts have dedicated database-backed read-only API endpoints. Manifests, authoring code, raw analysis, runtime files and model weights are outside the static web root.
+The application reads its course registry and lesson modules from PostgreSQL. Authenticated browser requests load subject modules through `/courses/<id>/*.js` and shared learning modules through `/shared/*.js`. All 11 current subjects are available. Future planned subjects remain visible without exposing unfinished lesson entry.
 
-A single watcher sequentially imports every registered subject once per minute. An error in one subject is recorded without stopping the others. Transcription uses a separate shared Python worker; `--all` processes subjects sequentially with one speech model. The watcher never starts speech recognition or authors new material.
+Course IDs, lesson IDs and storage keys remain stable so updates retain learner progress. `npm run db:import` publishes repository content without overwriting existing accounts. The optional local watcher periodically checks content updates; page requests do not design lessons.
 
-## Course publication
+Account transactions lock the relevant user. Registration also protects normalized username uniqueness. Browser storage supplies recovery and retry caches scoped to the signed-in user; PostgreSQL is the durable record. See [accounts](ACCOUNTS.md) and [database storage](POSTGRESQL.md).
 
-`planned` subjects are visible as Coming Soon, with disabled lesson entry and no invented levels. They can still be inventoried, transcribed, and imported while content is being authored. `available` subjects have a populated curriculum and reviewed teaching. The optional manifest builder produces browser-ready content and a coverage report; direct authoring is supported too.
+## Library and permissions
 
-COA and Digital Logic retain their IDs, URLs' subject identifiers, lesson IDs, and browser keys (`coa-quest-v1`, `dl-quest-v1`). Their subject folders now have identical roles. No learner storage migration is required.
+The Library combines Boot, Block and Object storage with database-backed folder and file metadata. Storage roots and object credentials remain server-side. Upload reservations, quotas and effective permissions are checked before transfers. Streaming routes enforce access and support byte ranges.
 
-## Stable source identity
+Public links are restricted to their configured drive or directory. Administrator permissions, read-only learner grants, location-specific access, public upload limits and optional passwords are enforced by the server. Files are data rather than executable application assets. See [Library](LIBRARY.md).
 
-Inventory row order is the lecture ID. Re-inventorying preserves existing row order and appends new recordings; missing existing recordings stop the scan rather than silently renumbering lessons. Nested recording folders are scanned recursively. Duplicate basenames receive stable `transcriptStem` keys, used by both the transcriber and importer.
+## Remote workspace
 
-Raw `.jsonl` and `.srt` output may be incomplete while a worker is running. Only an atomically published `.done` marker permits import. Imported JSON and progress snapshots are replaced atomically. Completed imported data and source analysis live locally, so existing lessons remain usable when K: is disconnected.
+A private root-owned broker launches Firefox and Terminal as dedicated non-root users. The application authenticates administrators and binds each session to its launching login. Display and audio are proxied through protected endpoints. Systemd bounds CPU, tasks and memory; the adaptive controller retains host headroom. Native components require explicit installation separately from application releases. See [remote sessions](REMOTE_SESSIONS.md).
 
-## Machine configuration
+## Runtime and deployment
 
-`CSQUEST_SOURCE_ROOT` overrides `K:\Gate\GO CSE`. `<SUBJECT>_SOURCE` overrides a single folder, for example `COA_SOURCE`, `DL_SOURCE`, or `C_SOURCE`. Node and Python resolve project paths relative to their own files. Downloaded transcription packages and the shared small Whisper model remain in ignored `tooling/transcription`; Node and Python themselves are system installations.
+Ignored runtime files hold temporary diagnostics, service state and caches. Private learner records, database clusters, Library content and backups are durable data and must be preserved during cleanup. Tests use isolated databases and temporary files.
 
-Runtime state is separate from course data. The supported Windows launcher starts one localhost server and one shared watcher. Access remains restricted to `127.0.0.1:4173`.
-
-Account APIs use separate PostgreSQL tables for users, saved learning fields, sessions and authentication limits. Writes are transactional and lock the relevant user across app instances. Browser storage is a retry cache scoped per authenticated user, with guest keys preserved. See [PostgreSQL storage](POSTGRESQL.md) and [personal accounts](ACCOUNTS.md).
-
-Live progress snapshots live in `runtime/courses/<id>/progress.json`, so periodic checks do not dirty versioned course files. A fresh checkout regenerates missing snapshots from local source analysis on its first status request or sync. Generated lesson modules and build coverage reports are written only when their content changes.
+Production runs behind Nginx HTTPS on the Oracle VM. GitHub Actions prepares a release, backs up PostgreSQL, applies migrations and selects the new application directory. Configuration is supplied through `.env`; secrets are never browser assets. See [deployment](PIPELINE.md).

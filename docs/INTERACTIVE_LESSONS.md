@@ -1,8 +1,8 @@
 # Interactive lessons
 
-Every currently available lesson in COA, Digital Logic, C, Data Structures,
-Algorithms, Aptitude and Operating Systems has a guided learning sequence
-before its quiz. The 1,578 lessons provide 4,734 teaching stages:
+The 2,592 designed lessons across all 11 subjects provide guided learning
+before graded practice. The shared learning sequence introduces the idea,
+opens exploration and explains the result:
 
 1. **Meet the idea:** a short introduction, a visual and tappable definitions.
 2. **Explore it:** change an input, step through a model or focus parts of a
@@ -63,7 +63,7 @@ rebuilds just this review and its change report.
 - `node --env-file=.env tests/lesson-tools-browser.cjs`
 - Subject-switch, social, product-polish and unit-continuation browser checks.
 
-The guided browser check exercises early, middle and final lessons in all seven
+The guided browser check exercises early, middle and final lessons in the sampled
 courses at 320px, 390px and desktop widths, interaction gates, reduced motion,
 pause/resume and absence of unearned rewards. The shared-module startup test
 also checks that the new dependency is accessible before authentication.

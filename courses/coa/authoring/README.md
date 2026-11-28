@@ -1,5 +1,5 @@
-# COA authoring
+# Computer Organization & Architecture lesson design
 
-COA's existing authored content lives in `../content/lessons.js` and `../content/advanced-lessons.js`. The shared importer links that teaching to completed transcripts in `../data/transcripts`.
+The course provides designed lessons with clear objectives, beginner explanations, worked examples and interactive practice. Subject content lives under `../content`; shared learning models and grading live in `packages/learning` at the repository root.
 
-Add future authoring helpers or a generated-content builder here. A builder must export `buildReviewed(courseRoot)` and be registered as `builder` in `../course.json`. Shared UI and puzzle grading belong in `apps/web` and `packages/learning`.
+Keep lesson identifiers and progress rules stable. State assumptions and model limits explicitly, and verify grading, keyboard controls, phone layouts and both themes before publication. Follow the platform [lesson design standards](../../../docs/CONTENT_AUTHORING.md).

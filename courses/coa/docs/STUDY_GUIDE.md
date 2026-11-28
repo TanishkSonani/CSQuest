@@ -1,8 +1,8 @@
 # COA course study guide
 
-35 lectures · 105 microlevels · 420 original practice problems.
+35 topics · 105 microlevels · 420 original practice problems.
 
-Use the portal for interactive puzzles. This companion collects the teaching notes and worked solutions. Full machine transcripts live in courses/coa/data/transcripts; their numbers and formulas may contain recognition errors. These supplementary problems use stated assumptions and are not reproductions of GATE papers.
+Use the portal for interactive puzzles. This companion collects the teaching notes and worked solutions. These supplementary problems use stated assumptions and are not reproductions of GATE papers.
 
 ## 000 · Architecture vs organization
 
@@ -18,18 +18,16 @@ Every application runs on physical hardware. COA asks how that hardware works, h
 ### Level 2: Build an instruction
 
 - **Decode “turn on the light.”** Turn on → Operation; The light → Operand. The operation says what to do; the operand identifies what to act on.
-- **Which set contains example machine operations?** ADD, SUB, LOAD, STORE. These are examples of the primitive operations described in the lecture.
+- **Which set contains example machine operations?** ADD, SUB, LOAD, STORE. These are examples of the primitive operations used in this model.
 - **An 8-bit instruction reserves 2 bits for the operation. Set the operation field to 2 bits.** 2 operation bits. Two operation bits leave 8 − 2 = 6 operand bits in this toy format.
 - **An 8-bit instruction uses 4 operation bits. How many bits remain for the operand?** 4. 8 − 4 = 4 operand bits. The format defines how to interpret the instruction.
 
 ### Level 3: Architecture checkpoint
 
 - **Why does an instruction need a defined format?** To decide how its bits are interpreted. Without a format, the machine cannot determine which bits identify the operation and operands.
-- **Match each design decision.** Supported operations → Instruction set; Layout of instruction bits → Instruction format; Binary representation of values → Data format. The lecture distinguishes the supported operations, their encoding, and the representation of data.
+- **Match each design decision.** Supported operations → Instruction set; Layout of instruction bits → Instruction format; Binary representation of values → Data format. The model distinguishes the supported operations, their encoding, and the representation of data.
 - **Try the other toy format: 8 total bits, with 4 operation bits.** 4 operation bits. This format has four operation bits and four operand bits.
 - **Arranging hardware and its communication to execute the design is…** Computer organization. Organization implements the defined functionality using interconnected hardware.
-
-Transcript reference times: 1:14, 10:20, 19:07. Read the full text in the Lecture notebook.
 
 ## 001 · Stored-program architecture
 
@@ -46,7 +44,7 @@ A computer without a multiplication instruction can still multiply by combining 
 
 - **What is a program in this introduction?** A sequence of instructions for a task. A program combines instructions into a sequence to carry out a task.
 - **Match each building block.** Instruction → A primitive step; Program → A sequence of steps; Stored-program computer → Keeps a program for execution. Instructions are individual operations; programs combine them and can be stored for later execution.
-- **What does the stored program contain in this course model?** Instructions and associated data. The lecturer describes programs using instructions and the data associated with them.
+- **What does the stored program contain in this course model?** Instructions and associated data. This model describes programs using instructions and the data associated with them.
 - **How can a rich application use a small instruction set?** By combining many simple instructions. An application may execute many instructions drawn from a much smaller collection of instruction types.
 
 ### Level 6: Program checkpoint
@@ -56,11 +54,9 @@ A computer without a multiplication instruction can still multiply by combining 
 - **You start at 5 and execute ADD 5 twice. What is the result?** 15. Start at 5, then add 5 to reach 10, and add 5 again to reach 15.
 - **Storing and later executing a sequence of instructions makes the computer…** A stored-program computer. A stored-program computer retains a program and can execute it when requested.
 
-Transcript reference times: 0:18, 6:16, 9:26. Read the full text in the Lecture notebook.
-
 ## 002 · Structure of a computer
 
-The lecture presents four basic components: CPU, main memory, I/O devices, and system bus. They work together to execute programs and communicate with the outside world.
+The model has four basic components: CPU, main memory, I/O devices, and system bus. They work together to execute programs and communicate with the outside world.
 
 ### Level 7: Meet the components
 
@@ -72,18 +68,16 @@ The lecture presents four basic components: CPU, main memory, I/O devices, and s
 ### Level 8: From code to execution
 
 - **Arrange the simplified program journey.** Compile source code → Link the executable → Load into main memory → Execute on the CPU. Compilation and linking create an executable. The loader brings it into memory so the CPU can execute it.
-- **Pair the tool with its job.** Compiler → Translates high-level source; Linker → Combines required code; Loader → Places the program in memory. These roles come from the C program example in the lecture.
+- **Pair the tool with its job.** Compiler → Translates high-level source; Linker → Combines required code; Loader → Places the program in memory. These roles come from the C program example in this topic.
 - **A program in execution is called a…** Process. A process is a program in execution.
 - **In the introduced process layout, which section holds instructions?** Text section. The text section contains executable instructions in the process layout shown.
 
 ### Level 9: Computer checkpoint
 
 - **Launch the stored application.** Read executable from storage → Load program into RAM → Give CPU the starting instruction → Fetch and execute instructions. The operating system loads the executable and supplies a starting point for execution.
-- **Which instruction can change the ordinary sequential path?** A jump instruction. The lecturer explicitly notes jumps as an exception to sequential instruction flow.
+- **Which instruction can change the ordinary sequential path?** A jump instruction. The model includes jumps as an exception to sequential instruction flow.
 - **Separate storage from execution.** Secondary storage → Keeps the saved executable; Main memory → Holds the executing program; CPU → Fetches and executes instructions. The saved executable is on secondary storage; active execution uses memory and the CPU.
 - **What is the system bus doing while the CPU communicates with memory?** Carrying information between them. The bus is the communication path between computer components.
-
-Transcript reference times: 0:11, 9:38, 7:40. Read the full text in the Lecture notebook.
 
 ## 003 · Input and output devices
 
@@ -108,9 +102,7 @@ Input devices bring information into the computer. Output devices present inform
 - **Connect each activity to a device.** Type a command → Keyboard; Hear a result → Speaker; Print a page → Printer. Typing supplies input; speakers and printers present output.
 - **Your friend copies a movie onto a drive. For your friend’s computer, the drive is receiving…** Output. The friend’s computer writes data outward to the storage device.
 - **You then read that movie from the drive. Your computer is receiving…** Input. Reading brings information from the drive into your computer.
-- **Which device can move data in both directions?** A network card. The lecture uses a network card or modem as an example of bidirectional I/O.
-
-Transcript reference times: 0:35, 1:54, 4:00. Read the full text in the Lecture notebook.
+- **Which device can move data in both directions?** A network card. This example uses a network card or modem as an example of bidirectional I/O.
 
 ## 004 · RAM and ROM
 
@@ -120,12 +112,12 @@ RAM holds active instructions and data, and is volatile: its contents are not re
 
 - **Match the memory property.** RAM → Volatile; supports reads and writes; ROM in the introductory model → Nonvolatile; read-only during normal use. The lesson contrasts volatile writable RAM with the simplified ROM model. Modern firmware may use rewritable flash.
 - **Which memory loses its retained contents when power is removed?** RAM. RAM is volatile; nonvolatile storage retains information without continuous power.
-- **What does active main memory hold in this lecture?** Instructions and data. The CPU fetches the executing program’s instructions and associated data from memory.
+- **What does active main memory hold in this model?** Instructions and data. The CPU fetches the executing program’s instructions and associated data from memory.
 - **Why must startup firmware be nonvolatile?** It must survive power-off. The machine needs startup instructions available before it can load the operating system.
 
 ### Level 14: Boot the computer
 
-- **Arrange the simplified startup sequence.** Power on → Firmware performs startup checks → Boot-loading code loads the OS → Operating system takes control. This captures the high-level sequence discussed in the lecture, without treating every modern firmware implementation as identical.
+- **Arrange the simplified startup sequence.** Power on → Firmware performs startup checks → Boot-loading code loads the OS → Operating system takes control. This captures the high-level sequence shown in this model, without treating every modern firmware implementation as identical.
 - **What does POST stand for?** Power-on self-test. POST is the power-on self-test associated with startup checks.
 - **Before startup, the operating system is persistently stored on…** Secondary storage. Persistent secondary storage keeps the OS while the machine is off.
 - **Match the startup roles.** Firmware → Available before the OS loads; Boot loader → Loads the operating system; RAM → Holds the running OS. Firmware starts the boot path; boot-loading code brings the OS into working memory.
@@ -136,8 +128,6 @@ RAM holds active instructions and data, and is volatile: its contents are not re
 - **Why is volatile RAM alone unsuitable for keeping startup firmware?** The firmware would not survive power-off. Without persistent startup code, the computer could not begin loading its OS after losing power.
 - **Put the simplified OS journey in order.** OS saved on secondary storage → Boot loader copies OS into RAM → OS runs and manages the system. The OS persists on storage, then is loaded for execution and system management.
 - **Which statement is the useful memory distinction?** RAM is working memory; secondary storage persists files. RAM supports active execution, while secondary storage keeps files across power cycles.
-
-Transcript reference times: 0:00, 8:58, 10:40. Read the full text in the Lecture notebook.
 
 ## 005 · Main memory and addressability
 
@@ -164,8 +154,6 @@ Memory consists of addressable cells. Address bits choose a cell; cell width det
 - **A chip marked 1K × 8 stores how many bytes? Use K = 1024.** 1024. 1024 cells × 8 bits per cell = 1024 bytes.
 - **Doubling cell width while keeping the same cell count changes…** Capacity, but not address width. The number of addresses stays fixed; each cell now contains twice as much data.
 
-Transcript reference times: 0:17, 53:48, 104:38. Read the full text in the Lecture notebook.
-
 ## 006 · Byte ordering and endianness
 
 Endianness determines the byte order of a multi-byte value at increasing addresses. Big endian stores the most significant byte first; little endian stores the least significant byte first. It does not reverse the order of array elements.
@@ -190,8 +178,6 @@ Endianness determines the byte order of a multi-byte value at increasing address
 - **In little endian, which byte of that value is stored first?** 0D. Positive 13 has bytes 00 00 00 0D in significance order; the least significant byte 0D comes first.
 - **An array holds two 32-bit integers A then B. Little endian…** Changes byte order inside A and B. Array element order stays A then B. Each integer uses the selected byte order.
 - **Which object is unaffected by byte ordering?** A single 8-bit byte. A one-byte object has no ordering among multiple bytes to change.
-
-Transcript reference times: 0:09, 45:48, 118:47. Read the full text in the Lecture notebook.
 
 ## 007 · Endianness practice
 
@@ -218,8 +204,6 @@ Solve byte-order problems by drawing addresses first and placing bytes second. A
 - **Big-endian bytes 00 00 00 0D are read as little endian. Hex value?** 0D000000. The final byte becomes the most significant byte in the mismatched read.
 - **Byte characters A then B in a char array appear in what order?** A then B under either endian convention. Each character occupies one byte. Endianness does not reverse array element order.
 
-Transcript reference times: 0:16, 25:16, 86:18. Read the full text in the Lecture notebook.
-
 ## 008 · System bus
 
 A system bus carries addresses, data, and control signals. In the introductory CPU-memory model, the CPU chooses a memory address, data travels toward or away from memory, and control signals describe the transaction. Individual control lines can have different directions.
@@ -244,8 +228,6 @@ A system bus carries addresses, data, and control signals. In the introductory C
 - **How many full-width 16-bit transfers move 8 bytes?** 4. 8 bytes ÷ 2 bytes per transfer = 4 transfers, assuming alignment and no partial transfers.
 - **In this simple CPU-memory model, the address bus is…** Driven from CPU toward memory. The CPU selects a location by driving the memory address.
 - **Adding address lines mainly increases…** The addressable location count. Each extra address bit doubles the possible locations, given the same addressability.
-
-Transcript reference times: 0:15, 21:57, 44:27. Read the full text in the Lecture notebook.
 
 ## 009 · Memory interfacing and expansion
 
@@ -272,8 +254,6 @@ Memory expansion has two independent directions. Width expansion places chips in
 - **Eight 256 × 8 chips arranged as 4 banks of 2 chips form how many cells?** 1024. Depth is 4 × 256 = 1024 cells; parallel width is 2 × 8 = 16 bits per cell.
 - **Capacity of that 1024 × 16 memory in bytes?** 2048. 1024 cells × 16 bits ÷ 8 = 2048 bytes.
 
-Transcript reference times: 0:14, 57:04, 97:01. Read the full text in the Lecture notebook.
-
 ## 010 · Memory interleaving GATE practice
 
 Low-order interleaving distributes consecutive addresses across banks. For N banks, bank = address mod N and row = floor(address/N), using the stated address unit. Parallelism is possible when separate banks can serve independent requests.
@@ -298,8 +278,6 @@ Low-order interleaving distributes consecutive addresses across banks. For N ban
 - **Under that high-order mapping, local row for address 35?** 3. 35 mod 16 = 3. Bank two covers addresses 32 through 47.
 - **Four independently available banks can each serve one word simultaneously. Max words per parallel group?** 4. One word from each of four independent banks yields four simultaneous words, under the stated assumption.
 - **Before applying bank = address mod N, verify…** Address units and bank mapping. Byte addresses and word addresses can select different banks; the mapping and address unit must be stated.
-
-Transcript reference times: 0:07, 55:08, 128:01. Read the full text in the Lecture notebook.
 
 ## 011 · Registers and status flags
 
@@ -326,8 +304,6 @@ Registers hold temporary CPU state. Condition flags summarize an operation. Carr
 - **8-bit -128 + -1 overflows because…** The exact result -129 is below -128. Signed overflow occurs when the exact mathematical value lies outside the representable range.
 - **A branch instruction may use flags to…** Choose whether to change PC. Conditional control flow tests status flags produced by previous operations.
 
-Transcript reference times: 0:40, 79:45, 149:13. Read the full text in the Lecture notebook.
-
 ## 012 · Instruction set architecture
 
 The ISA defines the programmer-visible machine: operations, registers, operand formats, addressing behavior, and instruction encodings. Different hardware organizations can implement the same ISA.
@@ -352,8 +328,6 @@ The ISA defines the programmer-visible machine: operations, registers, operand f
 - **Toy stack ISA: PUSH 3, PUSH 5, ADD pops both and pushes their sum. Top value?** 8. ADD uses two implicit stack operands, computes 3 + 5, and pushes 8.
 - **Accumulator ADD [100], with accumulator 7 and M[100]=5, gives…** Accumulator = 12. The accumulator is the implicit source and destination, so 7 + 5 replaces its old value.
 - **Why can a stack ADD be a zero-address instruction?** Both operands are implicit on the stack. Zero-address refers to the count of explicitly encoded operand addresses, not absence of an operation.
-
-Transcript reference times: 0:07, 51:29, 114:17. Read the full text in the Lecture notebook.
 
 ## 013 · RISC and CISC
 
@@ -380,8 +354,6 @@ The introductory RISC/CISC comparison describes design tendencies. Classical RIS
 - **A modern CPU can decode complex ISA instructions into simpler internal operations?** Yes. An implementation may use internal operations while preserving the architectural instruction behavior.
 - **The useful comparison starts with…** Actual formats, operand rules, and execution costs. Concrete design details and the workload determine the practical result.
 
-Transcript reference times: 0:11, 37:27, 73:44. Read the full text in the Lecture notebook.
-
 ## 014 · Instruction formats
 
 An instruction format partitions a fixed bit budget among opcode and operand fields. A field of k bits represents at most 2^k alternatives. Sum the required field widths before counting the remaining opcode space.
@@ -406,8 +378,6 @@ An instruction format partitions a fixed bit budget among opcode and operand fie
 - **Those 6-bit register fields address how many registers?** 64. Six register-selection bits provide 2^6 = 64 choices.
 - **Encoding 20 operations needs at least…** 5 opcode bits. Four bits provide only 16 patterns; five provide 32.
 - **Unused opcode patterns are…** Available encodings, not extra physical instruction bits. A field can have reserved patterns even when its width remains fixed.
-
-Transcript reference times: 0:08, 50:39, 90:59. Read the full text in the Lecture notebook.
 
 ## 015 · Expanding opcode technique
 
@@ -434,8 +404,6 @@ An expanding opcode uses more opcode bits when fewer operand bits are needed. Re
 - **More long forms are possible when…** Fewer root prefixes are reserved short. Unreserved root prefixes are the resource available for longer encodings.
 - **Which counts the long forms correctly?** Free roots × extensions per root. Each unreserved prefix independently supports its complete extension space.
 
-Transcript reference times: 0:10, 66:30, 117:19. Read the full text in the Lecture notebook.
-
 ## 016 · Expanding opcode GATE practice
 
 Encoding problems are bit-budget and prefix-allocation problems. State how many registers or addresses each operand field represents. Count consumed prefixes at each format length before allocating the next format.
@@ -460,8 +428,6 @@ Encoding problems are bit-budget and prefix-allocation problems. State how many 
 - **A 7-bit opcode field has how many possible codes?** 128. 2^7 = 128 distinct binary codes.
 - **An expanding opcode problem is underspecified if it omits…** Format widths or prefix-allocation rules. Without field sizes and decoding rules, multiple different encoding capacities are possible.
 - **The best final check is…** Verify bit budgets and no prefix collisions. Both the number of bits and the allocation of their patterns must be consistent.
-
-Transcript reference times: 0:08, 36:45, 78:43. Read the full text in the Lecture notebook.
 
 ## 017 · Instruction types and ALU operations
 
@@ -488,8 +454,6 @@ The ALU performs arithmetic and bitwise operations. AND, OR, and XOR operate ind
 - **X XOR X is…** Zero. Each bit XOR itself is zero, so every result bit is zero.
 - **A mask used with AND can…** Clear selected bits. Zero mask bits clear the corresponding result bits; one mask bits preserve the input bits.
 
-Transcript reference times: 0:16, 85:32, 119:41. Read the full text in the Lecture notebook.
-
 ## 018 · Branch instructions
 
 A branch changes control flow by updating the program counter. A relative target requires a defined base, usually the next instruction address in these problems, and a displacement with a stated unit. Conditional branches test a condition before choosing the target.
@@ -514,8 +478,6 @@ A branch changes control flow by updating the program counter. A relative target
 - **From next PC 504, branch target 480. Signed byte displacement?** -24. Displacement = target - base = 480 - 504 = -24.
 - **Branch offsets given in words must be…** Converted to address units before adding. The displacement scale must agree with the program counter’s address unit.
 - **For an absolute jump, the target is…** Specified directly by the instruction’s target mechanism. An absolute target is not computed by adding a signed displacement to a relative base.
-
-Transcript reference times: 0:06, 37:32, 56:47. Read the full text in the Lecture notebook.
 
 ## 019 · Machine instruction GATE practice
 
@@ -542,8 +504,6 @@ Trace machine programs one instruction at a time. Keep register values, flags, a
 - **For a trace, update the PC…** According to each instruction’s stated behavior. Sequential instructions and taken branches produce different next PCs.
 - **A convincing trace includes…** Register values, flag results, and branch decisions. Intermediate state exposes arithmetic width errors and incorrect branch assumptions.
 
-Transcript reference times: 0:09, 20:15, 59:23. Read the full text in the Lecture notebook.
-
 ## 020 · Instruction execution cycle
 
 A simplified instruction cycle fetches an instruction, decodes it, and executes its operation. Register-transfer notation states where each value moves. Memory access and execution details vary by instruction and CPU organization.
@@ -568,8 +528,6 @@ A simplified instruction cycle fetches an instruction, decodes it, and executes 
 - **Register-transfer notation A ← B means…** Copy B’s value into A. The arrow points toward the destination register receiving the value.
 - **Do all instructions require identical execution transfers?** No. Loads, arithmetic, stores, and branches require different execution actions.
 - **After completing an ordinary instruction, the CPU normally…** Starts fetching the next instruction. The instruction cycle repeats, using the updated PC to fetch the next instruction.
-
-Transcript reference times: 1:40, 63:22, 124:31. Read the full text in the Lecture notebook.
 
 ## 021 · Addressing modes I
 
@@ -596,8 +554,6 @@ An addressing mode explains how an instruction obtains its operand. Immediate da
 - **That register-indirect example: operand value?** 12. The actual operand is M[R3] = M[80] = 12.
 - **The effective address is…** The final memory location used for the operand. Keep the address separate from the value read from that address.
 
-Transcript reference times: 0:43, 57:04, 110:24. Read the full text in the Lecture notebook.
-
 ## 022 · Addressing modes II
 
 Displacement-based modes combine a register value with an instruction field. Base-plus-displacement, indexed, and PC-relative examples all require clear units. Autoincrement and autodecrement also update their address register by the operand size.
@@ -622,8 +578,6 @@ Displacement-based modes combine a register value with an instruction field. Bas
 - **Array base 200, index 5, 8-byte elements. Effective address?** 240. Base plus scaled index: 200 + 5 × 8 = 240.
 - **A PC-relative formula must specify…** Which PC value is the base. Different instruction definitions can use different PC reference points.
 - **Register indirect differs from register direct because…** It treats register contents as an address. Register direct uses the value itself; register indirect dereferences the value as an address.
-
-Transcript reference times: 0:22, 63:34, 125:10. Read the full text in the Lecture notebook.
 
 ## 023 · Addressing modes III
 
@@ -650,8 +604,6 @@ To compare addressing modes, trace the pointer calculation and count memory tran
 - **Cache hits change the architectural effective address?** No. A cache changes how an access is served, not the program’s architectural memory address.
 - **A memory-reference count is useful only when…** Fetch inclusion and the transaction model are stated. Instruction fetch, pointer reads, data reads, and writes must be counted consistently.
 
-Transcript reference times: 0:27, 42:32, 82:44. Read the full text in the Lecture notebook.
-
 ## 024 · Direct-mapped cache
 
 A direct-mapped cache gives each memory block one possible line. For byte addresses: block = floor(address/block size), index = block mod line count, tag = floor(block/line count). The low address bits locate the byte within its block.
@@ -676,8 +628,6 @@ A direct-mapped cache gives each memory block one possible line. For byte addres
 - **Block 6 in a four-line cache. Tag value?** 1. floor(6/4) = 1; index is 2. Recombine 1 × 4 + 2 = 6.
 - **A hit requires…** Valid line and matching tag. The selected line must contain valid data from the requested memory block.
 - **Two blocks sharing one direct-mapped line can…** Evict each other repeatedly. A direct-mapped line has only one slot, so conflicting blocks replace each other.
-
-Transcript reference times: 0:26, 33:10, 97:46. Read the full text in the Lecture notebook.
 
 ## 025 · Direct-mapped cache practice
 
@@ -704,8 +654,6 @@ Trace a direct cache using memory block numbers, not raw byte addresses. Start w
 - **An index selects a line but does not prove a hit because…** Other blocks can have the same index. The tag and valid state are necessary to distinguish the requested block.
 - **64-byte block at base 128 includes what highest byte address?** 191. The block includes 64 bytes: 128 through 128 + 63 = 191.
 
-Transcript reference times: 0:00, 52:19, 80:33. Read the full text in the Lecture notebook.
-
 ## 026 · Set-associative cache
 
 An A-way set-associative cache contains A lines per set. Number of sets = capacity/(block size × ways). A block maps to one set and may occupy any way there. Replacement is needed only when that set is full.
@@ -730,8 +678,6 @@ An A-way set-associative cache contains A lines per set. Number of sets = capaci
 - **A set-associative lookup compares…** Tags of valid candidate ways in its selected set. The block may be in any way of the indexed set, so its valid tag must be found there.
 - **Increasing associativity at fixed capacity and block size decreases…** The set count. The same lines are grouped into larger sets; block size and total data capacity remain fixed.
 - **2 KiB cache, 32-byte blocks, two ways. Sets?** 32. 2048 / (32 × 2) = 32 sets.
-
-Transcript reference times: 0:00, 27:06, 57:48. Read the full text in the Lecture notebook.
 
 ## 027 · Set-associative cache practice
 
@@ -758,8 +704,6 @@ Replacement policies choose a victim within the mapped set. LRU tracks the most 
 - **An eviction is required only when…** A miss occurs in a full set. An invalid way can be filled directly. A full set needs a victim for a newly fetched block.
 - **A correct policy trace records…** State after every access. Replacement order changes over time, so intermediate states determine later hits and misses.
 
-Transcript reference times: 32:33, 38:53, 67:02. Read the full text in the Lecture notebook.
-
 ## 028 · Loops, arrays, and cache
 
 Array cache problems combine element size, address calculation, block boundaries, and traversal order. Consecutive elements exploit spatial locality. Reusing a resident block exploits temporal locality. Alignment and initial cache state must be specified.
@@ -784,8 +728,6 @@ Array cache problems combine element size, address calculation, block boundaries
 - **A large stride can hurt locality because…** Successive elements may be in different blocks. Skipping many bytes can prevent reuse of fetched neighboring elements.
 - **Two passes over 16 ints in a cache retaining all four blocks. Total misses?** 4. Only the first access to each of four blocks misses; the second pass hits throughout.
 - **Those two passes have 32 accesses. Hit percentage?** 87.5. 32 - 4 = 28 hits; 28/32 × 100 = 87.5 percent.
-
-Transcript reference times: 0:59, 30:38, 66:37. Read the full text in the Lecture notebook.
 
 ## 029 · Loop and cache GATE practice
 
@@ -812,8 +754,6 @@ Traversal order matters for row-major matrices. A row groups adjacent elements; 
 - **A cache calculation must specify initial state because…** Warm blocks can turn initial accesses into hits. A cold-cache assumption differs from a cache that already holds some requested blocks.
 - **Count accesses before reporting miss rate because…** Miss rate is misses divided by total accesses. A count and a rate answer different questions; divide by the specified access total.
 
-Transcript reference times: 0:01, 34:56, 91:54. Read the full text in the Lecture notebook.
-
 ## 030 · Effective access time
 
 Average access time weights hit and miss costs. State whether a miss cost already includes cache lookup. With a serial lookup, AMAT = cache time + miss rate × additional miss penalty. Conditional lower-level hit rates require multiplying probabilities.
@@ -838,8 +778,6 @@ Average access time weights hit and miss costs. State whether a miss cost alread
 - **L1 time 1 ns; on L1 miss add L2 lookup 5 ns; on L2 miss add 100 ns. Rates 10% and conditional 20%. AMAT?** 3.5. 1 + 0.10 × (5 + 0.20 × 100) = 3.5 ns.
 - **A conditional L2 hit rate is measured among…** Accesses that missed L1. The denominator matters: a local L2 rate describes requests that actually reach L2.
 - **Before using an EAT formula, check…** Cost definitions, lookup order, and probability denominators. Serial versus overlapping lookup and inclusive versus additional cost change the correct formula.
-
-Transcript reference times: 0:00, 26:05, 74:01. Read the full text in the Lecture notebook.
 
 ## 031 · Write-back and write-through
 
@@ -866,8 +804,6 @@ Write-through propagates stores to the lower level; write-back delays propagatio
 - **Write buffers can…** Decouple CPU store completion from lower-level propagation. Buffering can reduce CPU waiting, though lower-level writes still have to be performed.
 - **A full write-policy trace should state…** Hit/miss, allocation, dirtiness, and eviction effects. These independent decisions determine both cache state and lower-level traffic.
 
-Transcript reference times: 1:26, 14:42, 33:28. Read the full text in the Lecture notebook.
-
 ## 032 · Fixed-point representation
 
 For these fixed-point examples, an 8-bit two’s-complement stored integer has four fractional bits. Its real value is signed_integer/16. The point position determines resolution and range; the stored bits still use ordinary integer encoding.
@@ -892,8 +828,6 @@ For these fixed-point examples, an 8-bit two’s-complement stored integer has f
 - **Increasing fractional bits at fixed signed word width usually…** Improves resolution but reduces range. More bits after the point leave fewer bits to cover the integer range.
 - **Three fractional bits give what resolution?** 0.125. 2^-3 = 1/8 = 0.125 between adjacent represented values.
 - **Before interpreting fixed point, you must know…** Signedness, total width, and point position. The same bits can represent different real values under different fixed-point formats.
-
-Transcript reference times: 0:20, 46:30, 78:51. Read the full text in the Lecture notebook.
 
 ## 033 · Floating-point representation
 
@@ -920,8 +854,6 @@ IEEE 754 binary32 contains a sign bit, an 8-bit biased exponent, and a 23-bit fr
 - **Maximum unbiased exponent for NORMAL binary32 numbers?** 127. 254 - 127 = 127. The all-one exponent field is reserved for special values.
 - **A normal binary32 significand begins with an implicit…** 1. Normal values use 1.fraction. Subnormal values use a different rule.
 
-Transcript reference times: 9:18, 37:00, 56:49. Read the full text in the Lecture notebook.
-
 ## 034 · Floating-point GATE practice
 
 Representation problems require identifying normal versus special values before applying a formula. Binary32 has finite precision, so not every real number is exact. Practice both encoding known binary fractions and recognizing reserved exponent patterns.
@@ -946,5 +878,3 @@ Representation problems require identifying normal versus special values before 
 - **Normal binary32 exponent field 125. Unbiased exponent?** -2. Subtract bias: 125 - 127 = -2.
 - **Is decimal 0.1 exactly representable as a finite binary fraction?** No. Its binary expansion repeats; finite binary precision requires rounding.
 - **Before decoding floating point, first inspect…** Exponent and fraction for reserved patterns. Zero, subnormal, infinity, and NaN rules differ from the normal-value formula.
-
-Transcript reference times: 0:36, 45:31, 87:19. Read the full text in the Lecture notebook.

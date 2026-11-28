@@ -1,12 +1,5 @@
-# Operating Systems authoring
+# Operating Systems lesson design
 
-`topics.js` contains the reviewed, beginner-first teaching outline for each completed OS transcript. `build-reviewed.mjs` generates three stages and four distinct exercises per recording, with timestamped evidence from the transcript. The generated course includes 39 recordings, 117 lessons and 468 questions.
+The course provides designed lessons with clear objectives, beginner explanations, worked examples and interactive practice. Subject content lives under `../content`; shared learning models and grading live in `packages/learning` at the repository root.
 
-The OS explorers in `apps/web/public/os-labs.js` cover processes, fork/exec,
-threading, scheduling, IPC, synchronization, address translation, replacement,
-TLBs, Banker’s algorithm and file systems. Their animations follow the app theme
-and honor reduced-motion settings.
-
-Rebuild and publish locally with `node --env-file=.env scripts/build-lessons.mjs os`.
-Check the lessons with `npm run validate`, `node --test tests/os-lessons.test.mjs`
-and `node --env-file=.env tests/os-browser.cjs`.
+Keep lesson identifiers and progress rules stable. State assumptions and model limits explicitly, and verify grading, keyboard controls, phone layouts and both themes before publication. Follow the platform [lesson design standards](../../../docs/CONTENT_AUTHORING.md).

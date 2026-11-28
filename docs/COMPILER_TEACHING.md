@@ -1,43 +1,9 @@
-# Compiler Design teaching
+# Compiler Design
 
-The final-source validation, regression gates, and version-three mathematical
-speech preparation are recorded in [CD validation](CD_VALIDATION.md). TOC audio
-has finished; all ten CD recordings are complete, totaling about 40.5 minutes.
-
-Local authoring now defines 52 topic identities in ten concept-named sections,
-156 three-stage lessons and 624 assessment items. It follows the existing flow:
-optional written notes, an ungraded prediction, an interactive model, guided
-explanation, then four graded questions. Ten optional section workshops write no
-XP or completion state and do not block access to another section.
-
-The completed course is marked **available**. Publication checks use the real
-manifest and imported course bundle, without forcing availability in a fixture.
-All ten podcast recordings were installed and checksum-verified on the VM before
-the course was enabled. Existing lesson IDs and learner progress remain stable.
-
-## Source readiness
-
-Final transcription import: **51 recordings completed, one explicitly skipped,
-zero remaining**. All 52 topic identities now have generated draft lessons:
-153 transcript-backed stages and three independent source-gap practice stages
-(156 total). The earlier browser snapshot counts below are historical and have
-not been relabeled as a full post-import browser run. Current gates are recorded
-in CD_VALIDATION.md.
-
-`courses/cd/data/teaching-coverage.json` records the imported source count,
-pending identities, source evidence and explicit skips. Rebuild with
-`node scripts/sync.mjs cd` after more transcripts finish. Each imported source
-contributes timestamped original ASR excerpts; these are evidence links, not a
-claim that every spoken sentence or original exam question has been reproduced.
-The mathematical rules and example grammars are authored explicitly rather than
-copied blindly from ASR formulas.
-
-Source 008, `GATE 1996 Question Homework.mp4`, produced no speech segments and
-has a skip marker. Its independently authored expression-tree practice is
-labeled `inferred-title-only`, with no fabricated transcript evidence. Sources
-still awaiting import are `draft-awaiting-source` and `ready:false`.
+The available course contains 52 topics in ten sections, 156 designed lessons and 624 assessment items. Each lesson provides optional notes, a prediction, an interactive model, explanation and four graded questions. Ten optional workshops do not award XP, change completion state or block another section.
 
 ## Sections and executable models
+
 
 | Section | Teaching and interaction |
 | --- | --- |
@@ -62,7 +28,7 @@ LR exercises vary actual production structure and tasks: closure facts,
 remaining dot symbols, FIRST-of-suffix lookahead, global FOLLOW, ACTION
 categories, reduction pops, shifts, grammar-family comparisons and core merging.
 Liveness scenarios vary reads, overwrites, exits and back edges. Exact prompt
-and exercise identities are checked across the entire draft. Reused engine
+and exercise identities are checked across the entire course. Reused engine
 families are deliberate; these are not 156 independently implemented compilers.
 
 ## Explicit boundaries
@@ -95,49 +61,9 @@ and [Cornell’s liveness notes](https://courses.cs.cornell.edu/courses/cs4120/2
 Executable checks independently enumerate small parser languages and search
 for future reads before definitions to test liveness.
 
-## Validation artifacts
 
-- `tests/compiler-models.test.mjs`: grammar, parsing, translation, graph and
-  data-flow correctness, with independent finite oracles and error cases.
-- `tests/compiler-content.test.mjs`: all identities, source links, workshop
-  contracts, question uniqueness, grading and access ahead of progress.
-- `tests/compiler-browser.cjs`: every draft lesson in six viewport sizes and
-  both themes; all states at 320px, endpoints at other sizes; real journeys,
-  optional workshops, restart and playback behavior. The JSON report records
-  exactly which ready content was tested at the time of the run.
-- `qa-results/compiler/results.json`: latest browser result, generated locally.
-- `runtime/compiler-tests.log`: complete Node-suite output from the latest run.
+## Verification
 
-## Latest completed checks
+Model checks live in `tests/compiler-models.test.mjs`; content contracts in `tests/compiler-content.test.mjs`; responsive learning journeys and workshops in `tests/compiler-browser.cjs`. Run `npm run validate` and `npm test` before publishing course updates.
 
-- Node suite: **187 tests; 185 passed, two optional compiler-dependent skips,
-  zero failures** (`runtime/compiler-tests.log`).
-- Course validator: all eleven course manifests passed, including the planned
-  CD draft's stable 52 identities, 156 stages and four exercises per stage.
-- Main Playwright pass: all 156 draft lessons, 1,029 states at 320px per theme,
-  first/last states at 390, 430, 768, 1366 and 1440px; 22 real teaching journeys;
-  all ten workshops at each of three phone sizes (30 workshop checks); restart,
-  pause, speed and reduced-motion stepping passed. No observed browser
-  exceptions, failed page requests or outer overflow.
-- That browser snapshot contained 150 ready stages: 147 transcript-backed
-  stages plus three independent source-gap practice stages. A subsequent import
-  raised readiness to 153; the last source remains unready. Reports preserve
-  their actual snapshot counts rather than relabeling old checks as new runs.
-- Follow-up Playwright quiz audit: all four widgets in ten representative
-  advanced lessons (40 widgets) passed six-size checks in both themes (480
-  checks). Correct answers advanced through the real UI; final questions were
-  left unsubmitted to avoid awarding completion. This used the updated parsing
-  tasks and 153-ready-stage source snapshot. Zero browser errors or failed page
-  requests were observed (`qa-results/compiler/quiz-results.json`).
-- Completed TOC MP3/metadata pairs were checked for matching script hashes,
-  complete dialogue timelines, monotonic timestamps and valid chapter bounds.
-  At the ten-episode checkpoint this covered 49.3 minutes of generated audio.
-
-## TOC podcast rendering
-
-The existing local Kokoro renderer was started for `--subject toc` on CUDA in
-FP32. It produces two-host English MP3s and timed turn/chapter metadata under
-`data/podcasts/toc`. This is generation, not deployment. Progress is recorded by
-the renderer itself in `runtime/podcast-render.json`; stdout/stderr are in
-`runtime/podcast-toc-render*.log`. There is no added watcher script. Completed
-episode pairs are resumable and matched to the existing 19 script hashes.
+See [Compiler Design verification](CD_VALIDATION.md) for scope. Browser reports are regenerated under ignored `qa-results/`; previous screenshots are not required to run the course.

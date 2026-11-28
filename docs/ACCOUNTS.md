@@ -1,6 +1,6 @@
 # Personal accounts and progress
 
-Login is required before opening the platform. Course content, transcripts and course APIs require a valid server session. Logout and session expiry return to the login screen. Open **My profile** from the top bar or sidebar after logging in. Legacy guest progress remains in the original browser keys for migration only. Creating an account can copy this browser's guest progress, settings and paused rounds; the checkbox makes that transfer explicit. Logging into an existing account loads that account's data and never merges unrelated guest data.
+Login is required before opening the platform. Course content and course APIs require a valid server session. Logout and session expiry return to the login screen. Open **My profile** from the top bar or sidebar after logging in. Legacy guest progress remains in the original browser keys for migration only. Creating an account can copy this browser's guest progress, settings and paused rounds; the checkbox makes that transfer explicit. Logging into an existing account loads that account's data and never merges unrelated guest data.
 
 ## Included features
 
@@ -8,7 +8,7 @@ Login is required before opening the platform. Course content, transcripts and c
 - Private profile with automatically saved display-name edits and a character selection dialog opened from the avatar pencil icon.
 - Per-user, per-subject levels, XP, mastery, mistakes, scheduled review, milestones and paused rounds.
 - Shared daily goals, weekly activity, total XP, study days, longest streak, completed rounds, first-answer accuracy, focused lesson time and recent learning history.
-- Overall completion percentages on the learning path, subject catalog, progress page and profile. A completed unique level counts once; practice XP and transcript import percentages do not advance course completion.
+- Overall completion percentages on the learning path, subject catalog, progress page and profile. A completed unique level counts once; practice XP and content preparation status do not advance course completion.
 - Recovery-code password reset, password changes, replacement recovery codes, logout of all sessions and account deletion.
 - Full personal learning export and reviewed backup import, alongside existing per-subject exports. Password credentials and sessions are never part of user exports.
 
@@ -36,4 +36,4 @@ Use number keys 1–9 to select a multiple-choice answer. Enter checks the selec
 
 `npm test` includes account isolation, restart persistence, password changes, recovery rotation, deletion, invalid requests and stale-write rejection. `node tests/accounts-browser.cjs` verifies guest migration, profile updates, private progress, full exports, recovery, server outages, conflicts and cross-browser login with isolated test accounts. `node tests/keyboard-browser.cjs` verifies real numeric, hex, matching, choice and bit-builder keyboard behavior. Existing content, theme, motion and course-switching checks remain available.
 
-`node tests/login-wall-browser.cjs` checks mandatory login, protected lesson and transcript URLs, logout, revoked sessions, mobile layout and theme controls. Only the login shell, its visual assets and subject names are public; teaching content requires a valid session.
+`node tests/login-wall-browser.cjs` checks mandatory login, protected lesson and course URLs, logout, revoked sessions, mobile layout and theme controls. Only the login shell, its visual assets and subject names are public; teaching content requires a valid session.

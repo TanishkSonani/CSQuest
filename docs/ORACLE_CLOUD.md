@@ -63,7 +63,7 @@ Course data is imported from the repository. Local learner data lives in Postgre
 
 ## 3. Transfer all local application data (recommended for this project)
 
-Use the full database transfer workflow to preserve accounts, password hashes, progress, settings, paused lessons, friends, competitions, notifications, course catalogs, lessons and transcripts. Export includes schema, data and migration history. Temporary `csquest_test_*` schemas are excluded. The local cluster uses PostgreSQL 18; install PostgreSQL 18 or newer on the VM rather than an older Ubuntu default package. Install compatible `pg_dump` and `pg_restore` clients. Set `PG_BIN` if your client tools are outside PATH (Windows defaults to PostgreSQL 18's installation directory).
+Use the full database transfer workflow to preserve accounts, password hashes, progress, settings, paused lessons, friends, competitions, notifications, course catalogs and lessons. Export includes schema, data and migration history. Temporary `csquest_test_*` schemas are excluded. The local cluster uses PostgreSQL 18; install PostgreSQL 18 or newer on the VM rather than an older Ubuntu default package. Install compatible `pg_dump` and `pg_restore` clients. Set `PG_BIN` if your client tools are outside PATH (Windows defaults to PostgreSQL 18's installation directory).
 
 Before the final export, open your local profile and confirm **Saved to your account**. Resolve pending saves or export/import browser-only progress first: browser storage belongs to the local site's origin and cannot be transferred by a database dump. Stop learning activity and the local authoring watcher for the cutover, keeping PostgreSQL running. A snapshot contains data as of export time; later local changes are not automatically copied to the VM.
 
@@ -91,7 +91,7 @@ sudo -u csquest npm run db:migrate
 
 Restore refuses a populated database, checks the dump checksum and target PostgreSQL version, and applies the archive in one transaction. It then compares all table names, row counts and content fingerprints against the exported snapshot. Start the web service only after verification succeeds; database activity after startup can legitimately change fingerprints. Do not run the initial Alembic revisions on a restored database that already has tables. Preserve its Node migration history or deliberately baseline Alembic as described in [the migration guide](../alembic/README.md). `db:import` publishes course files and legacy JSON account exports; it does not copy existing PostgreSQL progress from your PC.
 
-Static images, fonts and application code travel with the repository. Ignored speech models, source videos, development tools, process logs and `.env` credentials are not needed to run the web app. PostgreSQL learner records are transferred through the private backup, not Git. Users may need to log in again because browser cookies are specific to the site's hostname.
+Static images, fonts and application code travel with the repository. Development tools, process logs and private `.env` credentials stay outside the published application assets. PostgreSQL learner records are transferred through the private backup, not Git. Users may need to log in again because browser cookies are specific to the site's hostname.
 
 ## 4. Enable the service and HTTPS
 
@@ -156,4 +156,4 @@ sudo systemctl start csquest
 sudo journalctl -u csquest -n 50 --no-pager
 ```
 
-The course importer skips existing accounts and does not reset learner progress. Keep transcription and the authoring watcher on your workstation unless you explicitly need them on the VM. The web service only needs Node.js, PostgreSQL and the application files.
+The course importer skips existing accounts and does not reset learner progress. The web service only needs Node.js, PostgreSQL and the application files.

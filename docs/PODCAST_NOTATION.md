@@ -1,9 +1,9 @@
 # Podcast pronunciation and player verification
 
-Display text and synthesis text are separate. The live transcript retains
+Display text and synthesis text are separate. The live timed dialogue retains
 formulas, operators, decimal points and binary strings. The speech plans in
 `courses/<subject>/data/podcast-speech.json` expand those constructs into words
-for the voices; those expansions are not substituted into the transcript.
+for the voices; those expansions are not substituted into the timed dialogue.
 
 ## Correction scope
 
@@ -59,7 +59,7 @@ minute has received human listening review.
 
 The player retains the theme, palette and typeface. It has consistent vector
 controls, larger touch targets, immediate press feedback, a native seek control
-with visible progress, current-topic context, and a sticky transcript toolbar
+with visible progress, current-topic context, and a sticky timed dialogue toolbar
 with a return-to-audio control. Manual reading pauses following; following returns
 to the current spoken dialogue. Reduced motion, reduced transparency and higher
 contrast preferences have explicit styles.
@@ -78,7 +78,7 @@ timing and checksum checks: 109 corrected published episodes plus ten unchanged
 CD recordings, with none pending. Combined duration is approximately 599 minutes.
 The release manifest covers all 238 media/timeline files. This is automated
 verification with recognition spot checks, not a human listening audit of every
-minute. The source transcript keeps readable mathematical notation.
+minute. The source timed dialogue keeps readable mathematical notation.
 
 The application suite passed 186 tests with two optional compiler checks skipped;
 all courses validated. All 17 Python speech/recovery tests passed. Playwright

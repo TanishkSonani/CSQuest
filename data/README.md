@@ -1,7 +1,7 @@
-# Private learner data
+# Private application data
 
-`accounts/accounts.json` is the durable local account database. It contains private profiles, salted password hashes, hashed recovery codes, hashed sessions, and each user's saved learning data. It is ignored by Git and is not served as a static file.
+PostgreSQL is the durable store for accounts, credential hashes, sessions, progress, settings and course content. Back up the database with `npm run db:export` and verify a restore before relying on it. See [PostgreSQL storage](../docs/POSTGRESQL.md).
 
-Keep this directory when cleaning runtime logs or updating the application. To back up the complete local account database, stop CSQuest and copy `accounts/accounts.json` to a private backup location. Individual users can export their learning data from My profile; those exports exclude password hashes, recovery codes and sessions.
+`accounts/accounts.json`, when present, is a private legacy import file. Preserve it as a backup; it is ignored by Git and never served as an application asset. Do not treat it as the current database.
 
-Tests use temporary, isolated account directories and never modify real learner records.
+Keep Library file roots, podcast media, database clusters, `.env`, account records and backups during maintenance. Runtime diagnostics and QA screenshots are disposable. Tests use isolated records and temporary directories.

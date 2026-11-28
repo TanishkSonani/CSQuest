@@ -3,7 +3,7 @@
 ## Baseline and direction
 
 - [x] Read architecture, rendering, navigation, account forms, learning path, practice, progress, social, preferences, motion and audio implementations.
-- [x] Inspect existing Git changes; preserve transcript work.
+- [x] Inspect existing Git changes and preserve unrelated work.
 - [x] Run real PostgreSQL-backed application in an isolated test schema; capture login and nine authenticated routes at all six required sizes.
 - [x] Review baseline screenshots: repetitive surfaces, oversized introduction, long onboarding, floating navigation covering phone content, low-contrast login action, corrupted progress copy.
 
@@ -42,7 +42,7 @@ Screenshots and machine-readable browser results: `qa-results/product-before/` a
 
 ## Practical limits
 
-Browser verification uses the installed Windows Edge in headless mode. Audio nodes and mute behavior were exercised with the real Web Audio implementation; perceived sound quality was not assessed through speakers. Touch-sized layouts were checked, but physical mobile keyboards, mobile Safari and live production hosting were not tested. The existing suite skipped two optional GCC-based checks. No deployment was requested or performed. Original transcript changes remain untouched.
+Browser verification uses the installed Windows Edge in headless mode. Audio nodes and mute behavior were exercised with the real Web Audio implementation; perceived sound quality was not assessed through speakers. Touch-sized layouts were checked, but physical mobile keyboards, mobile Safari and live production hosting were not tested. The existing suite skipped two optional GCC-based checks. No deployment was requested or performed.
 
 ## Production release verification (2026-10-16)
 
@@ -52,4 +52,4 @@ Review found that progression scrolling depended on a completed node in the visi
 
 The subject-switch regression also caught a large-scroll edge case: an intersection observer can miss a node skipped entirely between frames. The return control now measures its position on scroll and resize, using one animation frame and abortable listeners cleaned up when the path unmounts. The browser test waits for scheduled positioning before testing a deliberate scroll to the bottom.
 
-The production app, PostgreSQL, nginx HTTPS endpoint and mounted data volume were checked before release. Publication uses the existing GitHub Actions test and deploy workflow, which exports a database backup before migrating/importing content and switching the service to the new release. Raw transcription output and unrelated local completion-marker changes are excluded from this release.
+The production app, PostgreSQL, nginx HTTPS endpoint and mounted data volume were checked before release. Publication uses the existing GitHub Actions test and deploy workflow, which exports a database backup before migrating/importing content and switching the service to the new release.

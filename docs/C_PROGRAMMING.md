@@ -1,6 +1,6 @@
 # C Programming
 
-The course has 68 topics, 204 lessons, 816 exercises and seven units. All 68 source transcripts are complete. Timestamped excerpts in `courses/c/data/lesson-review.json` establish topic coverage; they are not treated as the authority for numeric answers or language rules.
+The course has 68 topics, 204 lessons, 816 exercises and seven units. Designed lessons state their assumptions and explain numeric results and language rules directly.
 
 Each topic has three stages: explore, trace and apply. Teaching uses original explanations, glossary entries, complete examples, code snippets and everyday scenarios involving inventories, sensors, buffers and helpers. Related practice topics revisit the same principles with different concrete values. Every topic ends with a complete program builder.
 
@@ -26,4 +26,4 @@ Run `npm run validate`, `npm test`, and `node tests/c-browser.cjs`. The browser 
 
 `tests/c-native.test.mjs` compiles every numeric code snippet and completed program builder with GCC in C11 mode at `-O0` and `-O2`, then compares output with authored expected answers. The compiler check runs in Linux CI and is skipped on Windows. This verifies the defined examples on the CI implementation; it does not prove portability by itself. Implementation-specific questions are separate explicit-assumption exercises.
 
-Recreate the coverage report with `node scripts/review-c-content.mjs`. Import locally using `npm run db:import`. The existing deployment pipeline validates the content, runs compiler checks and imports course manifests, modules and transcripts into PostgreSQL. User progress and accounts remain intact.
+Import locally using `npm run db:import`. The existing deployment pipeline validates the content, runs compiler checks and imports course manifests and modules into PostgreSQL. User progress and accounts remain intact.

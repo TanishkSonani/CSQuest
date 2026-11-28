@@ -1,6 +1,6 @@
 # PostgreSQL storage
 
-The running application uses PostgreSQL for course catalogs, teaching modules, transcript documents, course status, users, credential hashes, sessions, saved progress, settings, paused rounds and authentication attempt counts. JavaScript application code, CSS, fonts and images remain application assets. Browser storage is an offline retry cache; successful saves and fresh logins load database records.
+The running application uses PostgreSQL for course catalogs, teaching modules, course documents, course status, users, credential hashes, sessions, saved progress, settings, paused rounds and authentication attempt counts. JavaScript application code, CSS, fonts and images remain application assets. Browser storage is an offline retry cache; successful saves and fresh logins load database records.
 
 ## Local setup
 
@@ -34,7 +34,7 @@ Do not publish private account files or `.env`. To transfer browser-only progres
 
 For a new hosted database, install the Python dependencies from `requirements.txt`, set `DATABASE_URL`, then run `npm run db:deploy`. Alembic creates and versions the schema; the command then imports course content and any available legacy account file. See [the Alembic deployment guide](../alembic/README.md) for new and existing-database instructions, and [Oracle Cloud deployment](ORACLE_CLOUD.md) for VM setup. Do not run the initial Alembic revisions against a database that already has the CSQuest schema; back it up and baseline it deliberately.
 
-Authoring and transcription tools still prepare local source files. `npm run sync`, the watcher and `npm run build:lessons` publish completed output to PostgreSQL when configured. Direct file edits require `npm run db:import`. Serving lessons, transcripts or status does not read these source files or start transcription.
+Course updates are published with `npm run db:import`. The server reads published database records; repository content edits require an explicit import. Course updates preserve existing learner accounts and progress.
 
 ## Tables and consistency
 
